@@ -1,0 +1,1107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Bài giảng 2: AI trong Công nghiệp</title>
+
+  <link rel="stylesheet" href="revealjs/dist/reset.css">
+  <link rel="stylesheet" href="revealjs/dist/reveal.css" />
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css" />
+
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+  <link rel="stylesheet" href="lecture-style.css">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Title Slide -->
+      <section>
+        <h1>Giới thiệu về DS</h1>
+        <h3>Buổi học: AI trong Công nghiệp</h3>
+        <div>
+          <p><strong>Giảng viên:</strong> Nguyen Thuy Linh, Dao Viet Anh</p>
+          <p><strong>Học kỳ:</strong> 2025-2026-1</p>
+          <p>Viện Công nghệ AI, VNU-UET</p>
+        </div>
+      </section>
+
+      <!-- Learning Objectives -->
+      <section data-markdown>
+        <textarea data-template>
+        ## Mục tiêu học tập
+        - Giải thích tại sao AI đang biến đổi nhiều ngành công nghiệp
+        - Đưa ra các ví dụ cụ thể về cách công nghệ AI ảnh hưởng đến các ngành công nghiệp
+        </textarea>
+      </section>
+
+      <!-- Review Prior Lesson -->
+      <section data-markdown>
+        <textarea data-template>
+        ## Ôn tập bài học trước
+        - Định nghĩa AI, Machine Learning (ML), và Deep Learning (DL)
+        - Thảo luận về các phát triển lịch sử quan trọng của AI
+        - Chỉ ra tính chất chu kỳ trong nhận thức công chúng, tài trợ và sự quan tâm đến AI
+        - Phân biệt AI hiện đại với AI trước đây
+        - Minh họa các ứng dụng đa dạng của AI
+        </textarea>
+      </section>
+
+      <!-- Why This Era is Different -->
+      <section data-markdown>
+        <textarea data-template>
+        ## Tại sao kỷ nguyên AI này khác biệt
+        - Kết quả tiên tiến trong nhiều lĩnh vực
+        - Bộ dữ liệu lớn hơn
+        - Máy tính nhanh hơn
+        - Mạng nơ-ron
+        </textarea>
+      </section>
+
+      <!-- Healthcare -->
+      <section>
+        <section>
+          <h2>Y tế: Chẩn đoán Y khoa</h2>
+        </section>
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+                  ### Truyền thống
+                  - Nhiều triệu chứng không đặc hiệu
+                  - Chẩn đoán bằng quá trình loại trừ (không hiệu quả, không chính xác)
+                  <!-- <img src="images/lec2/traditional-healthcare.png"> -->
+                </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/traditional-healthcare.png "Optional title text")
+                </textarea>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+              ### Bây giờ với AI
+              - Sử dụng bộ dữ liệu y tế lớn
+              - Thuật toán computer vision cho chẩn đoán
+              </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/ai-healthcare.png "Optional title text")
+                </textarea>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+              ### Ví dụ: Ung thư vú (2016)
+              - Các nhà nghiên cứu Harvard Medical School sử dụng DL trên hình ảnh hạch bạch huyết
+              - Kết hợp AI + bác sĩ giải phẫu bệnh cho tỷ lệ lỗi thấp nhất
+              </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div>
+          </div>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+            ### Reference
+
+            [![Harvard Medical School researchers used DL on lymph node images](https://img.youtube.com/vi/dEHMymjGT8I/0.jpg)](https://www.youtube.com/watch?v=dEHMymjGT8I "Harvard Medical School researchers used DL on lymph node images")
+          </textarea>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Y tế: Quy trình Điều trị</h2>
+        </section>
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Truyền thống
+        - Bác sĩ sẽ chẩn đoán tình trạng và đề xuất
+điều trị dựa trên những gì đã hoạt động lịch sử cho hầu hết mọi người.
+        - Một số cân nhắc cho
+dân số/nhân khẩu học
+        - Khó tạo ra phương pháp điều trị tùy chỉnh
+mà không cần nghiên cứu/chi phí rộng rãi
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Bây giờ với AI
+        - Bác sĩ có thể điều chỉnh phương pháp điều trị cho từng bệnh nhân cụ thể.
+        - Bộ dữ liệu y tế lớn
+        - Thuật toán ML và DL
+        - Phân tích/mô phỏng
+dân số/nhân khẩu học
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Ví dụ: ICU Intervene (MIT)
+        - Sử dụng dữ liệu ICU, từ các chỉ số sinh tồn, phòng thí nghiệm, ghi chú, để
+xác định cách điều trị các triệu chứng cụ thể.
+        - Đưa ra dự đoán thời gian thực từ các mô hình DL,
+để cung cấp khuyến nghị cho bệnh nhân.
+        - Dự báo dự đoán trong tương lai
+(vài giờ) so với phương pháp
+truyền thống (vài phút).
+        - Dự đoán có thể chạy trên phần cứng GPU và
+CPU thông thường.
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+            ### Reference
+
+            [MIT use ML to predict ICU Intervention](https://www.healthdatamanagement.com/articles/mit-researchers-use-machine-learning-to-predict-icu-interventions)
+          </textarea>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Y tế: Khám phá Thuốc</h2>
+        </section>
+
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Truyền thống
+        - Chi phí đã tăng gấp đôi mỗi
+9 năm kể từ năm 1970
+        - Quá trình khám phá thuốc có thể mất
+hàng thập kỷ
+        - 9 trong số 10 lần thử nghiệm phê duyệt thuốc thất bại
+        - Hiện tại chỉ có 1,500
+loại thuốc được phê duyệt
+        </textarea>
+            </div>
+            <!-- <div class="col-3" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/drug-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - Các công ty đang tận dụng dữ liệu có cấu trúc và không cấu trúc
+với AI, để thiết lập một đường ống khám phá thuốc mới.
+        - Có $10^{20}$ phân tử giống thuốc có thể
+        - Không gian rộng lớn cho khám phá tiềm năng
+        </textarea></section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Ví dụ
+            Mô hình khám phá thuốc HetioNet, 2016, UCSF,
+Himmelstein và Baranzini.
+            - Phát triển mạng đồ thị để mã hóa
+hàng triệu báo cáo y sinh.
+            - Sử dụng ML để dự đoán xác suất
+efficacy điều trị cho ~209,000
+cặp hợp chất-bệnh.
+            - Cung cấp insights dược lý rõ ràng
+cho khám phá và điều trị thuốc động kinh.
+          </textarea>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+            ### Reference
+
+            [HetioNet](https://het.io/)
+
+            [![HetioNet](https://img.youtube.com/vi/rp_MxJXvK60/0.jpg)](https://www.youtube.com/watch?v=rp_MxJXvK60 "HetioNet")
+          </textarea>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Y tế: Phẫu thuật</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Truyền thống
+        - Mọi loại phẫu thuật đều có thể gây rủi ro cho bệnh nhân
+        - Rủi ro phẫu thuật: tác dụng gây mê, biến chứng
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - Computer "vision" tận dụng dữ liệu từ
+camera nội soi ổ bụng và nội soi khớp
+        - Hệ thống thông minh tự động hóa việc đọc chính tả bằng
+cách tạo ghi chú trong quá trình phẫu thuật
+        - Bác sĩ phẫu thuật có thể gửi luồng trực tiếp từ góc nhìn
+của vị trí phẫu thuật đến các chuyên gia ở bất kỳ đâu trên
+thế giới để được tư vấn thời gian thực. 
+        </textarea></section>
+        <section data-markdown>
+          <textarea data-template>
+            ### Reference
+
+            [![Surgery](https://img.youtube.com/vi/RQxes3TVAms/0.jpg)](https://www.youtube.com/watch?v=RQxes3TVAms "Surgery")
+          </textarea>
+        </section>
+      </section>
+
+      <!-- Genomics -->
+      <section>
+        <section>
+          <h2>Genomics</h2>
+        </section>
+
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Truyền thống
+        - Năm 2001: Giải trình tự toàn bộ con người
+có giá 100 triệu đô la.
+        - Giải trình tự bộ gen đầu tiên
+mất ~13 năm
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Truyền thống
+        - Năm 2003: Giải trình tự thông lượng cao
+làm cho quá trình hiệu quả hơn bằng cách tận dụng
+kỹ thuật gọi là "shotgun
+strategy".
+        - Dữ liệu được tạo ra từ kỹ thuật này
+không hoàn hảo và
+lỗi có thể được đưa vào ở
+mỗi bước trong quá trình
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Bây giờ với AI
+        - Các công ty giải trình tự
+đang sử dụng kỹ thuật AI
+để giảm chi phí và
+tăng độ chính xác.
+        - Illumina tuyên bố rằng trong
+tương lai gần giải trình tự sẽ
+chỉ mất 1 giờ và chỉ tốn
+100 đô la
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Ví dụ
+        - Giải trình tự gen DeepVariant* của Google
+        - Tận dụng bộ dữ liệu khổng lồ cùng với DL
+để xác định tất cả các biến thể
+        - Độ chính xác trong phân loại bộ gen: 99.958%
+        - Tính khả dụng như mã nguồn mở hứa hẹn
+cách mạng hóa ngành công nghiệp
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Reference
+        
+        [Google DeepVariant](https://github.com/google/deepvariant)
+
+        [![Google DeepVariant](https://img.youtube.com/vi/pZEMSBmoyi0/0.jpg)](https://www.youtube.com/watch?v=pZEMSBmoyi0 "Google DeepVariant")
+
+        [Alpha Genome](https://deepmind.google/discover/blog/alphagenome-ai-for-better-understanding-the-genome/)
+
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+
+      </section>
+
+      <!-- Transportation -->
+      <section>
+        <section>
+          <h2>Giao thông: Xe tự lái</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Truyền thống
+        - Nguyên nhân hàng đầu của tai nạn ô tô
+là lỗi của con người
+        - Một trong những nguồn chính của tắc đường
+là mỗi tài xế hành động vì
+lợi ích cá nhân, ngăn cản lưu thông
+        - Một phần dân số không thể lái xe:
+trẻ em, người già và người khuyết tật
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - Xe ô tô nhận dạng biển báo dừng, vạch kẻ đường và
+các mốc khác thông qua công cụ DL
+        - Công nghệ bản đồ có thể sử dụng computer
+vision để phát hiện địa chỉ
+        - Xe ô tô có thể sử dụng các công nghệ cảm biến 3D khác, như LIDAR
+và RADAR
+        </textarea></section>
+
+        <section data-markdown><textarea data-template>
+        ### Ví dụ
+        - Waymo, bộ phận xe tự lái của Alphabet Inc.
+        - Waymo đã vận hành
+minivan tự lái mà không cần tài xế
+từ tháng 10 năm 2017
+        - Phần mềm Carcraft* của Waymo
+thúc đẩy sự phát triển của xe tự hành,
+với 2.5 tỷ dặm mô phỏng được lái
+vào năm 2016
+        </textarea></section>
+
+        <section data-markdown><textarea data-template>
+        ### Reference
+        [![Waymo](https://img.youtube.com/vi/BCDJOUljJ3o/0.jpg)](https://www.youtube.com/watch?v=BCDJOUljJ3o "Waymo")
+        </textarea></section>
+
+      </section>
+
+      <section>
+        <section>
+          <h2>Giao thông: Vận tải Tự động</h2>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+          ### Truyền thống
+          - Tỷ lệ tài xế nghỉ việc tại một số
+công ty lên tới 300%
+          - Tài xế xe tải có khả năng béo phì và/hoặc
+mắc bệnh tiểu đường gấp đôi
+so với công nhân khác
+          - Tài xế xe tải có khả năng có
+bảo hiểm y tế thấp hơn một nửa
+          - Số lượng tai nạn và tử vong
+đã tăng trong những năm gần đây
+        </textarea>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+          ### Bây giờ với AI
+          - Tiết kiệm nhiên liệu và giảm lực cản gió
+và khả năng va chạm
+          - Video, LIDAR và gia tốc kế được
+sử dụng để thu thập dữ liệu chi tiết về
+môi trường xung quanh xe tải
+          - Thuật toán hướng dẫn cung cấp phản hồi
+cho lệnh phanh, lái và điều khiển
+tốc độ, dựa trên dữ liệu đến và
+dữ liệu lịch sử
+        </textarea>
+        </section>
+
+        <section data-markdown><textarea data-template>
+        ### Reference
+        [![Lidar](https://img.youtube.com/vi/7T4EuZoYk6s/0.jpg)](https://www.youtube.com/watch?v=7T4EuZoYk6s "Lidar")
+        </textarea></section>
+      </section>
+
+      <!-- Retail -->
+      <section>
+        <section>
+          <h2>Bán lẻ & Bán lẻ Thực phẩm</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Truyền thống
+        - "Hiệu ứng Amazon": đã có
+chín vụ phá sản bán lẻ lớn vào năm 2017
+        - Các nhà bán lẻ cần trở nên cạnh tranh
+hoặc có nguy cơ lỗi thời
+        - Cân bằng "hết hàng" với "thừa hàng"
+đòi hỏi sự tinh tế lớn
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - Quà tặng được hỗ trợ bởi AI học
+sở thích của bạn khi bạn tương tác, và có thể giúp
+dự đoán món quà phù hợp để mua
+        - Tận dụng các tác nhân được đào tạo ML, các công ty
+đang cung cấp khuyến nghị thông qua
+ngôn ngữ tự nhiên
+        - Các công ty sử dụng AI qua Watson* để theo dõi
+các yếu tố từ thời tiết đến hành vi người tiêu dùng,
+để tối ưu hóa dự đoán tỷ lệ tiêu thụ
+        </textarea></section>
+
+        <section data-markdown><textarea data-template>
+        ### Ví dụ
+        - The North Face và Watson* đang kết hợp bộ dữ liệu khổng lồ
+và AI, để mang trải nghiệm cửa hàng truyền thống đến thương mại điện tử.
+        - The North Face, với Fluid và IBM
+Watson*, đã ra mắt XPS* - một chuyên gia kỹ thuật số được hỗ trợ bởi AI sử dụng giao diện
+ngôn ngữ tự nhiên để giúp người mua sắm.
+        - XPS tuyển chọn và lọc các
+lựa chọn có sẵn, để người mua sắm có khả năng
+mua hàng cao hơn
+        </textarea></section>
+
+        <section data-markdown><textarea data-template>
+        ### Reference
+        [![Watson](https://img.youtube.com/vi/rybyrISmYsA/0.jpg)](https://www.youtube.com/watch?v=rybyrISmYsA "Watson")
+        </textarea></section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Bán lẻ Thực phẩm</h2>
+        </section>
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Truyền thống
+        - Nhà hàng sử dụng dữ liệu lịch sử hoặc cách tiếp cận "cảm tính"
+đến chuỗi cung ứng
+        - Điều này có thể dẫn đến lãng phí quá mức
+hoặc không có sẵn thực phẩm 
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Bây giờ với AI
+        - Nhiều công ty đã bắt đầu tận dụng các
+algorithm phức tạp để dự báo nhu cầu.
+        - Các tác nhân có thể điều chỉnh đơn hàng với
+đối tác thương mại trong thời gian thực, như
+cần thiết cho nhu cầu kinh doanh
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+
+        <section>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+        ### Ví dụ
+        - Chương trình FlavorPrint* của Vivanda
+        - Dựa trên công thức nấu ăn và dữ liệu do người tiêu dùng cung cấp, Vivanda lập bản đồ dữ liệu để
+tạo định danh "vị giác kỹ thuật số" cho
+mỗi người tiêu dùng
+        - Cung cấp khuyến nghị dựa trên ML
+cho khách hàng có thể ảnh hưởng đến nhu cầu
+        </textarea>
+            </div>
+            <!-- <div class="col" data-markdown>
+              <textarea data-template="">
+                  ![Alt text](images/lec2/example-healthcare.png "Optional title text")
+                </textarea>
+            </div> -->
+          </div>
+        </section>
+
+        <section data-markdown><textarea data-template>
+        ### Reference
+        [Vivanda FlavorPrint](https://vivanda.flavorprintlab.com/)
+        </textarea></section>
+      </section>
+
+      <!-- Finance -->
+      <section>
+        <section>
+          <h2>Tài chính</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Truyền thống
+        - Trước đây, một bộ quy tắc được định nghĩa trước được
+sử dụng để nhận dạng gian lận, nhưng cách tiếp cận này
+bỏ lỡ nhiều sắc thái
+xung quanh gian lận
+        - $1/3$ các sự kiện gian lận được xác định sai
+kết quả là mất khách hàng
+        - Ở Mỹ, tổn thất này có giá trị gấp 13 lần
+chi phí gian lận thực tế
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - Với kỹ thuật ML, ngân hàng có thể dự đoán gian lận dựa trên
+đường cơ sở hành vi để so sánh.
+        - Sử dụng dữ liệu mua sắm lịch sử và
+thói quen mua sắm của khách hàng.
+        - So sánh dữ liệu mới với đường cơ sở
+để xác định khả năng gian lận.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ
+        - Sift Science
+        - Thành lập một tập đoàn dữ liệu gian lận
+được phát triển từ hơn 6000 trang web để
+tận dụng ML thời gian thực quy mô lớn
+        - Tự động học các mẫu gian lận mới
+dựa trên hàng tỷ hành động của người dùng.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Reference
+        [Sift Science](https://sift.com/)
+        </textarea></section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Tài chính: Quản lý Rủi ro</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Truyền thống
+        - Quy định mới buộc kiểm soát chặt chẽ hơn các tổ chức tài chính
+        - Gián đoạn mô hình kinh doanh mới
+        - Áp lực ngày càng tăng về chi phí và
+lợi nhuận
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - Điều chỉnh danh mục tài chính phù hợp với
+mục tiêu của người dùng bằng thuật toán ML.
+        - Các tổ chức tài chính có thể phát triển
+hệ thống cảnh báo sớm cho báo cáo
+tự động, quản lý danh mục,
+và khuyến nghị dựa trên ML.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ
+        - ZestFinance
+        - Hệ thống bảo hiểm truyền thống đưa ra
+quyết định sử dụng ít điểm dữ liệu.
+        - Những người có lịch sử tín dụng hạn chế thường
+bị từ chối tín dụng, cuối cùng dẫn đến
+mất doanh thu cho người cho vay. 
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Reference
+
+        [Zest Finance](https://www.zest.ai/)
+
+        [![Zest Finance](https://img.youtube.com/vi/Fp_fI-HFTqE/0.jpg)](https://www.youtube.com/watch?v=Fp_fI-HFTqE "Zest Finance")
+        </textarea></section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Tài chính: Giao dịch Cổ phiếu</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Truyền thống
+        - Tốc độ và khối lượng thông tin rất đáng sợ.
+        - Thị trường mang tính phản ứng.
+        - Khó duy trì tính cạnh tranh
+khi dựa vào các phương pháp giao dịch
+truyền thống.
+        - Phân tích cơ bản không thể
+cho thấy toàn bộ bức tranh tài chính.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - Các công ty sử dụng bộ dữ liệu khổng lồ cùng với phương pháp DL
+để dự báo tốt hơn.
+        - Dữ liệu được lấy từ tài chính, chính trị,
+và mạng xã hội.
+        - Báo cáo phân tích được kết hợp.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ
+        - Sentient Technologies, và Learning Evolutionary Algorithm
+Framework (LEAF*)
+        - Quản lý hàng triệu điểm dữ liệu để tìm xu hướng
+và thực hiện giao dịch cổ phiếu thành công.
+        - Thuật toán AI xác định và kết hợp
+các mẫu giao dịch thành công.
+        - Các chiến lược thành công được thử nghiệm trong thế giới thực,
+tiến hóa tự động với LEAF.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Reference
+
+        [Sentient Technologies](https://www.zdnet.com/article/cognizant-tech-explores-the-evolution-of-ai/)
+        </textarea></section>
+      </section>
+
+      <!-- Agriculture -->
+      <section>
+        <section>
+          <h2>Nông nghiệp</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Truyền thống
+        - Sản xuất lương thực sẽ phải tăng
+70% để đáp ứng nhu cầu dự kiến.
+        - Hầu hết đất phù hợp cho nông nghiệp đã
+được sử dụng, do đó sự tăng trưởng cần thiết
+phải đến từ năng suất cao hơn.
+        - Nông nghiệp phải nuôi sống thế giới mà không
+làm căng thẳng quá mức tài nguyên Trái đất.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - Robot được hỗ trợ DL đang được sử dụng để nhận dạng
+và tiêu diệt cỏ dại.
+        - Các công ty đã cho thấy giảm 90% thuốc diệt cỏ
+nhờ ứng dụng phun "có mục tiêu".
+        - Tiến bộ giải trình tự bộ gen được điều khiển bởi AI
+cho phép chỉnh sửa "bộ gen" cây trồng.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ
+        - Dự báo năng suất TellusLabs
+        - Sử dụng ML cùng với thời tiết và
+dữ liệu lịch sử khác để dự báo năng suất.
+        - Tận dụng GPU dựa trên đám mây cho DL trên
+hình ảnh vệ tinh.
+        </textarea></section>
+        <section>
+          <h3>Reference</h3>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+                [![TellusLabs](https://img.youtube.com/vi/pRfIIPkaDXk/0.jpg)](https://www.youtube.com/watch?v=pRfIIPkaDXk "TellusLabs")
+        </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  [![Harvesting Robot](https://img.youtube.com/vi/V-dV_PSArPw/0.jpg)](https://www.youtube.com/watch?v=V-dV_PSArPw "Harvesting Robot")
+                </textarea>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Manufacturing -->
+      <section>
+        <section>
+          <h2>Sản xuất</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Truyền thống
+        - Dựa vào dữ liệu lịch sử để cung cấp cơ sở cho lịch trình
+bảo trì phòng ngừa.
+        - Cách tiếp cận bảo thủ: các bộ phận được
+thay thế trước khi hỏng, và
+do đó không hiệu quả về mặt tài chính.
+        - Có lỗi do không thể dự đoán
+các chế độ hỏng hóc mới.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - Cảm biến Internet of Things (IoT) giúp tối ưu hóa
+lập lịch bảo trì.
+        - Lịch trình thay thế bộ phận được
+tối ưu hóa bằng cách đánh giá
+bất thường và mẫu hỏng hóc.
+        - An toàn và năng suất có thể
+tăng theo cấp số nhân.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ 1
+        - AI với General Electric.
+        - GE là nhà lãnh đạo ngành cho việc cài đặt cảm biến
+Internet of Things (IoT) trên động cơ
+và tuabin, và dự định có 60,000
+động cơ kết nối internet vào năm 2020
+        - Camera computer vision và
+algorithm học tăng cường tìm ra
+vết nứt nhỏ hoặc hư hỏng.
+        - Dữ liệu cảm biến và AI cho phép GE theo dõi
+hiệu suất và tối ưu hóa việc thay thế
+bộ phận.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ 2
+        - Computer vision để phát hiện lỗi trên tấm pin mặt trời
+        - Algorithm DL được đào tạo trên dữ liệu có nhãn của
+tấm được sản xuất đúng vs. tấm có lỗi
+        - Giảm nhu cầu kiểm tra của con người
+66% so với nhu cầu lịch sử
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ 3
+        - "Sewbots" của SoftWear Automation.
+        - Computer vision được sử dụng để theo dõi vải
+ở mức sợi.
+        - Loại bỏ nhu cầu về thợ may
+con người.
+        - Cho phép nhà thiết kế tạo ra quần áo
+mà trước đây được cho là quá
+phức tạp hoặc chuyên biệt để sản xuất.
+        </textarea></section>
+        <section>
+          <h3>Reference 1</h3>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+                [![AI Manufacturing](https://img.youtube.com/vi/EzJtzrD4WBM/0.jpg)](https://www.youtube.com/watch?v=EzJtzrD4WBM "AI Manufacturing")
+        </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  [![GE](https://img.youtube.com/vi/zqMo_Wi1KKk/0.jpg)](https://www.youtube.com/watch?v=zqMo_Wi1KKk "GE")
+                </textarea>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Reference 2</h3>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+                [![Solar Panel](https://img.youtube.com/vi/Cpq2V5pdusA/0.jpg)](https://www.youtube.com/watch?v=Cpq2V5pdusA "Solar Panel")
+        </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  [![Circuit Robot](https://img.youtube.com/vi/ltdJ1Sp_Pog/0.jpg)](https://www.youtube.com/watch?v=ltdJ1Sp_Pog "Circuit")
+                </textarea>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Government -->
+      <section>
+        <section>
+          <h2>Chính phủ: Thành phố Thông minh</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Truyền thống
+        - Tính đến năm 2008, lần đầu tiên trong lịch sử, một nửa
+dân số thế giới cư trú ở các thành phố.
+        - Có nhu cầu ngày càng cao về
+tài nguyên khan hiếm.
+        - Đồng thời, một phần lớn
+cơ sở hạ tầng hiện có bị sử dụng dưới mức
+hoặc không được sử dụng hiệu quả.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - Kỹ thuật AI được sử dụng để phân tích dữ liệu ảnh và video để
+thực hiện nghiên cứu về xu hướng người đi bộ và giao thông.
+        - Kiểm soát tín hiệu thích ứng: cho phép đèn giao thông
+điều chỉnh thời gian dựa trên
+dữ liệu thời gian thực.
+        - Với nhận dạng biển số xe và công nghệ DL,
+thành phố không chỉ có thể tối ưu hóa
+bãi đỗ xe mà còn có thể theo dõi tội phạm.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ 1
+        - AT&T tái tưởng tượng thành phố thông minh
+        - AT&T phát triển một framework để giúp
+thành phố tích hợp cảm biến Internet of Things (IoT)
+với AI.
+        - Giám sát từ xa tình trạng của
+đường xá, cầu cống, tòa nhà.
+        - Hỗ trợ an toàn công cộng.
+        - Thông báo cho cảnh sát nếu có tiếng súng,
+bằng cách sử dụng phát hiện âm thanh.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ 2
+        - Deep Instinct cho an ninh mạng của Chính phủ
+        - Sử dụng mạng nơ-ron dựa trên GPU để
+đạt tỷ lệ phát hiện 99% cho cả
+các cuộc tấn công mạng tiên tiến nhất.
+        - Mô hình DL của DeepInstinct có khả năng
+phát hiện các mẫu - chủ yếu được thiết kế bởi
+con người - cho phép dự đoán
+cuộc tấn công mạng sắp xảy ra.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ 3
+        - Hệ thống học tập thích ứng và chấm điểm cho giáo dục
+        - Phân tích học tập theo dõi
+hiệu suất của học sinh và cung cấp
+chương trình giáo dục được điều chỉnh.
+        - Sử dụng xử lý ngôn ngữ tự nhiên
+và mô hình ML, chương trình AI có thể được
+sử dụng để chấm điểm câu trả lời dài và
+tiểu luận.
+        </textarea></section>
+        <section>
+          <h3>Reference 1</h3>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+                [![AT&T](https://img.youtube.com/vi/NcAZBu8z90U/0.jpg)](https://www.youtube.com/watch?v=NcAZBu8z90U "AT&T")
+        </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  [![Skynet](https://img.youtube.com/vi/09Hec3OFzJI/0.jpg)](https://www.youtube.com/watch?v=09Hec3OFzJI "Skynet")
+                </textarea>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Reference 2</h3>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+                [![DeepInstinct](https://img.youtube.com/vi/tRzqK315osE/0.jpg)](https://www.youtube.com/watch?v=tRzqK315osE "DeepInstinct")
+        </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  [![Education](https://img.youtube.com/vi/pHvnSo6sip4/0.jpg)](https://www.youtube.com/watch?v=pHvnSo6sip4 "Education")
+                </textarea>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Oil and Gas -->
+      <section>
+        <section>
+          <h2>Dầu khí</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Truyền thống
+        - Giá đã giảm mạnh trong
+những năm gần đây.
+        - Buộc các công ty sa thải nhân viên và
+cắt giảm ngân sách mạnh.
+        - Cuối cùng, các công ty đang
+rất cần tối ưu hóa
+hoạt động và chi phí.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Bây giờ với AI
+        - AI sử dụng dữ liệu kinh tế, chính trị và thời tiết để dự báo
+vị trí sản xuất tối ưu.
+        - Khoan vẫn là một nỗ lực đắt đỏ và
+có rủi ro cao.
+        - ML, với dữ liệu địa chấn, nhiệt và
+địa tầng, có thể giúp tối ưu hóa
+quá trình khoan.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ
+        - ExxonMobile và MIT phát triển robot "lặn"
+cho thăm dò.
+        - Robot AI được sử dụng trong thăm dò đại dương
+để phát hiện "rò rỉ tự nhiên".
+        - Robot được đào tạo qua kỹ thuật DL
+và học từ sai lầm của chúng.
+        - Đồng thời bảo vệ hệ sinh thái
+và phát hiện nguồn năng lượng mới.
+        </textarea></section>
+        <section>
+          <h3>Reference </h3>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+                [![ExxonMobile](https://img.youtube.com/vi/PxgaYr5zFiY/0.jpg)](https://www.youtube.com/watch?v=PxgaYr5zFiY "ExxonMobile")
+        </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  [![Drilling](https://img.youtube.com/vi/6V5GXk4zrXY/0.jpg)](https://www.youtube.com/watch?v=6V5GXk4zrXY "Drilling")
+                </textarea>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Other Applications -->
+      <section>
+        <section>
+          <h2>Các Ứng dụng Khác</h2>
+        </section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ 1
+        - AI và Dịch vụ Khách hàng
+        - Trợ lý bot và đại lý dịch vụ khách hàng
+        - Một số công ty đã sử dụng AI để
+tự động hóa hoàn toàn dịch vụ khách hàng.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ 2
+        - "I AM AI", album đầu tiên được phát hành vào năm 2017 được tạo bởi AI –
+với các nhạc sĩ chuyên nghiệp và công nghệ DL.
+        - Tạo nhạc có thể thực hiện nhờ các
+algorithm DL đặc biệt được thiết kế cho
+dữ liệu tuần tự.
+        - Các mô hình học các mẫu âm nhạc dựa
+vào việc học từ bộ dữ liệu âm nhạc lớn.
+        - File nhạc thô có thể được xử lý trên sức mạnh máy tính dựa trên đám mây, làm cho DL trên các
+bộ dữ liệu này có thể thực hiện được.
+        </textarea></section>
+        <section data-markdown><textarea data-template>
+        ### Ví dụ 3
+        - Forza 5 Motorsport* sử dụng hệ thống AI "Drivatar" để
+học cách lái xe theo phong cách của người chơi khác trong game.
+        - Mạng nơ-ron được sử dụng để đào tạo
+nhân vật đi bộ và chạy một cách thực tế.
+        - Reinforcement Learning (RL) là một kỹ thuật
+được sử dụng trong suốt gaming.
+        </textarea></section>
+        <section>
+          <h3>Reference 1</h3>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+                [![I am AI](https://img.youtube.com/vi/Emidxpkyk6o/0.jpg)](https://www.youtube.com/watch?v=Emidxpkyk6o "I am AI")
+        </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  [![Joshen Huang](https://img.youtube.com/vi/DFjajviMbtM/0.jpg)](https://www.youtube.com/watch?v=DFjajviMbtM "Joshen Huang")
+                </textarea>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Reference 2</h3>
+          <div class="container">
+            <div class="col" data-markdown>
+              <textarea data-template>
+                [![Move 37](https://img.youtube.com/vi/HT-UZkiOLv8/0.jpg)](https://www.youtube.com/watch?v=HT-UZkiOLv8 "Move 37")
+        </textarea>
+            </div>
+            <div class="col" data-markdown>
+              <textarea data-template="">
+                  [![NEAT](https://img.youtube.com/vi/wQWWzBHUJWM/0.jpg)](https://www.youtube.com/watch?v=wQWWzBHUJWM "NEAT")
+                </textarea>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Recap -->
+      <section data-markdown>
+        <textarea data-template>
+        ## Tóm tắt
+        - Tại sao AI đang biến đổi các ngành công nghiệp
+        - Các ví dụ cụ thể theo ngành: y tế, genomics, giao thông, bán lẻ, tài chính, nông nghiệp, sản xuất, chính phủ, dầu khí, dịch vụ khách hàng, âm nhạc, gaming
+        </textarea>
+      </section>
+
+      <!-- Footer -->
+      <div class="footer">
+        Giới thiệu về DS (2526-1) §2: AI trong Công nghiệp
+      </div>
+    </div>
+  </div>
+  <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script src="plugin/math/math.js"></script>
+  <script>
+    Reveal.initialize({
+      controlsLayout: "edges",
+      slideNumber: true,
+      hashOneBasedIndex: true,
+      hash: true,
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX],
+    });
+  </script>
+</body>
+
+</html>

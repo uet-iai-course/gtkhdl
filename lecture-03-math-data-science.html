@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Toán học trong Khoa học Dữ liệu — Không gian vector & Biểu diễn</title>
+  <link rel="stylesheet" href="revealjs/dist/reset.css">
+  <link rel="stylesheet" href="revealjs/dist/reveal.css" />
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css" />
+  <link rel="stylesheet" href="plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="lecture-style.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides" style="font-size: 1.7rem;">
+
+      <!-- Title -->
+      <section>
+        <h1>Toán học trong Khoa học Dữ liệu</h1>
+        <p><strong>Giảng viên:</strong> Nguyễn Thùy Linh, Đào Việt Anh</p>
+        <p><strong>Học kỳ:</strong> 2025-2026-1</p>
+        <p>Institute for AI, VNU-UET</p>
+      </section>
+
+      <!-- Introduction group -->
+      <section>
+        <section data-markdown>
+        <textarea data-template>
+## Mục tiêu buổi học
+- Hiểu vai trò nền tảng của toán học trong Data Science  
+- Giới thiệu khái niệm hạt nhân: **vector**  
+- Hiểu chuỗi biểu diễn: Thế giới → Tín hiệu → Vector → Ma trận → Mô hình  
+- Hình thành trực giác thông qua ví dụ đời sống và suy luận  
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Tại sao cần Toán học?
+- Ngôn ngữ để mô tả dữ liệu và mô hình  
+- Công cụ phân tích, suy luận và tối ưu  
+- Giúp hiểu bản chất kết quả, không chỉ chạy mô hình  
+- Cầu nối giữa lý thuyết và triển khai thực tế (precision, complexity)
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Nội dung chính
+1. Không gian vector  
+2. Đại số tuyến tính  
+3. Xác suất & thống kê  
+4. Không gian metric  
+5. Chu trình biểu diễn dữ liệu  
+6. Máy tính & lưu trữ  
+(Ở mỗi phần sẽ có: định nghĩa, trực quan, công thức KaTeX, ví dụ số, thiết bị thu dữ liệu, nơi cần hình minh họa)
+        </textarea>
+        </section>
+      </section>
+
+      <!-- 1. Vector -->
+      <section>
+        <section><h1>Phần 1: Không gian Vector</h1></section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Vector trực quan
+Một mũi tên có hướng và độ dài.
+- Ví dụ toán học: $$\vec{v} = (x, y)$$ hoặc $$\vec{v} = (x, y, z)$$
+- Ý nghĩa: hướng → đặc trưng dạng tương quan; độ lớn → cường độ/biên độ
+- Toàn bộ dữ liệu thường được ánh xạ thành vector để xử lý số học
+- Minh họa: <!-- THÊM ẢNH VECTOR 2D TẠI ĐÂY -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Ví dụ GPS
+- Vị trí địa lý: **(50.033432, 105.12322)** (ví dụ cụ thể)  
+- Thiết bị thu: smartphone GPS (GNSS receiver) hoặc GPS tracker (precision ~2–10 m, phụ thuộc môi trường)  
+- Vector 2D: $$\vec{p} = (\text{latitude}, \text{longitude})$$  
+- Ứng dụng: bản đồ, phân tích di chuyển, clustering vị trí theo vùng  
+- Minh họa: <!-- CHÈN HÌNH BẢN ĐỒ Ở ĐÂY -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Ảnh thành vector
+- Ví dụ: ảnh **100×100** (grayscale) → vector có **10,000** chiều  
+- Nguồn: cảm biến CMOS/CCD trên camera; steams raw pixel per channel  
+- Mỗi pixel là giá trị số (ví dụ 0–255 cho 8-bit) → biểu diễn bằng vector:
+  $$\vec{I} = (p_1, p_2, \dots, p_{10000})$$
+- Thực tế: ảnh màu RGB 100×100 → vector 30,000 chiều (3 channel)
+- Minh họa: <!-- CHỖ ĐỂ BẠN THÊM ẢNH -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Âm thanh thành vector
+- Ví dụ: 1 giây ở **16 kHz** → vector **16,000** chiều (mỗi sample)  
+- Thiết bị thu: microphone, ADC sampling (ví dụ 16-bit PCM)  
+- Vector tín hiệu: $$\vec{s} = (s_1, s_2, \dots, s_{16000})$$
+- Tính chất: có thành phần tần số, thường xử lý bằng Fourier/FFT trước khi đưa vào mô hình
+- Minh họa: <!-- CHỖ ĐỂ BẠN THÊM ĐỒ THỊ DAO ĐỘNG -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Văn bản thành vector
+- Từ túi từ (BoW): đếm tần suất, ví dụ một câu → vector đếm  
+- Embedding (Word2Vec/BERT): vector ngữ nghĩa liên tục, kích thước điển hình 100–1024  
+- Ví dụ: "Data is power" → sparse vector hoặc embedding $$\vec{w}\in\mathbb{R}^{d}$$  
+- Ứng dụng: phân loại, tìm kiếm ngữ nghĩa, dịch máy  
+- Minh họa: <!-- CHỖ ẢNH EMBEDDING / T-SNE -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Hồ sơ khách hàng
+- Ví dụ vector: $$[tuổi=25,\ thu\_nhập=15e6,\ số\_lần\_mua=8]$$  
+- Nguồn thu thập: CRM, POS, cookies, forms  
+- Dùng cho phân khúc (clustering), dự đoán rời bỏ (churn), cá nhân hóa  
+- Chú ý: chuẩn hóa (scaling), xử lý giá trị thiếu, mã hóa categorical
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Cộng và nhân vô hướng (linear ops)
+- Cộng vector: $$\vec{u} + \vec{v} = (u_1+v_1, u_2+v_2,\dots)$$  
+- Nhân vô hướng: $$a\cdot\vec{v} = (a v_1, a v_2,\dots)$$  
+- Ý nghĩa: ghép đặc trưng, điều chỉnh trọng số, linear combination  
+- Ứng dụng: kết hợp embedding, interpolation dữ liệu
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Vector gần nhau
+- Định nghĩa: khoảng cách nhỏ theo metric → tính tương tự  
+- Metric thường dùng: Euclidean, Cosine, Manhattan  
+- Ứng dụng: tìm neighbors, gợi ý, tìm tài liệu tương đồng  
+- Lưu ý: chuẩn hóa trước khi tính cosine hoặc Euclidean
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Kịch bản: gợi ý phim
+- User vector (ví dụ): $$[action=0.8,\ drama=0.1,\ sci\_fi=0.6]$$  
+- Movie vector tương tự, dùng cosine để xếp hạng  
+- Dữ liệu thu: lịch sử xem, rating, time-of-day, device  
+- Hệ gợi ý dựa trên similarity hoặc matrix factorization
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Kịch bản: ECG y tế
+- ECG 1 kênh, 1s = 1000 điểm → $$\vec{e}=(e_1,\dots,e_{1000})$$  
+- Thiết bị: máy ECG/patch wearable (sampling rate: 250–1000 Hz)  
+- So sánh vector chuẩn vs hiện tại để phát hiện bất thường (arrhythmia)  
+- Ứng dụng: chẩn đoán sớm, giám sát liên tục
+        </textarea>
+        </section>
+
+      </section>
+
+      <!-- 2. Linear Algebra -->
+      <section>
+        <section><h1>Phần 2: Đại số tuyến tính</h1></section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Ma trận là gì?
+- Ma trận = bảng số, tập hợp vector xếp theo hàng/cột  
+- Ký hiệu ví dụ:
+  $$
+  A = \begin{bmatrix}
+  a_{11} & a_{12} \\
+  a_{21} & a_{22}
+  \end{bmatrix}
+  $$
+- Chứa thông tin về mối quan hệ giữa features/mẫu  
+- Minh họa: <!-- HÌNH MA TRẬN / HEATMAP -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Dataset = ma trận
+- Dạng: $$X \in \mathbb{R}^{N \times D}$$ (N mẫu, D đặc trưng)  
+- Ví dụ cụ thể: 1000 khách × 20 thuộc tính → ma trận 1000×20  
+- Hàng = mẫu (vector), cột = feature  
+- Tiền xử lý: chuẩn hóa, imputation, encoding categorical
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Biến đổi tuyến tính
+- Dạng cơ bản: $$\vec{y} = A \vec{x}$$  
+- Các phép biến đổi: xoay, phóng to/thu nhỏ, chiếu  
+- Ý nghĩa: chuyển không gian biểu diễn (feature transform)  
+- Ứng dụng: preprocessing, data augmentation
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Ví dụ: xoay ảnh
+- Xoay (rotation) là phép biến đổi tuyến tính trên tọa độ pixel (trong không gian liên tục)  
+- Ma trận xoay 2D:
+  $$
+  R(\theta)=\begin{bmatrix}\cos\theta & -\sin\theta\\[4pt]\sin\theta & \cos\theta\end{bmatrix}
+  $$
+- Dùng interpolation khi áp dụng lên raster image  
+- Ứng dụng: data augmentation cho training
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Chiếu dữ liệu (projection)
+- Chiếu xuống không gian con để giảm chiều (dimensionality reduction)  
+- Ví dụ: chiếu lên trục chính trong PCA  
+- Lợi ích: giảm noise, tiết kiệm tính toán  
+- Cân nhắc: mất mát thông tin nếu chiều giảm quá mạnh
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Eigenvector / Eigenvalue
+- Định nghĩa: $$A\vec{v} = \lambda \vec{v}$$  
+- Eigenvectors = hướng bất biến của biến đổi tuyến tính  
+- Eigenvalues = tỉ lệ phóng to/thu nhỏ theo hướng đó  
+- Ứng dụng: PCA, spectral clustering
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## PCA trực giác
+- Tìm hướng có phương sai lớn nhất (principal components)  
+- Thực hiện bằng cách lấy eigenvectors của covariance matrix:
+  $$\Sigma = \frac{1}{N-1} X^\top X$$ (sau khi mean-centered)
+- Giữ k thành phần hàng đầu để nén dữ liệu  
+- Ứng dụng: nén ảnh, visualisation (t-SNE/UMAP sau PCA)
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Ứng dụng PCA: nén ảnh
+- Ảnh 100×100 (10k dim) → PCA giữ 200 PC → giảm kích thước lưu trữ nhiều lần  
+- Lỗi nén đo bằng MSE hoặc PSNR  
+- Lưu ý: nén làm mất chi tiết nhỏ (fine textures)  
+- Minh họa: <!-- KHEO PHÓNG ẢNH TRƯỚC/SAU -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Ứng dụng PCA: anomaly
+- Xây dựng không gian "bình thường" bằng PCA; anomalous samples có phần reconstruction error lớn  
+- Cách làm: train PCA trên dữ liệu bình thường → dùng reconstruction error làm score  
+- Ứng dụng: phát hiện gian lận, lỗi máy móc, outliers trong sensor data
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Kịch bản bán lẻ
+- Ma trận user×item ratings: $$R \in \mathbb{R}^{U\times I}$$  
+- Dùng factorization (SVD, NMF) để học latent factors  
+- Ứng dụng: gợi ý sản phẩm, phát hiện nhóm khách hàng (cohort)  
+- Chú ý: dữ liệu sparsity, cold-start problem
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Ma trận trong hệ gợi ý
+- Dạng: user×item, giá trị = rating/implicit feedback  
+- Factorization ví dụ: $$R \approx U V^\top$$ với $$U\in\mathbb{R}^{U\times k},\ V\in\mathbb{R}^{I\times k}$$  
+- Ý nghĩa: tìm embedding cho user & item  
+- Ứng dụng: personalized ranking, recommendations
+        </textarea>
+        </section>
+
+      </section>
+
+      <!-- 3. Probability & Statistics -->
+      <section>
+        <section><h1>Phần 3: Xác suất & Thống kê</h1></section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Xác suất
+- Đo mức độ tin cậy của biến cố (giá trị trong [0,1])  
+- Công thức cơ bản: $$P(A)=\frac{|A|}{|S|}$$ (trong mẫu rời rạc đơn giản)  
+- Ý nghĩa: modeling uncertainty, predictions có độ tin cậy  
+- Ứng dụng: Bayesian inference, probabilistic models
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Vector xác suất
+- Phân phối rời rạc biểu diễn dưới dạng vector:
+  $$P = \left(p_1, p_2, \dots, p_k\right),\quad \sum_i p_i = 1$$  
+- Ví dụ: xúc xắc công bằng:
+  $$P = (1/6,1/6,1/6,1/6,1/6,1/6)$$  
+- Sử dụng trong classification (softmax outputs)  
+- Chú ý: numerical stability (log-softmax)
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Thống kê mô tả
+- Mean (trung bình), median (trung vị), variance (phương sai)  
+- Ví dụ: mean của sample $$\bar{x}=\frac{1}{N}\sum_i x_i$$  
+- Biểu diễn đặc trưng chung của dữ liệu, kiểm tra phân phối  
+- Ứng dụng: EDA (exploratory data analysis)
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Hiệp phương sai (covariance)
+- Công thức: $$\mathrm{Cov}(X,Y)=E[(X-\mu_X)(Y-\mu_Y)]$$  
+- Covariance matrix: $$\Sigma = E[(X-\mu)(X-\mu)^\top]$$  
+- Biểu diễn mối tương quan tuyến tính giữa các feature  
+- Ứng dụng: PCA, multivariate analysis
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Kịch bản: A/B testing
+- So sánh hai giao diện A/B dựa trên metric (CTR, conversion)  
+- Sử dụng thống kê kiểm định (t-test, chi-square) để khẳng định khác biệt có ý nghĩa  
+- Chú ý: power analysis, p-hacking, multiple testing  
+- Ứng dụng: product experiments
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Suy luận mẫu → tổng thể
+- Mẫu phải đại diện; sử dụng confidence intervals để ước lượng  
+- Ví dụ: 95% CI cho mean: $$\bar{x} \pm t_{0.975}\cdot\frac{s}{\sqrt{n}}$$  
+- Kiểm soát bias & variance trong ước lượng  
+- Ứng dụng: báo cáo kết quả nghiên cứu, phân tích chính sách
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Ứng dụng y tế
+- Thiết kế thử nghiệm lâm sàng, so sánh thuốc/placebo  
+- Sử dụng các test (ANOVA, survival analysis) để đánh giá hiệu quả  
+- Quan trọng: ethical considerations, sample size, randomization  
+- Dữ liệu y tế: thường có missing values, censoring
+        </textarea>
+        </section>
+
+      </section>
+
+      <!-- 4. Metric -->
+      <section>
+        <section><h1>Phần 4: Không gian Metric</h1></section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Euclidean
+- Khoảng cách thẳng giữa 2 điểm:  
+  $$d(\vec{x},\vec{y})=\sqrt{\sum_i (x_i-y_i)^2}$$  
+- Phù hợp khi scale các chiều cùng đơn vị và đã chuẩn hóa  
+- Ứng dụng: k-NN, clustering (K-means)  
+- Ví dụ: GPS points (lat,lon) cần chuyển về meters trước khi dùng Euclidean
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Manhattan
+- Khoảng cách đường phố / city-block:  
+  $$d_1(\vec{x},\vec{y})=\sum_i |x_i-y_i|$$  
+- Thường dùng khi các biến độc lập và có độ rời rạc  
+- Ứng dụng: routing, một số clustering robust với outliers  
+- Lưu ý: khác biệt với Euclidean về hình dạng ball
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Cosine similarity
+- Đo hướng giữa vector:  
+  $$\cos\theta = \frac{\vec{x}\cdot\vec{y}}{\|\vec{x}\|\|\vec{y}\|}$$  
+- Giá trị trong [-1,1], thường dùng cho text embeddings và gợi ý  
+- Không phụ thuộc magnitude → tốt khi chỉ quan tâm hướng/ngữ nghĩa  
+- Lưu ý: chuẩn hóa embedding để ổn định tính toán
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Kịch bản: gợi ý bài hát
+- Song embedding từ audio features (tempo, timbre) hoặc user feedback  
+- Tính similarity giữa user vector và track vector  
+- Metric chọn phụ thuộc dữ liệu: cosine cho embedding, Euclidean cho features đã scale  
+- Minh họa: <!-- CHÈN HÌNH/BIỂU ĐỒ -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Chọn metric phù hợp
+- Xem tính chất dữ liệu: scale, sparsity, direction vs magnitude  
+- Thử nghiệm: chọn metric qua validation (downstream task)  
+- Đôi khi chuyển đổi không gian (log, normalize) làm metric phù hợp hơn  
+- Document decision: để reproducibility
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## So sánh hình ảnh
+- So sánh bằng pixel-wise Euclidean có thể nhạy noise  
+- Feature-based (deep embedding) + cosine thường cho kết quả perceptually better  
+- Dùng perceptual losses (LPIPS) cho similarity gần với cảm nhận con người  
+- Minh họa: <!-- TRƯỚC/SAU SO SÁNH ẢNH -->
+        </textarea>
+        </section>
+
+      </section>
+
+<section>
+<section><h1>Phần 5: Giải tích trong Data Science</h1></section>
+  <section>
+    <h2>Đạo hàm</h2>
+    <ul>
+      <li>Đo tốc độ thay đổi của hàm số.</li>
+      <li>Trong ML: mô tả cách loss thay đổi khi thay đổi tham số.</li>
+      <li>Ví dụ: \( f(x) = x^2 \Rightarrow f'(x) = 2x \). Với \(x=3\), tốc độ thay đổi = 6.</li>
+    </ul>
+    <!-- [Hình minh họa đường cong + tiếp tuyến] -->
+  </section>
+
+  <section>
+    <h2>Gradient</h2>
+    <ul>
+      <li>Đạo hàm bậc nhất theo nhiều biến.</li>
+      <li>Cho biết hướng tăng/giảm mạnh nhất của hàm.</li>
+      <li>Ví dụ: \( f(x,y) = x^2 + y^2 \Rightarrow \nabla f = (2x, 2y) \). Với (2,3) → (4,6).</li>
+    </ul>
+    <!-- [Hình minh họa contour + vector gradient] -->
+  </section>
+
+  <section>
+    <h2>Tích phân</h2>
+    <ul>
+      <li>Tính diện tích dưới đường cong.</li>
+      <li>Dùng trong DS để tính kỳ vọng, xác suất, diện tích phân phối.</li>
+      <li>Ví dụ: \( \int_0^1 x^2 dx = \frac{1}{3} \). → Xác suất biến ngẫu nhiên trong [0,1].</li>
+    </ul>
+    <!-- [Hình minh họa diện tích dưới đường cong] -->
+  </section>
+
+  <section>
+    <h2>Tối ưu hoá</h2>
+    <ul>
+      <li>Kết hợp đạo hàm + gradient để tìm cực tiểu/cực đại.</li>
+      <li>Ứng dụng: huấn luyện mạng nơ-ron dùng gradient descent.</li>
+      <li>Ví dụ: cập nhật tham số \( w \leftarrow w - \eta \cdot \nabla L(w) \).</li>
+    </ul>
+    <!-- [Hình minh họa gradient descent] -->
+  </section>
+</section>
+
+      <!-- 5. Pipeline -->
+      <section>
+        <section><h1>Phần 6: Chu trình biểu diễn dữ liệu</h1></section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Thế giới → Tín hiệu
+- Thiết bị thu nhận hiện tượng vật lý: camera (ánh sáng), mic (âm), GPS (vị trí), LiDAR (điểm đám mây)  
+- Ví dụ camera CCD/CMOS nhận photon → điện tích → tín hiệu analog  
+- Ví dụ LiDAR: phát xung laser, đo time-of-flight → tọa độ điểm (x,y,z) ví dụ: [12.34, -3.21, 1.05] (m)  
+- Hình minh họa/URL: <!-- THÊM ẢNH THIẾT BỊ -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Tín hiệu → Số hóa (ADC)
+- ADC (Analog-to-Digital Converter) lấy mẫu & lượng tử hóa: ví dụ 12-bit, 16-bit  
+- Ảnh: sensor raw → giá trị integer 0–(2^b -1) (ví dụ 0–255 cho 8-bit)  
+- Âm thanh: sampling rate (16kHz, 44.1kHz) + bit depth (16-bit)  
+- Lưu ý nhiễu, aliasing → cần anti-aliasing filter
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Số hóa → Vector
+- Ghép các giá trị mẫu thành vector: ảnh flatten → 1 row vector, âm thanh thành time-series vector  
+- Ví dụ: ảnh 224×224×3 → vector length 150,528; thường reshape thành tensor $$H\times W \times C$$ trước khi xử lý  
+- Thực hiện normalization (min-max, z-score) hoặc augmentation (crop, flip)  
+- Lưu trữ dưới dạng arrays (NumPy, tensors), hoặc binary formats (TFRecord, HDF5)
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Vector → Dataset
+- Tập hợp nhiều vector xếp thành ma trận/dataset: $$X\in\mathbb{R}^{N\times D}$$  
+- Ví dụ: 1000 ảnh mèo → dataset kích thước 1000×150528 (nên dùng batching)  
+- Chia train/val/test, cân bằng lớp, xử lý imbalance (oversampling/weighting)  
+- Metadata (time, sensor id, geolocation) gắn kèm để traceability
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Dataset → Mô hình
+- Lựa chọn mô hình theo bài toán: CNN (ảnh), RNN/Transformer (chuỗi/ngôn ngữ), PointNet (point cloud)  
+- Huấn luyện: tối ưu loss, validation, early stopping, hyperparameter tuning  
+- Model output: probability vector (softmax), regression scalar, embedding vector  
+- Triển khai: quantization, pruning, batching inference, monitoring
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Kịch bản: ảnh y tế (chi tiết từng bước)
+1. Thế giới → tín hiệu: máy chụp (X-ray/CT) tạo tín hiệu điện → DICOM raw  
+2. Số hóa: scanner ADC, lưu intensity values (ví dụ 12–16 bit)  
+3. Số hóa → vector: crop/resize, normalize; 512×512 DICOM → tensor 512×512  
+4. Vector → dataset: gán label (radiologist annotation), augment (rotate, flip)  
+5. Dataset → model: train CNN (segmentation/classification), validate bằng metrics (AUC, Dice)  
+- Minh họa: <!-- CHÈN DICOM / SLICE -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Kịch bản: xe tự lái (chi tiết)
+- Sensors: camera (frames), LiDAR (point cloud), radar, IMU, GPS  
+- LiDAR point cloud → matrix $$P\in\mathbb{R}^{N\times 3}$$ (N points, each (x,y,z)), ví dụ điểm: [12.34, -3.21, 1.05] (meters)  
+- Fusion: sync timestamps, transform coordinates (extrinsics/intrinsics) → tạo feature stacks  
+- Model: perception (object detection/tracking), planning, control; huấn luyện với labeled sequences
+- Minh họa: <!-- CHÈN HÌNH / PLOT POINTCLOUD -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Kịch bản: dịch máy (chi tiết)
+1. Thế giới → tín hiệu: văn bản nhập từ bàn phím hoặc microphone (speech→text)  
+2. Số hóa: tokenization (subword/BPE), tạo sequence of token ids  
+3. Số hóa → vector: embedding lookup $$E\in\mathbb{R}^{V\times d}$$ (V vocab size)  
+4. Vector → dataset: tạo cặp (src, tgt) cho supervised training  
+5. Dataset → model: Transformer huấn luyện, inference với beam search  
+- Minh họa: <!-- CHÈN FLOW DIAGRAM -->
+        </textarea>
+        </section>
+
+      </section>
+
+      <!-- 6. Computers -->
+      <section>
+        <section><h1>Phần 7: Máy tính & lưu trữ</h1></section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Máy tính hiểu 0/1
+- Tất cả dữ liệu cuối cùng lưu dưới dạng bit (0/1)  
+- Vector/ma trận → chuỗi số nguyên/float được mã hóa thành bit trong RAM/disk  
+- Representations: float32, float16, int8 (quantized)  
+- Minh họa: <!-- CHÈN HÌNH BITS/CHIP -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Vector/ma trận trong RAM
+- Ma trận lớn lưu dưới dạng contiguous arrays (row-major/col-major)  
+- Hiệu năng phụ thuộc memory layout & cache locality  
+- Dùng batching để tận dụng vectorized operations (SIMD)  
+- Lưu trữ lớn: memory map (memmap), out-of-core pipelines
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Tối ưu phần cứng: GPU/TPU
+- GPU/TPU xử lý song song hàng nghìn phép toán trên vector/matrix  
+- Thư viện: BLAS, cuBLAS, cuDNN, XLA (TPU)  
+- Kỹ thuật: mixed precision (fp16), tensor cores, CUDA streams  
+- Ứng dụng: training deep networks, inference tốc độ cao
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Từ Excel đến Big Data
+- Excel/CSV đủ cho EDA nhỏ; Big Data cần Spark/BigQuery/Hadoop  
+- Data pipelines: ETL, streaming (Kafka), batch processing  
+- Lưu trữ: relational DB, NoSQL, object storage (S3)  
+- Quản lý metadata: data catalog, lineage để traceability
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Huấn luyện mô hình lớn
+- Cần distributed training (data-parallel, model-parallel) và orchestration (Horovod, PyTorch DDP)  
+- Vấn đề: communication overhead, gradient synchronization  
+- Kỹ thuật: checkpointing, gradient accumulation, sharding optimizer state  
+- Monitoring: training metrics, drift detection khi deploy
+        </textarea>
+        </section>
+      </section>
+
+<!-- 8. Learning Math -->
+<section>
+<section><h1>Phần 8: Cách học Toán hiệu quả</h1></section>
+<section>
+<h2>Nguyên tắc học</h2>
+<ul>
+<li>Bắt đầu từ trực giác và ví dụ cụ thể.</li>
+<li>Kết nối lý thuyết với vector và dữ liệu thực tế.</li>
+<li>Luyện tập qua coding: NumPy, PyTorch.</li>
+<li>Tích hợp nhiều giác quan: hình ảnh, âm thanh, văn bản.</li>
+</ul>
+<!-- Hình minh họa học toán -->
+</section>
+</section>
+
+      <!-- Wrap-up -->
+      <section>
+        <section data-markdown>
+        <textarea data-template>
+## Tổng kết
+- Vector = hạt nhân dữ liệu; biểu diễn mọi kiểu dữ liệu dưới dạng số  
+- Đại số tuyến tính = ngôn ngữ biến đổi dữ liệu (ma trận, eigen, PCA)  
+- Xác suất & thống kê = mô hình hóa bất định, kiểm định, suy luận  
+- Metric = đo sự giống nhau; chọn metric phù hợp với dữ liệu  
+- Chu trình rút gọn: Thế giới → Tín hiệu → Số hóa → Vector → Dataset → Mô hình
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Đọc thêm
+- Gilbert Strang — *Introduction to Linear Algebra*  
+- Hastie, Tibshirani, Friedman — *The Elements of Statistical Learning*  
+- scikit-learn tutorials, PCA tutorials, hands-on guides  
+- Minh họa/links: <!-- THÊM LINK/TÀI LIỆU -->
+        </textarea>
+        </section>
+
+        <section data-markdown>
+        <textarea data-template>
+## Q&A
+- Thảo luận ví dụ thực tế  
+        </textarea>
+        </section>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script src="plugin/math/math.js"></script>
+  <script>
+    Reveal.initialize({
+      controlsLayout: "edges",
+      slideNumber: true,
+      hashOneBasedIndex: true,
+      hash: true,
+      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+    });
+  </script>
+</body>
+</html>

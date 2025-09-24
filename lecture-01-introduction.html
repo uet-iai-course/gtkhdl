@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Lecture 1: Welcome</title>
+
+  <link rel="stylesheet" href="revealjs/dist/reset.css">
+  <link rel="stylesheet" href="revealjs/dist/reveal.css" />
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css" />
+
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+  <link rel="stylesheet" href="lecture-style.css">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Title Slide -->
+      <section>
+        <h1>Programming for Data Processing</h1>
+        <div>
+          <p>
+            <strong>Lectures:</strong> Nguyễn Tuấn Phong, Đào Việt Anh
+          </p>
+          <p>
+            <strong>Labs:</strong> Trịnh Ngọc Huỳnh, Phạm Tiến Du
+          </p>
+          <p>
+            <strong>Semester:</strong> 2025-2026-1
+          </p>
+          <p>
+            <strong>Slide Credits:</strong> Nguyễn Văn Phi, MIT OCW 6.0001
+          </p>
+          <p>Institute for AI, VNU-UET</p>
+        </div>
+      </section>
+
+      <!-- Today -->
+      <section data-markdown>
+        <textarea data-template>
+          ## Today
+          1. Introduction
+          1. Why This Course?
+          1. Course Overview
+          1. Python Kickstart
+        </textarea>
+      </section>
+
+      <!-- Introduction -->
+      <section>
+        <section>
+          <h2 class="r-fit-text">Introduction</h2>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+            ## About Me &mdash; Phong
+            - **BACKGROUND**
+              - Bachelor's degree (2016): VNU-UET
+              - Master's degree (2020): Saarland University 
+              - Doctoral degree (2025): MPI for Informatics
+            - **RESEARCH INTERESTS**
+              - Knowledge Graphs & LLMs
+              - Information Extraction
+            - Contact: [tuan-phong.com](https://tuan-phong.com)
+          </textarea>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+            ## About Me &mdash; Viet Anh
+            - **BACKGROUND**
+              - Bachelor's degree (2021): VNU-UET
+              - Master's degree (2024): VNU-UET
+              - Doctoral degree (2025): ???
+            - **RESEARCH INTERESTS**
+              - 3D Reconstruction
+              - LLM multi-agent
+            - Contact: [daovietanh190499.github.io](https://daovietanh190499.github.io)
+          </textarea>
+        </section>
+      </section>
+
+      <!-- Why This Course? -->
+      <section>
+        <section>
+          <h2 class="r-fit-text">Why This Course?</h2>
+        </section>
+
+        <section>
+          <h2>Your Digital Footprint</h2>
+          <ul>
+            <li>In the last 24 hours, <em>you</em> generated:
+              <ul>
+                <li>Dozens of social media interactions</li>
+                <li>Hundreds of GPS/location updates</li>
+                <li>Streaming/video activity logs</li>
+              </ul>
+            </li>
+            <li class="fragment">Multiply by billions of people → <strong>massive global data</strong></li>
+          </ul>
+        </section>
+
+        <!-- Live Question -->
+        <section>
+          <div class="question-box">
+            <div class="question-title">
+              Question
+            </div>
+            <div class="question-content">
+              <p>
+                Can you name some examples of data generated in your daily life, or data you have encountered?
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>From Data to Decisions</h2>
+
+          <div>
+            How do we make sense of all this data?
+          </div>
+
+          <div class="fragment">
+            <div class="pipeline" style="font-size: 0.75em;">
+              <div class="stage" aria-label="Collection">
+                <div class="stage-title">Collection</div>
+                <div class="stage-desc">sensors · logs · surveys</div>
+              </div>
+              <div class="arrow" aria-hidden="true">→</div>
+              <div class="stage" aria-label="Processing">
+                <div class="stage-title">Processing</div>
+                <div class="stage-desc">clean · transform · enrich</div>
+              </div>
+              <div class="arrow" aria-hidden="true">→</div>
+              <div class="stage" aria-label="Analysis">
+                <div class="stage-title">Analysis</div>
+                <div class="stage-desc">stats · ML · visualization</div>
+              </div>
+              <div class="arrow" aria-hidden="true">→</div>
+              <div class="stage" aria-label="Action">
+                <div class="stage-title">Action</div>
+                <div class="stage-desc">decisions · discoveries · policies</div>
+              </div>
+            </div>
+            <p class="caption">Data-driven decision making process</p>
+          </div>
+
+          <p class="fragment">✅ <strong>Processing</strong> turns raw data into usable information.</p>
+
+        </section>
+
+        <section>
+          <h2>Zoom In: Data Processing</h2>
+
+          <ul>
+            <li>Main tasks of data processing:
+              <ul>
+                <li><strong>Cleaning</strong> → fix errors, handle missing values</li>
+                <li><strong>Transforming</strong> → reformat, normalize, standardize</li>
+                <li><strong>Enriching</strong> → add metadata, join data</li>
+                <li><strong>Aggregating</strong> → group, summarize, compute statistics</li>
+              </ul>
+            </li>
+
+            <li><strong>Good processing</strong> makes data reliable for analysis.</li>
+          </ul>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Example: Streaming Services</h2>
+
+          <p><strong>Raw data (messy logs)</strong></p>
+          <pre><code data-trim>
+User123, 2025-09-01 09:14:32, SongID_981, action=skip
+User123, 2025-09-01 09:15:05, SongID_472, action=play
+User456, 2025-09-01 09:16:20, SongID_981, action=play
+User789, 2025-09-01 09:17:45, SongID_981, action=play
+  </code></pre>
+
+          <div>
+            <p><strong>Processing steps</strong></p>
+            <ul>
+              <li>Convert timestamps → detect listening sessions</li>
+              <li>Count plays vs skips → measure preferences</li>
+              <li>Aggregate across users → find trending songs</li>
+            </ul>
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Example: Streaming Services</h2>
+
+          <p><strong>Raw data (messy logs)</strong></p>
+          <pre><code data-trim>
+User123, 2025-09-01 09:14:32, SongID_981, action=skip
+User123, 2025-09-01 09:15:05, SongID_472, action=play
+User456, 2025-09-01 09:16:20, SongID_981, action=play
+User789, 2025-09-01 09:17:45, SongID_981, action=play
+  </code></pre>
+
+          <p><strong>Usable data (features)</strong></p>
+          <ul>
+            <li>User123 prefers <em>SongID_472</em></li>
+            <li><em>SongID_981</em> is popular → &ldquo;trending&rdquo;</li>
+            <li><strong>Result:</strong> recommend similar songs + trending chart</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Why Python?</h2>
+
+          <ul>
+            <li><strong>Simple syntax</strong> → easy to read & learn</li>
+            <li><strong>Popular</strong> → huge community & support</li>
+            <li><strong>Powerful libraries</strong> → analysis, visualization, ML</li>
+            <li><strong>Versatile</strong> → from quick scripts to large applications</li>
+            <li><strong>Career skill</strong> → widely used in industry & research</li>
+          </ul>
+        </section>
+
+      </section>
+
+      <!-- Course Overview -->
+      <section>
+        <section>
+          <h2 class="r-fit-text">Course Overview</h2>
+        </section>
+
+        <!-- Structure -->
+        <section data-markdown>
+          <textarea data-template>
+          ## Structure
+          - **Duration**: 10 weeks
+            - First half: Python programming basics
+            - Second half: Data processing libraries
+          - **Lectures**: 3 hours/week
+          - **Labs**: 3 hours/week (starting Week 2)
+          </textarea>
+        </section>
+
+        <!-- Assessments -->
+        <section data-markdown>
+          <textarea data-template>
+          ## Assessments
+          There are **four components** to your final grade:
+          1. **Quizzes**: Via LMS
+          1. **Assignments**: Via Github Classroom
+          1. **Midterm Exam:** Paper-based (Week 6)
+          1. **Final Exam:** Project-based (Weeks 8&ndash;15)
+          
+          ‼️ **Plagiarism** or **AI-generated solution** will result in <span class="keyword">**automatic course failure**</span>.
+          </textarea>
+        </section>
+
+        <!-- Weekly Breakdown -->
+        <section>
+          <h2>Weekly Breakdown</h2>
+          <div style="display: flex; justify-content: space-between;">
+            <div style="flex: 1; margin-right: 20px;" class="fragment">
+              <h5>Week 1-5</h5>
+              <strong>Python Basics</strong>
+              <ul>
+                <li>Syntax & Control Flow</li>
+                <li>Data Structures</li>
+                <li>Functions & Modules</li>
+                <li>File Handling</li>
+                <li>OOP & Debugging</li>
+              </ul>
+            </div>
+            <div style="flex: 1; margin-left: 20px;" class="fragment">
+              <h5>Week 6-10</h5>
+              <strong>Data Processing Libraries</strong>
+              <ul>
+                <li>NumPy</li>
+                <li>Pandas</li>
+                <li>Matplotlib</li>
+                <li>Plotly Dash</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Important Dates -->
+        <section data-markdown>
+          <textarea data-template>
+            ## Important Dates
+              - **Week 6:** Midterm Exam
+              - **Week 8:** Project Announcement
+              - **Week 16(?):** Final Exam (Oral)
+          </textarea>
+        </section>
+
+        <!-- Learning Outcomes -->
+        <section data-markdown>
+          <textarea data-template>
+            ## Learning Outcomes
+            By the end of this course, you'll be able to:
+            1. Write Python programs with confidence
+            1. Process, analyze, and visualize data
+            1. Work with real datasets using popular libraries
+            1. Build a small data project from scratch
+          </textarea>
+        </section>
+
+        <!-- Resources -->
+        <section>
+          <h2>Resources</h2>
+          <ul>
+            <li>All course materials will be available on the LMS</li>
+            <li><strong>Textbook:</strong> <em>Python for Data Analysis</em> (Wes McKinney)
+              <ul>
+                <li>Available at: <a href="https://wesmckinney.com/book/">wesmckinney.com/book</a></li>
+              </ul>
+            </li>
+            <li><strong>Supplementary:</strong> <em>Official Python Tutorial</em>
+              <ul>
+                <li>Available at: <a href="https://docs.python.org/3/tutorial/">docs.python.org/3/tutorial/</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <div style="display: flex; justify-content: center; gap: 3em;">
+            <div style="text-align: center;">
+              <img src="img/lecture-01/book_qr.png" alt="QR code for textbook" width="140" style="margin: 0;">
+              <br>
+              <small>Textbook</small>
+            </div>
+            <div style="text-align: center;">
+              <img src="img/lecture-01/tutorial_qr.png" alt="QR code for Python tutorial" width="140"
+                style="margin: 0;">
+              <br>
+              <small>Python Tutorial</small>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- Q&A -->
+        <section data-markdown>
+          <textarea data-template>
+            ## Questions?
+            - Ask during lectures or labs
+            - Discussion board on LMS
+            - Feel free to reach out via email
+            - Offline discussions are welcome (email to arrange)
+          </textarea>
+        </section>
+      </section>
+
+      <!-- Python Kickstart -->
+      <section>
+        <section>
+          <h2 class="r-fit-text">Python Kickstart</h2>
+        </section>
+
+        <!-- Example Python Program -->
+        <section>
+          <h2>Example Python Program</h2>
+
+          <pre><code class="language-python" data-line-numbers="">print("Hello, world!")
+x = 5
+y = 2 * x
+print("y = ", y)</code></pre>
+          <ul class="fragment">
+            <li>What does this program do?
+              <ol>
+                <li class="fragment">
+                  Print <span class="inline-code">Hello, world!</span> to the console
+                </li>
+                <li class="fragment">
+                  Bind the value <span class="inline-code">5</span> to the variable <span class="inline-code">x</span>
+                </li>
+                <li class="fragment">
+                  Compute <span class="inline-code">2 * x</span> and bind the result to <span
+                    class="inline-code">y</span>
+                </li>
+                <li class="fragment">
+                  Print <span class="inline-code">y = </span>&ThinSpace;followed by the value of <span
+                    class="inline-code">y</span>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Live Demo -->
+        <section>
+          <div class="question-box">
+            <div class="question-title">
+              Live Demo
+            </div>
+            <div class="question-content">
+              <p>
+                Let's run this code in a Python environment:
+              <ul>
+                <li>Python/IPython Shell (interactive),</li>
+                <li>Script file (.py),</li>
+                <li>Jupyter Notebook.</li>
+              </ul>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Python Programs -->
+        <section>
+          <h2>PYTHON PROGRAMS</h2>
+          <ul>
+            <li class="fragment">A <span class="keyword">program</span> = definitions + commands</li>
+            <li class="fragment">
+              <span class="keyword">Definitions</span> → create values & variable names
+              <pre><code class="language-python" data-line-numbers="">x = 5  # definition</code></pre>
+            </li>
+            <li class="fragment">
+              <span class="keyword">Commands</span> → tell Python what to do
+              <pre><code class="language-python" data-line-numbers="" data-ln-start-from="2">print(x)  # command</code></pre>
+            </li>
+            <li class="fragment">Run code in a <strong>shell</strong> or a <strong>file</strong> (script/Notebook)</li>
+          </ul>
+        </section>
+        <!-- Live Question -->
+        <section>
+          <div class="question-box">
+            <div class="question-title">
+              Question
+            </div>
+            <div class="question-content">
+              <p>
+                When should we use:
+              </p>
+              <ul>
+                <li>Python/IPython Shell (interactive),</li>
+                <li>Script file (.py),</li>
+                <li>Jupyter Notebook?</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Objects -->
+        <section>
+          <h2>Objects</h2>
+
+          <ul>
+            <li class="fragment">
+              Programs manipulate <span class="keyword">data objects</span>
+            </li>
+
+            <li class="fragment">
+              Objects have a <span class="keyword">type</span> that defines its actions
+              <ul>
+                <li>A human can walk, speak, etc.</li>
+                <li>A dog can bark, fetch, etc.</li>
+              </ul>
+            </li>
+
+            <li class="fragment">
+              Two categories of objects:
+              <ul>
+                <li><span class="keyword">Scalar</span> – cannot be subdivided</li>
+                <li>
+                  <span class="keyword">Non-scalar</span> – have internal structure that is accessible
+                  <ul>
+                    <li>A string can be concatenated, split</li>
+                    <li>A list can be appended, sorted</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Scalar Objects -->
+
+        <section>
+          <h2>Scalar Objects</h2>
+
+          <ul>
+            <li class="fragment"><span class="inline-code">int</span> – represent <span class="keyword">integers</span>,
+              e.g. <span class="inline-code">5</span></li>
+            <li class="fragment"><span class="inline-code">float</span> – represent <span class="keyword">real
+                numbers</span>, e.g.
+              <span class="inline-code">3.27</span>
+            </li>
+            <li class="fragment"><span class="inline-code">bool</span> – represent <span class="keyword">Boolean</span>
+              values <span class="inline-code">True</span> /
+              <span class="inline-code">False</span>
+            </li>
+            <li class="fragment"><span class="inline-code">NoneType</span> – <span class="keyword">special</span>, has
+              one value <span class="inline-code">None</span></li>
+          </ul>
+
+
+          <div class="fragment">
+            <p>
+              💡 Use <span class="inline-code">type()</span> to see the type of an object
+            </p>
+            <pre><code class="language-python">>>> type(5)
+int
+>>> type(3.0)
+float</code></pre>
+            </li>
+        </section>
+
+        <!-- Type Conversions -->
+        <section>
+          <h2>Type Conversions (Cast)</h2>
+
+          <p class="fragment">Converts object of <span class="keyword">one type to another</span></p>
+
+          <ul>
+            <li class="fragment">
+              <span class="inline-code">float(3)</span> → converts integer <span class="inline-code">3</span> to
+              float
+              <span class="inline-code">3.0</span>
+              <pre><code class="language-python">>>> float(3)
+3.0</code></pre>
+            </li>
+            <li class="fragment">
+              <span class="inline-code">int(3.9)</span> → truncates float <span class="inline-code">3.9</span> to
+              integer <span class="inline-code">3</span>
+
+              <pre><code class="language-python">>>> int(3.9)
+3</code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Printing to Console -->
+        <section>
+          <h2>Printing to Console</h2>
+
+          <ul>
+            <li class="fragment">
+              Use <span class="inline-code">print()</span> to show output
+            </li>
+
+            <li class="fragment">
+              In IPython/Notebook, results appear below the code cell:
+              <ul>
+                <li class="fragment">
+                  "Out" = result of expression (not printed)
+                  <pre><code class="language-python">In [11]: 3+2
+Out[11]: 5</code></pre>
+                </li>
+
+                <li class="fragment">
+                  <span class="inline-code">print()</span> = explicit program output
+                  <pre><code class="language-python">In [12]: print(3+2)
+5</code></pre>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Expressions -->
+        <section>
+          <h2>Expressions</h2>
+
+          <ul>
+            <li>
+              <span class="keyword">Combine objects & operators</span> to form expressions
+            </li>
+            <li>
+              An expression has a <span class="keyword">value</span>, which has a type
+            </li>
+            <li>
+              Syntax for a simple expression:
+              <br>
+              <span class="inline-code">&lt;object&gt; &lt;operator&gt; &lt;object&gt;</span>
+            </li>
+            <li class="fragment">
+              Example:
+              <ul>
+                <li>
+                  The expression <span class="inline-code">3 + 5</span> has value <span class="inline-code">8</span>
+                  of type <span class="inline-code">int</span>
+                </li>
+              </ul>
+              <pre><code class="language-python">>>> type(3 + 5)
+int</code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Operators on Scalars -->
+        <section>
+          <h2>Operators on Scalars</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Expression</th>
+                <th>Meaning</th>
+                <th>Result type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="inline-code">i + j</span></td>
+                <td><span class="keyword">sum</span></td>
+                <td rowspan="3" style="vertical-align: middle; text-align: center;">int if both ints, <br>else float
+                </td>
+              </tr>
+              <tr>
+                <td><span class="inline-code">i - j</span></td>
+                <td><span class="keyword">difference</span></td>
+              </tr>
+              <tr>
+                <td><span class="inline-code">i * j</span></td>
+                <td><span class="keyword">product</span></td>
+              </tr>
+              <tr>
+                <td><span class="inline-code">i / j</span></td>
+                <td><span class="keyword">division</span></td>
+                <td style="vertical-align: middle; text-align: center;">always float</td>
+              </tr>
+              <tr>
+                <td><span class="inline-code">i % j</span></td>
+                <td><span class="keyword">remainder</span></td>
+                <td style="vertical-align: middle; text-align: center;">?</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="inline-code">i ** j</span></td>
+                <td><span class="keyword">power</span></td>
+                <td style="vertical-align: middle; text-align: center;">?</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Simple Operations -->
+        <section>
+          <h2>SIMPLE OPERATIONS</h2>
+
+          <ul>
+            <li>
+              Parentheses tell Python what to do first
+            </li>
+            <li>
+              <span class="keyword">Operator precedence</span> (without parentheses):
+              <ul>
+                <li><span class="inline-code">**</span></li>
+                <li><span class="inline-code">*</span></li>
+                <li><span class="inline-code">/</span></li>
+                <li><span class="inline-code">+</span> and <span class="inline-code">-</span>
+                  executed left to right
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <div class="fragment">
+            <pre><code class="language-python">>>> 2 + 3 * 4
+14
+>>> (2 + 3) * 4
+20</code></pre>
+          </div>
+        </section>
+
+        <!-- Binding Variables and Values -->
+        <section>
+          <h2>BINDING VARIABLES AND VALUES</h2>
+
+          <p>
+            The equal sign (<span class="inline-code">=</span>) is an <span class="keyword">assignment</span> of a
+            value to a variable name.
+          </p>
+
+          <pre><code class="language-python" data-line-numbers="">pi = 3.14159  # pi is a name, 3.14159 is a value
+pi_approx = 22/7  # pi_approx is a name, 22/7 is a value</code></pre>
+
+          <ol>
+            <li class="fragment">Value is stored in memory</li>
+            <li class="fragment">Assignment binds name to value</li>
+            <li class="fragment">Retrieve a value by typing its name</li>
+          </ol>
+        </section>
+
+        <!-- Abstracting Expressions -->
+        <section>
+          <h2>ABSTRACTING EXPRESSIONS</h2>
+
+          <p>
+            Why <span class="keyword">give names</span> to values of expressions?
+          </p>
+
+          <div>
+            <pre><code class="language-python" data-line-numbers="">pi = 3.14159
+radius = 2.2
+length = 2 * pi * radius
+area = pi * (radius ** 2)</code></pre>
+          </div>
+
+          <ul>
+            <li class="fragment">
+              To <span class="keyword">reuse names</span> instead of values
+            </li>
+            <li class="fragment">
+              Easier to <span class="keyword">change code later</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Programming vs. Math -->
+        <section>
+          <h2>PROGRAMMING vs MATH</h2>
+
+          <ul>
+            <li>
+              In programming, you do not &ldquo;solve for x&rdquo;
+            </li>
+          </ul>
+
+          <pre><code class="language-python" data-line-numbers="">pi = 3.14159
+radius = 2.2
+area = pi * (radius ** 2)  # area of circle
+radius = radius + 1</code></pre>
+
+          <ul>
+            <li><span class="keyword">Assignment</span> = store a value in a variable
+              <ul>
+                <li>Right side → expression evaluated to a value</li>
+                <li>Left side → variable name</li>
+                <li><span class="inline-code">radius = radius + 1</span> is equivalent to <span
+                    class="inline-code">radius
+                    += 1</span></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Changing Bindings -->
+        <section>
+          <h2>CHANGING BINDINGS</h2>
+
+          <ul>
+            <li>We can <span class="keyword">re-bind</span> a name with a new assignment</li>
+            <li>Old value may still exist in memory; the name just points elsewhere</li>
+            <li>Computed values don't update automatically </li>
+          </ul>
+
+          <div style="display: flex; justify-content: space-between;">
+            <div style="flex: 1; margin-right: 20px;">
+              <div class="fragment" data-fragment-index="0">
+                <pre><code class="language-python" data-line-numbers="">pi = 3.14
+radius = 2.2
+area = pi * (radius ** 2)
+radius = radius + 1</code></pre>
+              </div>
+            </div>
+            <div style="flex: 1; margin-left: 20px; font-size: .7em;">
+              <ul class="fragment" data-fragment-index="1">
+                <li>Values of variables at each step:
+                  <ol>
+                    <li class="fragment" data-fragment-index="2"><span class="inline-code">pi</span> → <span
+                        class="inline-code">3.14</span>
+                    </li>
+                    <li class="fragment" data-fragment-index="3">
+                      <div class="fragment strike" data-fragment-index="5">
+                        <span class="inline-code">radius</span> → <span class="inline-code">2.2</span>
+                      </div>
+                    </li>
+                    <li class="fragment" data-fragment-index="4"><span class="inline-code">area</span> → <span
+                        class="inline-code">15.1976</span>
+                    </li>
+                    <li class="fragment" data-fragment-index="5"><span class="inline-code">radius</span> → <span
+                        class="inline-code">3.2</span>
+                    </li>
+                  </ol>
+                </li>
+              </ul>
+            </div>
+        </section>
+
+      </section>
+
+      <!-- Wrap-up slide -->
+      <section data-markdown>
+        <textarea data-template>
+          ## Wrap-up
+          - Course introduction
+          - Why data processing? Why Python?
+          - Course structure, assessments, and timeline
+          - Python kickstart: basic syntax, objects, expressions, variables
+          - Lab 01 (next week): Getting started with Python
+          - Next lecture: Data structures in Python
+        </textarea>
+      </section>
+
+      <!-- Footer -->
+      <div class="footer">
+        Prog. Data Proc. (2526-1) §1: Introduction
+      </div>
+    </div>
+  </div>
+  <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script src="plugin/math/math.js"></script>
+  <script>
+    Reveal.initialize({
+      controlsLayout: "edges",
+      slideNumber: true,
+      hashOneBasedIndex: true,
+      hash: true,
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX],
+    });
+  </script>
+</body>
+
+</html>
