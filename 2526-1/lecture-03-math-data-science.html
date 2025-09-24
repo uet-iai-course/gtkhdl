@@ -52,7 +52,7 @@
                         <li>Không gian vector</li>
                         <li>Đại số tuyến tính</li>
                         <li>Xác suất &amp; thống kê</li>
-                        <li>Không gian metric</li>
+                        <li>Độ đo</li>
                         <li>Giải tích</li>
                         <li>Chu trình biểu diễn dữ liệu</li>
                         <li>Máy tính &amp; lưu trữ</li>
@@ -87,6 +87,7 @@
                         </li>
                         <li>Vector 2D: $$\vec{p} = (\text{latitude}, \text{longitude})$$</li>
                         <li>Ứng dụng: bản đồ, phân tích di chuyển, phân cụm vị trí theo vùng</li>
+						<li>GPS: <img style="width:40%" src="GPS.png"></li>
                     </ul>
                 </section>
                 <section>
@@ -145,7 +146,7 @@
                     <ul>
                         <li>Định nghĩa: khoảng cách nhỏ theo metric → tính tương tự</li>
                         <li>Metric thường dùng: Euclidean, Cosine, Manhattan</li>
-                        <li>Ứng dụng: tìm neighbors, gợi ý, tìm tài liệu tương đồng</li>
+                        <li>Ứng dụng: tìm hàng xóm, gợi ý, tìm tài liệu tương đồng</li>
                         <li>Lưu ý: chuẩn hóa trước khi tính cosine hoặc Euclidean</li>
                     </ul>
                 </section>
@@ -165,6 +166,7 @@
                         <li>Thiết bị: máy ECG (tần số lấy mẫu: 250–1000 Hz)</li>
                         <li>So sánh vector chuẩn vs hiện tại để phát hiện bất thường (arrhythmia)</li>
                         <li>Ứng dụng: chẩn đoán sớm, giám sát liên tục</li>
+						<li>ECG: <img style="width:40%" src="ecg.jpg"></li>
                     </ul>
                 </section>
             </section>
@@ -205,6 +207,7 @@
                         <li>Các phép biến đổi: xoay, phóng to/thu nhỏ, chiếu</li>
                         <li>Ý nghĩa: chuyển không gian biểu diễn (feature transform)</li>
                         <li>Ứng dụng: tiền xử lý, làm giàu dữ liệu</li>
+						<li>Biến đổi tuyến tính: <img style="width:30%" src="affine.png"></li>
                     </ul>
                 </section>
                 <section>
@@ -227,7 +230,7 @@
                     <h2>Chiếu dữ liệu</h2>
                     <ul>
                         <li>Chiếu xuống không gian con để giảm chiều (dimensionality reduction)</li>
-                        <li>Ví dụ: chiếu lên trục chính trong PCA</li>
+                        <li>Ví dụ: chiếu lên trục chính trong PCA - Phân tích thành phần cơ bản</li>
                         <li>Lợi ích: giảm nhiễu, tiết kiệm tính toán</li>
                         <li>Cân nhắc: mất mát thông tin nếu chiều giảm quá mạnh</li>
                     </ul>
@@ -238,7 +241,7 @@
                         <li>Định nghĩa: $$A\vec{v} = \lambda \vec{v}$$</li>
                         <li>Véc tơ riêng = hướng bất biến của biến đổi tuyến tính</li>
                         <li>Giá trị riêng = tỉ lệ phóng to/thu nhỏ theo hướng đó</li>
-                        <li>Ứng dụng: PCA</li>
+                        <li>Ứng dụng: PCA - Phân tích thành phần cơ bản</li>
                     </ul>
                 </section>
                 <section>
@@ -360,7 +363,7 @@
                     <h2>Ứng dụng y tế</h2>
                     <ul>
                         <li>Thiết kế thử nghiệm lâm sàng, so sánh thuốc/placebo</li>
-                        <li>Sử dụng các test (ANOVA, survival analysis) để đánh giá hiệu quả</li>
+                        <li>Sử dụng các kiểm thử (ANOVA, phân tích khả năng sống sót) để đánh giá hiệu quả</li>
                         <li>Quan trọng: vấn đề đạo đức, kích thước mẫu, độ ngẫu nhiên</li>
                         <li>Dữ liệu y tế: thường có giá trị trống, bị kiểm duyệt</li>
                     </ul>
@@ -381,6 +384,7 @@
                         <li>Phù hợp khi mở rộng các chiều cùng đơn vị và đã chuẩn hóa</li>
                         <li>Ứng dụng: k-NN, phân cụm (K-means)</li>
                         <li>Ví dụ: tọa độ GPS (lat,lon) cần chuyển về meters trước khi dùng Euclidean</li>
+						<li>Không gian euclide: <img style="width:30%" src="euclidean.jpeg"></li>
                     </ul>
                 </section>
                 <section>
@@ -393,6 +397,7 @@
                         <li>Thường dùng khi các biến độc lập và có độ rời rạc</li>
                         <li>Ứng dụng: chỉ đường, phân cụm nhạy với outliers</li>
                         <li>Lưu ý: khác biệt với Euclidean về hình dạng</li>
+						<li>Khoảng cách manhattan: <img style="width:50%" src="manhattan.png"></li>
                     </ul>
                 </section>
                 <section>
@@ -405,6 +410,7 @@
                         <li>Giá trị trong [-1,1], thường dùng cho text embeddings và gợi ý</li>
                         <li>Không phụ thuộc độ lớn → tốt khi chỉ quan tâm hướng/ngữ nghĩa</li>
                         <li>Lưu ý: chuẩn hóa embedding để ổn định tính toán</li>
+						<li>Khoảng cách cosine: <img style="width:30%" src="cosine.jpg"></li>
                     </ul>
                 </section>
                 <section>
@@ -429,6 +435,7 @@
                         <li>So sánh bằng pixel-wise Euclidean có thể nhạy với nhiễu</li>
                         <li>Feature-based (deep embedding) + cosine thường cho kết quả tốt hơn</li>
                         <li>Dùng perceptual losses (LPIPS) cho độ đo gần với cảm nhận con người</li>
+						<li>LPIPS đo độ tương đồng cảm nhận: <img style="width:50%" src="lpips.png"></li>
                     </ul>
                 </section>
             </section>
@@ -442,6 +449,7 @@
                         <li>Đo tốc độ thay đổi của hàm số.</li>
                         <li>Trong học máy: mô tả cách hàm thất thoát thay đổi khi thay đổi tham số.</li>
                         <li>Ví dụ: \( f(x) = x^2 \Rightarrow f'(x) = 2x \). Với \(x=3\), tốc độ thay đổi = 6.</li>
+						<li>Độ dốc trên một mặt hyperplane: <img style="width:40%" src="directional_derivative_mountain.png"></li>
                     </ul>
                     <!-- [Hình minh họa đường cong + tiếp tuyến] -->
                 </section>
@@ -451,6 +459,7 @@
                         <li>Đạo hàm bậc nhất theo nhiều biến.</li>
                         <li>Cho biết hướng tăng/giảm mạnh nhất của hàm.</li>
                         <li>Ví dụ: \( f(x,y) = x^2 + y^2 \Rightarrow \nabla f = (2x, 2y) \). Với (2,3) → (4,6).</li>
+						<li>Qúa trình đi theo chiều giảm của gradient: <img style="width:40%" src="gradient-descend.jpg"></li>
                     </ul>
                     <!-- [Hình minh họa contour + vector gradient] -->
                 </section>
@@ -460,6 +469,7 @@
                         <li>Tính diện tích dưới đường cong.</li>
                         <li>Dùng trong DS để tính kỳ vọng, xác suất, diện tích phân phối.</li>
                         <li>Ví dụ: \( \int_0^1 x^2 dx = \frac{1}{3} \). → Xác suất biến ngẫu nhiên trong [0,1].</li>
+						<li>Tích phân: <img style="width:40%" src="integration.svg"></li>
                     </ul>
                     <!-- [Hình minh họa diện tích dưới đường cong] -->
                 </section>
@@ -469,6 +479,8 @@
                         <li>Kết hợp đạo hàm + gradient để tìm cực tiểu/cực đại.</li>
                         <li>Ứng dụng: huấn luyện mạng nơ-ron dùng gradient descent.</li>
                         <li>Ví dụ: cập nhật tham số \( w \leftarrow w - \eta \cdot \nabla L(w) \).</li>
+						<li>Gỉa sử hàm thất thoát có đồ thị như hình - mục tiêu tìm vị trí tại đó hàm thất thoát nhỏ nhất - quá trình này gọi là tối ưu hóa: 
+							<img style="width:50%" src="optimize.png"></li>
                     </ul>
                     <!-- [Hình minh họa gradient descent] -->
                 </section>
@@ -481,13 +493,14 @@
                 <section>
                     <h2>Thế giới → Tín hiệu</h2>
                     <ul>
-                        <li>Thiết bị thu nhận hiện tượng vật lý: camera (ánh sáng), mic (âm), GPS (vị trí), LiDAR (điểm
-                            đám mây)
+                        <li>Thiết bị thu nhận hiện tượng vật lý: camera (ánh sáng), mic (âm), GPS (vị trí), LiDAR (
+                            đám mây điểm)
                         </li>
                         <li>Ví dụ: camera CCD/CMOS nhận photon → điện tích → tín hiệu analog</li>
                         <li>Ví dụ: LiDAR: phát xung laser, đo thời gian di chuyển → tọa độ điểm (x,y,z) ví dụ: [12.34,
                             -3.21, 1.05] (m)
                         </li>
+						<li>CMOS: <img style="width:50%" src="CMOS.jpeg"></li>
                     </ul>
                 </section>
                 <section>
@@ -496,7 +509,8 @@
                         <li>ADC (Analog-to-Digital Converter) lấy mẫu &amp; lượng tử hóa: ví dụ 12-bit, 16-bit</li>
                         <li>Ảnh: tín hiệu thô từ cảm biến → giá trị integer 0–(2^b -1) (ví dụ 0–255 cho 8-bit)</li>
                         <li>Âm thanh: tần số lấy mẫu (16kHz, 44.1kHz) + độ rộng bit (16-bit)</li>
-                        <li>Lưu ý nhiễu, aliasing → cần anti-aliasing filter</li>
+                        <li>Lưu ý nhiễu, giả tượng (artifact), aliasing → cần anti-aliasing filter</li>
+						<li>Aliasing: <img style="width:50%" src="aliasing.jpg"></li>
                     </ul>
                 </section>
                 <section>
@@ -539,6 +553,7 @@
                         <li>Vector → Tập dữ liệu: gán nhãn (radiologist annotation), tăng cường (rotate, flip)</li>
                         <li>Tập dữ liệu → mô hình: huấn luyện CNN (phân đoạn/phân lớp), kiểm nghiệm bằng độ đo (AUC, Dice)
                         </li>
+						<li>phân đoạn ảnh Xray: <img style="width:30%" src="xray.jpg"></li>
                     </ol>
                 </section>
                 <section>
@@ -584,6 +599,7 @@
                         <li>Hiệu năng phụ thuộc kiểu bộ nhớ &amp; cache cục bộ</li>
                         <li>Dùng lô để tận dụng các phép toán trên vector (SIMD)</li>
                         <li>Lưu trữ lớn: memory map (memmap), out-of-core pipelines</li>
+						<li>RAM: <img style="width:60%" src="ram.jpg"></li>
                     </ul>
                 </section>
                 <section>
@@ -593,6 +609,7 @@
                         <li>Thư viện: BLAS, cuBLAS, cuDNN, XLA (TPU)</li>
                         <li>Kỹ thuật: mixed precision (fp16), tensor cores, CUDA streams</li>
                         <li>Ứng dụng: huấn luyện deep networks, triển khai tốc độ cao</li>
+						<li>GPU: <img style="width:60%" src="gpu.jpeg"></li>
                     </ul>
                 </section>
                 <section>
@@ -602,6 +619,7 @@
                         <li>Data pipelines: ETL, streaming (Kafka), batch processing</li>
                         <li>Lưu trữ: cơ sở dữ liệu quan hệ, NoSQL, object storage (S3)</li>
                         <li>Quản lý metadata: data catalog, lineage để có thể truy vết</li>
+						<li>Hadoop: <img style="width:60%" src="hadoop.png"></li>
                     </ul>
                 </section>
                 <section>
@@ -612,6 +630,7 @@
                         <li>Vấn đề: Giao tiếp, đồng bộ gradient</li>
                         <li>Kỹ thuật: checkpointing, gradient accumulation, sharding optimizer state</li>
                         <li>Monitoring: tham số huấn luyện, phát hiện lỗi khi triển khai</li>
+						<li>Pytorch: <img style="width:40%" src="pytorch.png"></li>
                     </ul>
                 </section>
             </section>
