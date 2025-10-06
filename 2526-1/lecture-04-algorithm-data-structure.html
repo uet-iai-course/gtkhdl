@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thuật toán & Cấu trúc dữ liệu trong Khoa học Dữ liệu</title>
+    <link href="revealjs/dist/reset.css" rel="stylesheet" />
+    <link href="revealjs/dist/reveal.css" rel="stylesheet" />
+    <link href="revealjs/dist/theme/white.css" rel="stylesheet" />
+    <link href="plugin/highlight/monokai.css" rel="stylesheet" />
+    <link href="lecture-style.css" rel="stylesheet" />
+</head>
+<body>
+<div class="reveal" style="font-size:1.7rem">
+<div class="slides">
+
+<section>
+<h1>Thuật toán & Cấu trúc dữ liệu trong Khoa học Dữ liệu</h1>
+<p><strong>Giảng viên:</strong> Nguyễn Thùy Linh, Đào Việt Anh</p>
+<p><strong>Học kỳ:</strong> 2025–2026-1</p>
+<p>Institute for AI, VNU-UET</p>
+</section>
+
+<section>
+<section>
+<h2>Mục tiêu buổi học</h2>
+<ul>
+<li>Hiểu khái niệm thuật toán và vai trò của nó trong khoa học dữ liệu</li>
+<li>Biết cách biểu diễn và tổ chức dữ liệu hiệu quả bằng cấu trúc dữ liệu</li>
+<li>Nhận thức về mối quan hệ giữa độ phức tạp và hiệu năng</li>
+<li>Giới thiệu tư duy chia để trị và heuristic trong giải quyết bài toán</li>
+<li>Liên hệ thực tế: pipeline xử lý dữ liệu và học máy</li>
+</ul>
+</section>
+<section>
+<h2>Nội dung chính</h2>
+<ol>
+<li>Khái niệm thuật toán</li>
+<li>Phân rã bài toán và heuristic</li>
+<li>Độ phức tạp & hiệu năng</li>
+<li>Cấu trúc dữ liệu cơ bản</li>
+<li>Thuật toán trong khoa học dữ liệu</li>
+<li>Tư duy thuật toán cho nhà khoa học dữ liệu</li>
+</ol>
+</section>
+</section>
+
+<section>
+<section>
+<h1>Phần 1: Thuật toán là gì?</h1>
+</section>
+<section>
+<h2>Khái niệm cơ bản</h2>
+<ul>
+<li>Thuật toán = tập hợp các bước xác định để giải quyết một bài toán</li>
+<li>Đầu vào → Xử lý → Đầu ra</li>
+<li>Tính xác định, hữu hạn, và tổng quát</li>
+<li>Ví dụ: sắp xếp danh sách, tính trung bình, lọc dữ liệu</li>
+<li>Thuật toán là trái tim của mọi mô hình và hệ thống dữ liệu</li>
+</ul>
+</section>
+<section>
+<h2>Thuật toán trong khoa học dữ liệu</h2>
+<ul>
+<li>Tiền xử lý dữ liệu (lọc, gộp, chuẩn hóa)</li>
+<li>Huấn luyện mô hình (gradient descent, EM, k-means)</li>
+<li>Tìm kiếm & tối ưu (A*, genetic algorithm)</li>
+<li>Phân tích thống kê (bootstrap, sampling)</li>
+<li>Trực quan hóa và báo cáo (rendering, aggregation)</li>
+</ul>
+</section>
+<section>
+<h2>Đặc tính quan trọng</h2>
+<ul>
+<li>Độ chính xác: có đạt kết quả đúng hay không?</li>
+<li>Độ ổn định: thay đổi nhỏ trong đầu vào ảnh hưởng thế nào?</li>
+<li>Hiệu năng: tốc độ và tài nguyên sử dụng</li>
+<li>Tính mở rộng: hoạt động tốt khi dữ liệu lớn</li>
+<li>Tính tổng quát: áp dụng cho nhiều loại bài toán</li>
+</ul>
+</section>
+<section>
+<h2>Thuật toán và biểu diễn</h2>
+<ul>
+<li>Thuật toán cần cấu trúc dữ liệu phù hợp để hiệu quả</li>
+<li>Dữ liệu có thể được lưu dưới dạng danh sách, ma trận, cây, đồ thị</li>
+<li>Ví dụ: tìm kiếm nhanh hơn khi dữ liệu đã được sắp xếp</li>
+<li>Biểu diễn quyết định cách thuật toán vận hành</li>
+<li>Tư duy “data structure drives algorithm”</li>
+</ul>
+</section>
+</section>
+
+<section>
+<section>
+<h1>Phần 2: Chia để trị & Heuristic</h1>
+</section>
+<section>
+<h2>Tư tưởng chia để trị</h2>
+<ul>
+<li>Chia bài toán lớn thành các bài toán nhỏ hơn</li>
+<li>Giải từng phần và kết hợp kết quả</li>
+<li>Ví dụ: Merge Sort, FFT, phân cụm</li>
+<li>Ưu điểm: dễ mở rộng và tối ưu từng phần</li>
+<li>Nhược điểm: cần cơ chế gộp kết quả thông minh</li>
+</ul>
+</section>
+<section>
+<h2>Từ brute force đến thuật toán thông minh</h2>
+<ul>
+<li>Bắt đầu với brute force: duyệt toàn bộ không gian lời giải</li>
+<li>Thường được cài bằng vòng lặp lồng nhau hoặc đệ quy</li>
+<li>Độ phức tạp cao, chỉ phù hợp bài toán nhỏ</li>
+<li>Sau đó tối ưu bằng cách cắt tỉa nhánh (branch pruning)</li>
+<li>Tiến tới quy hoạch động và lập trình hồi quy</li>
+</ul>
+</section>
+<section>
+<h2>Cắt tỉa nhánh và điều kiện dừng</h2>
+<ul>
+<li>Ý tưởng: dừng sớm khi biết chắc nhánh không cho kết quả tốt</li>
+<li>Ví dụ: tìm nghiệm tốt nhất → loại bỏ nhánh có chi phí cao</li>
+<li>Cài đặt bằng đệ quy có điều kiện dừng rõ ràng</li>
+<li>Giảm đáng kể số lượng phép thử</li>
+<li>Dùng trong tìm kiếm trạng thái, backtracking, AI search</li>
+</ul>
+</section>
+<section>
+<h2>Quy hoạch động và hồi quy</h2>
+<ul>
+<li>Hồi quy: giải bài toán nhỏ hơn => quy nạp cho các bài toán lớn hơn</li>
+<li>Quy hoạch động: lưu kết quả con để tránh tính lặp</li>
+<li>Ví dụ: Fibonacci, Knapsack, Edit Distance</li>
+<li>Giảm độ phức tạp từ lũy thừa xuống đa thức</li>
+<li>Cơ sở của nhiều thuật toán tối ưu hiện đại</li>
+</ul>
+</section>
+<section>
+<h2>Từ P, NP đến Heuristic</h2>
+<ul>
+<li>Nhiều bài toán không thể giải trong thời gian khả thi (NP-hard)</li>
+<li>Khi đó ta dùng heuristic: giải xấp xỉ hoặc gần đúng</li>
+<li>Ví dụ: thuật toán tham lam (Greedy), Genetic, Simulated Annealing</li>
+<li>Heuristic cho kết quả nhanh – đủ tốt cho thực tế</li>
+<li>Chấp nhận đánh đổi giữa tốc độ và tối ưu tuyệt đối</li>
+</ul>
+</section>
+<section>
+<h2>Heuristic là gì?</h2>
+<ul>
+<li>Phương pháp xấp xỉ – không đảm bảo tối ưu tuyệt đối</li>
+<li>Nhưng cho kết quả đủ tốt trong thời gian hợp lý</li>
+<li>Ví dụ: thuật toán tham lam (Greedy), Genetic, Simulated Annealing</li>
+<li>Dùng khi không thể duyệt toàn bộ không gian lời giải</li>
+<li>Rất phổ biến trong AI và học máy</li>
+</ul>
+</section>
+<section>
+<h2>Chia để trị trong Khoa học dữ liệu</h2>
+<ul>
+<li>Tập dữ liệu lớn được chia thành mini-batch</li>
+<li>Các batch được xử lý song song (parallel)</li>
+<li>Kết quả gradient được tổng hợp → cập nhật mô hình</li>
+<li>Ý tưởng tương tự chia nhỏ bài toán toán học</li>
+<li>→ Giảm tải bộ nhớ, tăng tốc huấn luyện</li>
+</ul>
+</section>
+<section>
+<h2>Heuristic trong Khoa học dữ liệu</h2>
+<ul>
+<li>k-means: chọn tâm cụm ngẫu nhiên – heuristic</li>
+<li>Search engine: chỉ index một phần web</li>
+<li>Recommendation: heuristic theo sở thích tương đồng</li>
+<li>Genetic Algorithm: heuristic dựa trên tiến hóa</li>
+<li>Thực tế: trade-off giữa độ chính xác và thời gian</li>
+</ul>
+</section>
+
+<section>
+<h2>Ví dụ: thuật toán sắp xếp</h2>
+<ul>
+<li>Bubble Sort – duyệt tuần tự (brute force) O(n²)</li>
+<li>Merge Sort – chia để trị, O(n log n)</li>
+<li>Quick Sort – heuristic pivot, trung bình O(n log n)</li>
+<li>Heap Sort – dùng cấu trúc heap để tối ưu truy xuất</li>
+<li>Ứng dụng trong thư viện numpy.sort(), pandas</li>
+</ul>
+</section>
+<section>
+<h2>Ví dụ: Merge Sort</h2>
+<ul>
+<li>B1: Chia mảng thành hai nửa</li>
+<li>B2: Nếu mỗi nửa nhiều hơn 2 phần tử, sắp xếp từng nửa dùng Merge Sort và đến B4</li>
+<li>B3: Nếu mỗi nửa ít hơn hoặc bằng 2 phần tử, sắp xếp lại vị trí 2 phần tử của mỗi nửa cho đúng thứ tự và đến B4</li>
+<li>B4: Gộp hai nửa đã sắp thành mảng cuối</li>
+<li>Độ phức tạp: O(n log n)</li>
+<li>Ứng dụng: xử lý dữ liệu lớn trong Spark</li>
+</ul>
+</section>
+<section>
+<h2>Ví dụ: thuật toán tìm kiếm</h2>
+<ul>
+<li>Linear Search – duyệt tuần tự O(n)</li>
+<li>Binary Search – chia để trị, O(log n)</li>
+<li>DFS/BFS – tìm kiếm đồ thị (đệ quy hoặc hàng đợi)</li>
+<li>A* – heuristic dự đoán khoảng cách đến đích</li>
+<li>Ứng dụng: bản đồ, AI pathfinding, search engines</li>
+</ul>
+</section>
+<section>
+<h2>Ví dụ: Binary Search</h2>
+<ul>
+<li>B1: Bắt đầu tìm từ vị trí x chính giữa của dải giá trị</li>
+<li>B2: So sánh giá trị x với giá trị cần tìm y</li>
+<li>B3: Nếu x = y thì y có nằm trong dải giá trị</li>
+<li>B5: Nếu x khác y và x là 1 trong 2 đầu mút của giải giá trị thì y không có trong giải giá trị này</li>
+<li>B4: Nếu x > y thì thì tìm trong dải mới từ giá trị bắt đầu (đầu mút trái) đến x, quay về B1</li>
+<li>B4: Nếu x < y thì thì tìm trong dải mới từ x đến giá trị kết thúc (đầu mút phải), quay về B1</li>
+<li>Độ phức tạp: O(log n)</li>
+<li>Ứng dụng: Tìm kiếm trên tập dữ liệu</li>
+</ul>
+</section>
+<section>
+<h2>Ví dụ: thuật toán đồ thị</h2>
+<ul>
+<li>Dijkstra – tìm đường ngắn nhất, O(E log V)</li>
+<li>Bellman-Ford – có thể xử lý cạnh âm</li>
+<li>Kruskal/Prim – tìm cây bao trùm nhỏ nhất (MST)</li>
+<li>PageRank – heuristic đánh giá tầm quan trọng nút</li>
+<li>Ứng dụng: giao thông, mạng xã hội, khuyến nghị</li>
+</ul>
+</section>
+<section>
+<h2>Tổng kết tư duy cải tiến thuật toán</h2>
+<ul>
+<li>Từ brute force → đệ quy → chia để trị → quy hoạch động</li>
+<li>Khi bài toán quá lớn → heuristic để có lời giải gần đúng</li>
+<li>Luôn tìm cách giảm không gian tìm kiếm</li>
+<li>Đặt điều kiện dừng rõ ràng để tránh lặp vô hạn</li>
+<li>Đây là tư duy cốt lõi của thiết kế thuật toán</li>
+</ul>
+</section>
+
+</section>
+
+<section>
+<section>
+<h1>Phần 3: Độ phức tạp thuật toán</h1>
+</section>
+<section>
+<h2>Độ phức tạp thời gian</h2>
+<ul>
+<li>Đo số lượng thao tác cần thực hiện</li>
+<li>Big-O: O(1), O(log n), O(n), O(n²), O(n log n)</li>
+<li>Ảnh hưởng trực tiếp đến hiệu suất xử lý dữ liệu</li>
+<li>Quan trọng khi làm việc với dữ liệu lớn</li>
+<li>Ví dụ: quét 1 tỉ dòng dữ liệu – cần O(n)</li>
+</ul>
+</section>
+<section>
+<h2>Bài toán thiên niên kỷ: P và NP</h2>
+<ul>
+<li>Bài toán P vs NP là một trong 7 bài toán thiên niên kỷ của Clay Institute</li>
+<li>Câu hỏi: Mọi bài toán có thể kiểm chứng nhanh (NP) có thể được giải nhanh (P) không?</li>
+<li>Nếu P = NP → máy tính có thể giải mọi bài toán logic, tối ưu hóa trong thời gian khả thi</li>
+<li>Hiện chưa có lời giải chứng minh hoặc phản chứng; phần thưởng 1 triệu USD cho lời giải</li>
+<li>Tác động sâu sắc đến mã hóa, trí tuệ nhân tạo, và an toàn thông tin</li>
+</ul>
+</section>
+<section>
+<h2>Độ phức tạp không gian</h2>
+<ul>
+<li>Đo lượng bộ nhớ cần thiết để lưu trữ tạm</li>
+<li>Thuật toán tối ưu có thể tiết kiệm RAM rất lớn</li>
+<li>Ví dụ: streaming algorithms, batch processing</li>
+<li>Cân bằng giữa tốc độ và bộ nhớ</li>
+<li>Ứng dụng: xử lý real-time dữ liệu cảm biến</li>
+</ul>
+</section>
+<section>
+<h2>Phân tích độ phức tạp</h2>
+<ul>
+<li>Best case, average case, worst case</li>
+<li>Thực tế quan tâm đến average case</li>
+<li>Hiểu rõ giúp chọn thuật toán phù hợp</li>
+<li>Ví dụ: QuickSort có thể O(n²) nếu pivot kém</li>
+<li>Tối ưu hóa cần dựa vào profile thực tế</li>
+</ul>
+</section>
+<section>
+<h2>Tối ưu hóa thuật toán</h2>
+<ul>
+<li>Dùng cấu trúc dữ liệu hiệu quả hơn</li>
+<li>Giảm số vòng lặp hoặc phép nhân chéo</li>
+<li>Dùng song song (multi-thread, GPU)</li>
+<li>Cache-friendly, tránh I/O bottleneck</li>
+<li>Tối ưu pipeline bằng vectorization (NumPy, Pandas)</li>
+</ul>
+</section>
+<section>
+<h2>Trade-off trong thiết kế</h2>
+<ul>
+<li>Thời gian vs Bộ nhớ</li>
+<li>Chính xác vs Nhanh</li>
+<li>Tổng quát vs Đơn giản</li>
+<li>Offline vs Real-time</li>
+<li>Heuristic = chấp nhận đánh đổi có kiểm soát</li>
+</ul>
+</section>
+</section>
+
+<section>
+<section>
+<h1>Phần 4: Cấu trúc dữ liệu</h1>
+</section>
+<section>
+<h2>Cấu trúc dữ liệu là gì?</h2>
+<ul>
+<li>Cách tổ chức và lưu trữ dữ liệu để truy cập hiệu quả</li>
+<li>Quyết định tốc độ xử lý và tìm kiếm</li>
+<li>Phân loại: tuyến tính và phi tuyến tính</li>
+<li>Ví dụ: mảng, danh sách liên kết, cây, đồ thị</li>
+<li>Chọn đúng cấu trúc là tối ưu tự nhiên cho thuật toán</li>
+</ul>
+</section>
+<section>
+<h2>Mảng (Array)</h2>
+<ul>
+<li>Lưu dữ liệu liên tục trong bộ nhớ</li>
+<li>Truy cập ngẫu nhiên nhanh O(1)</li>
+<li>Thêm/xóa giữa mảng tốn O(n)</li>
+<li>Dùng phổ biến trong NumPy, Tensor</li>
+<li>Ví dụ: vector hóa trong học máy</li>
+</ul>
+</section>
+<section>
+<h2>Danh sách liên kết</h2>
+<ul>
+<li>Mỗi phần tử chứa con trỏ tới phần tử kế tiếp</li>
+<li>Chèn/xóa nhanh nhưng truy cập chậm</li>
+<li>Dùng trong hàng đợi, bộ nhớ động</li>
+<li>Cấu trúc linh hoạt nhưng tốn overhead</li>
+<li>Ví dụ: linked list trong Python collections</li>
+</ul>
+</section>
+<section>
+<h2>Ngăn xếp & Hàng đợi</h2>
+<ul>
+<li>Ngăn xếp (Stack): LIFO – ứng dụng trong đệ quy, DFS</li>
+<li>Hàng đợi (Queue): FIFO – ứng dụng trong BFS, stream</li>
+<li>Deque: hai đầu linh hoạt</li>
+<li>Thực hiện qua list, deque trong Python</li>
+<li>Ứng dụng trong xử lý dữ liệu theo thời gian</li>
+</ul>
+</section>
+<section>
+<h2>Cây (Tree)</h2>
+<ul>
+<li>Dạng dữ liệu phân cấp, mỗi nút có con</li>
+<li>Binary tree, BST, Heap, Trie</li>
+<li>Duyệt cây: DFS, BFS</li>
+<li>Ứng dụng: phân loại, tìm kiếm, nén dữ liệu</li>
+<li>Ví dụ: Decision Tree, Random Forest</li>
+</ul>
+</section>
+<section>
+<h2>Đồ thị (Graph)</h2>
+<ul>
+<li>Biểu diễn mối quan hệ giữa các thực thể</li>
+<li>Gồm tập đỉnh (V) và cạnh (E)</li>
+<li>Hữu hướng, vô hướng, trọng số</li>
+<li>Thuật toán: Dijkstra, BFS, DFS, PageRank</li>
+<li>Ứng dụng: mạng xã hội, recommendation, giao thông</li>
+</ul>
+</section>
+<section>
+<h2>Bảng băm (Hash Table)</h2>
+<ul>
+<li>Truy cập và tra cứu nhanh O(1)</li>
+<li>Key → Hash → Index</li>
+<li>Xử lý xung đột bằng chain hoặc open addressing</li>
+<li>Ứng dụng: từ điển, cache, metadata</li>
+<li>Ví dụ: Python dict, Pandas index map</li>
+</ul>
+</section>
+<section>
+<h2>Tổng kết cấu trúc dữ liệu</h2>
+<ul>
+<li>Array: nhanh, tĩnh</li>
+<li>List: linh hoạt, chậm</li>
+<li>Tree: phân cấp, tổ chức</li>
+<li>Graph: mối quan hệ</li>
+<li>Hash: truy cập nhanh, không có thứ tự</li>
+</ul>
+</section>
+</section>
+
+<section>
+<section>
+<h1>Phần 5: Thuật toán trong Khoa học Dữ liệu</h1>
+</section>
+<section>
+<h2>Thuật toán xử lý dữ liệu</h2>
+<ul>
+<li>Làm sạch dữ liệu (dedup, fillna, normalize)</li>
+<li>Phát hiện ngoại lệ (z-score, IQR)</li>
+<li>Lấy mẫu dữ liệu (sampling)</li>
+<li>Ghép dữ liệu (join, merge)</li>
+<li>Tối ưu pipeline bằng vectorization</li>
+</ul>
+</section>
+<section>
+<h2>Thuật toán học máy</h2>
+<ul>
+<li>Phân loại: Logistic Regression, SVM</li>
+<li>Phân cụm: K-Means, DBSCAN</li>
+<li>Hồi quy: Linear, Ridge, Lasso</li>
+<li>Giảm chiều: PCA, t-SNE</li>
+<li>Tối ưu: Gradient Descent, SGD</li>
+</ul>
+</section>
+<section>
+<h2>Thuật toán thống kê</h2>
+<ul>
+<li>Bootstrap, Monte Carlo, EM</li>
+<li>Bayesian Inference</li>
+<li>Markov Chain & Sampling</li>
+<li>Ứng dụng trong ước lượng và kiểm định</li>
+<li>Quan trọng trong dự đoán và mô phỏng</li>
+</ul>
+</section>
+<section>
+<h2>Thuật toán tối ưu hóa</h2>
+<ul>
+<li>Gradient Descent – giảm dần độ dốc</li>
+<li>Newton, Adam, RMSProp</li>
+<li>Tối ưu ràng buộc: Lagrange, QP</li>
+<li>Heuristic: GA, SA, ACO</li>
+<li>Ứng dụng: huấn luyện mô hình và lập lịch</li>
+</ul>
+</section>
+<section>
+<h2>Thuật toán phân tán</h2>
+<ul>
+<li>MapReduce: chia dữ liệu thành task nhỏ</li>
+<li>Spark DAG: xử lý tuần tự logic</li>
+<li>AllReduce: tổng hợp gradient</li>
+<li>Streaming algorithm cho real-time</li>
+<li>Ứng dụng: big data & ML pipeline</li>
+</ul>
+</section>
+</section>
+
+<section>
+<section>
+<h1>Phần 6: Tư duy thuật toán cho nhà khoa học dữ liệu</h1>
+</section>
+<section>
+<h2>Phân rã bài toán</h2>
+<ul>
+<li>Xác định đầu vào, đầu ra rõ ràng</li>
+<li>Chia thành các bước nhỏ dễ kiểm soát</li>
+<li>Giải quyết từng phần và kiểm thử độc lập</li>
+<li>Tổng hợp kết quả theo pipeline</li>
+<li>Tư duy như lập trình viên và nhà toán học</li>
+</ul>
+</section>
+<section>
+<h2>Phân tích & chọn thuật toán</h2>
+<ul>
+<li>Hiểu bản chất dữ liệu</li>
+<li>Đánh giá trade-off: tốc độ, chính xác, chi phí</li>
+<li>Chọn heuristic khi cần tốc độ</li>
+<li>Dựa trên thử nghiệm và đo lường</li>
+<li>Không có thuật toán hoàn hảo cho mọi bài toán</li>
+</ul>
+</section>
+<section>
+<h2>Tối ưu quy trình tư duy</h2>
+<ul>
+<li>Giữ giải pháp đơn giản, dễ bảo trì</li>
+<li>Dùng pseudo-code để mô tả trước khi code thật</li>
+<li>Kiểm tra từng phần bằng dữ liệu mẫu nhỏ</li>
+<li>Ghi log và phân tích hiệu năng</li>
+<li>Tối ưu dần qua profiling và testing</li>
+</ul>
+</section>
+<section>
+<h2>Thuật toán và sáng tạo</h2>
+<ul>
+<li>Thuật toán không chỉ là công thức, mà là nghệ thuật tối ưu</li>
+<li>Hiểu nguyên lý để sáng tạo ra phương pháp mới</li>
+<li>Ví dụ: heuristic riêng cho dữ liệu đặc thù</li>
+<li>Khả năng “tư duy mô hình hóa” là chìa khóa</li>
+<li>Kết hợp logic và cảm quan dữ liệu</li>
+</ul>
+</section>
+<section>
+<h2>Học thuật toán qua thực hành</h2>
+<ul>
+<li>Làm lại các thuật toán kinh điển bằng Python</li>
+<li>Hiểu rõ input-output và độ phức tạp</li>
+<li>Dùng thư viện: numpy, networkx, heapq, itertools</li>
+<li>Tạo project nhỏ: sort benchmark, graph search</li>
+<li>Quan trọng: hiểu bản chất, không chỉ dùng API</li>
+</ul>
+</section>
+<section>
+<h2>Thuật toán trong pipeline dữ liệu</h2>
+<ul>
+<li>ETL = Extract – Transform – Load</li>
+<li>Mỗi bước là một thuật toán</li>
+<li>Ví dụ: transform = map(), filter(), reduce()</li>
+<li>Biết rõ độ phức tạp của mỗi bước giúp tối ưu toàn pipeline</li>
+<li>Kết hợp heuristic để giảm chi phí xử lý</li>
+</ul>
+</section>
+</section>
+
+<section>
+<section>
+<h1>Tổng kết</h1>
+</section>
+<section>
+<h2>Điểm nhớ chính</h2>
+<ul>
+<li>Thuật toán = quy trình giải bài toán một cách có hệ thống</li>
+<li>Cấu trúc dữ liệu = cách tổ chức để thuật toán hiệu quả</li>
+<li>Chia để trị giúp đơn giản hóa vấn đề phức tạp</li>
+<li>Heuristic cho phép giải nhanh khi không thể tối ưu tuyệt đối</li>
+<li>Hiểu và chọn thuật toán đúng giúp tiết kiệm hàng trăm lần tài nguyên</li>
+</ul>
+</section>
+<section>
+<h2>Ứng dụng trong thực tế</h2>
+<ul>
+<li>Xử lý dữ liệu lớn, huấn luyện mô hình, tối ưu hóa hệ thống</li>
+<li>Phân tích mạng xã hội, khuyến nghị, tìm kiếm</li>
+<li>Học máy, deep learning, AI agent</li>
+<li>Tối ưu vận hành trong doanh nghiệp</li>
+<li>Đưa tư duy thuật toán vào mọi quy trình</li>
+</ul>
+</section>
+<section>
+<h2>Tài liệu tham khảo</h2>
+<ul>
+<li>CLRS – Introduction to Algorithms</li>
+<li>Goodrich – Data Structures and Algorithm in Python</li>
+<li>MIT OCW 6.006 Algorithms</li>
+<li>Coursera – Algorithms, Part I & II</li>
+<li>LeetCode – luyện tập thực hành</li>
+</ul>
+</section>
+<section>
+<h2>Q&A</h2>
+<ul>
+<li>Thảo luận ví dụ thuật toán yêu thích của bạn</li>
+<li>So sánh heuristic với tối ưu tuyệt đối</li>
+<li>Làm sao để chọn cấu trúc dữ liệu phù hợp?</li>
+<li>Ứng dụng thuật toán trong công việc thực tế?</li>
+<li>Tư duy nào giúp bạn học thuật toán hiệu quả hơn?</li>
+</ul>
+</section>
+
+</div>
+</div>
+<script src="revealjs/dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script src="plugin/math/math.js"></script>
+<script>
+Reveal.initialize({
+    controlsLayout: 'edges',
+    slideNumber: true,
+    hashOneBasedIndex: true,
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX]
+});
+</script>
+</body>
+</html>
