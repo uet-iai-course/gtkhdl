@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thuật toán & Cấu trúc dữ liệu trong Khoa học Dữ liệu</title>
+    <link href="revealjs/dist/reset.css" rel="stylesheet" />
+    <link href="revealjs/dist/reveal.css" rel="stylesheet" />
+    <link href="revealjs/dist/theme/white.css" rel="stylesheet" />
+    <link href="plugin/highlight/monokai.css" rel="stylesheet" />
+    <link href="lecture-style.css" rel="stylesheet" />
+</head>
+<body>
+<div class="reveal" style="font-size: 1.7rem;">
+<div class="slides">
+
+<!-- Slide 1 -->
+<section>
+<h1  style="font-size:5rem">Vòng đời dự án Khoa học Dữ liệu và CRISP-DM</h1>
+<p><strong>Giảng viên:</strong> Trần Quốc Long, Nguyễn Thùy Linh, Đào Việt Anh</p>
+<p><strong>Học kỳ:</strong> 2025–2026-1</p>
+<p>Institute for AI, VNU-UET</p>
+</section>
+
+<!-- Slide 3 -->
+<section >
+    <h2>Mục tiêu Học tập</h2>
+    <ul>
+        <li>Xác định các bước trong quy trình khoa học dữ liệu (CRISP-DM)</li>
+        <li>Xác định các vai trò và bộ kỹ năng chính trong lĩnh vực khoa học dữ liệu</li>
+        <li>Mô tả các cách khác nhau để tổ chức một đội ngũ khoa học dữ liệu</li>
+        <li>Xác định các quan niệm sai lầm phổ biến về khoa học dữ liệu</li>
+        <li>Xác định các thành phần của việc bảo trì mô hình sau khi triển khai</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 4 (CRISP-DM liên kết ban đầu) -->
+<section >
+    <h2>Vòng đời dự án Khoa học Dữ liệu & CRISP-DM</h2>
+    <p>
+        Quy trình dự án khoa học dữ liệu trong doanh nghiệp có thể được ánh xạ trực tiếp với vòng đời CRISP-DM:
+    </p>
+    <ul>
+        <li>Hiểu bài toán kinh doanh (Business Understanding)</li>
+        <li>Hiểu và chuẩn bị dữ liệu (Data Understanding & Preparation)</li>
+        <li>Mô hình hóa (Modeling)</li>
+        <li>Đánh giá (Evaluation)</li>
+        <li>Triển khai và vận hành (Deployment)</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 5 -->
+<section >
+    <h2>Quy trình một dự án Khoa học Dữ liệu</h2>
+    <ul>
+        <li>Xác định Vấn đề</li>
+        <li>Thu thập Dữ liệu</li>
+        <li>Khám phá & Tiền xử lý Dữ liệu</li>
+        <li>Xây dựng Mô hình</li>
+        <li>Xác thực</li>
+        <li>Ra Quyết định & Triển khai</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 6 -->
+<section >
+    <h2>Xác định Vấn đề</h2>
+    <p>Bạn đang cố gắng giải quyết vấn đề gì?</p>
+    <ul>
+        <li>Cần hiểu rõ mục tiêu kinh doanh</li>
+        <li>Xác định cơ hội tạo tác động lớn</li>
+        <li>Biết điều gì là khả thi về mặt kỹ thuật</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 7 -->
+<section >
+    <h2>Thu thập Dữ liệu</h2>
+    <p>Bạn cần dữ liệu gì để giải quyết vấn đề?</p>
+    <ul>
+        <li>Xác định dữ liệu cần thiết</li>
+        <li>Thu thập từ nhiều nguồn khác nhau</li>
+        <li>Hợp nhất dữ liệu</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 8 -->
+<section >
+    <h2>Khám phá & Tiền xử lý Dữ liệu</h2>
+    <ul>
+        <li>Làm sạch và chuẩn hóa dữ liệu</li>
+        <li>Phát hiện vấn đề chất lượng dữ liệu</li>
+        <li>Xác định yếu tố quan trọng</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 9 -->
+<section >
+    <h2>Xây dựng Mô hình</h2>
+    <ul>
+        <li>Lựa chọn mô hình phù hợp</li>
+        <li>Cân nhắc độ phức tạp, dữ liệu, hiệu suất</li>
+        <li>Yêu cầu kỹ năng mô hình hóa và thống kê</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 10 -->
+<section >
+    <h2>Xác thực</h2>
+    <ul>
+        <li>Đánh giá mô hình đã giải quyết vấn đề chưa</li>
+        <li>Đo lường hiệu suất chính xác</li>
+        <li>Đảm bảo phù hợp mục tiêu kinh doanh</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 11 -->
+<section >
+    <h2>Ra Quyết định & Triển khai</h2>
+    <ul>
+        <li>Đưa ra quyết định kinh doanh</li>
+        <li>Triển khai vào hệ thống</li>
+        <li>Truyền đạt cho các bên liên quan</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 13 -->
+<section >
+    <h2>Bộ Kỹ năng Khoa học Dữ liệu</h2>
+    <ul>
+        <li>Xử lý dữ liệu</li>
+        <li>Thống kê</li>
+        <li>Kỹ thuật phần mềm</li>
+        <li>Chuyên môn lĩnh vực</li>
+        <li>Mô hình hóa</li>
+        <li>Kể chuyện & Giao tiếp</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 14 -->
+<section >
+    <h2>Kỹ năng của Nhóm Khoa học Dữ liệu</h2>
+    <ul>
+        <li>Giao tiếp với lãnh đạo</li>
+        <li>Tích hợp hệ thống</li>
+        <li>Kể chuyện dữ liệu</li>
+        <li>Chuyên môn lĩnh vực</li>
+        <li>Mô hình hóa & thống kê</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 15 -->
+<section >
+    <h2>Giao tiếp, Kể chuyện, Chuyên môn Lĩnh vực</h2>
+    <ul>
+        <li>Hiểu nhu cầu kinh doanh</li>
+        <li>Thuyết phục người ra quyết định</li>
+        <li>Truyền đạt khái niệm phức tạp</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 16 -->
+<section >
+    <h2>Mô hình hóa & Thống kê</h2>
+    <ul>
+        <li>Từ hồi quy đến học sâu</li>
+        <li>Đánh giá mô hình bằng thống kê</li>
+        <li>Thiết kế thí nghiệm, A/B testing</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 17 -->
+<section >
+    <h2>Xử lý Dữ liệu & Kỹ thuật Phần mềm</h2>
+    <ul>
+        <li>Dữ liệu thô thường lộn xộn</li>
+        <li>Cần làm sạch, lưu trữ</li>
+        <li>Mô hình cần được triển khai</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 19 -->
+<section >
+    <h2>Các Vai trò trong Nhóm Khoa học Dữ liệu</h2>
+    <ul>
+        <li>Quản lý Sản phẩm</li>
+        <li>Nhà Thống kê</li>
+        <li>Kỹ sư Học máy</li>
+        <li>Nhà Nghiên cứu</li>
+        <li>Kỹ sư Dữ liệu</li>
+        <li>Kỹ sư Phần mềm</li>
+        <li>Chuyên viên Phân tích Kinh doanh</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 20 -->
+<section >
+    <h2>Chuyên viên Phân tích Kinh doanh</h2>
+    <ul>
+        <li>Làm việc với người ra quyết định</li>
+        <li>Tạo báo cáo, dashboard KPI</li>
+        <li>Đánh giá tác động kinh doanh</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 21 -->
+<section >
+    <h2>Quản lý Sản phẩm</h2>
+    <ul>
+        <li>Thu thập yêu cầu kinh doanh</li>
+        <li>Ưu tiên dự án</li>
+        <li>Đánh giá tác động chỉ số kinh doanh</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 22 -->
+<section >
+    <h2>Nhà Thống kê</h2>
+    <ul>
+        <li>Xác định tính hợp lệ mô hình</li>
+        <li>Phân tích ngoại lai</li>
+        <li>Đánh giá ý nghĩa thống kê</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 23 -->
+<section >
+    <h2>Kỹ sư Học máy</h2>
+    <ul>
+        <li>Làm việc với dữ liệu lớn, nhiều chiều</li>
+        <li>Tối ưu độ chính xác và tốc độ</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 24 -->
+<section >
+    <h2>Nhà Nghiên cứu</h2>
+    <ul>
+        <li>Giải quyết bài toán tiên phong</li>
+        <li>Hiểu sâu thuật toán</li>
+        <li>Có thể thuộc nhóm nghiên cứu riêng</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 25 -->
+<section >
+    <h2>Kỹ sư Dữ liệu</h2>
+    <ul>
+        <li>Xây dựng hạ tầng dữ liệu</li>
+        <li>Pipeline ETL</li>
+        <li>Tự động hóa làm sạch dữ liệu</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 26 -->
+<section >
+    <h2>Kỹ năng và Vai trò</h2>
+    <table>
+        <tr>
+            <th>Kỹ năng</th>
+            <th>BA</th>
+            <th>PM</th>
+            <th>Stat</th>
+            <th>MLE</th>
+            <th>Res</th>
+            <th>DE</th>
+            <th>SE</th>
+        </tr>
+        <tr>
+            <td>Giao tiếp / Kể chuyện</td><td>X</td><td>X</td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td>Chuyên môn lĩnh vực</td><td>X</td><td>X</td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td>Mô hình hóa</td><td></td><td></td><td>X</td><td>X</td><td>X</td><td></td><td></td>
+        </tr>
+        <tr>
+            <td>Thống kê</td><td></td><td></td><td>X</td><td>X</td><td>X</td><td></td><td></td>
+        </tr>
+        <tr>
+            <td>Xử lý dữ liệu</td><td></td><td></td><td>X</td><td>X</td><td>X</td><td>X</td><td></td>
+        </tr>
+        <tr>
+            <td>Kỹ thuật phần mềm</td><td></td><td></td><td></td><td></td><td></td><td></td><td>X</td>
+        </tr>
+    </table>
+    <img hidden>
+</section>
+
+<!-- Slide 29 -->
+<section >
+    <h2>Cấu trúc Tổ chức Khoa học Dữ liệu</h2>
+    <ul>
+        <li>Có nhiều cách để tổ chức các nhóm khoa học dữ liệu</li>
+        <li>Nhóm tập trung: tất cả báo cáo cho cùng một lãnh đạo</li>
+        <li>Nhóm phân tán: nhà khoa học dữ liệu làm việc cùng nhóm kinh doanh</li>
+        <li>Nhóm được nhúng trong các đơn vị chức năng</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 30 -->
+<section >
+    <h2>Nhóm Tập trung</h2>
+    <p>Tất cả các nhà khoa học dữ liệu báo cáo cho cùng một trưởng nhóm.</p>
+    <ul>
+        <li>Thường thuộc bộ phận công nghệ hoặc IT</li>
+        <li><strong>Ưu điểm:</strong></li>
+        <ul>
+            <li>Chuẩn hóa kỹ năng và công cụ</li>
+            <li>Giảm vai trò trùng lặp</li>
+            <li>Hợp tác chặt chẽ hơn</li>
+        </ul>
+        <li><strong>Nhược điểm:</strong></li>
+        <ul>
+            <li>Xa rời các đơn vị kinh doanh</li>
+            <li>Dễ phản ứng thụ động với vấn đề</li>
+        </ul>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 31 -->
+<section >
+    <h2>Nhóm Phân tán</h2>
+    <p>Các nhà khoa học dữ liệu làm việc trong từng nhóm thuộc đơn vị kinh doanh.</p>
+    <ul>
+        <li><strong>Ưu điểm:</strong></li>
+        <ul>
+            <li>Gần với doanh nghiệp và người dùng cuối</li>
+            <li>Dễ giải quyết các vấn đề kinh doanh trước mắt</li>
+        </ul>
+        <li><strong>Nhược điểm:</strong></li>
+        <ul>
+            <li>Thiếu chuẩn hóa công cụ và kỹ năng</li>
+            <li>Ít giao tiếp giữa các nhà khoa học dữ liệu</li>
+        </ul>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 32 -->
+<section >
+    <h2>Các Cấu trúc Nhóm Khác</h2>
+    <ul>
+        <li>Có nhiều cách tổ chức lai</li>
+        <li>Các nhóm khoa học dữ liệu đầy đủ có thể được nhúng trong một chức năng kinh doanh</li>
+        <li>Có thể tạo các trung tâm xuất sắc về khoa học dữ liệu cho toàn công ty</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 34 -->
+<section >
+    <h2>Quan niệm Sai lầm #1: “Kỳ lân” Khoa học Dữ liệu</h2>
+    <ul>
+        <li>“Kỳ lân” là người giỏi mọi kỹ năng</li>
+        <li>Các nhóm thành công gồm những người có kỹ năng đa dạng</li>
+        <li>Một số mạnh về giao tiếp, số khác mạnh về thống kê</li>
+        <li>Nhóm hiệu quả cần đủ 3 mảng: kinh doanh, khoa học, kỹ thuật</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 35 -->
+<section >
+    <h2>Quan niệm Sai lầm #2: Chỉ tập trung vào Nghiên cứu & Thuật toán</h2>
+    <ul>
+        <li>Nhóm khoa học dữ liệu không thể chỉ tập trung vào thuật toán</li>
+        <li>Nhóm hiệu quả cần:</li>
+        <ul>
+            <li>Xác định vấn đề</li>
+            <li>Truyền đạt kết quả</li>
+            <li>Phối hợp kỹ thuật để triển khai mô hình</li>
+        </ul>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 36 -->
+<section >
+    <h2>Quan niệm Sai lầm #3: Hệ thống Phức tạp là Tốt nhất</h2>
+    <ul>
+        <li>Giải pháp phức tạp không phải lúc nào cũng tốt nhất</li>
+        <li>Bắt đầu đơn giản rồi mới nâng cấp mô hình</li>
+        <li>Mô hình phức tạp:</li>
+        <ul>
+            <li>Khó diễn giải</li>
+            <li>Dễ lỗi không lường trước</li>
+            <li>Khó bảo trì</li>
+        </ul>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 37 -->
+<section >
+    <h2>Quan niệm Sai lầm #4: Sự khác biệt giữa các Ngành</h2>
+    <ul>
+        <li>Các kỹ thuật khoa học dữ liệu cơ bản có thể chuyển giao giữa các ngành</li>
+        <li>Cần chuyên môn lĩnh vực để hiểu dữ liệu và vấn đề quan trọng</li>
+        <li>Làm sạch, lưu trữ, trích xuất insight và mô hình hóa tương tự nhau</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 38 -->
+<section >
+    <h2>Quan niệm Sai lầm #5: Dự án Bắt đầu với Định nghĩa Rõ ràng</h2>
+    <ul>
+        <li>Dự án khoa học dữ liệu thường mang tính khám phá</li>
+        <li>Chỉ khi khám phá dữ liệu mới biết độ khó</li>
+        <li>Quản lý sản phẩm phải quản lý kỳ vọng với các bên liên quan</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 39 -->
+<section >
+    <h2>Quan niệm Sai lầm #6: Mô hình Dự đoán Tốt Nhất là Tốt Nhất</h2>
+    <ul>
+        <li>Không chỉ dựa vào độ chính xác dự đoán</li>
+        <li>Một số mô hình quá chậm hoặc quá phức tạp để triển khai</li>
+        <li>Một số mô hình khó diễn giải và khó thuyết phục lãnh đạo</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 41 -->
+<section >
+    <h2>Sau khi Triển khai Mô hình</h2>
+    <ul>
+        <li>Các nhóm phải theo dõi và quản lý mô hình</li>
+        <li>Nhóm BI xây dựng dashboard hiển thị kết quả</li>
+        <li>Nhóm kinh doanh sử dụng đầu ra mô hình</li>
+        <li>Nhóm khoa học dữ liệu cập nhật mô hình định kỳ</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 42 -->
+<section >
+    <h2>Nhóm Business Intelligence</h2>
+    <ul>
+        <li>Theo dõi sự thay đổi dự đoán theo thời gian</li>
+        <li>Giám sát việc sử dụng và đầu ra mô hình</li>
+        <li>Phát triển KPI và dashboard</li>
+        <li>Trực quan hóa phù hợp nhu cầu các nhóm chức năng</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 43 -->
+<section >
+    <h2>Nhóm Kinh doanh Chức năng</h2>
+    <ul>
+        <li>Sử dụng dashboard để cải thiện quyết định</li>
+        <li>Marketing: dùng mô hình churn để tiếp cận khách hàng</li>
+        <li>Vận hành: dự đoán thời gian vận chuyển và hậu cần</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 44 -->
+<section >
+    <h2>Nhóm Khoa học Dữ liệu</h2>
+    <ul>
+        <li>Theo dõi tính hợp lệ và hiệu quả mô hình</li>
+        <li>Thay đổi kinh doanh có thể làm mô hình cũ kém chính xác</li>
+        <li>Huấn luyện lại mô hình với dữ liệu mới</li>
+    </ul>
+    <img hidden>
+</section>
+
+<!-- Slide 45 -->
+<section >
+    <h2>Tổng kết Mục tiêu Học tập</h2>
+    <ul>
+        <li>Xác định quy trình khoa học dữ liệu</li>
+        <li>Xác định vai trò và kỹ năng chính</li>
+        <li>Hiểu các mô hình tổ chức đội ngũ</li>
+        <li>Nhận diện các quan niệm sai lầm phổ biến</li>
+        <li>Hiểu việc bảo trì mô hình sau triển khai</li>
+    </ul>
+    <img hidden>
+</section>
+
+</div>
+</div>
+
+<script src="revealjs/dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script src="plugin/math/math.js"></script>
+<script>
+Reveal.initialize({
+    controlsLayout: 'edges',
+    slideNumber: true,
+    hashOneBasedIndex: true,
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX]
+});
+</script>
+
+</body>
+</html>
