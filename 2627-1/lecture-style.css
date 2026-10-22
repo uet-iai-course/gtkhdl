@@ -1,0 +1,794 @@
+/* ============================================================
+   LTXLDL 2627-1 — CSS chung cho slide Reveal.js
+   Nền tảng kế thừa từ 2526-1, bổ sung các pattern chuẩn hoá
+   theo SLIDE_STYLE_GUIDE.md (badge, hộp nhấn, hai cột, figure).
+   Hệ màu: xanh lam #2A7291 (cấu trúc/định nghĩa),
+           cam #E8890C (điểm chốt/cảnh báo),
+           xanh lá #2E8B57 (ví dụ tốt/khuyến nghị),
+           đỏ #E62727 (chỉ dùng cho lỗi/sai).
+   ============================================================ */
+
+.reveal {
+    font-size: 36px;
+}
+
+.reveal .slides section {
+    text-align: left;
+}
+
+.reveal h2 {
+    font-size: 1.45em;
+    margin-bottom: 0.55em;
+}
+
+/* Cân dòng tiêu đề và hạn chế một từ đứng lẻ ở dòng cuối. */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal .caption {
+    text-wrap: balance;
+}
+
+.reveal p,
+.reveal li,
+.reveal th,
+.reveal td,
+.reveal .question-content,
+.reveal .key-box,
+.reveal .warn-box,
+.reveal .good-box {
+    text-wrap: pretty;
+}
+
+.reveal h4 {
+    font-size: 1.05em;
+    margin-bottom: 0.35em;
+}
+
+/* Chrome điều hướng ăn theo màu accent của index-pages.css (#6D4AA8) */
+.reveal .controls .controls-arrow {
+    color: #6D4AA8;
+}
+
+.reveal .progress span {
+    background: #6D4AA8;
+}
+
+.reveal .text-blue {
+    color: #2A7291 !important;
+}
+
+.reveal .text-red {
+    color: #E62727 !important;
+}
+
+.reveal .text-orange {
+    color: #E8890C !important;
+}
+
+.reveal .text-green {
+    color: #2E8B57 !important;
+}
+
+.reveal .text-light {
+    color: #666 !important;
+}
+
+.reveal a {
+    color: #2A7291;
+}
+
+.reveal ul,
+.reveal ol {
+    padding-left: 1rem;
+    line-height: 1.35em;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.reveal ul ul,
+.reveal ol ol,
+.reveal ul ol,
+.reveal ol ul {
+    font-size: 0.9em;
+}
+
+.reveal li {
+    margin-bottom: 0.28em;
+}
+
+.reveal p {
+    margin: 0.5em 0;
+}
+
+.reveal .text-center {
+    text-align: center;
+}
+
+.reveal .text-underlined {
+    text-decoration: underline;
+}
+
+.reveal .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+    color: #888;
+}
+
+/* Hide footer when the first slide is showing */
+.reveal section:first-of-type.present~.footer {
+    display: none;
+}
+
+.reveal .keyword {
+    color: #E62727;
+    font-weight: bold;
+}
+
+.reveal .inline-code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 4px;
+    text-transform: none !important;
+}
+
+.reveal .fragment.blur {
+    filter: blur(5px);
+}
+
+.reveal .fragment.blur.visible {
+    filter: none;
+}
+
+/* ------------------------------------------------------------
+   Hộp câu hỏi (thảo luận nhanh trên lớp)
+   ------------------------------------------------------------ */
+
+.reveal .question-box {
+    border: 3px solid #2A7291;
+    border-radius: 16px;
+    padding: 0.7em 0.9em;
+    margin: auto;
+    background: #F3F2EC;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    font-size: 0.95em;
+}
+
+.reveal .question-title {
+    font-weight: bold;
+    color: #2A7291;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.reveal .question-content {
+    line-height: 1.4;
+    color: #333;
+}
+
+/* Trích dẫn lịch sử: khối gọn, dễ đọc, không dùng bóng đổ mặc định của Reveal. */
+.reveal blockquote.historical-quote {
+    position: relative;
+    width: auto;
+    margin: 0.15em 0 0;
+    padding: 0.55em 0.4em 0.45em 1em;
+    border-left: 6px solid #2A7291;
+    background: #F2F8FA;
+    box-shadow: none;
+    color: #222;
+    font-style: normal;
+}
+
+.reveal blockquote.historical-quote::before {
+    content: "“";
+    position: absolute;
+    top: -0.18em;
+    left: 0.13em;
+    color: #2A7291;
+    font-family: Georgia, serif;
+    font-size: 2.5em;
+    line-height: 1;
+    opacity: 0.32;
+}
+
+.reveal blockquote.historical-quote p {
+    margin: 0;
+    font-size: 1.02em;
+    line-height: 1.42;
+    text-wrap: pretty;
+}
+
+.reveal blockquote.historical-quote footer {
+    margin-top: 0.7em;
+    color: #555;
+    font-size: 0.62em;
+    line-height: 1.3;
+}
+
+.reveal blockquote.historical-quote cite {
+    font-style: italic;
+}
+
+/* Trích dẫn song ngữ: câu Việt là chính, bản tiếng Anh nằm ngay dưới. */
+.reveal blockquote.historical-quote.bilingual-quote {
+    margin: 0.5em 0 0;
+    padding: 0.5em 0.8em;
+    text-align: left;
+}
+
+.reveal blockquote.historical-quote.bilingual-quote::before {
+    content: none;
+}
+
+.reveal blockquote.historical-quote.bilingual-quote p {
+    display: block;
+}
+
+.reveal blockquote.bilingual-quote .quote-text {
+    font-size: 1.02em;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.reveal blockquote.bilingual-quote .quote-translation {
+    margin: 0.35em 0 0;
+    color: #4C626C;
+    font-size: 0.72em;
+    font-style: italic;
+    line-height: 1.35;
+}
+
+/* ------------------------------------------------------------
+   Hộp nhấn — chỉ dùng cho insight quan trọng / cảnh báo /
+   nguyên tắc chốt (không dùng tràn lan).
+   .key-box  : điểm chốt, insight (cam)
+   .warn-box : cảnh báo, lỗi hay gặp (đỏ)
+   .good-box : khuyến nghị, cách làm tốt (xanh lá)
+   ------------------------------------------------------------ */
+
+.reveal .key-box,
+.reveal .warn-box,
+.reveal .good-box {
+    border-left: 8px solid;
+    border-radius: 8px;
+    padding: 0.45em 0.75em;
+    margin: 0.55em 0;
+    line-height: 1.3;
+    font-size: 0.92em;
+}
+
+.reveal .key-box {
+    border-color: #E8890C;
+    background: #FDF3E3;
+}
+
+.reveal .warn-box {
+    border-color: #E62727;
+    background: #FBEAEA;
+}
+
+.reveal .good-box {
+    border-color: #2E8B57;
+    background: #EAF5EF;
+}
+
+.reveal .key-box .box-title,
+.reveal .warn-box .box-title,
+.reveal .good-box .box-title {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.25em;
+}
+
+.reveal .key-box .box-title {
+    color: #553582;
+}
+
+.reveal .warn-box .box-title {
+    color: #E62727;
+}
+
+.reveal .good-box .box-title {
+    color: #2E8B57;
+}
+
+/* ------------------------------------------------------------
+   Badge — 📖 Tự học và 🤖 Làm với AI
+   Pattern: <div class="slide-badge-row">
+              <span class="self-study-badge">📖 Tự học</span>
+            </div>
+   đặt ngay sau <h2>.
+   ------------------------------------------------------------ */
+
+.reveal .slide-badge-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35em;
+    margin: -0.45em 0 0.45em 0;
+}
+
+.reveal .history-date,
+.reveal .self-study-badge,
+.reveal .ai-badge {
+    display: inline-block;
+    font-size: 0.55em;
+    font-weight: bold;
+    padding: 0.15em 0.7em;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+
+.reveal .history-date {
+    color: #553582;
+    background: #F1EAFA;
+    border: 2px solid #6D4AA8;
+}
+
+/* ------------------------------------------------------------
+   Dòng thời gian lịch sử
+   Mỗi mốc gồm: thời gian → điểm đánh dấu → tên → ý chính.
+   ------------------------------------------------------------ */
+
+.reveal .history-timeline {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.2em;
+    margin: 0.75em 0 0.55em;
+}
+
+.reveal .history-timeline::before {
+    content: "";
+    position: absolute;
+    top: 1.36em;
+    left: 7%;
+    right: 7%;
+    height: 3px;
+    background: #2A7291;
+}
+
+.reveal .timeline-event {
+    position: relative;
+    min-width: 0;
+    text-align: center;
+}
+
+.reveal .timeline-date {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 2.3em;
+    color: #553582;
+    font-size: 0.42em;
+    font-weight: bold;
+    line-height: 1.15;
+}
+
+.reveal .timeline-dot {
+    position: relative;
+    z-index: 1;
+    width: 0.34em;
+    height: 0.34em;
+    margin: 0.18em auto 0.42em;
+    border-radius: 50%;
+    background: #2A7291;
+    box-shadow: 0 0 0 0.12em #E4F2F5;
+}
+
+.reveal .timeline-name {
+    color: #2A7291;
+    font-size: 0.52em;
+    font-weight: bold;
+    line-height: 1.15;
+    text-wrap: balance;
+}
+
+.reveal .timeline-note {
+    margin-top: 0.22em;
+    font-size: 0.42em;
+    line-height: 1.25;
+    text-wrap: balance;
+}
+
+.reveal .history-timeline-summary {
+    margin-top: 0.7em;
+    color: #553582;
+    font-size: 0.72em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.reveal .self-study-badge {
+    color: #2A7291;
+    background: #E4F2F5;
+    border: 2px solid #2A7291;
+}
+
+.reveal .ai-badge {
+    color: #7A4CB0;
+    background: #F1EAFA;
+    border: 2px solid #7A4CB0;
+}
+
+/* ------------------------------------------------------------
+   Layout hai cột
+   Pattern: <div class="two-col">
+              <div>...</div><div>...</div>
+            </div>
+   Biến thể lệch: .two-col--wide-left / .two-col--wide-right
+   ------------------------------------------------------------ */
+
+.reveal .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    align-items: start;
+}
+
+.reveal .two-col--wide-left {
+    grid-template-columns: 3fr 2fr;
+}
+
+.reveal .two-col--wide-right {
+    grid-template-columns: 2fr 3fr;
+}
+
+/* ------------------------------------------------------------
+   Hình + caption
+   Pattern: <figure class="fig">
+              <img src="..." alt="...">
+              <figcaption class="caption">Câu chốt của hình.</figcaption>
+            </figure>
+   Chỉnh cỡ bằng style="width: 70%" trên <img> khi cần.
+   ------------------------------------------------------------ */
+
+.reveal .fig {
+    margin: 0.4em auto;
+    text-align: center;
+}
+
+.reveal .fig img {
+    max-width: 100%;
+    max-height: 460px;
+    height: auto;
+    /* Giữ đúng tỉ lệ: khi width (inline) và max-height cùng ràng buộc, box có thể
+       sai tỉ lệ — object-fit:contain fit ảnh vào box theo đúng tỉ lệ gốc, căn giữa,
+       không bóp méo. No-op khi max-height không "cắn". */
+    object-fit: contain;
+    object-position: center;
+}
+
+.reveal .caption {
+    text-align: center;
+    margin-top: 0.4em;
+    font-size: 0.72em;
+    font-style: italic;
+    color: #666;
+}
+
+.reveal .person-caption {
+    font-size: 0.62em;
+    line-height: 1.3;
+}
+
+/* ------------------------------------------------------------
+   Bảng — mặc định của theme trắng hơi to; .compact-table dùng
+   cho bảng so sánh 3-4 cột.
+   ------------------------------------------------------------ */
+
+.reveal table.compact-table {
+    font-size: 0.62em;
+    line-height: 1.3;
+}
+
+.reveal table.compact-table th {
+    color: #2A7291;
+}
+
+.reveal table.compact-table td,
+.reveal table.compact-table th {
+    padding: 0.3em 0.6em;
+}
+
+/* ------------------------------------------------------------
+   Pipeline diagram (các bước nối bằng mũi tên)
+   ------------------------------------------------------------ */
+
+.reveal .pipeline {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0.4em;
+    margin-top: 0.7em;
+    flex-wrap: wrap;
+    font-size: 0.7em;
+}
+
+.reveal .pipeline .stage {
+    background: #F3F2EC;
+    border: 2px solid #2A7291;
+    border-radius: 10px;
+    padding: 0.4em;
+    width: 132px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.reveal .pipeline.pipeline-wide .stage {
+    width: 160px;
+}
+
+.reveal .pipeline .stage.stage-highlight {
+    border-color: #E8890C;
+    background: #FDF3E3;
+}
+
+.reveal .pipeline .stage-title {
+    font-weight: bold;
+    color: #2A7291;
+    margin-bottom: 0.3em;
+    font-size: 0.85em;
+}
+
+.reveal .pipeline .stage.stage-highlight .stage-title {
+    color: #553582;
+}
+
+.reveal .pipeline .stage-desc {
+    font-size: 0.68em;
+    color: #333;
+    line-height: 1.25;
+}
+
+.reveal .pipeline .arrow {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    color: #2A7291;
+}
+
+/* Responsive: stack nicely on narrow displays */
+@media (max-width: 900px) {
+    .reveal .stage {
+        width: 160px;
+    }
+}
+
+@media (max-width: 680px) {
+    .reveal .pipeline {
+        gap: 0.6em;
+    }
+
+    .reveal .arrow {
+        display: none;
+    }
+
+    .reveal .stage {
+        width: 100%;
+        max-width: 420px;
+    }
+}
+
+/* Hide line numbers ONLY for code blocks with class 'no-line-numbers' */
+.reveal pre code.no-line-numbers .hljs-ln-numbers {
+    display: none !important;
+}
+
+/* ============================================================
+   Khối code + output kiểu Jupyter (jp-cell)
+   Pattern:
+   <div class="jp-cell">
+     <pre class="jp-input"><code class="language-python" data-trim>
+   ...code...
+     </code></pre>
+     <pre class="jp-output"><code class="language-text" data-trim>
+   ...output...
+     </code></pre>
+   </div>
+   ============================================================ */
+
+:root {
+    --jp-bg: #1e1f24;
+    --jp-bg-2: #23252b;
+    --jp-fg: #e8e8e8;
+    --jp-muted: #b6b6b6;
+    --jp-border: #2c2f36;
+    --jp-accent: #f1c76a;
+    --jp-radius: 0px;
+    --jp-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+    --jp-padY: 8px;
+    --jp-padX: 10px;
+    --jp-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Source Code Pro", monospace;
+    --jp-stdout: #c6e1a7;
+    --jp-stderr: #ffb3b3;
+    --jp-gutter-width: 10ch;
+    /* width of the prompt gutter */
+}
+
+/* cell wrapper */
+.reveal .jp-cell {
+    margin: 0.8rem 0;
+    background: var(--jp-bg);
+    border: 1px solid var(--jp-border);
+    border-radius: var(--jp-radius);
+    box-shadow: var(--jp-shadow);
+    overflow: hidden;
+}
+
+/* rows: fixed gutter + content */
+.reveal .jp-input,
+.reveal .jp-output {
+    display: grid;
+    grid-template-columns: var(--jp-gutter-width) 1fr;
+    /* gutter | code */
+    align-items: start;
+    /* top-align reliably */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.reveal .jp-input {
+    border-bottom: 1px solid var(--jp-border)
+}
+
+.reveal .jp-output {
+    background: var(--jp-bg-2)
+}
+
+/* prompts (in gutter) */
+.reveal .jp-input::before,
+.reveal .jp-output::before {
+    grid-column: 1;
+    justify-self: end;
+    /* right-align inside gutter */
+    padding-top: var(--jp-padY);
+    /* match code's top padding */
+    padding-left: 1rem;
+    /* inset from left cell edge */
+    margin-right: .5rem;
+    /* gap before code */
+    font: 600 1em var(--jp-font);
+    /* match line-height */
+    white-space: nowrap;
+}
+
+.reveal .jp-input::before {
+    content: "In  [" attr(data-jp-n) "]:";
+    color: var(--jp-accent);
+}
+
+.reveal .jp-output::before {
+    content: "Out [" attr(data-jp-n) "]:";
+    color: var(--jp-muted);
+}
+
+/* variant: gutter thu gọn khi cần code rộng hơn */
+.reveal .jp-cell.jp-plain {
+    --jp-gutter-width: 1ch;
+}
+
+.reveal .jp-cell.jp-plain .jp-input::before,
+.reveal .jp-cell.jp-plain .jp-output::before {
+    content: "";
+}
+
+/* code/output column */
+.reveal .jp-input>code,
+.reveal .jp-output>code,
+.reveal .jp-stdout,
+.reveal .jp-stderr {
+    grid-column: 2;
+    padding: var(--jp-padY) var(--jp-padX) var(--jp-padY) 0;
+    font: 1em var(--jp-font);
+    color: var(--jp-fg);
+    background: transparent !important;
+    overflow-x: auto;
+}
+
+.reveal .jp-cell pre {
+    margin: 0;
+    border: 0;
+    width: 100%;
+    font-size: 0.55em;
+}
+
+/* selection */
+.reveal .jp-cell ::selection {
+    background: rgba(255, 255, 255, .14)
+}
+
+/* stdout/stderr tint */
+.reveal .jp-stdout {
+    color: var(--jp-stdout)
+}
+
+.reveal .jp-stderr {
+    color: var(--jp-stderr)
+}
+
+/* compact single-line output */
+.reveal .jp-output.jp-compact>code {
+    padding-top: .25rem;
+    padding-bottom: .25rem
+}
+
+/* ------------------------------------------------------------
+   Điều chỉnh cho môn Nhận thức, Ngôn ngữ và Tư duy
+   Deck môn này dùng ảnh chân dung, tranh giải phẫu và ảnh chụp
+   bảng sách — đều là ảnh CAO, khác sơ đồ SVG rộng-thấp của môn
+   Lập trình xử lý dữ liệu. Trần 460px mặc định gây tràn khung
+   960×700 khi slide còn có tiêu đề + chữ, nên hạ theo ngữ cảnh.
+   ------------------------------------------------------------ */
+
+.reveal .fig img {
+    max-height: 320px;
+}
+
+/* ảnh nằm cạnh cột chữ thì phải thấp hơn nữa */
+.reveal .two-col .fig img {
+    max-height: 260px;
+}
+
+/* Sáu chân dung mục 5: cùng khung 4:5, giữ nguyên ảnh gốc. */
+.reveal .fig.pioneer-portrait {
+    width: 192px;
+    margin: 0.4em auto;
+}
+
+.reveal .pioneer-portrait .portrait-window {
+    position: relative;
+    width: 192px;
+    height: 240px;
+    overflow: hidden;
+}
+
+.reveal .two-col .pioneer-portrait .portrait-window img {
+    position: absolute;
+    display: block;
+    width: var(--portrait-width, 100%);
+    max-width: none;
+    max-height: none;
+    height: auto;
+    left: var(--portrait-left, 0%);
+    top: 0;
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.reveal .pioneer-portrait figcaption {
+    margin-top: 0.4em;
+    font-size: 0.62em;
+    line-height: 1.3;
+    font-style: normal;
+    color: inherit;
+    white-space: nowrap;
+}
+
+/* Nhịp dọc gọn hơn. Đo trên slide tràn cho thấy thủ phạm KHÔNG phải ảnh
+   mà là lề của tiêu đề và của các hộp nhấn nằm dưới khối hai cột:
+   h2 để 28px lề dưới, mỗi hộp 18px lề trên + dưới. Trên slide có đủ
+   "tiêu đề + hai cột + hộp" thì riêng lề đã ăn hơn 90px. */
+.reveal h2 {
+    margin-bottom: 0.42em;
+}
+
+.reveal .key-box,
+.reveal .warn-box,
+.reveal .good-box {
+    margin: 0.5em 0;
+    padding: 0.5em 0.8em;
+}
+
+.reveal .caption {
+    margin-top: 0.3em;
+}

@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Khoa học dữ liệu | Bài 1: Nhập môn</title>
+  <link rel="stylesheet" href="revealjs/dist/reset.css">
+  <link rel="stylesheet" href="revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css">
+  <link rel="stylesheet" href="plugin/highlight/zenburn.css">
+  <link rel="stylesheet" href="lecture-style.css">
+  <link rel="stylesheet" href="lecture-01.css?v=29">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section>
+        <section>
+          <h1>Giới thiệu<br>khoa học dữ liệu</h1>
+          <p class="text-light">Học kỳ I, năm học 2026–2027</p>
+          <p class="text-light">Trường Đại học Công nghệ, ĐHQGHN</p>
+        </section>
+
+        <section>
+          <h1><span class="text-light">Bài 1</span><br>Nhập môn<br>khoa học dữ liệu</h1>
+          <p class="text-light">Một bảng số đã là tri thức chưa?<br>Và ai đã khiến câu hỏi ấy thành một ngành?</p>
+        </section>
+
+        <section>
+          <h2>Tổng quan buổi học</h2>
+          <ol>
+            <li>Dữ liệu là gì — Hume, năm cách nhìn, ba câu nói</li>
+            <li>Khoa học dữ liệu là giao của ba lĩnh vực</li>
+            <li>Lịch sử khoa học dữ liệu, có mốc, ý nghĩa và nguồn</li>
+            <li>Vibe coding — prompt Inside Airbnb: QA, KPI, EDA, K-means, dashboard</li>
+            <li>Cách học, chuyên cần, giữa kỳ, cuối kỳ</li>
+            <li>Hai mươi giáo trình, từ toán tới big data</li>
+          </ol>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">1.</span><br>Dữ liệu là gì?</h1>
+          <p class="text-light">Năm cách nhìn. Không có một định nghĩa bao hết.</p>
+        </section>
+
+        <section>
+          <h2>Câu hỏi mở</h2>
+          <div class="question-box">
+            <div class="question-title">David Hume, 1748</div>
+            <div class="question-content">
+              <p>Mặt trời đã mọc 1.000 ngày.</p>
+              <p>Điều đó có bảo đảm ngày thứ 1.001 nó sẽ mọc không?</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://davidhume.org/texts/e/4" target="_blank" rel="noopener">David Hume, An Enquiry Concerning Human Understanding, mục IV</a>, 1748. Con số 1.000 là cách hỏi lại luận điểm ấy, không phải câu chữ trong sách.</p>
+        </section>
+
+        <section>
+          <h2>1. Bản ghi về thế giới</h2>
+          <p><em>Data</em> mượn từ Latin <em>datum</em>: điều được cho. OED thấy từ này từ giữa thế kỷ XVII.</p>
+          <blockquote class="historical-quote bilingual-quote">
+            <p class="quote-text">facts or information, especially when examined and used to find out things or to make decisions</p>
+            <p class="quote-translation">Sự kiện hoặc thông tin, nhất là khi được xem để tìm ra điều gì, hoặc để quyết định.</p>
+            <footer>Oxford Advanced Learner's Dictionary, mục data</footer>
+          </blockquote>
+          <p>Ví dụ: 38,5°C cần nơi đo, dụng cụ, thời điểm và đơn vị.</p>
+          <div class="key-box"><span class="box-title">Câu hỏi</span> Dữ liệu phản ánh thế giới, hay phản ánh cách ta đo thế giới?</div>
+          <p class="source">Nguồn: <a href="https://www.oed.com/dictionary/data_n" target="_blank" rel="noopener">Oxford English Dictionary, mục data</a> · <a href="https://www.oxfordlearnersdictionaries.com/definition/english/data" target="_blank" rel="noopener">Oxford Learner's Dictionaries</a>.</p>
+        </section>
+
+        <section>
+          <h2>2. Một khác biệt nhận ra được</h2>
+          <blockquote class="historical-quote bilingual-quote">
+            <p class="quote-text">A datum is a putative fact regarding some difference or lack of uniformity within some context.</p>
+            <p class="quote-translation">Một datum là một điều được coi là sự kiện, về một khác biệt, hoặc một chỗ không đồng nhất, trong một bối cảnh.</p>
+            <footer>Luciano Floridi — định nghĩa diaphoric</footer>
+          </blockquote>
+          <div class="key-box"><span class="box-title">Câu hỏi</span> Nếu không có khác biệt nào để nhận ra, còn dữ liệu không?</div>
+          <p class="source">Nguồn: <a href="https://plato.stanford.edu/archives/fall2020/entries/information-semantic/" target="_blank" rel="noopener">Floridi, Stanford Encyclopedia of Philosophy, “Semantic Conceptions of Information”, mục 1.3</a>.</p>
+        </section>
+
+        <section>
+          <h2>3. Biểu diễn để xử lý được</h2>
+          <blockquote class="historical-quote bilingual-quote">
+            <p class="quote-text">Representation of facts, concepts, or instructions in a manner suitable for communication, interpretation, or processing by humans or by automatic means.</p>
+            <p class="quote-translation">Biểu diễn sự kiện, khái niệm hoặc chỉ dẫn, theo cách người hoặc máy có thể truyền, diễn giải hay xử lý.</p>
+            <footer>NIST SP 800-160 Vol. 1 Rev. 1</footer>
+          </blockquote>
+          <p>Ví dụ: một con mèo có thể là ảnh trên màn hình, mảng pixel, chuỗi byte, vector, hoặc nhãn <span class="inline-code">cat</span>.</p>
+          <div class="key-box"><span class="box-title">Câu hỏi</span> Đổi ảnh thành vector: giữ lại điều gì, và mất điều gì?</div>
+          <p class="source">Nguồn: <a href="https://csrc.nist.gov/glossary/term/data" target="_blank" rel="noopener">NIST Computer Security Resource Center, mục data</a>, dẫn NIST SP 800-160 Vol. 1 Rev. 1.</p>
+        </section>
+
+        <section class="fit">
+          <h2>4. Có ngữ cảnh mới thành thông tin</h2>
+          <p>Data.gov: data là một giá trị, hoặc một tập giá trị, đại diện cho một khái niệm. Data thành information khi được phân tích, có thể cùng dữ liệu khác, để rút ra nghĩa và có ngữ cảnh.</p>
+          <table class="era-table">
+            <thead><tr><th>Giá trị</th><th>Khi có ngữ cảnh</th></tr></thead>
+            <tbody>
+              <tr><td>120</td><td>Một số, chưa rõ nghĩa</td></tr>
+              <tr><td>120 km/h</td><td>Tốc độ một xe</td></tr>
+              <tr><td>120 đơn hàng</td><td>Số đơn trong một khoảng thời gian</td></tr>
+              <tr><td>120 triệu đồng</td><td>Một khoản tiền</td></tr>
+              <tr><td>120 ms</td><td>Thời gian một hệ thống phản hồi</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Câu hỏi</span> Nghĩa nằm sẵn trong số, hay hiện ra khi người ta đọc số? Hai nơi cùng gọi một trường là <span class="inline-code">customer</span>: một bên là người mua, một bên là người ký hợp đồng.</div>
+          <p class="source">Nguồn: <a href="https://resources.data.gov/glossary/data-vs.-information/" target="_blank" rel="noopener">Data.gov, Data vs. information</a>. DAMA UK định nghĩa information là tri thức có nghĩa trong một bối cảnh. <a href="https://www.dama-uk.org/pages/glossary" target="_blank" rel="noopener">DAMA UK Glossary</a>.</p>
+        </section>
+
+        <section>
+          <h2>Định nghĩa của một tổ chức chuẩn</h2>
+          <blockquote class="historical-quote bilingual-quote">
+            <p class="quote-text">Data: reinterpretable representation of information in a formalized manner suitable for communication, interpretation, or processing.</p>
+            <p class="quote-translation">Dữ liệu là cách biểu diễn thông tin theo một dạng có quy ước, để có thể truyền, diễn giải hoặc xử lý lại.</p>
+            <footer><cite>ISO/IEC 2382:2015</cite> · thuật ngữ data</footer>
+          </blockquote>
+          <p class="source">Nguồn: <a href="https://www.iso.org/standard/63598.html" target="_blank" rel="noopener">ISO/IEC 2382:2015, Information technology — Vocabulary</a>.</p>
+        </section>
+
+        <section>
+          <h2>Ẩn dụ hay gặp nhất</h2>
+          <blockquote class="historical-quote">
+            <p>The world’s most valuable resource is no longer oil, but data.</p>
+            <footer>The Economist, 6 tháng 5 năm 2017. Câu “data is the new oil” được gắn với Clive Humby, 2006.</footer>
+          </blockquote>
+          <div class="key-box"><span class="box-title">Đọc kỹ</span> Đây là luận điểm về <strong>giá trị kinh tế</strong>, không phải định nghĩa. Dầu đốt đi là hết. Dữ liệu sao chép được — và cũng có thể sai từ lúc ghi.</div>
+          <p class="source">Nguồn: <a href="https://www.economist.com/leaders/2017/05/06/the-worlds-most-valuable-resource-is-no-longer-oil-but-data" target="_blank" rel="noopener">The Economist, 6/5/2017</a>.</p>
+        </section>
+
+        <section>
+          <h2>Kỹ năng mà dữ liệu đòi hỏi</h2>
+          <blockquote class="historical-quote bilingual-quote">
+            <p class="quote-text">The ability to take data — to be able to understand it, to process it, to extract value from it, to visualize it, to communicate it — that’s going to be a hugely important skill.</p>
+            <p class="quote-translation">Lấy được dữ liệu rồi còn phải hiểu, xử lý, rút giá trị, vẽ ra và nói cho người khác hiểu.</p>
+            <footer>Hal Varian, kinh tế trưởng của Google, trả lời McKinsey Quarterly, 2009</footer>
+          </blockquote>
+          <p class="source">Nguồn: <a href="https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/hal-varian-on-how-the-web-challenges-managers" target="_blank" rel="noopener">McKinsey Quarterly, Hal Varian on how the web challenges managers</a>.</p>
+        </section>
+
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">2.</span><br>Khoa học dữ liệu<br>là gì?</h1>
+          <p class="text-light">Giao của ba lĩnh vực.</p>
+        </section>
+
+        <section>
+          <h2>Giao của ba lĩnh vực</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec01/data-science-venn.png" alt="Ba vòng tròn mathematics, computer science và domain expertise giao nhau tại data science" style="max-height:450px">
+              <figcaption class="caption">Sơ đồ ngày 24/7/2024. Максим Пе, Wikimedia, CC BY-SA 4.0.</figcaption>
+            </figure>
+            <div>
+              <p>Khoa học dữ liệu là phần chung của <strong>toán học</strong>, <strong>khoa học máy tính</strong> và <strong>kiến thức nghiệp vụ</strong>.</p>
+              <p class="source">Nhãn trên hình là mathematics, computer science và domain expertise. Đây là một khung giải thích phổ biến, không phải định nghĩa duy nhất, cũng không phải luật rằng mọi việc cần ba phần bằng nhau. Conway (30/9/2010) gọi ba phía là kỹ năng lập trình, toán–thống kê, và kiến thức chuyên ngành. <a href="http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram" target="_blank" rel="noopener">Drew Conway, 2010</a>.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Toán học</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec01/math-normal.png" alt="Bốn đường phân phối chuẩn, khác trung bình và phương sai" style="max-height:280px">
+              <figcaption class="caption">Hàm mật độ phân phối chuẩn. Wikimedia, CC BY-SA 3.0.</figcaption>
+            </figure>
+            <div>
+              <p>Biến dữ liệu thành bằng chứng: mô tả hiện tượng, xây mô hình, đánh giá độ tin của kết luận.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Sáu mảng toán hay gặp</h2>
+          <div class="two-col list-wide">
+            <figure class="fig">
+              <img src="img/lec01/math-normal.png" alt="Bốn đường phân phối chuẩn, khác trung bình và phương sai" style="max-height:250px">
+              <figcaption class="caption">Hàm mật độ phân phối chuẩn. Wikimedia, CC BY-SA 3.0.</figcaption>
+            </figure>
+            <ul>
+              <li><strong>Xác suất, thống kê</strong> — bất định, kiểm định. Ví dụ: thuốc</li>
+              <li><strong>Đại số tuyến tính</strong> — vector, ma trận. Ví dụ: embedding</li>
+              <li><strong>Giải tích</strong> — tối ưu bằng gradient. Ví dụ: học sâu</li>
+              <li><strong>Tối ưu hóa</strong> — nghiệm dưới ràng buộc. Ví dụ: giao hàng</li>
+              <li><strong>Toán rời rạc, đồ thị</strong> — quan hệ, cấu trúc. Ví dụ: mạng xã hội</li>
+              <li><strong>Phương trình vi phân</strong> — đổi theo thời gian. Ví dụ: dịch bệnh</li>
+            </ul>
+          </div>
+          <div class="key-box"><span class="box-title">Chưa đủ</span> Một mô hình toán không tự thành tri thức đáng tin. Giả định, dữ liệu, mẫu và cách kiểm định đều đổi kết luận.</div>
+        </section>
+
+        <section>
+          <h2>Khoa học máy tính</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec01/cs-code.jpg" alt="Mã nguồn trên màn hình máy tính" style="max-height:340px">
+              <figcaption class="caption">Mã nguồn trên màn hình, ảnh 21/7/2016. Martin Vorel, CC BY-SA 4.0.</figcaption>
+            </figure>
+            <div>
+              <p>Xử lý dữ liệu, và biến phương pháp thành thuật toán cùng hệ thống.</p>
+              <div class="key-box"><span class="box-title">Vẫn phải tính được</span> Có mô hình đúng vẫn phải chạy trên dữ liệu thật, trong giới hạn thời gian, bộ nhớ và chi phí.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Sáu việc trên máy</h2>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/server-racks.jpg" alt="Các tủ máy chủ trong phòng máy" style="max-height:250px">
+              <figcaption class="caption">Tủ máy chủ tại trụ sở NOIRLab, Tucson, ảnh 2022. NOIRLab/NSF/AURA/T. Slovinský, CC BY 4.0.</figcaption>
+            </figure>
+            <ul>
+              <li><strong>Thuật toán, cấu trúc dữ liệu</strong> — tìm, sắp xếp, lập chỉ mục, truy vấn</li>
+              <li><strong>Cơ sở dữ liệu</strong> — lưu và lấy dữ liệu có cấu trúc</li>
+              <li><strong>Tính toán song song, phân tán</strong> — tập quá lớn cho một máy</li>
+              <li><strong>Hiện thực mô hình</strong> — huấn luyện chạy được và tối ưu được</li>
+              <li><strong>Kỹ nghệ phần mềm</strong> — kiểm thử, phiên bản, hệ thống đáng tin</li>
+              <li><strong>Bảo mật, quyền riêng tư</strong> — kiểm soát truy cập, giữ dữ liệu nhạy cảm</li>
+            </ul>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.acm.org/binaries/content/assets/education/curricula-recommendations/dstf_ccdsc2021.pdf" target="_blank" rel="noopener">ACM Data Science Task Force, 2021</a> — các nhóm thuật toán và lập trình, quản lý dữ liệu, hệ thống dữ liệu lớn, học máy, phát triển phần mềm, quyền riêng tư. Báo cáo còn yêu cầu thêm toán, thống kê, và một miền ứng dụng.</p>
+        </section>
+
+        <section>
+          <h2>Quy mô đổi cách tính</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec01/google-datacenter.jpg" alt="Trung tâm dữ liệu Google tại The Dalles" style="max-height:320px">
+              <figcaption class="caption">Trung tâm dữ liệu Google tại The Dalles, ảnh 23/6/2020. CC BY-SA 4.0. Minh họa nhiều máy, không phải một hệ thống phân loại cụ thể.</figcaption>
+            </figure>
+            <div>
+              <p>Một thuật toán phân loại có thể chạy tốt trên <strong>10.000</strong> bản ghi, rồi chậm hoặc hết bộ nhớ ở <strong>10 tỷ</strong> bản ghi.</p>
+              <div class="key-box"><span class="box-title">Lúc đó</span> Thiết kế hệ thống và thuật toán trở thành yếu tố quyết định.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Kiến thức nghiệp vụ</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec01/domain-labbook.jpg" alt="Sổ thí nghiệm mở, ghi quy trình và đơn vị đo" style="max-height:280px">
+              <figcaption class="caption">Sổ thí nghiệm 6/3/1941, Lawrence Berkeley National Laboratory. Phạm vi công cộng. Một lĩnh vực ghi việc của mình.</figcaption>
+            </figure>
+            <div>
+              <p>Rộng hơn kiến thức kinh doanh. Là hiểu biết về lĩnh vực tạo ra dữ liệu.</p>
+              <p>Ví dụ các lĩnh vực: y tế, tài chính, giáo dục, logistics, sinh học, đồ họa 3D.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Việc máy không tự quyết</h2>
+          <ul>
+            <li>Cần dự đoán điều gì?</li>
+            <li>Dữ liệu sinh ra trong hoàn cảnh nào?</li>
+            <li>Biến nào có nghĩa với việc đang xét?</li>
+            <li>Sai lầm nào gây hậu quả lớn nhất?</li>
+            <li>Kết quả tốt về thống kê có hữu ích khi làm việc thật không?</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Ví dụ: độ chính xác 95%</h2>
+          <p>Ví dụ về sàng lọc một bệnh hiếm. Không phải kết quả của một nghiên cứu đã công bố.</p>
+          <ul>
+            <li>Mô hình chủ yếu đoán “không mắc bệnh” vẫn có thể đạt độ chính xác cao, và bỏ sót người bệnh.</li>
+            <li>Người trong nghề chỉ ra chi phí của âm tính giả, ngưỡng cảnh báo, và quy trình dùng kết quả.</li>
+          </ul>
+          <div class="key-box"><span class="box-title">Ý của ví dụ</span> Đúng về mặt số chưa đủ. Phải biết sai ấy đáng giá bao nhiêu trong việc thật.</div>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">3.</span><br>Lịch sử<br>khoa học dữ liệu</h1>
+          <p class="text-light">Từ xác suất thế kỷ XVII tới mô hình nền năm 2026.</p>
+        </section>
+
+        <section>
+          <h2>Không có một ngày khai sinh</h2>
+          <ul>
+            <li>Khoa học dữ liệu hình thành ở chỗ giao nhau của <strong>thống kê, toán, khoa học máy tính, cơ sở dữ liệu</strong> và tri thức ngành.</li>
+            <li>Nó không phải tên mới của trí tuệ nhân tạo, cũng không phải tên mới của thống kê.</li>
+            <li>Tukey, Naur, Wu và Cleveland là bốn cách nói khác nhau — không phải bốn ứng viên cho một ngôi “người sáng lập”.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Sáu thời kỳ, có chỗ chồng nhau</h2>
+          <div class="history-timeline" aria-label="Sáu thời kỳ của khoa học dữ liệu">
+            <div class="timeline-event">
+              <div class="timeline-date">XVII – 1930</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-name">Toán &amp; thống kê</div>
+              <div class="timeline-note">Đo bất định, thiết kế thí nghiệm</div>
+            </div>
+            <div class="timeline-event">
+              <div class="timeline-date">1936 – 1970</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-name">Máy tính</div>
+              <div class="timeline-note">Tính được, truyền được</div>
+            </div>
+            <div class="timeline-event">
+              <div class="timeline-date">1970 – 1996</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-name">Thành lĩnh vực</div>
+              <div class="timeline-note">CSDL, S, khai phá tri thức</div>
+            </div>
+            <div class="timeline-event">
+              <div class="timeline-date">1991 – 2004</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-name">Web &amp; tên gọi</div>
+              <div class="timeline-note">Data science được bàn trong học thuật</div>
+            </div>
+            <div class="timeline-event">
+              <div class="timeline-date">2006 – 2014</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-name">Big Data</div>
+              <div class="timeline-note">Cụm máy, dữ liệu ảnh lớn</div>
+            </div>
+            <div class="timeline-event">
+              <div class="timeline-date">2015 – 2026</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-name">Mô hình nền</div>
+              <div class="timeline-note">Dữ liệu để học, kiểm và giám sát</div>
+            </div>
+          </div>
+          <p class="era-note">Các khoảng năm cố ý chồng lên nhau. Ngành không bắt đầu tại một năm.</p>
+        </section>
+
+        <section>
+          <h2>Xác suất và sai số</h2>
+          <div class="slide-badge-row"><span class="history-date">1654 – 1809</span></div>
+          <div class="portrait-row">
+            <figure>
+              <img src="img/lec01/pascal.jpg" alt="Chân dung Blaise Pascal">
+              <figcaption>Blaise Pascal<br>Phạm vi công cộng, Wikimedia</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec01/fermat.jpg" alt="Chân dung thường được gắn với Pierre de Fermat">
+              <figcaption>Pierre de Fermat<br>Chân dung truyền thống</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec01/gauss.jpg" alt="Chân dung Carl Friedrich Gauss">
+              <figcaption>Carl Friedrich Gauss<br>Phạm vi công cộng</figcaption>
+            </figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>1654</td>
+                <td>Pascal và Fermat trao đổi thư về trò chơi may rủi</td>
+                <td>Xác suất trở thành cách lập luận có hệ thống về bất định</td>
+              </tr>
+              <tr>
+                <td>1763</td>
+                <td>Richard Price công bố bài của Thomas Bayes sau khi Bayes mất. Không có chân dung nào được xác thực là Bayes</td>
+                <td>Niềm tin về một giả thuyết được cập nhật khi có dữ liệu mới</td>
+              </tr>
+              <tr>
+                <td>1805 / 1809</td>
+                <td>Legendre công bố bình phương tối thiểu năm 1805. Gauss hệ thống hóa trong <em>Theoria motus</em> năm 1809</td>
+                <td>Sai số giữa dự đoán và quan sát trở thành thứ có thể tối ưu</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Pascal/" target="_blank" rel="noopener">MacTutor — Pascal</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Fermat/" target="_blank" rel="noopener">Fermat</a> · <a href="https://doi.org/10.1098/rstl.1763.0053" target="_blank" rel="noopener">Bayes, 1763</a> · <a href="https://archive.org/details/theoriamotuscor00gaus" target="_blank" rel="noopener">Gauss, 1809</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Dữ liệu phải đổi được quyết định</h2>
+          <div class="slide-badge-row"><span class="history-date">1858</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/nightingale.jpg" alt="Ảnh Florence Nightingale" style="max-height:190px">
+              <figcaption class="caption">Florence Nightingale. Ảnh H. Lenthall, phạm vi công cộng.</figcaption>
+            </figure>
+            <div>
+              <ul>
+                <li>Bà dùng số tử vong và điều kiện vệ sinh trong quân đội để tranh luận cho cải cách y tế.</li>
+                <li>Biểu đồ diện tích cực của bà để người ra quyết định <strong>nhìn thấy</strong> bệnh có thể phòng được, không chỉ đọc một bảng.</li>
+              </ul>
+              <div class="key-box"><span class="box-title">Ý nghĩa</span> Tính xong chưa đủ. Cách trình bày nằm trong việc dữ liệu có đổi được hành động hay không.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.sciencemuseum.org.uk/objects-and-stories/florence-nightingale" target="_blank" rel="noopener">Science Museum — Florence Nightingale</a>.</p>
+        </section>
+
+        <section>
+          <h2>Biểu đồ Nightingale vẫn đọc được</h2>
+          <img src="img/lec01/nightingale-diagram.jpg" alt="Diagram of the Causes of Mortality in the Army in the East, Florence Nightingale" style="width:100%; max-height:390px; object-fit:contain">
+          <p class="caption">Nêm xanh là tử vong do bệnh có thể phòng hoặc giảm. Nêm đỏ: thương tích. Nêm đen: nguyên nhân khác. Bản in khoảng 1858, phạm vi công cộng.</p>
+        </section>
+
+        <section>
+          <h2>Thống kê thành bộ công cụ</h2>
+          <div class="slide-badge-row"><span class="history-date">1900 – 1935</span></div>
+          <div class="two-col">
+            <figure class="fig">
+              <img src="img/lec01/pearson.jpg" alt="Karl Pearson tại bàn làm việc, khoảng 1910" style="max-height:230px">
+              <figcaption class="caption">Karl Pearson, khoảng 1910. Phạm vi công cộng.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="img/lec01/fisher-1952.jpg" alt="Frank Yates, Ronald Fisher và William Cochran năm 1952" style="max-height:230px">
+              <figcaption class="caption">1952: Yates, Fisher (giữa), Cochran. CC BY-SA 4.0.</figcaption>
+            </figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>1900–1901</td>
+                <td>Pearson hệ thống hóa tương quan, hồi quy và kiểm định chi-bình phương. Cùng Weldon và Galton lập <em>Biometrika</em> (1901)</td>
+                <td>Thống kê dùng được ngoài hình học thuần túy: sinh học, y, khoa học xã hội</td>
+              </tr>
+              <tr>
+                <td>1935</td>
+                <td>Fisher, <em>The Design of Experiments</em>: ước lượng hợp lý cực đại, ANOVA, ngẫu nhiên hóa</td>
+                <td>Mô hình phức tạp không cứu được dữ liệu thu thập sai</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Pearson_Karl/" target="_blank" rel="noopener">MacTutor — Karl Pearson</a> · <a href="https://archive.org/details/designofexperime00fish" target="_blank" rel="noopener">Fisher, 1935</a>.</p>
+        </section>
+
+        <section>
+          <h2>Máy tính làm được phép tính, và đo được tin</h2>
+          <div class="slide-badge-row"><span class="history-date">1936 – 1948</span></div>
+          <div class="portrait-row">
+            <figure>
+              <img src="img/lec01/turing.jpg" alt="Alan Turing lúc 16 tuổi">
+              <figcaption>Alan Turing lúc 16 tuổi<br>Ảnh phạm vi công cộng. Bài báo là năm 1936.</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec01/shannon.png" alt="Claude Shannon khoảng năm 1930">
+              <figcaption>Claude Shannon, khoảng 1930<br>Phạm vi công cộng. Bài báo là năm 1948.</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec01/eniac-penn.jpg" alt="Một phần máy ENIAC trưng bày tại Đại học Pennsylvania">
+              <figcaption>Một phần ENIAC tại Penn<br>Ảnh sau này, CC BY-SA 3.0</figcaption>
+            </figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr><td>1936</td><td>Turing, <em>On Computable Numbers</em>: mô hình máy tính tổng quát</td><td>Xử lý dữ liệu lớn sau này đứng trên lý thuyết tính được</td></tr>
+              <tr><td>1946</td><td>ENIAC vận hành: tính lặp trên máy điện tử, vượt quy mô tính tay</td><td>Thống kê bắt đầu chuyển từ sổ sách sang quy trình tự động</td></tr>
+              <tr><td>1948</td><td>Shannon, <em>A Mathematical Theory of Communication</em></td><td>Entropy, mã hóa, truyền tin trong nhiễu — nền của nén và của học máy</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1112/plms/s2-42.1.230" target="_blank" rel="noopener">Turing, 1936</a> · <a href="https://www.computerhistory.org/revolution/birth-of-the-computer/4/78" target="_blank" rel="noopener">Computer History Museum — ENIAC</a> · <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x" target="_blank" rel="noopener">Shannon, 1948</a>.</p>
+        </section>
+
+        <section>
+          <h2>Hai lối đi vào “khoa học về dữ liệu”</h2>
+          <div class="slide-badge-row"><span class="history-date">1962 – 1974</span></div>
+          <div class="two-col">
+            <div class="card-plain">
+              <h3>John Tukey, 1962</h3>
+              <p><em>The Future of Data Analysis</em>: phân tích dữ liệu rộng hơn thống kê suy luận. Gồm cả thiết kế thu thập, diễn giải và công cụ tính.</p>
+            </div>
+            <div class="card-plain">
+              <h3>Peter Naur, 1966–1974</h3>
+              <p>Năm 1966 ông dùng <em>datalogy</em>. Năm 1974 ông nói tới khoa học về dữ liệu đã được xác lập, và về các quá trình xử lý dữ liệu.</p>
+            </div>
+          </div>
+          <div class="key-box"><span class="box-title">Ý nghĩa</span> Một nhánh đi từ thống kê. Một nhánh đi từ khoa học máy tính.</div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1214/aoms/1177704711" target="_blank" rel="noopener">Tukey, 1962</a> · <a href="https://doi.org/10.1080/10618600.2017.1384734" target="_blank" rel="noopener">Donoho, 2017</a> · <a href="https://hdsr.mitpress.mit.edu/pub/6wx0qmkl/release/4" target="_blank" rel="noopener">Harvard Data Science Review — lịch sử thuật ngữ</a>.</p>
+        </section>
+
+        <section>
+          <h2>Dữ liệu được tổ chức, rồi được khai phá</h2>
+          <div class="slide-badge-row"><span class="history-date">1970 – 1996</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/ibm360.jpg" alt="Máy IBM System/360 model 30" style="max-height:210px">
+              <figcaption class="caption">IBM System/360 model 30. CC BY-SA 3.0. Dòng máy công bố năm 1964.</figcaption>
+            </figure>
+            <table class="era-table">
+              <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+              <tbody>
+                <tr><td>1970</td><td>Edgar F. Codd, mô hình quan hệ</td><td>Hỏi dữ liệu bằng ngôn ngữ, tách khỏi cách cất trên đĩa</td></tr>
+                <tr><td>1976–</td><td>John Chambers và cộng sự làm ngôn ngữ S tại Bell Labs. R kế thừa dòng này</td><td>Phân tích trở thành việc viết được và làm lại được</td></tr>
+                <tr><td>1989</td><td>Gregory Piatetsky-Shapiro tổ chức hội thảo KDD đầu tiên</td><td>Đi tìm mẫu chưa biết, không chỉ kiểm giả thuyết có sẵn</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1145/362384.362685" target="_blank" rel="noopener">Codd, 1970, CACM</a> · <a href="https://www.r-project.org/about.html" target="_blank" rel="noopener">The R Project</a> · <a href="https://kdd.org/" target="_blank" rel="noopener">KDD</a> · <a href="https://www.ibm.com/history/system-360" target="_blank" rel="noopener">IBM — System/360</a>.</p>
+        </section>
+
+        <section>
+          <h2>Khai phá dữ liệu chỉ là một khâu</h2>
+          <div class="slide-badge-row"><span class="history-date">1996</span></div>
+          <p>Fayyad, Piatetsky-Shapiro và Smyth, <em>From Data Mining to Knowledge Discovery in Databases</em>.</p>
+          <div class="pipeline">
+            <div class="stage"><div class="stage-title">Chọn</div><div class="stage-desc">Dữ liệu nào liên quan tới câu hỏi</div></div>
+            <div class="arrow">→</div>
+            <div class="stage"><div class="stage-title">Làm sạch</div><div class="stage-desc">Thiếu, trùng, sai đơn vị</div></div>
+            <div class="arrow">→</div>
+            <div class="stage stage-highlight"><div class="stage-title">Khai phá</div><div class="stage-desc">Thuật toán tìm mẫu</div></div>
+            <div class="arrow">→</div>
+            <div class="stage"><div class="stage-title">Đánh giá</div><div class="stage-desc">Mẫu ấy có đáng tin không</div></div>
+            <div class="arrow">→</div>
+            <div class="stage"><div class="stage-title">Diễn giải</div><div class="stage-desc">Người đọc quyết định gì</div></div>
+          </div>
+          <div class="good-box"><span class="box-title">Ý nghĩa</span> Chạy một thuật toán không phải cả quy trình khám phá tri thức.</div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1609/aimag.v17i3.1230" target="_blank" rel="noopener">Fayyad, Piatetsky-Shapiro &amp; Smyth, 1996, AI Magazine</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Web đổi cả quy mô lẫn loại dữ liệu</h2>
+          <div class="slide-badge-row"><span class="history-date">1991 – 1993</span></div>
+          <div class="two-col">
+            <figure class="fig">
+              <img src="img/lec01/berners-lee.jpg" alt="Tim Berners-Lee năm 2009" style="max-height:175px">
+              <figcaption class="caption">Tim Berners-Lee, ảnh 2009. CC BY 2.0. Việc làm Web là 1989–1993.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="img/lec01/web-server.jpg" alt="Máy NeXT đã chạy máy chủ Web đầu tiên tại CERN" style="max-height:175px">
+              <figcaption class="caption">Máy chủ Web đầu tiên tại CERN. CC BY-SA 3.0.</figcaption>
+            </figure>
+          </div>
+          <ul>
+            <li>Berners-Lee xây World Wide Web tại CERN. Năm 1993, CERN đưa phần mềm Web vào phạm vi công cộng.</li>
+            <li>Dữ liệu thêm văn bản, liên kết, nhật ký truy cập và hành vi — không còn chỉ là bảng đo đạc.</li>
+          </ul>
+          <p class="source">Nguồn: <a href="https://home.cern/science/computing/birth-web" target="_blank" rel="noopener">CERN — The birth of the Web</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cái tên, và cách tính trên nhiều máy</h2>
+          <div class="slide-badge-row"><span class="history-date">1997 – 2004</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/google-datacenter.jpg" alt="Trung tâm dữ liệu Google tại The Dalles, Oregon" style="max-height:188px">
+              <figcaption class="caption">Trung tâm dữ liệu Google tại The Dalles, ảnh 23/6/2020. CC BY-SA 4.0. Cụm máy đời sau, không phải ảnh năm 2004.</figcaption>
+            </figure>
+            <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>1997</td>
+                <td>Theo Donoho (2017), C. F. Jeff Wu đề nghị xem thống kê như data science, và gọi nhà thống kê là data scientist</td>
+                <td>Thuật ngữ đã được bàn trong học thuật trước khi thành tên một nghề</td>
+              </tr>
+              <tr>
+                <td>2001</td>
+                <td>William Cleveland, <em>Data Science: An Action Plan</em>. Ông kéo thêm tính toán, trực quan hóa và ứng dụng</td>
+                <td>Một trong các văn bản ảnh hưởng trực tiếp tới việc coi đây là lĩnh vực riêng</td>
+              </tr>
+              <tr>
+                <td>2003–2004</td>
+                <td>Google công bố Google File System, rồi MapReduce của Jeffrey Dean và Sanjay Ghemawat</td>
+                <td>Chia dữ liệu và phép tính ra nhiều máy, chịu được lỗi. Hadoop sau này đi từ đây</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1080/10618600.2017.1384734" target="_blank" rel="noopener">Donoho, 2017</a> · <a href="https://doi.org/10.1111/j.1751-5823.2001.tb00477.x" target="_blank" rel="noopener">Cleveland, 2001</a> · <a href="https://research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters/" target="_blank" rel="noopener">Dean &amp; Ghemawat, MapReduce, 2004</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Phân tích thành công nghiệp</h2>
+          <div class="slide-badge-row"><span class="history-date">2006 – 2014</span></div>
+          <div class="portrait-row two short">
+            <figure>
+              <img src="img/lec01/varian.jpg" alt="Hal Varian">
+              <figcaption>Hal Varian, ảnh 12/7/2008. Joi Ito, CC BY 2.0. Câu nói năm 2009.</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec01/zaharia.jpg" alt="Matei Zaharia">
+              <figcaption>Matei Zaharia. Ảnh sau này, CC BY-SA 4.0. Spark: bài 2010, Apache 2014.</figcaption>
+            </figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>2006–2008</td>
+                <td>Hadoop tách từ Nutch (Doug Cutting, Mike Cafarella), thành dự án Apache năm 2008. HDFS cộng MapReduce</td>
+                <td>Tổ chức xử lý nhật ký và dữ liệu web trên cụm máy phổ thông</td>
+              </tr>
+              <tr>
+                <td>2009</td>
+                <td>Hal Varian nói về người biết rút giá trị từ dữ liệu đang tăng</td>
+                <td>Kỹ năng này đi ra ngoài phòng thí nghiệm thống kê</td>
+              </tr>
+              <tr>
+                <td>2010–2014</td>
+                <td>Matei Zaharia và cộng sự: Spark (bài HotCloud 2010, Apache 2014). Xử lý nhiều việc trong bộ nhớ</td>
+                <td>Thêm một lối bên cạnh MapReduce theo lô, hợp với học máy và phân tích lặp</td>
+              </tr>
+              <tr>
+                <td>thập niên 2000</td>
+                <td>R (Ihaka, Gentleman, từ S) và Python cùng thư viện số trở nên phổ biến</td>
+                <td>Công cụ mở làm người học lặp lại được kết quả của người khác</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://hadoop.apache.org/" target="_blank" rel="noopener">Apache Hadoop</a> · <a href="https://www.usenix.org/legacy/event/hotcloud10/tech/full_papers/Zaharia.pdf" target="_blank" rel="noopener">Zaharia et al., HotCloud 2010</a> · <a href="https://spark.apache.org/" target="_blank" rel="noopener">Apache Spark</a> · <a href="https://www.r-project.org/about.html" target="_blank" rel="noopener">R</a> · <a href="https://www.python.org/" target="_blank" rel="noopener">Python</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Dữ liệu lớn gặp mạng nơ-ron sâu</h2>
+          <div class="slide-badge-row"><span class="history-date">2009 – 2012</span></div>
+          <div class="two-col two-col--wide-left">
+            <div>
+              <ul>
+                <li>Fei-Fei Li và cộng sự xây <strong>ImageNet</strong>, bộ ảnh gán nhãn quy mô lớn.</li>
+                <li>Năm 2012, <strong>AlexNet</strong> của Alex Krizhevsky, Ilya Sutskever và Geoffrey Hinton dẫn đầu cuộc thi nhận dạng ảnh ImageNet.</li>
+              </ul>
+              <div class="key-box"><span class="box-title">Ý nghĩa</span> Bước nhảy đến từ cả ba: dữ liệu có nhãn, GPU, và mạng sâu.</div>
+            </div>
+            <figure class="fig">
+              <img src="img/lec01/hinton.jpg" alt="Geoffrey Hinton" style="max-height:180px">
+              <figcaption class="caption">Geoffrey Hinton. Ảnh Wikimedia, CC BY-SA 3.0. Không phải ảnh chụp năm 2012.</figcaption>
+            </figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.image-net.org/" target="_blank" rel="noopener">ImageNet</a> · <a href="https://proceedings.neurips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html" target="_blank" rel="noopener">Krizhevsky, Sutskever &amp; Hinton, NeurIPS 2012</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Transformer đổi cách đọc một chuỗi</h2>
+          <div class="slide-badge-row"><span class="history-date">2017</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/attention.png" alt="Sơ đồ một đầu attention: Q, K đi qua nhân ma trận, scale, mask, softmax, rồi nhân với V" style="max-height:250px">
+              <figcaption class="caption">Một đầu attention. Wikimedia, CC BY-SA 4.0.</figcaption>
+            </figure>
+            <div>
+              <p>Vaswani và cộng sự, <em>Attention Is All You Need</em>.</p>
+              <ul>
+                <li>Attention xét quan hệ giữa các phần của chuỗi, không phải đi lần lượt như mạng hồi quy.</li>
+                <li>Kiến trúc này thành khung của phần lớn mô hình ngôn ngữ lớn và nhiều hệ đa phương thức.</li>
+              </ul>
+              <div class="key-box"><span class="box-title">Ý nghĩa</span> Dữ liệu dạng chuỗi — câu, mã, thời gian — được xử lý theo một kiến trúc dùng lại được.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Vaswani et al., 2017, NeurIPS</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Mô hình lớn đổi việc của dữ liệu</h2>
+          <div class="slide-badge-row"><span class="history-date">2020 – 2022</span></div>
+          <figure class="fig">
+            <img src="img/lec01/alphafold-casp.png" alt="AlphaFold so với cấu trúc thí nghiệm trên CASP14" style="max-height:200px">
+            <figcaption class="caption">AlphaFold (xanh) chồng lên thí nghiệm (lục), CASP14. Jumper et al., Nature 2021, CC BY 4.0.</figcaption>
+          </figure>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>2020</td>
+                <td>Brown và cộng sự: GPT-3, 175 tỷ tham số, làm nhiều việc từ vài ví dụ trong ngữ cảnh</td>
+                <td>Quy mô dữ liệu và quy mô mô hình trở thành quyết định chiến lược. Nhiều tham số không bảo đảm đúng</td>
+              </tr>
+              <tr>
+                <td>2020–2021</td>
+                <td>AlphaFold 2 tại CASP14. Bài mô tả hệ thống đăng <em>Nature</em> năm 2021</td>
+                <td>Dữ liệu sinh học, mô hình sâu và tri thức ngành cùng giải một bài toán khoa học</td>
+              </tr>
+              <tr>
+                <td>30/11/2022</td>
+                <td>OpenAI phát hành ChatGPT, bản xem trước nghiên cứu</td>
+                <td>Thêm việc: chất lượng dữ liệu huấn luyện, đánh giá đầu ra, sai lệch, giám sát</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener">Brown et al., 2020</a> · <a href="https://doi.org/10.1038/s41586-021-03819-2" target="_blank" rel="noopener">Jumper et al., 2021</a> · <a href="https://openai.com/index/chatgpt/" target="_blank" rel="noopener">OpenAI — Introducing ChatGPT</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Công nhận khoa học, và phần chưa chốt</h2>
+          <div class="slide-badge-row"><span class="history-date">2023 – 10/2026</span></div>
+          <div class="portrait-row two short">
+            <figure>
+              <img src="img/lec01/lee-sedol.jpg" alt="Lee Sedol năm 2016">
+              <figcaption>Lee Sedol, ảnh 26/5/2016. LG Electronics, CC BY 2.0. Trận AlphaGo là tháng 3/2016.</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec01/hassabis.jpg" alt="Demis Hassabis năm 2023">
+              <figcaption>Demis Hassabis, ảnh 26/5/2023 tại EPFL. Alain Herzog, CC BY-SA 4.0. Nobel Hóa học 2024.</figcaption>
+            </figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>2015</td>
+                <td>Google mở mã TensorFlow</td>
+                <td>Huấn luyện và triển khai mô hình trở thành việc làm hệ thống, không chỉ việc viết thuật toán</td>
+              </tr>
+              <tr>
+                <td>3/2016</td>
+                <td>AlphaGo thắng Lee Sedol 4–1. <a href="https://www.youtube.com/watch?v=l-GsfyVCBu0&amp;t=1h17m45s" target="_blank" rel="noopener">Video nước đi 37, ván 2</a></td>
+                <td>Học sâu, tìm kiếm và học tăng cường trên một việc khó. Công chúng bắt đầu nhìn thấy “học từ dữ liệu”</td>
+              </tr>
+              <tr>
+                <td>3/2023</td>
+                <td>GPT-4, báo cáo kỹ thuật nói cả năng lực lẫn hạn chế</td>
+                <td>Điểm số cao không thay cho đánh giá, an toàn và giám sát sau khi đưa ra dùng</td>
+              </tr>
+              <tr>
+                <td>2024</td>
+                <td>Nobel Vật lý: John Hopfield và Geoffrey Hinton. Nobel Hóa học: David Baker, Demis Hassabis và John Jumper</td>
+                <td>Công nhận các đóng góp cụ thể cho mạng nơ-ron và cho cấu trúc protein. Đây không phải giải Nobel của cả ngành data science</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="warn-box"><span class="box-title">2025 – tháng 10/2026</span> Chưa đủ căn cứ để phong một sản phẩm làm bước ngoặt. Việc đáng theo dõi: dữ liệu đa phương thức, dữ liệu tổng hợp, truy xuất, và đánh giá độ tin cậy.</div>
+          <p class="source">Nguồn: <a href="https://www.tensorflow.org/about" target="_blank" rel="noopener">TensorFlow</a> · <a href="https://deepmind.google/research/breakthroughs/alphago/" target="_blank" rel="noopener">DeepMind — AlphaGo</a> · <a href="https://arxiv.org/abs/2303.08774" target="_blank" rel="noopener">GPT-4 Technical Report</a> · <a href="https://www.nobelprize.org/prizes/physics/2024/summary/" target="_blank" rel="noopener">Nobel Vật lý 2024</a> · <a href="https://www.nobelprize.org/prizes/chemistry/2024/summary/" target="_blank" rel="noopener">Nobel Hóa học 2024</a>.</p>
+        </section>
+
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">4.</span><br>Vibe coding</h1>
+          <p class="text-light">Nói việc cần làm. Chạy. Đọc lại số. Sửa.</p>
+        </section>
+
+        <section>
+          <h2>Vibe coding là việc gì?</h2>
+          <div class="slide-badge-row"><span class="ai-badge">🤖 Làm với AI</span></div>
+          <ul>
+            <li>Mô tả việc bằng lời, để trợ lý lập trình viết code, chạy, rồi chỉnh tiếp.</li>
+            <li>Cụm từ được Andrej Karpathy dùng từ đầu năm 2025 cho cách làm ấy.</li>
+            <li>Trong môn này, người học vẫn là người chịu trách nhiệm với <strong>số</strong> và với <strong>câu kết luận</strong>.</li>
+          </ul>
+        </section>
+
+        <section class="fit">
+          <h2>Tại sao lại cần có kỹ năng làm việc với AI?</h2>
+          <p>HumanEval, tỷ lệ bài lập trình làm đúng. Andrew Ng tổng hợp, 20/3/2024:</p>
+          <table class="era-table">
+            <thead><tr><th>Cách chạy</th><th>Bài đúng</th></tr></thead>
+            <tbody>
+              <tr><td>GPT-3.5, một lượt</td><td>48,1%</td></tr>
+              <tr><td>GPT-4, một lượt</td><td>67,0%</td></tr>
+              <tr><td>GPT-3.5, vòng lặp agent</td><td>lên tới 95,1%</td></tr>
+            </tbody>
+          </table>
+          <p>Bước nhảy lớn nằm ở cách bố trí vòng lặp, không chỉ ở đời mô hình.</p>
+          <p>Ju và Aral, 2025, thí nghiệm 2.234 người làm quảng cáo: đội người–AI ra thêm 50% sản phẩm trên mỗi người, chữ tốt hơn, ảnh kém hơn đội người–người.</p>
+          <div class="key-box"><span class="box-title">Kỹ năng ở đây</span> Biết việc nào giao cho máy, và việc nào người phải giữ. Máy mạnh hơn khi có vòng lặp, và vẫn lệch từng mặt.</div>
+          <p class="source">Nguồn: <a href="https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance" target="_blank" rel="noopener">Andrew Ng, DeepLearning.AI, 20/3/2024</a> · <a href="https://arxiv.org/abs/2503.18238" target="_blank" rel="noopener">Ju &amp; Aral, 2025</a> · <a href="https://mitsloan.mit.edu/ideas-made-to-matter/4-new-studies-about-agentic-ai-mit-initiative-digital-economy" target="_blank" rel="noopener">MIT Sloan</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Việc không mất cùng một lúc</h2>
+          <ul>
+            <li><strong>McKinsey, 2023.</strong> Công nghệ có thể đụng các hoạt động chiếm 60–70% thời gian làm. Kịch bản nhận dụng: một nửa hoạt động có thể được tự động hóa khoảng 2030–2060, điểm giữa năm 2045.</li>
+            <li><strong>Goldman Sachs, 2023.</strong> Tương đương 300 triệu việc làm toàn thời gian bị đụng tới. Phần lớn ngành chỉ mất một phần việc, nên dễ được bổ sung hơn là bị thay hẳn.</li>
+            <li><strong>World Economic Forum, 2025.</strong> 40% nhà tuyển dụng tính giảm người ở chỗ AI làm được việc. Hai phần ba tính tuyển người có kỹ năng AI.</li>
+            <li><strong>Draup, 2026.</strong> Số tin ngân hàng nhắc kỹ năng điều phối agent tăng 1.721% trong năm nay.</li>
+          </ul>
+          <div class="key-box"><span class="box-title">Việc mới</span> Máy lấy từng phần việc. Người biết giao việc cho agent, và biết chỗ người phải xem lại, là người được tuyển.</div>
+          <p class="source">Nguồn: <a href="https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier" target="_blank" rel="noopener">McKinsey, 2023</a> · <a href="https://www.goldmansachs.com/insights/articles/generative-ai-could-raise-global-gdp-by-7-percent" target="_blank" rel="noopener">Goldman Sachs, Briggs &amp; Kodnani, 2023</a> · <a href="https://www.weforum.org/publications/the-future-of-jobs-report-2025/" target="_blank" rel="noopener">WEF, Future of Jobs 2025</a> · <a href="https://vneconomy.vn/techconnect/ai-dang-dinh-hinh-lai-thi-truong-viec-lam-nhu-cau-ky-nang-ai-agent-tang-1721.htm" target="_blank" rel="noopener">VnEconomy, 5/10/2026, dẫn Draup</a>.</p>
+        </section>
+
+        <section>
+          <h2>Prompt demo — bảy bước</h2>
+          <ol>
+            <li>Tải đúng một tệp Santiago, ngày 29/6/2026.</li>
+            <li>QA: dòng, cột trống, id trùng, miền của price.</li>
+            <li>KPI trên các dòng còn giá.</li>
+            <li>EDA: giá, loại phòng, khu phố, review và lịch trống.</li>
+            <li>Đặc trưng, rồi K-means với k = 3, 4 và 5.</li>
+            <li>Năm insight, ba hành động, mỗi câu một số.</li>
+            <li>Một <span class="inline-code">dashboard.html</span>, mở được khi tắt mạng.</li>
+          </ol>
+          <div class="key-box"><span class="box-title">K-means</span> Gom listing thành nhóm. Tệp không có nhãn, nên đây là phân cụm.</div>
+        </section>
+
+        <section class="prompt-merge">
+          <h2>Prompt — tệp và QA</h2>
+          <div class="prompt-sheet lg" aria-label="Phần đầu prompt: vai trò, dữ liệu, QA">
+            <p class="prompt-line role"><span class="tag">Vai trò.</span> Bạn là trợ giảng khoa học dữ liệu. Viết một script Python chạy từ đầu đến cuối. Chỉ tải đúng một URL.</p>
+            <p class="prompt-line data"><span class="tag">Dữ liệu.</span> https://data.insideairbnb.com/chile/rm/santiago/2026-06-29/visualisations/listings.csv — mỗi dòng là một listing. Dùng đúng cột có trong tệp. <span class="inline-code">neighbourhood_group</span> trống toàn bộ: ghi vào QA, không điền bù. <span class="inline-code">price</span> là số, tệp không ghi đơn vị tiền: không gắn USD hay CLP.</p>
+            <p class="prompt-line task"><span class="tag">QA.</span> In số dòng, số cột, số id trùng, số giá trống, số <span class="inline-code">last_review</span> trống, số <span class="inline-code">reviews_per_month</span> trống. Hai số review trống phải bằng nhau. In min, median, max của price. Không xóa outlier im lặng.</p>
+          </div>
+        </section>
+
+        <section class="prompt-merge">
+          <h2>Prompt — KPI, EDA, K-means</h2>
+          <div class="prompt-sheet lg" aria-label="Phần giữa prompt: KPI, EDA, K-means">
+            <p class="prompt-line task"><span class="tag">KPI.</span> Trên dòng còn giá: số listing, tỷ lệ Entire home/apt, median price, tỷ lệ <span class="inline-code">availability_365 = 0</span>, median <span class="inline-code">number_of_reviews</span>, tỷ lệ listing có <span class="inline-code">calculated_host_listings_count ≥ 5</span>.</p>
+            <p class="prompt-line task"><span class="tag">EDA.</span> Phân phối price, price theo <span class="inline-code">room_type</span>, top 10 <span class="inline-code">neighbourhood</span> theo số listing, và <span class="inline-code">number_of_reviews</span> với <span class="inline-code">availability_365</span>. Mỗi hình ghi tên cột và số dòng đã dùng.</p>
+            <p class="prompt-line task"><span class="tag">K-means.</span> <span class="inline-code">random_state=42</span>. Chỉ dòng có price. Chuẩn hóa: price, minimum_nights, number_of_reviews, availability_365, calculated_host_listings_count, cộng mã <span class="inline-code">room_type</span>. Thử k = 3, 4, 5, báo inertia, chọn một k và nói vì sao. Đặt tên nhóm bằng median của các cột ấy.</p>
+          </div>
+        </section>
+
+        <section class="prompt-merge">
+          <h2>Prompt — insight và dashboard</h2>
+          <div class="prompt-sheet lg" aria-label="Phần cuối prompt: insight, hành động, dashboard, tự kiểm">
+            <p class="prompt-line out"><span class="tag">Insight.</span> Đúng năm câu. Mỗi câu có một số vừa in, và nói số ấy trả lời câu hỏi nào của người cho thuê. Không bịa doanh thu, công suất phòng, hay đơn vị tiền.</p>
+            <p class="prompt-line out"><span class="tag">Hành động.</span> Đúng ba việc. Mỗi việc chỉ một nhóm K-means hoặc một KPI, và chỉ ai làm.</p>
+            <p class="prompt-line out"><span class="tag">Dashboard.</span> Một <span class="inline-code">dashboard.html</span>. Sáu khối: QA, KPI, EDA, K-means, insight, hành động. Biểu đồ nằm trong file.</p>
+            <p class="prompt-line rule"><span class="tag">Ràng buộc.</span> pandas, scikit-learn, và một thư viện vẽ. Không gọi mạng ngoài URL trên.</p>
+            <p class="prompt-line check"><span class="tag">Tự kiểm.</span> In số dòng, số giá trống, số id trùng, k đã chọn, tổng kích thước các nhóm. Tổng nhóm phải bằng số dòng đưa vào K-means. Lệch thì dừng, không viết insight.</p>
+          </div>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Toàn bộ prompt</h2>
+          <div class="prompt-sheet compact" aria-label="Toàn bộ prompt, một chỗ">
+            <p class="prompt-line role"><span class="tag">Vai trò.</span> Bạn là trợ giảng khoa học dữ liệu. Viết một script Python chạy từ đầu đến cuối. Chỉ tải đúng một URL.</p>
+            <p class="prompt-line data"><span class="tag">Dữ liệu.</span> https://data.insideairbnb.com/chile/rm/santiago/2026-06-29/visualisations/listings.csv — mỗi dòng là một listing. Dùng đúng cột có trong tệp. <span class="inline-code">neighbourhood_group</span> trống toàn bộ: ghi vào QA, không điền bù. <span class="inline-code">price</span> là số, tệp không ghi đơn vị tiền: không gắn USD hay CLP.</p>
+            <p class="prompt-line task"><span class="tag">QA.</span> In số dòng, số cột, số id trùng, số giá trống, số <span class="inline-code">last_review</span> trống, số <span class="inline-code">reviews_per_month</span> trống. Hai số review trống phải bằng nhau. In min, median, max của price. Không xóa outlier im lặng.</p>
+            <p class="prompt-line task"><span class="tag">KPI.</span> Trên dòng còn giá: số listing, tỷ lệ Entire home/apt, median price, tỷ lệ <span class="inline-code">availability_365 = 0</span>, median <span class="inline-code">number_of_reviews</span>, tỷ lệ listing có <span class="inline-code">calculated_host_listings_count ≥ 5</span>.</p>
+            <p class="prompt-line task"><span class="tag">EDA.</span> Phân phối price, price theo <span class="inline-code">room_type</span>, top 10 <span class="inline-code">neighbourhood</span> theo số listing, và <span class="inline-code">number_of_reviews</span> với <span class="inline-code">availability_365</span>. Mỗi hình ghi tên cột và số dòng đã dùng.</p>
+            <p class="prompt-line task"><span class="tag">K-means.</span> <span class="inline-code">random_state=42</span>. Chỉ dòng có price. Chuẩn hóa: price, minimum_nights, number_of_reviews, availability_365, calculated_host_listings_count, cộng mã <span class="inline-code">room_type</span>. Thử k = 3, 4, 5, báo inertia, chọn một k và nói vì sao. Đặt tên nhóm bằng median của các cột ấy.</p>
+            <p class="prompt-line out"><span class="tag">Insight.</span> Đúng năm câu. Mỗi câu có một số vừa in, và nói số ấy trả lời câu hỏi nào của người cho thuê. Không bịa doanh thu, công suất phòng, hay đơn vị tiền.</p>
+            <p class="prompt-line out"><span class="tag">Hành động.</span> Đúng ba việc. Mỗi việc chỉ một nhóm K-means hoặc một KPI, và chỉ ai làm.</p>
+            <p class="prompt-line out"><span class="tag">Dashboard.</span> Một <span class="inline-code">dashboard.html</span>. Sáu khối: QA, KPI, EDA, K-means, insight, hành động. Biểu đồ nằm trong file.</p>
+            <p class="prompt-line rule"><span class="tag">Ràng buộc.</span> pandas, scikit-learn, và một thư viện vẽ. Không gọi mạng ngoài URL trên.</p>
+            <p class="prompt-line check"><span class="tag">Tự kiểm.</span> In số dòng, số giá trống, số id trùng, k đã chọn, tổng kích thước các nhóm. Tổng nhóm phải bằng số dòng đưa vào K-means. Lệch thì dừng, không viết insight.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Vì sao khóa URL và QA</h2>
+          <div class="zoom-block data">
+            <span class="tag">URL</span>
+            Khóa thành phố, ngày và tên tệp. Trợ lý hết chỗ tải thành phố khác, hoặc bịa một bảng listing.
+          </div>
+          <div class="zoom-block task">
+            <span class="tag">QA</span>
+            <span class="inline-code">neighbourhood_group</span> trống cả tệp. <span class="inline-code">price</span> không có đơn vị. Hai chỗ này hay bị điền bù hoặc gắn ký hiệu tiền.
+          </div>
+          <div class="good-box"><span class="box-title">Hợp đồng với tệp</span> Cột nào không có trong tệp thì báo cáo ghi là không trả lời được. Doanh thu và công suất phòng không có trong tệp này.</div>
+        </section>
+
+        <section>
+          <h2>Vì sao khóa K-means và dashboard</h2>
+          <div class="zoom-block task">
+            <span class="tag">K-means</span>
+            Thử ba giá trị k, chọn một, nói vì sao. Tên nhóm lấy từ median, không lấy từ một câu chuyện không có số.
+          </div>
+          <div class="zoom-block out">
+            <span class="tag">Dashboard</span>
+            Một file HTML, sáu khối, biểu đồ nằm trong file. Tắt mạng vẫn mở được.
+          </div>
+          <div class="zoom-block check">
+            <span class="tag">Tự kiểm</span>
+            Tổng kích thước các nhóm phải bằng số dòng đã đưa vào mô hình. Lệch thì chưa được viết insight.
+          </div>
+        </section>
+
+        <section>
+          <h2>Số để đối chiếu</h2>
+          <pre class="demo-code"><code class="language-python" data-trim>
+url = "https://data.insideairbnb.com/chile/rm/santiago/2026-06-29/visualisations/listings.csv"
+raw = pd.read_csv(url)
+print(len(raw), raw["id"].duplicated().sum(), raw["price"].isna().sum())
+          </code></pre>
+          <div class="key-box"><span class="box-title">Kỳ vọng</span> <span class="inline-code">18534 &nbsp; 0 &nbsp; 846</span> — 18.534 dòng, không id trùng, 846 giá trống. <span class="inline-code">neighbourhood_group</span> trống 18.534 dòng. <span class="inline-code">last_review</span> và <span class="inline-code">reviews_per_month</span> cùng trống 3.291 dòng.</div>
+          <p class="source">Đếm trên tệp Inside Airbnb, Santiago, đường dẫn ngày 29/6/2026. Máy chủ ghi lần sửa 2/7/2026. <a href="https://data.insideairbnb.com/chile/rm/santiago/2026-06-29/visualisations/listings.csv" target="_blank" rel="noopener">listings.csv</a>.</p>
+        </section>
+
+        <section>
+          <h2>Dashboard phải có đủ sáu khối</h2>
+          <ol>
+            <li>QA — dòng, cột trống, id, min, median, max của price.</li>
+            <li>KPI — sáu số đã khóa trong prompt.</li>
+            <li>EDA — bốn biểu đồ, mỗi hình ghi số dòng.</li>
+            <li>K-means — k đã chọn, inertia của 3, 4, 5, và median từng nhóm.</li>
+            <li>Năm insight, mỗi câu một số.</li>
+            <li>Ba hành động, mỗi việc một người làm.</li>
+          </ol>
+          <div class="key-box"><span class="box-title">Giá có điểm rất lớn</span> Một biểu đồ bị một điểm kéo chưa thành insight, trừ khi trang nói rõ quy tắc hiển thị.</div>
+        </section>
+
+        <section>
+          <h2>Sau khi trợ lý trả code</h2>
+          <ol>
+            <li>Chạy lại. Dòng in ra phải là 18.534, 0, 846.</li>
+            <li>Mở <span class="inline-code">dashboard.html</span> khi đã tắt mạng. Thiếu một khối thì chưa xong.</li>
+            <li>Mỗi insight chỉ một cột có thật. Tệp không ghi đơn vị tiền thì không gắn ký hiệu.</li>
+            <li>Tổng kích thước các nhóm lệch với số dòng đưa vào thì sửa, rồi chạy lại.</li>
+          </ol>
+          <div class="good-box"><span class="box-title">Việc ở nhà</span> Đưa ba đoạn prompt cho trợ lý. In đúng 18.534 và 846 thì mới đọc insight.</div>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">5.</span><br>Cách học<br>và quy chế</h1>
+        </section>
+
+        <section>
+          <h2>Ba việc sau mỗi buổi</h2>
+          <div class="pipeline pipeline-wide">
+            <div class="stage">
+              <div class="stage-title">1. Ghi</div>
+              <div class="stage-desc">Keyword vừa xuất hiện trên slide</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="stage stage-highlight">
+              <div class="stage-title">2. Nối</div>
+              <div class="stage-desc">Keyword này đổi nghĩa của keyword kia thế nào</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="stage">
+              <div class="stage-title">3. Đào</div>
+              <div class="stage-desc">Mở nguồn ở chân slide, đọc chậm hơn bài giảng</div>
+            </div>
+          </div>
+          <div class="key-box"><span class="box-title">Slide không phải giáo trình</span> Slide giữ mốc và câu chốt. Sách và bài báo giữ lập luận. Keyword chưa nối với nguồn thì chưa học xong buổi đó.</div>
+        </section>
+
+        <section class="structure">
+          <h2>Cơ cấu môn học</h2>
+          <div class="week-grid" aria-label="Lịch 16 tuần">
+            <div class="week theory"><b>1</b><span>Lý thuyết</span></div>
+            <div class="week quiz"><b>2</b><span>Trắc nghiệm giấy</span></div>
+            <div class="week theory"><b>3</b><span>Lý thuyết</span></div>
+            <div class="week quiz"><b>4</b><span>Trắc nghiệm giấy</span></div>
+            <div class="week theory"><b>5</b><span>Lý thuyết</span></div>
+            <div class="week quiz"><b>6</b><span>Trắc nghiệm giấy</span></div>
+            <div class="week theory"><b>7</b><span>Lý thuyết</span></div>
+            <div class="week mid"><b>8</b><span>Giữa kỳ</span></div>
+            <div class="week theory"><b>9</b><span>Lý thuyết</span></div>
+            <div class="week quiz"><b>10</b><span>Trắc nghiệm giấy</span></div>
+            <div class="week theory"><b>11</b><span>Lý thuyết</span></div>
+            <div class="week quiz"><b>12</b><span>Trắc nghiệm giấy</span></div>
+            <div class="week theory"><b>13</b><span>Lý thuyết</span></div>
+            <div class="week quiz"><b>14</b><span>Trắc nghiệm giấy</span></div>
+            <div class="week final"><b>15</b><span>Cuối kỳ</span></div>
+            <div class="week final"><b>16</b><span>Cuối kỳ</span></div>
+          </div>
+          <p class="era-note">Tuần lẻ học lý thuyết. Tuần chẵn có một bài trắc nghiệm trên giấy. Tuần 8 là giữa kỳ, không thêm bài chuyên cần.</p>
+<table class="era-table">
+            <thead>
+              <tr><th>Bài</th><th>Khi nào</th><th>Hình thức</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Chuyên cần</strong></td>
+                <td>Tuần chẵn: 2, 4, 6, 10, 12, 14</td>
+                <td>Trắc nghiệm trên giấy</td>
+              </tr>
+              <tr>
+                <td><strong>Giữa kỳ</strong></td>
+                <td>Tuần 8</td>
+                <td>Trắc nghiệm và tự luận trên giấy</td>
+              </tr>
+              <tr>
+                <td><strong>Cuối kỳ</strong></td>
+                <td>Tuần 15–16</td>
+                <td>Trắc nghiệm và tự luận trên giấy. Phòng đào tạo thông báo lịch sau</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Tỷ lệ điểm</span> Theo đề cương học phần. Bài chuyên cần hỏi keyword và cách các keyword nối với nhau, không hỏi đúng từng chữ trên slide.</div>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">6.</span><br>Học liệu</h1>
+          <p class="text-light">Hai mươi cuốn, đi từ toán tới dữ liệu lớn. Một cuốn không thay cả môn.</p>
+        </section>
+
+        <section class="book-slide">
+          <h2>Hai mươi giáo trình</h2>
+          <div class="book-legend">
+            <span class="sw-math">Toán và thống kê</span>
+            <span class="sw-prep">Trực quan và xử lý</span>
+            <span class="sw-mine">Cơ sở dữ liệu và khai phá</span>
+            <span class="sw-big">Big Data và học máy</span>
+          </div>
+          <div class="book-wall">
+            <figure class="math"><img src="img/lec01/books/mml.jpg" alt="Bìa Mathematics for Machine Learning"><figcaption>Mathematics for ML<br>Deisenroth, Faisal, Ong</figcaption></figure>
+            <figure class="math"><img src="img/lec01/books/prob.jpg" alt="Bìa Introduction to Probability"><figcaption>Probability<br>Blitzstein, Hwang</figcaption></figure>
+            <figure class="math"><img src="img/lec01/books/allstats.jpg" alt="Bìa All of Statistics"><figcaption>All of Statistics<br>Wasserman</figcaption></figure>
+            <figure class="math"><img src="img/lec01/books/isl.jpg" alt="Bìa An Introduction to Statistical Learning"><figcaption>Statistical Learning<br>James et al.</figcaption></figure>
+            <figure class="math"><img src="img/lec01/books/esl.jpg" alt="Bìa The Elements of Statistical Learning"><figcaption>Elements of Stat. Learning<br>Hastie et al.</figcaption></figure>
+            <figure class="prep"><img src="img/lec01/books/tufte.jpg" alt="Bìa The Visual Display of Quantitative Information"><figcaption>Visual Display<br>Tufte</figcaption></figure>
+            <figure class="prep"><img src="img/lec01/books/story.jpg" alt="Bìa Storytelling with Data"><figcaption>Storytelling with Data<br>Knaflic</figcaption></figure>
+            <figure class="prep"><img src="img/lec01/books/py.jpg" alt="Bìa Python for Data Analysis"><figcaption>Python for Data Analysis<br>McKinney</figcaption></figure>
+            <figure class="prep"><img src="img/lec01/books/r4ds.jpg" alt="Bìa R for Data Science"><figcaption>R for Data Science<br>Wickham et al.</figcaption></figure>
+            <figure class="prep"><img src="img/lec01/books/pdsh.jpg" alt="Bìa Python Data Science Handbook"><figcaption>Python Data Science Handbook<br>VanderPlas</figcaption></figure>
+            <figure class="mine"><img src="img/lec01/books/db.jpg" alt="Bìa Database System Concepts"><figcaption>Database Systems<br>Silberschatz et al.</figcaption></figure>
+            <figure class="mine"><img src="img/lec01/books/ddia.jpg" alt="Bìa Designing Data-Intensive Applications"><figcaption>Data-Intensive Apps<br>Kleppmann</figcaption></figure>
+            <figure class="mine"><img src="img/lec01/books/han.jpg" alt="Bìa Data Mining Concepts and Techniques"><figcaption>Data Mining<br>Han, Kamber, Pei</figcaption></figure>
+            <figure class="mine"><img src="img/lec01/books/mmd.jpg" alt="Bìa Mining of Massive Datasets"><figcaption>Massive Datasets<br>Leskovec et al.</figcaption></figure>
+            <figure class="mine"><img src="img/lec01/books/dsb.jpg" alt="Bìa Data Science for Business"><figcaption>Data Science for Business<br>Provost, Fawcett</figcaption></figure>
+            <figure class="big"><img src="img/lec01/books/hadoop.jpg" alt="Bìa Hadoop The Definitive Guide"><figcaption>Hadoop: The Definitive Guide<br>White</figcaption></figure>
+            <figure class="big"><img src="img/lec01/books/spark.jpg" alt="Bìa Spark The Definitive Guide"><figcaption>Spark: The Definitive Guide<br>Chambers, Zaharia</figcaption></figure>
+            <figure class="big"><img src="img/lec01/books/big.jpg" alt="Bìa Big Data của Marz và Warren"><figcaption>Big Data<br>Marz, Warren</figcaption></figure>
+            <figure class="big"><img src="img/lec01/books/prml.jpg" alt="Bìa Pattern Recognition and Machine Learning"><figcaption>Pattern Recognition<br>Bishop</figcaption></figure>
+            <figure class="big"><img src="img/lec01/books/dl.jpg" alt="Bìa Deep Learning"><figcaption>Deep Learning<br>Goodfellow et al.</figcaption></figure>
+          </div>
+          <p class="source">Ảnh bìa lấy qua Open Library Cover API để nhận diện sách. Tên đầy đủ và bản đọc miễn phí ở slide sau.</p>
+        </section>
+
+        <section>
+          <h2>Toán, thống kê, trực quan, xử lý</h2>
+          <div class="two-col">
+            <ol style="font-size:0.55em">
+              <li>Deisenroth, Faisal, Ong — <a href="https://mml-book.github.io/" target="_blank" rel="noopener"><em>Mathematics for Machine Learning</em></a></li>
+              <li>Blitzstein, Hwang — <em>Introduction to Probability</em></li>
+              <li>Wasserman — <em>All of Statistics</em></li>
+              <li>James, Witten, Hastie, Tibshirani — <a href="https://www.statlearning.com/" target="_blank" rel="noopener"><em>An Introduction to Statistical Learning</em></a></li>
+              <li>Hastie, Tibshirani, Friedman — <a href="https://hastie.su.domains/ElemStatLearn/" target="_blank" rel="noopener"><em>The Elements of Statistical Learning</em></a></li>
+            </ol>
+            <ol start="6" style="font-size:0.55em">
+              <li>Tufte — <em>The Visual Display of Quantitative Information</em></li>
+              <li>Knaflic — <em>Storytelling with Data</em></li>
+              <li>McKinney — <em>Python for Data Analysis</em></li>
+              <li>Wickham, Çetinkaya-Rundel, Grolemund — <a href="https://r4ds.hadley.nz/" target="_blank" rel="noopener"><em>R for Data Science</em></a></li>
+              <li>VanderPlas — <a href="https://jakevdp.github.io/PythonDataScienceHandbook/" target="_blank" rel="noopener"><em>Python Data Science Handbook</em></a></li>
+            </ol>
+          </div>
+          <p class="source">Liên kết là bản tác giả hoặc nhà xuất bản cho đọc miễn phí.</p>
+        </section>
+
+        <section>
+          <h2>Cơ sở dữ liệu, khai phá, big data</h2>
+          <div class="two-col">
+            <ol start="11" style="font-size:0.55em">
+              <li>Silberschatz, Korth, Sudarshan — <em>Database System Concepts</em></li>
+              <li>Kleppmann — <em>Designing Data-Intensive Applications</em></li>
+              <li>Han, Kamber, Pei — <em>Data Mining: Concepts and Techniques</em></li>
+              <li>Leskovec, Rajaraman, Ullman — <a href="http://www.mmds.org/" target="_blank" rel="noopener"><em>Mining of Massive Datasets</em></a></li>
+              <li>Provost, Fawcett — <em>Data Science for Business</em></li>
+            </ol>
+            <ol start="16" style="font-size:0.55em">
+              <li>White — <em>Hadoop: The Definitive Guide</em></li>
+              <li>Chambers, Zaharia — <em>Spark: The Definitive Guide</em></li>
+              <li>Marz, Warren — <em>Big Data</em></li>
+              <li>Bishop — <em>Pattern Recognition and Machine Learning</em></li>
+              <li>Goodfellow, Bengio, Courville — <a href="https://www.deeplearningbook.org/" target="_blank" rel="noopener"><em>Deep Learning</em></a></li>
+            </ol>
+          </div>
+          <p class="source">Cuốn không có liên kết: dùng bản in hoặc thư viện trường. Một cuốn không thay cả môn.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Tổng kết buổi 1</h2>
+          <ul>
+            <li><strong>Dữ liệu</strong> có năm cách nhìn. Mặt trời mọc 1.000 ngày chưa bảo đảm ngày thứ 1.001.</li>
+            <li><strong>Khoa học dữ liệu</strong> là giao của toán học, khoa học máy tính và kiến thức nghiệp vụ.</li>
+            <li>Ngành này không có một ngày khai sinh. Đọc từng mốc kèm nguồn.</li>
+            <li>Vibe coding được dùng khi prompt khóa tệp, khóa việc, và có bước tự kiểm.</li>
+            <li>Học bằng keyword, mũi tên nối, rồi bài gốc. Thi trên giấy: chuyên cần các tuần chẵn, giữa kỳ tuần 8, cuối kỳ tuần 15–16.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Việc trước buổi sau</h2>
+          <ol>
+            <li>Ghi keyword xuất hiện hôm nay. Kéo ít nhất bốn mũi tên nối.</li>
+            <li>Mở một nguồn ở chân slide lịch sử. Ghi năm công bố và một câu tác giả thực sự nói.</li>
+            <li>Chạy prompt Inside Airbnb. Script phải in 18.534 dòng và 846 giá trống.</li>
+          </ol>
+          <div class="good-box"><span class="box-title">Câu mang về</span> Biểu đồ chạy được vẫn có thể đang kể một tuần bị cắt cụt.</div>
+        </section>
+      </section>
+
+      <div class="footer">
+        Giới thiệu khoa học dữ liệu · Bài 1: Nhập môn
+      </div>
+    </div>
+  </div>
+
+  <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controlsLayout: "edges",
+      slideNumber: true,
+      hash: true,
+      hashOneBasedIndex: true,
+      plugins: [RevealHighlight],
+      width: 1100,
+      height: 700,
+      margin: 0.04
+    });
+  </script>
+</body>
+
+</html>
