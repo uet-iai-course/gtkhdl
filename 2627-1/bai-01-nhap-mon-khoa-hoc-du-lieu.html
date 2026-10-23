@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="revealjs/dist/theme/white.css">
   <link rel="stylesheet" href="plugin/highlight/zenburn.css">
   <link rel="stylesheet" href="lecture-style.css">
-  <link rel="stylesheet" href="lecture-01.css?v=29">
+  <link rel="stylesheet" href="lecture-01.css?v=30">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 
@@ -33,12 +33,13 @@
         <section>
           <h2>Tổng quan buổi học</h2>
           <ol>
-            <li>Dữ liệu là gì — Hume, năm cách nhìn, ba câu nói</li>
-            <li>Khoa học dữ liệu là giao của ba lĩnh vực</li>
+            <li>Dữ liệu là gì ?</li>
+            <li>Khoa học dữ liệu là giao thoa của ba lĩnh vực</li>
             <li>Lịch sử khoa học dữ liệu, có mốc, ý nghĩa và nguồn</li>
             <li>Vibe coding — prompt Inside Airbnb: QA, KPI, EDA, K-means, dashboard</li>
+            <li>Sáu thành tựu: bộ gene, AlphaFold, hố đen, LIGO, Netflix Prize, GPT-3</li>
             <li>Cách học, chuyên cần, giữa kỳ, cuối kỳ</li>
-            <li>Hai mươi giáo trình, từ toán tới big data</li>
+            <li>Giáo trình, từ toán tới big data</li>
           </ol>
         </section>
       </section>
@@ -292,7 +293,6 @@
           <ul>
             <li>Khoa học dữ liệu hình thành ở chỗ giao nhau của <strong>thống kê, toán, khoa học máy tính, cơ sở dữ liệu</strong> và tri thức ngành.</li>
             <li>Nó không phải tên mới của trí tuệ nhân tạo, cũng không phải tên mới của thống kê.</li>
-            <li>Tukey, Naur, Wu và Cleveland là bốn cách nói khác nhau — không phải bốn ứng viên cho một ngôi “người sáng lập”.</li>
           </ul>
         </section>
 
@@ -897,7 +897,164 @@ print(len(raw), raw["id"].duplicated().sum(), raw["price"].isna().sum())
 
       <section>
         <section>
-          <h1><span class="text-light">5.</span><br>Cách học<br>và quy chế</h1>
+          <h1><span class="text-light">5.</span><br>Các thành tựu<br>của khoa học dữ liệu</h1>
+          <p class="text-light">Sáu bài toán. Một số có trước khi tên ngành phổ biến.</p>
+        </section>
+
+        <section>
+          <h2>Sáu bài toán, sáu cách dùng dữ liệu</h2>
+          <table class="era-table">
+            <thead><tr><th>Thành tựu</th><th>Bài toán</th><th>Việc với dữ liệu</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Bộ gene người, 1990–2003</td>
+                <td>Ghép thứ tự DNA</td>
+                <td>Lắp các đoạn chuỗi</td>
+              </tr>
+              <tr>
+                <td>AlphaFold, 2020</td>
+                <td>Cấu trúc 3D từ chuỗi</td>
+                <td>Học từ cấu trúc đã đo</td>
+              </tr>
+              <tr>
+                <td>Hố đen M87, 2019</td>
+                <td>Ảnh từ đo vô tuyến</td>
+                <td>Bài toán nghịch đảo</td>
+              </tr>
+              <tr>
+                <td>LIGO, 2015</td>
+                <td>Tín hiệu dưới nhiễu</td>
+                <td>Lọc và kiểm định</td>
+              </tr>
+              <tr>
+                <td>Netflix Prize, 2006–2009</td>
+                <td>Điểm phim chưa có</td>
+                <td>Ma trận thưa</td>
+              </tr>
+              <tr>
+                <td>GPT-3, 2020</td>
+                <td>Văn bản thành mô hình</td>
+                <td>Lọc, token, học token kế</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="era-note">AlphaFold và GPT-3 đã có ở phần lịch sử. Ở đây nhìn vào bài toán dữ liệu.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Giải mã bộ gene người</h2>
+          <div class="slide-badge-row"><span class="history-date">1990 – 2003</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/dna-helix-nhgri.jpg" alt="Mô hình xoắn kép DNA" style="max-height:210px">
+              <figcaption class="caption">Mô hình xoắn kép. NHGRI, phạm vi công cộng. Không phải ảnh năm 2003.</figcaption>
+            </figure>
+            <div>
+              <ul>
+                <li>Bài toán: thứ tự của khoảng 3 tỷ cặp base.</li>
+                <li>14/4/2003: trình tự tham chiếu phủ khoảng 92% bộ gene, và khoảng 99% vùng có gene.</li>
+                <li>Năm 2022, nhóm Telomere-to-Telomere công bố trình tự không còn khoảng trống của một dòng tế bào.</li>
+              </ul>
+              <div class="key-box"><span class="box-title">Việc với dữ liệu</span> Lắp các đoạn rời, có nhiễu, thành một chuỗi tra cứu được.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.genome.gov/about-genomics/educational-resources/fact-sheets/human-genome-project" target="_blank" rel="noopener">NHGRI — Fact sheet</a> · <a href="https://www.genome.gov/11006929/2003-release-international-consortium-completes-hgp" target="_blank" rel="noopener">Thông báo 14/4/2003</a> · <a href="https://www.genome.gov/news/news-release/researchers-generate-the-first-complete-gapless-sequence-of-a-human-genome" target="_blank" rel="noopener">T2T, 31/3/2022</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Dự đoán cấu trúc protein</h2>
+          <div class="slide-badge-row"><span class="history-date">2020 – 2021</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/alphafold-casp.png" alt="AlphaFold so với cấu trúc thí nghiệm trên CASP14" style="max-height:200px">
+              <figcaption class="caption">AlphaFold xanh, thí nghiệm lục, CASP14. Jumper et al., Nature 2021, CC BY 4.0.</figcaption>
+            </figure>
+            <div>
+              <ul>
+                <li>Đầu vào là chuỗi amino acid. Đầu ra là cấu trúc không gian.</li>
+                <li>AlphaFold 2 tại CASP14 năm 2020. Bài mô tả hệ thống đăng <em>Nature</em> năm 2021.</li>
+                <li>Cấu trúc dự đoán chưa trả lời chức năng, tương tác, hay protein đang chuyển động.</li>
+              </ul>
+              <div class="key-box"><span class="box-title">Việc với dữ liệu</span> Học từ cấu trúc đã đo, để suy ra cấu trúc chưa đo.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1038/s41586-021-03819-2" target="_blank" rel="noopener">Jumper et al., 2021</a> · <a href="https://alphafold.ebi.ac.uk/" target="_blank" rel="noopener">AlphaFold Protein Structure Database</a>.</p>
+        </section>
+
+        <section>
+          <h2>Ảnh đầu tiên về bóng một hố đen</h2>
+          <div class="slide-badge-row"><span class="history-date">10/4/2019</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/eht-m87.jpg" alt="Ảnh bóng hố đen ở tâm thiên hà M87" style="max-height:250px">
+              <figcaption class="caption">Công bố 10/4/2019. Hợp tác EHT, CC BY 4.0.</figcaption>
+            </figure>
+            <div>
+              <ul>
+                <li>M87: khoảng 55 triệu năm ánh sáng, khối lượng khoảng 6,5 tỷ lần Mặt Trời.</li>
+                <li>Tám đài vô tuyến thành một kính cỡ Trái Đất. Không ghép ảnh có sẵn.</li>
+              </ul>
+              <div class="key-box"><span class="box-title">Bài toán nghịch đảo</span> Từ phép đo gián tiếp, thiếu và nhiễu, khôi phục thứ đã tạo ra dữ liệu.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://eventhorizontelescope.org/press-release-april-10-2019-astronomers-capture-first-image-black-hole" target="_blank" rel="noopener">EHT, thông cáo 10/4/2019</a> · <a href="https://doi.org/10.3847/2041-8213/ab0ec7" target="_blank" rel="noopener">EHT Collaboration, 2019</a>.</p>
+        </section>
+
+        <section>
+          <h2>Sóng hấp dẫn trong nhiễu</h2>
+          <div class="slide-badge-row"><span class="history-date">14/9/2015</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/ligo-hanford.jpg" alt="Ống tia tại đài LIGO Hanford" style="max-height:230px">
+              <figcaption class="caption">Hanford, 14/10/2017. Jeff Keyzer, CC BY-SA 2.0. Không phải ngày ghi tín hiệu.</figcaption>
+            </figure>
+            <div>
+              <ul>
+                <li>Hai đài LIGO ghi sự kiện GW150914. Công bố năm 2016: lần đầu đo trực tiếp sóng hấp dẫn.</li>
+                <li>Tín hiệu khớp mô hình hai hố đen hợp nhất.</li>
+              </ul>
+              <div class="key-box"><span class="box-title">Việc với dữ liệu</span> Tín hiệu thật có thể nằm dưới nhiễu. Phát hiện là một kiểm định.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1103/PhysRevLett.116.061102" target="_blank" rel="noopener">Abbott et al., Physical Review Letters, 2016</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Netflix Prize vượt mốc 10%</h2>
+          <div class="slide-badge-row"><span class="history-date">2006 – 2009</span></div>
+          <ul>
+            <li>2/10/2006. Bài toán: từ điểm đã chấm, đoán điểm một phim mà người đó chưa chấm.</li>
+            <li>Hơn 100 triệu điểm, hơn 480.000 người ẩn danh, gần 18.000 phim. Hầu hết cặp người–phim không có điểm.</li>
+            <li>RMSE càng thấp càng khớp điểm thật. Cinematch trên tập test là 0,9525. Mốc lấy 1 triệu USD là thấp hơn ít nhất 10%, tức 0,8572.</li>
+            <li>21/9/2009, BellKor's Pragmatic Chaos đạt 0,8567, hơn 10,06%. Đội ghép nhiều kỹ thuật dự đoán lại.</li>
+          </ul>
+          <div class="key-box"><span class="box-title">Thành tựu</span> Vượt đúng mốc cuộc thi trên tập test. Đây là dự đoán điểm phim, không phải cả hệ gợi ý Netflix đang chạy.</div>
+          <p class="source">Nguồn: <a href="https://web.archive.org/web/20061210013714/http://www.netflixprize.com/rules" target="_blank" rel="noopener">Thể lệ, lưu 10/12/2006</a> · <a href="https://web.archive.org/web/20070821194257/http://www.netflixprize.com/faq" target="_blank" rel="noopener">FAQ</a> · <a href="https://web.archive.org/web/20090924184639/http://www.netflixprize.com/community/viewtopic.php?id=1537" target="_blank" rel="noopener">Trao giải, 21/9/2009</a>.</p>
+        </section>
+
+        <section>
+          <h2>Kho dữ liệu của GPT-3</h2>
+          <div class="slide-badge-row"><span class="history-date">2020</span></div>
+          <p>175 tỷ tham số. Các số dưới đây là của GPT-3, không phải mô hình sau này.</p>
+          <table class="era-table">
+            <thead><tr><th>Nguồn</th><th>Token trong kho</th><th>Tỷ lệ lúc học</th></tr></thead>
+            <tbody>
+              <tr><td>Common Crawl đã lọc</td><td>410 tỷ</td><td>60%</td></tr>
+              <tr><td>WebText2</td><td>19 tỷ</td><td>22%</td></tr>
+              <tr><td>Books1</td><td>12 tỷ</td><td>8%</td></tr>
+              <tr><td>Books2</td><td>55 tỷ</td><td>8%</td></tr>
+              <tr><td>Wikipedia tiếng Anh</td><td>3 tỷ</td><td>3%</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Hai số khác nhau</span> Kho cộng lại 499 tỷ token. Lúc học, mô hình thấy 300 tỷ token, vì nguồn nhỏ được lấy nhiều lần hơn. Tỷ lệ trong bài đã làm tròn, cộng thành 101%.</div>
+          <p class="source">Nguồn: <a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener">Brown et al., 2020, bảng 2.2</a> · <a href="https://commoncrawl.org/" target="_blank" rel="noopener">Common Crawl</a>.</p>
+        </section>
+
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">6.</span><br>Cách học<br>và quy chế</h1>
         </section>
 
         <section>
@@ -970,12 +1127,12 @@ print(len(raw), raw["id"].duplicated().sum(), raw["price"].isna().sum())
 
       <section>
         <section>
-          <h1><span class="text-light">6.</span><br>Học liệu</h1>
+          <h1><span class="text-light">7.</span><br>Học liệu</h1>
           <p class="text-light">Hai mươi cuốn, đi từ toán tới dữ liệu lớn. Một cuốn không thay cả môn.</p>
         </section>
 
         <section class="book-slide">
-          <h2>Hai mươi giáo trình</h2>
+          <h2>Giáo trình và tài liệu</h2>
           <div class="book-legend">
             <span class="sw-math">Toán và thống kê</span>
             <span class="sw-prep">Trực quan và xử lý</span>
@@ -1058,6 +1215,7 @@ print(len(raw), raw["id"].duplicated().sum(), raw["price"].isna().sum())
             <li><strong>Khoa học dữ liệu</strong> là giao của toán học, khoa học máy tính và kiến thức nghiệp vụ.</li>
             <li>Ngành này không có một ngày khai sinh. Đọc từng mốc kèm nguồn.</li>
             <li>Vibe coding được dùng khi prompt khóa tệp, khóa việc, và có bước tự kiểm.</li>
+            <li>Sáu thành tựu đều cần mô hình và một cách kiểm.</li>
             <li>Học bằng keyword, mũi tên nối, rồi bài gốc. Thi trên giấy: chuyên cần các tuần chẵn, giữa kỳ tuần 8, cuối kỳ tuần 15–16.</li>
           </ul>
         </section>
