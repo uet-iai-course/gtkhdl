@@ -1,0 +1,1187 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Khoa học dữ liệu | Bài 2: Cài đặt và môi trường</title>
+  <link rel="stylesheet" href="revealjs/dist/reset.css">
+  <link rel="stylesheet" href="revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css">
+  <link rel="stylesheet" href="plugin/highlight/zenburn.css">
+  <link rel="stylesheet" href="lecture-style.css">
+  <link rel="stylesheet" href="lecture-02.css?v=18">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section>
+        <section>
+          <h1>Giới thiệu<br>khoa học dữ liệu</h1>
+          <p class="text-light">Học kỳ I, năm học 2026–2027</p>
+          <p class="text-light">Trường Đại học Công nghệ, ĐHQGHN</p>
+        </section>
+
+        <section>
+          <h1><span class="text-light">Bài 2</span><br>Cài đặt<br>và môi trường</h1>
+          <p class="text-light">Chọn công cụ. Chạy được. Kiểm lại số.<br>Rồi mới tin kết luận.</p>
+        </section>
+
+        <section>
+          <h2>Tổng quan buổi học</h2>
+          <ol>
+            <li>Bốn bức ảnh công cụ, rồi câu chốt về trách nhiệm người dùng</li>
+            <li>Python, NumPy, pandas, Matplotlib, SciPy, scikit-learn — cài và thực hành</li>
+            <li>JupyterLab, VS Code, Cloud · SQL/Git · vibe coding với AI</li>
+            <li>Lab doanh thu + lab Student Performance (kiểm số, không tin mù)</li>
+          </ol>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h1><span class="text-light">1.</span><br>Vô vàn công cụ</h1>
+          <p class="text-light">Bốn bức ảnh. Một câu chốt.</p>
+        </section>
+
+        <section>
+          <h2>Công cụ cho Data Engineer</h2>
+          <figure class="tool-shot tight">
+            <img src="img/lec02/tools-data-engineer.jpg" alt="Infographic Great Tools for Data Engineers">
+          </figure>
+          <p class="source">Ảnh: Great Tools for Data Engineers · LinkedIn / media.licdn.com.</p>
+        </section>
+
+        <section>
+          <h2>Công cụ cho Data Analytics</h2>
+          <figure class="tool-shot tight">
+            <img src="img/lec02/tools-data-analytics.jpg" alt="Infographic Data Analytics Tools">
+          </figure>
+          <p class="source">Ảnh: Data Analytics Tools · bộ sưu tập bài giảng.</p>
+        </section>
+
+        <section>
+          <h2>Công cụ quanh Big Data</h2>
+          <figure class="tool-shot tight">
+            <img src="img/lec02/tools-big-data.jpg" alt="Infographic Big Data tools">
+          </figure>
+          <p class="source">Ảnh: Big Data landscape · bộ sưu tập bài giảng.</p>
+        </section>
+
+        <section>
+          <h2>Công cụ cho Data Science</h2>
+          <figure class="tool-shot tight">
+            <img src="img/lec02/tools-data-science.png" alt="Infographic Data Science tools">
+          </figure>
+          <p class="source">Ảnh: Data Science tools · bộ sưu tập bài giảng.</p>
+        </section>
+
+        <section>
+          <h2>Nhiều logo. Một trách nhiệm</h2>
+          <ul>
+            <li>Logo đổi theo năm. Bài toán và cách kiểm số thì giữ lại được.</li>
+            <li>Chọn công cụ theo việc cần làm: lấy dữ liệu, làm sạch, phân tích, triển khai, hay nhờ AI viết code.</li>
+            <li>Công cụ đổi nhanh. Cách đọc tệp, in số, và khớp báo cáo với code thì giữ lại được.</li>
+          </ul>
+          <div class="key-box"><span class="box-title">Câu chốt</span> Có vô vàn công cụ. Dùng hiệu quả hay không nằm ở người chọn bài toán, khóa dữ liệu, và tự kiểm kết quả.</div>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">2.</span><br>Python, thư viện<br>và phân tích</h1>
+          <p class="text-light">venv · NumPy · pandas · Matplotlib · SciPy · scikit-learn</p>
+        </section>
+
+        <section class="fit">
+          <h2>Python</h2>
+          <figure class="lab-shot logo"><img src="img/lec02/logos/python.svg" alt="Python logo"></figure>
+          <ul>
+            <li><strong>Nhóm.</strong> Ngôn ngữ nền tảng cho ETL, thống kê, ML, triển khai AI.</li>
+            <li><strong>Lịch sử.</strong> Guido van Rossum bắt đầu cuối thập niên 1980; bản công khai 1991 (CWI).</li>
+            <li><strong>Tính năng.</strong> Cú pháp dễ đọc; thư viện phong phú; thủ tục, OOP và hàm.</li>
+          </ul>
+          <p class="source">Nguồn: <a href="https://docs.python.org/3/faq/general.html" target="_blank" rel="noopener">Python FAQ</a> · logo Wikimedia Commons.</p>
+        </section>
+
+        <section>
+          <h2>Khái niệm phải nắm</h2>
+          <ul>
+            <li>Interpreter, script, module, package, dependency.</li>
+            <li><span class="inline-code">pip</span> so với Conda; môi trường ảo <span class="inline-code">venv</span>.</li>
+            <li>Hai dự án có thể cần phiên bản thư viện khác nhau.</li>
+            <li>Cài toàn hệ thống ≠ cài theo từng dự án.</li>
+            <li><span class="inline-code">requirements.txt</span> và tính tái lập.</li>
+          </ul>
+          <div class="key-box"><span class="box-title">Thảo luận</span> Notebook chạy trên máy A nhưng lỗi trên máy B: kiểm Python, thư viện, đường dẫn và dữ liệu.</div>
+        </section>
+
+        <section>
+          <h2>Thực hành — Linux / macOS</h2>
+          <pre class="demo-code lab"><code class="language-bash" data-trim>
+mkdir ds-workshop && cd ds-workshop
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install numpy pandas matplotlib seaborn scikit-learn jupyterlab
+python -m pip freeze > requirements.txt
+python -c "import numpy, pandas, sklearn; print('Environment OK')"
+</code></pre>
+          <p class="source">Tham khảo: <a href="https://docs.python.org/3/tutorial/venv.html" target="_blank" rel="noopener">venv docs</a>.</p>
+        </section>
+
+        <section>
+          <h2>Thực hành — Windows PowerShell</h2>
+          <pre class="demo-code lab"><code class="language-powershell" data-trim>
+mkdir ds-workshop; cd ds-workshop
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install numpy pandas matplotlib seaborn scikit-learn jupyterlab
+python -m pip freeze > requirements.txt
+</code></pre>
+          <div class="warn-box"><span class="box-title">Nếu bị chặn Activate</span> Dùng <span class="inline-code">.venv\Scripts\python.exe</span> hoặc CMD với <span class="inline-code">activate.bat</span>.</div>
+        </section>
+
+        <section class="fit">
+          <h2>NumPy — tên và lịch sử</h2>
+          <figure class="lab-shot logo"><img src="img/lec02/logos/numpy.svg" alt="NumPy logo"></figure>
+          <ul>
+            <li><strong>Tên.</strong> Numerical Python — thư viện mảng và tính toán số cho Python.</li>
+            <li><strong>Lịch sử.</strong> Từ Numeric và Numarray; Travis Oliphant hợp nhất thành NumPy năm 2006.</li>
+            <li><strong>Vì sao dùng.</strong> Nền tảng cho pandas, SciPy, scikit-learn; phép toán vector hóa nhanh hơn vòng lặp Python thuần.</li>
+          </ul>
+          <p class="source">Nguồn: <a href="https://numpy.org/doc/" target="_blank" rel="noopener">numpy.org/doc</a>.</p>
+        </section>
+
+        <section>
+          <h2>NumPy — tính năng và thử</h2>
+          <ul>
+            <li>Mảng nhiều chiều (<span class="inline-code">ndarray</span>), broadcasting, đại số tuyến tính.</li>
+            <li>Thực hành: trung bình, độ lệch chuẩn, chuẩn hóa vector.</li>
+          </ul>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+import numpy as np
+x = np.array([8.0, 10.0, 12.0, 15.0])
+print("mean:", x.mean())
+print("std:", x.std(ddof=1))
+print("z-score:", (x - x.mean()) / x.std(ddof=1))
+</code></pre>
+          <div class="good-box"><span class="box-title">Thử nghiệm</span> Import thành công và in ra mean/std. So với vòng <span class="inline-code">for</span>: cùng công thức, nhưng NumPy gọn hơn trên mảng lớn.</div>
+        </section>
+
+        <section class="fit">
+          <h2>pandas — tên và lịch sử</h2>
+          <figure class="lab-shot logo"><img src="img/lec02/logos/pandas.svg" alt="pandas logo"></figure>
+          <ul>
+            <li><strong>Tên.</strong> Thư viện bảng (DataFrame) cho phân tích dữ liệu có cấu trúc.</li>
+            <li><strong>Khởi tạo.</strong> Wes McKinney bắt đầu dự án năm 2008; hiện do cộng đồng duy trì.</li>
+            <li><strong>Vì sao dùng.</strong> Đọc CSV/Excel/Parquet, lọc, groupby, xử lý thiếu — gần bảng tính nhưng tái lập bằng code.</li>
+          </ul>
+          <p class="source">Nguồn: <a href="https://pandas.pydata.org/docs/getting_started/" target="_blank" rel="noopener">pandas Getting Started</a>.</p>
+        </section>
+
+        <section>
+          <h2>pandas — tính năng và thử</h2>
+          <ul>
+            <li><span class="inline-code">DataFrame</span>, lọc, nhóm, gộp bảng, ngày tháng, giá trị thiếu.</li>
+            <li>Thực hành tối thiểu trước lab doanh thu:</li>
+          </ul>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+import pandas as pd
+df = pd.DataFrame({
+    "product": ["Laptop", "Mouse", "Laptop"],
+    "quantity": [2, 10, 1],
+    "price": [15000000, 250000, 15000000],
+})
+df["revenue"] = df["quantity"] * df["price"]
+print(df.groupby("product")["revenue"].sum())
+</code></pre>
+          <div class="good-box"><span class="box-title">Thử nghiệm</span> Laptop = 45.000.000; Mouse = 2.500.000. Khớp phép nhân thủ công trước khi tin groupby.</div>
+        </section>
+
+        <section class="fit">
+          <h2>Matplotlib và Seaborn</h2>
+          <figure class="lab-shot logo"><img src="img/lec02/logos/matplotlib.svg" alt="Matplotlib logo"></figure>
+          <ul>
+            <li><strong>Matplotlib.</strong> John D. Hunter — kiểm soát chi tiết biểu đồ.</li>
+            <li><strong>Seaborn.</strong> Michael Waskom — trực quan thống kê nhanh.</li>
+          </ul>
+          <p class="source">Nguồn: <a href="https://matplotlib.org/stable/" target="_blank" rel="noopener">Matplotlib docs</a>.</p>
+        </section>
+
+        <section>
+          <h2>Lab doanh thu — sales.csv</h2>
+          <pre class="demo-code lab"><code class="language-text" data-trim>
+        date,product,category,quantity,price
+        2026-01-02,Laptop,Electronics,2,15000000
+        2026-01-03,Mouse,Accessories,10,250000
+        2026-01-04,Keyboard,Accessories,5,700000
+        2026-02-01,Laptop,Electronics,1,15000000
+        2026-02-05,Monitor,Electronics,3,4200000
+        2026-02-07,Mouse,Accessories,8,250000
+        2026-03-02,Monitor,Electronics,2,4200000
+        2026-03-05,Keyboard,Accessories,4,700000
+        </code></pre>
+        </section>
+
+        <section>
+          <h2>Lab doanh thu — analyze_sales.py</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+        import pandas as pd
+        import matplotlib.pyplot as plt
+
+        df = pd.read_csv("sales.csv", parse_dates=["date"])
+        print("Kích thước:", df.shape)
+        print("Thiếu:\n", df.isna().sum())
+        print("Trùng:", df.duplicated().sum())
+        df["revenue"] = df["quantity"] * df["price"]
+        monthly = (df.assign(month=df["date"].dt.to_period("M").astype(str))
+             .groupby("month", as_index=False)["revenue"].sum())
+        ranking = df.groupby("product")["revenue"].sum().sort_values(ascending=False)
+        print(monthly); print(ranking)
+        plt.bar(monthly["month"], monthly["revenue"])
+        plt.title("Doanh thu theo tháng"); plt.tight_layout()
+        plt.savefig("monthly_revenue.png", dpi=150)
+        </code></pre>
+        </section>
+
+        <section class="fit">
+          <h2>Kết quả đã chạy — doanh thu</h2>
+          <figure class="lab-shot half">
+            <img src="img/lec02/demos/monthly_revenue.png" alt="Doanh thu theo tháng">
+          </figure>
+          <ul>
+            <li>Tổng: <strong>76.800.000</strong> VND. Laptop 45.000.000.</li>
+            <li>Tháng: 01 = 36.000.000 · 02 = 29.600.000 · 03 = 11.200.000.</li>
+          </ul>
+          <div class="warn-box"><span class="box-title">Xác minh</span> In số bằng code. Không tin số trong tài liệu nếu máy bạn in khác.</div>
+        </section>
+
+        <section class="fit">
+          <h2>SciPy</h2>
+          <ul>
+            <li>Tối ưu, tích phân, thống kê ứng dụng — bổ sung NumPy.</li>
+            <li>Trong lab UCI: Spearman/Pearson; p nhỏ ≠ nhân quả.</li>
+          </ul>
+          <p class="source">Nguồn: <a href="https://docs.scipy.org/doc/scipy/" target="_blank" rel="noopener">SciPy docs</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>scikit-learn</h2>
+          <figure class="lab-shot logo"><img src="img/lec02/logos/scikit-learn.svg" alt="scikit-learn logo"></figure>
+          <ul>
+            <li><strong>Lịch sử.</strong> David Cournapeau, Google Summer of Code 2007; cộng đồng phát triển tiếp.</li>
+            <li><strong>Tính năng.</strong> Hồi quy, phân loại, clustering, tiền xử lý, CV, pipeline.</li>
+            <li><strong>Kiến thức.</strong> Train/test; MAE/RMSE; leakage; luôn so với baseline.</li>
+          </ul>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/" target="_blank" rel="noopener">scikit-learn.org</a>.</p>
+        </section>
+
+        <section>
+          <h2>Thực hành — California Housing</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+        from sklearn.datasets import fetch_california_housing
+        from sklearn.model_selection import train_test_split
+        from sklearn.pipeline import make_pipeline
+        from sklearn.impute import SimpleImputer
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.linear_model import Ridge
+        from sklearn.metrics import mean_absolute_error, mean_squared_error
+
+        housing = fetch_california_housing(as_frame=True)
+        X, y = housing.data, housing.target
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2, random_state=42)
+        model = make_pipeline(SimpleImputer(strategy="median"),
+                      StandardScaler(), Ridge(alpha=1.0))
+        model.fit(X_train, y_train)
+        pred = model.predict(X_test)
+        print("MAE:", mean_absolute_error(y_test, pred))
+        print("RMSE:", mean_squared_error(y_test, pred) ** 0.5)
+        </code></pre>
+        </section>
+
+        <section>
+          <h2>Kết quả đã chạy — Ridge</h2>
+          <ul>
+            <li>n_train = 16512 · n_test = 4128 · 8 đặc trưng.</li>
+            <li>MAE ≈ <strong>0,533</strong> · RMSE ≈ <strong>0,746</strong> (đơn vị ×100.000 USD).</li>
+            <li>Baseline (trung bình train): MAE ≈ 0,906 — Ridge tốt hơn baseline.</li>
+          </ul>
+          <div class="key-box"><span class="box-title">Mở rộng</span> Random Forest + cross-validation. Chia train/test trước khi fit bước tiền xử lý.</div>
+        </section>
+      </section>
+
+      <section>
+      <section>
+          <h1><span class="text-light">3.</span><br>JupyterLab,<br>VS Code, Cloud</h1>
+          <p class="text-light">Notebook · IDE · Colab · Kaggle</p>
+        </section>
+
+        <section class="fit">
+          <h2>JupyterLab / Notebook</h2>
+          <figure class="lab-shot logo"><img src="img/lec02/logos/jupyter.svg" alt="Jupyter logo"></figure>
+          <ul>
+            <li><strong>Lịch sử.</strong> Từ IPython (Fernando Pérez, 2001); Project Jupyter 2014.</li>
+            <li><strong>Tính năng.</strong> Chạy theo cell; Markdown; lưu kết quả phân tích.</li>
+            <li><strong>Hạn chế.</strong> Kernel có thể lệch thứ tự cell; notebook không tự bảo đảm tái lập.</li>
+          </ul>
+          <p class="source">Nguồn: <a href="https://jupyter.org/install" target="_blank" rel="noopener">jupyter.org/install</a>.</p>
+        </section>
+
+        <section>
+          <h2>JupyterLab — cài và thử</h2>
+          <pre class="demo-code lab"><code class="language-bash" data-trim>
+python -m pip install jupyterlab
+jupyter lab
+</code></pre>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+import sys, pandas as pd, numpy as np
+print("Python:", sys.version)
+print("pandas:", pd.__version__)
+print("NumPy:", np.__version__)
+</code></pre>
+          <div class="good-box"><span class="box-title">Thử nghiệm</span> Kernel trỏ đúng <span class="inline-code">.venv</span>. In đúng phiên bản thư viện vừa cài.</div>
+        </section>
+
+        <section class="fit">
+          <h2>Visual Studio Code</h2>
+          <ul>
+            <li><strong>Đơn vị.</strong> Microsoft — editor, terminal, debugger, Git, extension Python/Jupyter.</li>
+            <li><strong>Thiết lập.</strong> Mở <span class="inline-code">ds-workshop</span> → chọn interpreter <span class="inline-code">.venv</span> → chạy <span class="inline-code">analysis.py</span>.</li>
+            <li><strong>Điểm mạnh.</strong> Nhiều file, kiểm thử, kết hợp AI coding agents.</li>
+          </ul>
+          <div class="key-box"><span class="box-title">So sánh</span> Cùng đoạn đọc CSV: khi nào dùng notebook, khi nào chuyển sang <span class="inline-code">.py</span>?</div>
+          <p class="source">Nguồn: <a href="https://code.visualstudio.com/docs/python/python-tutorial" target="_blank" rel="noopener">VS Code Python</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Google Colab và Kaggle</h2>
+          <ul>
+            <li><strong>Colab.</strong> Notebook cloud; không cần cài cục bộ. Giới hạn phiên, bộ nhớ, GPU, lưu file.</li>
+            <li><strong>Kaggle Code.</strong> Dataset + notebook; đường dẫn <span class="inline-code">/kaggle/input/...</span>.</li>
+          </ul>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+import zipfile, pandas as pd
+zipfile.ZipFile("student.zip").extractall("data")
+print(pd.read_csv("data/student-mat.csv", sep=";").shape)  # (395, 33)
+</code></pre>
+          <div class="warn-box"><span class="box-title">Cloud ≠ đủ tái lập</span> Cùng dữ liệu và cùng bước xử lý → số thống kê phải giống máy cục bộ.</div>
+          <p class="source">Nguồn: <a href="https://colab.research.google.com/" target="_blank" rel="noopener">Colab</a> · <a href="https://www.kaggle.com/code" target="_blank" rel="noopener">Kaggle Code</a>.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">4.</span><br>SQL, Git<br>và lưu trữ</h1>
+          <p class="text-light">PostgreSQL · Git · MongoDB · S3</p>
+        </section>
+
+        <section class="fit">
+          <h2>PostgreSQL</h2>
+          <figure class="lab-shot logo"><img src="img/lec02/logos/postgresql.svg" alt="PostgreSQL logo"></figure>
+          <ul>
+            <li><strong>Lịch sử.</strong> POSTGRES (Michael Stonebraker, UC Berkeley, từ 1986); tên PostgreSQL từ 1996.</li>
+            <li><strong>Tính năng.</strong> SQL, JOIN, GROUP BY, CTE, window, transaction, index.</li>
+            <li><strong>Thảo luận.</strong> SQL vs DataFrame; không tải cả bảng lớn về pandas trước khi cần.</li>
+          </ul>
+          <p class="source">Nguồn: <a href="https://www.postgresql.org/docs/" target="_blank" rel="noopener">PostgreSQL docs</a>.</p>
+        </section>
+
+        <section>
+          <h2>Thực hành SQL — sales_db</h2>
+          <pre class="demo-code lab"><code class="language-sql" data-trim>
+CREATE TABLE sales (
+  id SERIAL PRIMARY KEY,
+  sale_date DATE NOT NULL,
+  product TEXT NOT NULL,
+  quantity INTEGER NOT NULL CHECK (quantity > 0),
+  price NUMERIC(14, 2) NOT NULL CHECK (price >= 0)
+);
+INSERT INTO sales (sale_date, product, quantity, price) VALUES
+  ('2026-01-02', 'Laptop', 2, 15000000),
+  ('2026-01-03', 'Mouse', 10, 250000),
+  ('2026-02-01', 'Laptop', 1, 15000000),
+  ('2026-02-05', 'Monitor', 3, 4200000);
+
+SELECT product, SUM(quantity * price) AS revenue
+FROM sales GROUP BY product ORDER BY revenue DESC;
+</code></pre>
+          <div class="key-box"><span class="box-title">Tiếp</span> Kết nối Python → cùng truy vấn → pandas. Khi nào tổng hợp trong SQL?</div>
+        </section>
+
+        <section class="fit">
+          <h2>Git và GitHub</h2>
+          <figure class="lab-shot logo"><img src="img/lec02/logos/git.svg" alt="Git logo"></figure>
+          <ul>
+            <li><strong>Git.</strong> Linus Torvalds, 2005 — quản lý phiên bản phân tán.</li>
+            <li><strong>GitHub.</strong> Lưu trữ và cộng tác trên Git (không phải bản thân Git).</li>
+          </ul>
+          <pre class="demo-code lab"><code class="language-bash" data-trim>
+git init
+git add .
+git commit -m "Initial data science project"
+</code></pre>
+          <p class="source">Nguồn: <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git-scm.com/downloads</a>.</p>
+        </section>
+
+        <section>
+          <h2>Git — .gitignore và tái lập</h2>
+          <pre class="demo-code lab"><code class="language-gitignore" data-trim>
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.env
+data/private/
+</code></pre>
+          <ul>
+            <li>Nhánh <span class="inline-code">feature/visualization</span> · thêm biểu đồ · <span class="inline-code">git diff</span>.</li>
+            <li>Notebook có output chưa đủ để tái lập: cần dữ liệu, dependency, seed, README.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>MongoDB và Amazon S3</h2>
+          <ul>
+            <li><strong>MongoDB.</strong> Document JSON — metadata và báo cáo có cấu trúc.</li>
+            <li><strong>S3.</strong> Object storage cho CSV/PNG/báo cáo; không thay truy vấn quan hệ.</li>
+          </ul>
+          <div class="warn-box"><span class="box-title">Bảo mật</span> Không commit credential. Không công khai bucket dữ liệu riêng.</div>
+          <p class="source">Nguồn: <a href="https://www.mongodb.com/docs/" target="_blank" rel="noopener">MongoDB</a> · <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html" target="_blank" rel="noopener">S3</a>.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">5.</span><br>Vibe coding<br>và AI agents</h1>
+          <p class="text-light">Đặc tả · sinh code · kiểm thử · phản biện</p>
+        </section>
+
+        <section>
+          <h2>Ba cách làm việc</h2>
+          <table class="era-table">
+            <thead><tr><th>Cách</th><th>Sinh viên làm gì</th><th>Đánh giá gì</th></tr></thead>
+            <tbody>
+              <tr><td>Coding thủ công</td><td>Tự thiết kế và viết code</td><td>Thuật toán, cú pháp, debug</td></tr>
+              <tr><td>AI-assisted</td><td>Tự viết, nhờ AI gợi ý/giải thích</td><td>Đặt câu hỏi và kiểm gợi ý</td></tr>
+              <tr><td>Vibe / agentic</td><td>Mô tả yêu cầu, AI xây nhiều phần</td><td>Đặc tả, test, kiểm soát thay đổi</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Chốt</span> Ba cách bổ sung nhau. Không phụ thuộc hoàn toàn vào mô hình sinh code.</div>
+        </section>
+
+        <section class="fit">
+          <h2>Cursor · Copilot · Codex · Claude Code</h2>
+          <ul>
+            <li><strong>Cursor.</strong> AI-native editor (hệ sinh thái VS Code) — chỉnh nhiều file theo chỉ dẫn tự nhiên. <a href="https://cursor.com/" target="_blank" rel="noopener">cursor.com</a></li>
+            <li><strong>GitHub Copilot.</strong> Gợi ý code trong IDE. <a href="https://github.com/features/copilot" target="_blank" rel="noopener">Copilot</a></li>
+            <li><strong>OpenAI Codex.</strong> Coding agent — giao nhiệm vụ có tiêu chí hoàn thành. <a href="https://learn.chatgpt.com/docs/ide" target="_blank" rel="noopener">Codex IDE</a></li>
+            <li><strong>Claude Code.</strong> Agent trên terminal/codebase — đọc repo, sửa, chạy test. <a href="https://docs.claude.com/" target="_blank" rel="noopener">docs.claude.com</a></li>
+          </ul>
+          <div class="warn-box"><span class="box-title">So sánh đúng cách</span> Cùng một nhiệm vụ + cùng bộ test. Không chấm chỉ vì sinh code nhanh.</div>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt vibe coding — doanh thu (1/2)</h2>
+          <div class="prompt-sheet xl">
+            <p class="prompt-line role"><span class="tag">Vai trò.</span> Bạn là kỹ sư phần mềm và chuyên gia khoa học dữ liệu. Hãy xây dựng một ứng dụng phân tích doanh thu bằng Python trong repository hiện tại (notebook hoặc script có bộ lọc và biểu đồ).</p>
+            <p class="prompt-line task"><span class="tag">Trước khi sửa.</span> Kiểm tra cấu trúc thư mục và xác định yêu cầu còn thiếu. Dùng pandas đọc CSV, tính doanh thu = quantity × price, tổng hợp theo tháng và sản phẩm, tạo dashboard có bộ lọc.</p>
+            <p class="prompt-line task"><span class="tag">Chức năng.</span> Kiểm tra cột bắt buộc; phát hiện thiếu, số lượng/giá âm, ngày không hợp lệ; KPI và biểu đồ; tải CSV đã lọc; test tự động; requirements.txt và README.</p>
+          </div>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt vibe coding — doanh thu (2/2)</h2>
+          <div class="prompt-sheet xl">
+            <p class="prompt-line rule"><span class="tag">Chất lượng.</span> Kiểm tra schema và kiểu dữ liệu; không âm thầm xóa dòng lỗi. Tách logic tính toán khỏi giao diện để kiểm thử độc lập. Viết unit test cho dữ liệu hợp lệ, trống và sai. Không tạo dữ liệu giả để dashboard trông đúng.</p>
+            <p class="prompt-line check"><span class="tag">Trước khi xong.</span> Chạy test hiện có, sửa lỗi, báo cáo test nào chạy được / chưa. Tóm tắt file đã đổi, giả định, vấn đề chưa giải quyết.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Tiêu chí đánh giá vibe coding</h2>
+          <ul>
+            <li>Đúng phép tính và kết quả thống kê.</li>
+            <li>Xử lý dữ liệu không hợp lệ.</li>
+            <li>Test đầy đủ — không chỉ “chạy được”.</li>
+            <li>Giải thích được code do AI tạo.</li>
+            <li>Tái lập trên môi trường mới; không lộ API key.</li>
+          </ul>
+          <div class="warn-box"><span class="box-title">Bài học</span> Ứng dụng đẹp và chạy được ≠ phân tích khoa học đúng. Phải tự xác minh số.</div>
+        </section>
+
+        <section>
+          <h2>Công cụ mở rộng (tự chọn)</h2>
+          <table class="era-table">
+            <thead><tr><th>Công cụ</th><th>Khái niệm</th><th>Thực hành gợi ý</th></tr></thead>
+            <tbody>
+              <tr><td>statsmodels</td><td>Mô hình thống kê</td><td>Hồi quy, kiểm định, phần dư</td></tr>
+              <tr><td>PyTorch</td><td>Tensor, autodiff</td><td>Mạng neural nhỏ</td></tr>
+              <tr><td>DuckDB / Polars</td><td>SQL nhúng / bảng hiệu năng</td><td>So với pandas</td></tr>
+              <tr><td>MLflow / DVC</td><td>Thí nghiệm / phiên bản dữ liệu</td><td>Ghi metric, tái lập pipeline</td></tr>
+              <tr><td>Lovable / Replit</td><td>AI app builder</td><td>So xuất mã nguồn và phụ thuộc nền tảng</td></tr>
+            </tbody>
+          </table>
+          <p class="era-note">Không cần cài hết ngay. Chọn một công cụ và so với công cụ đã học.</p>
+        </section>
+
+        <section>
+          <h2>Tài liệu chính thức</h2>
+          <ul>
+            <li>Python · Jupyter · VS Code · pandas · NumPy · Matplotlib</li>
+            <li>scikit-learn · PostgreSQL · Cursor / Copilot / Claude Code</li>
+          </ul>
+          <div class="good-box"><span class="box-title">Phạm vi cốt lõi</span> Python, venv, Jupyter, VS Code, Git, NumPy, pandas, Matplotlib, scikit-learn và 2–3 công cụ vibe coding — cùng một dự án xuyên suốt.</div>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">6.</span><br>Lab mẫu<br>Student Performance</h1>
+          <p class="text-light">Tải dữ liệu · AI · biểu đồ · kiểm số · kết luận có căn cứ.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Bộ dữ liệu UCI</h2>
+          <ul>
+            <li>Paulo Cortez · UCI. Hai trường THPT Bồ Đào Nha: điểm, nhân khẩu, gia đình, học tập.</li>
+            <li><span class="inline-code">student-mat.csv</span> (Toán) · <span class="inline-code">student-por.csv</span> (Portuguese).</li>
+            <li>ZIP gốc: Toán <strong>395</strong>×33 · Portuguese <strong>649</strong>×33. UCI ghi 649 instances (= Portuguese); 30 features trước G1–G3.</li>
+            <li>CSV dùng <span class="inline-code">sep=";"</span>. Không sửa file gốc.</li>
+          </ul>
+          <div class="warn-box"><span class="box-title">Không copy assert sai</span> Một số tài liệu ghi cả hai file 649 dòng. In shape trước. Assert Toán = 395, Portuguese = 649.</div>
+          <p class="source">Nguồn: <a href="https://archive.ics.uci.edu/dataset/320/student+performance" target="_blank" rel="noopener">UCI dataset 320</a> · <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/00320/student.zip" target="_blank" rel="noopener">student.zip</a> · DOI <a href="https://doi.org/10.24432/C5TG7T" target="_blank" rel="noopener">10.24432/C5TG7T</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>6.1 — Hỏi trước khi mở AI</h2>
+          <ol>
+            <li><strong>Chất lượng.</strong> Bao nhiêu bản ghi, biến số, biến phân loại? Thiếu, trùng, bất thường, sai kiểu?</li>
+            <li><strong>Phân phối G3.</strong> Điểm cuối kỳ thế nào? Bao nhiêu điểm 0? Toán và Portuguese khác nhau ra sao?</li>
+            <li><strong>Liên hệ.</strong> G1, G2, studytime, failures, absences với G3 thế nào?</li>
+            <li><strong>Giới hạn.</strong> Liên hệ quan sát có chứng minh nguyên nhân không? Yếu tố nào có thể bị bỏ sót?</li>
+          </ol>
+          <div class="key-box"><span class="box-title">Mục tiêu</span> EDA. Không mặc định huấn luyện mô hình. Không bắt đầu bằng “hãy phân tích dữ liệu này”.</div>
+        </section>
+
+        <section class="fit">
+          <h2>6.2 — Tải dữ liệu UCI về máy</h2>
+          <ol>
+            <li>Mở UCI dataset 320 → tải <span class="inline-code">student.zip</span> → giải nén <span class="inline-code">data/raw/</span>.</li>
+            <li>Xác nhận: <span class="inline-code">student-mat.csv</span>, <span class="inline-code">student-por.csv</span>, <span class="inline-code">student.txt</span>.</li>
+          </ol>
+          <div class="tree-box">student-performance-lab/
+├── data/raw/   # mat + por + student.txt
+├── notebooks/student_performance_eda.ipynb
+├── reports/figures/   src/analyze.py
+├── requirements.txt  README.md  .gitignore</div>
+          <div class="good-box"><span class="box-title">Tái lập</span> Không sửa file gốc. Làm sạch chỉ trong code.</div>
+        </section>
+
+        <section>
+          <h2>Cài thư viện cho lab</h2>
+          <pre class="demo-code lab"><code class="language-bash" data-trim>
+python -m venv .venv
+source .venv/bin/activate            # Linux / macOS
+# .\.venv\Scripts\Activate.ps1       # Windows PowerShell
+python -m pip install --upgrade pip
+python -m pip install numpy pandas scipy matplotlib jupyterlab
+python -m pip freeze > requirements.txt
+</code></pre>
+          <div class="key-box"><span class="box-title">Cloud</span> Colab / Kaggle: tải ZIP lên phiên hoặc Input. Không cần Python cục bộ. File tạm có thể hết hạn.</div>
+        </section>
+
+        <section>
+          <h2>6.3 — Đọc CSV trước khi hỏi AI</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats
+
+DATA_DIR = Path("data/raw")
+math_df = pd.read_csv(DATA_DIR / "student-mat.csv", sep=";")
+port_df = pd.read_csv(DATA_DIR / "student-por.csv", sep=";")
+print("Math:", math_df.shape)
+print("Portuguese:", port_df.shape)
+display(math_df.head())
+display(math_df.dtypes)
+</code></pre>
+          <div class="warn-box"><span class="box-title">sep=";"</span> CSV gốc dùng dấu chấm phẩy. Bỏ tham số này thì cả hàng có thể thành một cột.</div>
+        </section>
+
+        <section>
+          <h2>Bước đọc — chúng ta thấy gì?</h2>
+          <pre class="result-out">Math: (395, 33)
+Portuguese: (649, 33)</pre>
+          <p class="story-p">Hai con số trong ngoặc không phải “mã lỗi”. Con số đầu là số học sinh (số dòng). Con số sau là số cột thông tin về mỗi học sinh. Toán có 395 học sinh; môn Tiếng Bồ Đào Nha có 649 học sinh. Hai file không cùng kích thước — đó là tín hiệu quan trọng trước khi so sánh hai môn.</p>
+          <div class="term-box"><span class="term">Shape (hình dạng bảng)</span> = (số dòng, số cột). Luôn in shape ngay sau khi đọc file để biết mình đang cầm đúng dữ liệu.</div>
+        </section>
+
+        <section>
+          <h2>Vì sao phải khóa dấu phân cách?</h2>
+          <p class="story-p">File gốc của UCI dùng dấu chấm phẩy (<span class="inline-code">;</span>) để tách cột, không phải dấu phẩy. Nếu quên <span class="inline-code">sep=";"</span>, pandas có thể đọc cả hàng thành một cột duy nhất. Khi đó mọi phân tích sau đều sai từ gốc, dù biểu đồ vẫn “vẽ được”.</p>
+          <div class="good-box"><span class="box-title">Đã kiểm</span> Sau khi đọc đúng, điểm cuối kỳ G3 của Toán nằm trong khoảng 0–20; Portuguese nằm trong 0–19. Miền điểm hợp lệ theo thang phổ biến của hệ thống Bồ Đào Nha.</div>
+        </section>
+
+        <section>
+          <h2>Hàm kiểm toán chất lượng</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+def audit_data(df, name):
+    print(f"\n===== {name} =====")
+    print("Kích thước:", df.shape)
+    print("Số bản ghi trùng:", df.duplicated().sum())
+    print("Số ô thiếu:", int(df.isna().sum().sum()))
+    print("\nKiểu dữ liệu:")
+    print(df.dtypes)
+    print("\nThống kê mô tả:")
+    display(df.describe(include="all").T)
+
+audit_data(math_df, "Mathematics")
+audit_data(port_df, "Portuguese")
+</code></pre>
+          <div class="key-box"><span class="box-title">Việc của sinh viên</span> Chạy trước Prompt 1. Giữ output để đối chiếu báo cáo AI.</div>
+        </section>
+
+        <section>
+          <h2>Assert đúng từng file</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+assert "G3" in math_df.columns
+assert "G3" in port_df.columns
+assert math_df.shape == (395, 33), "Math: khác ZIP gốc"
+assert port_df.shape == (649, 33), "Portuguese: khác ZIP gốc"
+assert math_df["G3"].between(0, 20).all()
+assert port_df["G3"].between(0, 20).all()
+print("Các kiểm tra cơ bản đã hoàn tất.")
+</code></pre>
+          <div class="warn-box"><span class="box-title">Assertion chưa đủ</span> Vượt assert chưa chứng minh dữ liệu sạch hết. Khác kỳ vọng thì điều tra, không xóa dòng để ép khớp.</div>
+        </section>
+
+        <section>
+          <h2>Kiểm toán chất lượng — bằng chứng</h2>
+          <table class="era-table">
+            <thead><tr><th>Tệp</th><th>Học sinh</th><th>Cột</th><th>Dòng trùng</th><th>Ô trống</th><th>Điểm cuối = 0</th></tr></thead>
+            <tbody>
+              <tr><td>Toán</td><td>395</td><td>33</td><td>0</td><td>0</td><td>38</td></tr>
+              <tr><td>Portuguese</td><td>649</td><td>33</td><td>0</td><td>0</td><td>15</td></tr>
+            </tbody>
+          </table>
+          <p class="story-p">Không có dòng trùng và không có ô trống là tin tốt: ta không phải “vá” dữ liệu trước khi phân tích. Nhưng “sạch về thiếu/trùng” chưa có nghĩa mọi kết luận đều đúng. Nó chỉ có nghĩa bước tiếp theo được phép bắt đầu.</p>
+          <p class="source">Đếm trên ZIP UCI 00320. Không giả định thứ tự dòng hai file là cùng một học sinh.</p>
+        </section>
+
+        <section>
+          <h2>Điểm 0 đang nói điều gì?</h2>
+          <p class="story-p">Ở Toán, 38/395 học sinh (khoảng 9,6%) có điểm cuối kỳ bằng 0. Ở Portuguese chỉ 15/649 (khoảng 2,3%). Điểm 0 có thể là trượt nặng, vắng thi, hoặc quy ước ghi nhận đặc biệt — UCI không giải thích từng trường hợp. Hệ quả thực tế: phân phối điểm Toán sẽ bị “kéo” về phía thấp hơn, và trung bình Toán sẽ thấp hơn nếu ta không để ý khối điểm 0 này.</p>
+          <div class="key-box"><span class="box-title">Chốt trước khi hỏi AI</span> Assert đã vượt qua. Bây giờ mới giao Prompt 1 — và bắt AI đối chiếu đúng hai shape 395×33 và 649×33.</div>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt 1 — Kiểm toán (1/3)</h2>
+          <div class="prompt-sheet xl" aria-label="Prompt 1 phần 1">
+            <p class="prompt-line role"><span class="tag">Vai trò.</span> Bạn là chuyên gia Khoa học dữ liệu, thống kê ứng dụng và kiểm toán chất lượng dữ liệu.</p>
+            <p class="prompt-line data"><span class="tag">Bối cảnh.</span> Tôi đang thực hiện bài thực hành EDA trên bộ dữ liệu Student Performance của UCI Machine Learning Repository: https://archive.ics.uci.edu/dataset/320/student+performance</p>
+            <p class="prompt-line data"><span class="tag">File.</span> Tôi đã tải dữ liệu về máy và đặt hai file: data/raw/student-mat.csv và data/raw/student-por.csv. Hãy thực hiện theo đúng các bước sau.</p>
+            <p class="prompt-line task"><span class="tag">Bước 1 — Kiểm tra đầu vào.</span> Xác nhận hai file tồn tại và đọc CSV bằng pandas. Xác minh dấu phân cách của CSV; bộ dữ liệu gốc sử dụng dấu chấm phẩy. Không tự ý sửa file dữ liệu gốc.</p>
+            <p class="prompt-line task"><span class="tag">Bước 2 — Kiểm kê cấu trúc.</span> Báo cáo số dòng, số cột, tên cột, kiểu dữ liệu và một số dòng mẫu. Phân loại biến số, biến phân loại và biến điểm. Giải thích ý nghĩa các biến G1, G2, G3, studytime, failures và absences dựa trên tài liệu UCI.</p>
+          </div>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt 1 — Kiểm toán (2/3)</h2>
+          <div class="prompt-sheet xl" aria-label="Prompt 1 phần 2">
+            <p class="prompt-line task"><span class="tag">Bước 3 — Kiểm toán chất lượng.</span> Đếm giá trị thiếu theo cột. Đếm bản ghi trùng hoàn toàn. Kiểm tra miền giá trị và các giá trị bất thường. Kiểm tra các giá trị hợp lệ của biến phân loại. Không tự động xóa dữ liệu hoặc thay thế giá trị khi chưa nêu rõ lý do.</p>
+            <p class="prompt-line check"><span class="tag">Bước 4 — Kiểm chứng.</span> So sánh kết quả với metadata chính thức của UCI. Nếu số dòng, số cột hoặc miền giá trị khác kỳ vọng, hãy báo cáo khác biệt và điều tra; không được ép dữ liệu khớp bằng cách xóa dòng. Phân biệt kết quả thực sự quan sát được với giả thuyết cần kiểm tra thêm.</p>
+            <p class="prompt-line out"><span class="tag">Bước 5 — Tạo đầu ra.</span> Tạo một notebook EDA có code và giải thích bằng tiếng Việt. Lưu báo cáo kiểm toán thành reports/data_audit.md. Liệt kê những vấn đề cần xử lý ở bước tiếp theo.</p>
+          </div>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt 1 — Kiểm toán (3/3)</h2>
+          <div class="prompt-sheet xl" aria-label="Prompt 1 phần 3">
+            <p class="prompt-line rule"><span class="tag">Bắt buộc.</span> Hãy chạy code nếu môi trường cho phép. Không được tuyên bố đã chạy, đã đọc file hoặc đã xác minh bất kỳ kết quả nào nếu chưa thực sự thực hiện thao tác đó.</p>
+            <p class="prompt-line check"><span class="tag">Kỳ vọng shape.</span> Toán 395×33 · Portuguese 649×33 (theo ZIP gốc UCI 00320). Nếu khác, báo cáo và điều tra.</p>
+            <p class="prompt-line data"><span class="tag">Yêu cầu sinh viên.</span> Đối chiếu báo cáo AI với kết quả in ra từ pandas. AI có thể đề xuất kiểm tra đúng nhưng vẫn diễn giải sai một biến hoặc nhầm kết quả từ file Toán sang file Tiếng Bồ Đào Nha.</p>
+          </div>
+          <div class="good-box"><span class="box-title">Dùng ở đâu</span> Cursor, Claude Code, OpenCode, VS Code có AI, hoặc chatbot nhận file. Agent phải đọc file thật và chạy code.</div>
+        </section>
+
+        <section>
+          <h2>Sau Prompt 1 — bản đồ biến số</h2>
+          <p class="story-p">Khi AI trả báo cáo kiểm toán, việc đầu tiên không phải “tin”, mà là đối chiếu với bảng ta vừa tự chạy. Các biến điểm <strong>G1, G2, G3</strong> lần lượt là điểm kỳ 1, kỳ 2 và điểm cuối năm. <strong>studytime</strong> là mức thời gian học trong tuần (thang bậc 1–4, không phải số giờ tuyệt đối). <strong>failures</strong> là số lần đã trượt lớp trước đó (0–3). <strong>absences</strong> là số buổi nghỉ.</p>
+          <div class="term-box"><span class="term">Biến thứ bậc</span> (ordinal): các mức có thứ tự (1 &lt; 2 &lt; 3) nhưng khoảng cách giữa các mức không nhất thiết bằng nhau. Vì vậy không nên mặc định mọi quan hệ đều là đường thẳng.</div>
+          <div class="good-box"><span class="box-title">Cổng sang bước hình</span> Shape khớp, thiếu/trùng = 0. Ta đủ điều kiện xem phân phối điểm và các yếu tố liên quan.</div>
+        </section>
+
+        <section>
+          <h2>6.4 — Sáu biểu đồ bắt buộc</h2>
+          <p class="era-note">AI viết code; sinh viên chạy và kiểm số liệu.</p>
+          <table class="era-table">
+            <thead><tr><th>Biểu đồ</th><th>Câu hỏi cần trả lời</th></tr></thead>
+            <tbody>
+              <tr><td>Histogram của G3</td><td>Điểm cuối kỳ phân phối như thế nào?</td></tr>
+              <tr><td>Boxplot G3 theo môn học</td><td>Điểm giữa hai môn có khác biệt không?</td></tr>
+              <tr><td>Scatter plot G1, G2, G3</td><td>Điểm các kỳ có liên hệ như thế nào?</td></tr>
+              <tr><td>Boxplot theo studytime</td><td>Nhóm thời gian học khác nhau có điểm khác nhau không?</td></tr>
+              <tr><td>Boxplot theo failures</td><td>Số lần trượt trước đây có liên hệ với điểm cuối kỳ không?</td></tr>
+              <tr><td>Scatter plot absences và G3</td><td>Số buổi nghỉ có xu hướng liên hệ với điểm không?</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Sau hình</span> Bổ sung thống kê mô tả, cỡ mẫu mỗi nhóm, độ bất định. Không kết luận chỉ vì nhìn thấy xu hướng.</div>
+        </section>
+
+        <section>
+          <h2>Code — histogram và boxplot</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+from pathlib import Path
+import matplotlib.pyplot as plt
+
+OUT = Path("reports/figures")
+OUT.mkdir(parents=True, exist_ok=True)
+math = math_df.copy(); math["subject"] = "Mathematics"
+port = port_df.copy(); port["subject"] = "Portuguese"
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.hist(math["G3"], bins=21, alpha=0.6, label="Mathematics")
+ax.hist(port["G3"], bins=21, alpha=0.6, label="Portuguese")
+ax.set(title="Phân phối điểm cuối kỳ", xlabel="G3 (0–20)", ylabel="Số học sinh")
+ax.legend(); fig.tight_layout()
+fig.savefig(OUT / "grade_distribution.png", dpi=150)
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.boxplot([math["G3"], port["G3"]], tick_labels=["Mathematics", "Portuguese"])
+ax.set(title="G3 theo môn học", ylabel="G3 (0–20)")
+fig.tight_layout(); fig.savefig(OUT / "grade_by_subject.png", dpi=150)
+</code></pre>
+          <p class="era-note">Matplotlib cũ: thay <span class="inline-code">tick_labels</span> bằng <span class="inline-code">labels</span>.</p>
+        </section>
+
+        <section>
+          <h2>Câu hỏi dẫn đường</h2>
+          <p class="story-p lg">Dữ liệu đã sạch. Tiếp theo ta lần lượt xem từng kết quả đã chạy: phân phối điểm cuối năm, khác biệt giữa hai môn, điểm các kỳ trước, thời gian học, lần trượt và buổi nghỉ. Mỗi slide dưới đây gồm <strong>kết quả + phân tích giải thích ngay bên cạnh</strong>. Cuối phần lab, mọi insight được gom vào một bảng để ra quyết định.</p>
+        </section>
+
+        <section>
+          <h2>Kết quả 1 — Phân phối điểm cuối năm</h2>
+          <div class="result-pair">
+            <figure class="lab-shot">
+              <img src="img/lec02/student-lab/grade_distribution.png" alt="Histogram G3">
+            </figure>
+            <div class="analyze">
+              <p class="story-p">Histogram đếm số học sinh ở từng mức điểm 0–20. Toán: trung bình khoảng <strong>10,4</strong>, trung vị <strong>11</strong>, độ lệch chuẩn khoảng <strong>4,6</strong>. Portuguese: trung bình khoảng <strong>11,9</strong>, trung vị <strong>12</strong>, độ lệch chuẩn khoảng <strong>3,2</strong>.</p>
+              <p class="story-p"><strong>Giải thích.</strong> Trung bình là điểm “trải đều”; trung vị là học sinh đứng giữa khi xếp điểm. Toán có nhiều điểm 0 hơn (38/395) nên trung bình bị kéo xuống và điểm “rải” rộng hơn. Portuguese đồng đều hơn.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Kết quả 2 — So điểm hai môn</h2>
+          <div class="result-pair">
+            <figure class="lab-shot">
+              <img src="img/lec02/student-lab/grade_by_subject.png" alt="Boxplot G3 theo môn">
+            </figure>
+            <div class="analyze">
+              <p class="story-p">Hộp ria cho thấy mức điểm trung tâm của Portuguese cao hơn Toán khoảng <strong>1,5 điểm</strong> theo trung bình, và độ phân tán Toán lớn hơn.</p>
+              <p class="story-p"><strong>Giải thích.</strong> Không kết luận vội “Portuguese dễ hơn / học sinh giỏi hơn”, vì hai file có thể chứa nhiều học sinh trùng nhau (UCI gợi ý khoảng 382 học sinh xuất hiện ở cả hai tệp). Khác biệt môn là tín hiệu cần điều tra thêm (độ khó, cách chấm, thành phần lớp), chưa đủ để ra chính sách chỉ từ một hình.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Code — scatter G1/G2 và nhóm</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+fig, axes = plt.subplots(1, 2, figsize=(11, 4))
+for ax, x in zip(axes, ["G1", "G2"]):
+    ax.scatter(math[x], math["G3"], alpha=0.55)
+    ax.set(title=f"{x} vs G3 — Mathematics", xlabel=x, ylabel="G3")
+fig.tight_layout(); fig.savefig(OUT / "previous_grades.png", dpi=150)
+
+levels = sorted(math["studytime"].unique())
+groups = [math.loc[math["studytime"] == lv, "G3"] for lv in levels]
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.boxplot(groups, tick_labels=[str(lv) for lv in levels])
+ax.set(title="G3 theo studytime", xlabel="studytime", ylabel="G3")
+fig.tight_layout(); fig.savefig(OUT / "grade_by_studytime.png", dpi=150)
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Code — failures và absences</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+failure_levels = sorted(math["failures"].unique())
+groups = [math.loc[math["failures"] == lv, "G3"] for lv in failure_levels]
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.boxplot(groups, tick_labels=[str(lv) for lv in failure_levels])
+ax.set(title="G3 theo failures", xlabel="failures", ylabel="G3")
+fig.tight_layout(); fig.savefig(OUT / "grade_by_failures.png", dpi=150)
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.scatter(math["absences"], math["G3"], alpha=0.6)
+ax.set(title="Absences vs G3 — Mathematics", xlabel="Absences", ylabel="G3")
+fig.tight_layout(); fig.savefig(OUT / "absences_vs_grade.png", dpi=150)
+</code></pre>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt 2 — EDA và biểu đồ (1/2)</h2>
+          <div class="prompt-sheet xl" aria-label="Prompt 2 phần 1">
+            <p class="prompt-line role"><span class="tag">Vai trò.</span> Bạn là nhà khoa học dữ liệu chuyên về phân tích khám phá dữ liệu (EDA) và trực quan hóa bằng pandas, NumPy, SciPy và Matplotlib.</p>
+            <p class="prompt-line data"><span class="tag">Dữ liệu.</span> Hãy sử dụng dữ liệu thực tế trong data/raw/student-mat.csv và data/raw/student-por.csv. Mục tiêu: nghiên cứu phân phối điểm G3 và mối liên hệ giữa kết quả học tập với G1, G2, studytime, failures và absences.</p>
+            <p class="prompt-line task"><span class="tag">1–3.</span> Đọc hai file CSV bằng sep=";" và xác minh cấu trúc. Tạo bảng thống kê mô tả cho G1, G2, G3, studytime, failures và absences (n, mean, std, median, tứ phân vị, min–max). Vẽ histogram phân phối G3 cho từng môn; ghi rõ số quan sát.</p>
+            <p class="prompt-line task"><span class="tag">4–6.</span> Vẽ boxplot G3 theo môn học, studytime và failures. Vẽ scatter plot G1–G3, G2–G3 và absences–G3. Tính Pearson và Spearman khi phù hợp; giải thích giả định và giới hạn của mỗi hệ số.</p>
+          </div>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt 2 — EDA và biểu đồ (2/2)</h2>
+          <div class="prompt-sheet xl" aria-label="Prompt 2 phần 2">
+            <p class="prompt-line out"><span class="tag">7–8.</span> Với mỗi biểu đồ, nêu một câu hỏi phân tích, một quan sát được tính trực tiếp từ dữ liệu và một giới hạn diễn giải. Lưu biểu đồ vào reports/figures/ và bảng thống kê thành CSV.</p>
+            <p class="prompt-line rule"><span class="tag">9–10.</span> Không tự tạo số liệu, không điền kết quả dự kiến vào báo cáo và không suy luận quan hệ nhân quả từ tương quan. Nếu phát hiện khác biệt giữa hai môn, hãy kiểm tra độ lớn khác biệt, độ phân tán và kích thước mẫu trước khi kết luận.</p>
+            <p class="prompt-line check"><span class="tag">Ngôn ngữ.</span> Tất cả tiêu đề, nhãn trục, chú thích và phần giải thích phải bằng tiếng Việt. Tạo code chạy lại từ đầu và giải thích cách kiểm tra từng kết quả.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Kết quả 3 — Bảng tóm tắt môn Toán</h2>
+          <table class="era-table">
+            <thead><tr><th>Biến (395 học sinh)</th><th>Trung bình</th><th>Trung vị</th><th>Độ lệch chuẩn</th><th>Min–Max</th></tr></thead>
+            <tbody>
+              <tr><td>G1 (kỳ 1)</td><td>10,91</td><td>11</td><td>3,32</td><td>3–19</td></tr>
+              <tr><td>G2 (kỳ 2)</td><td>10,71</td><td>11</td><td>3,76</td><td>0–19</td></tr>
+              <tr><td>G3 (cuối năm)</td><td>10,42</td><td>11</td><td>4,58</td><td>0–20</td></tr>
+              <tr><td>studytime</td><td>2,04</td><td>2</td><td>0,84</td><td>1–4</td></tr>
+              <tr><td>failures</td><td>0,33</td><td>0</td><td>0,74</td><td>0–3</td></tr>
+              <tr><td>absences</td><td>5,71</td><td>4</td><td>8,00</td><td>0–75</td></tr>
+            </tbody>
+          </table>
+          <p class="story-p lg"><strong>Phân tích / giải thích.</strong> Điểm các kỳ quanh 10–11: lớp không đều giỏi cũng không đều yếu. Trung vị failures = 0 nghĩa là đa số chưa từng trượt, nhưng vẫn còn nhóm trượt 1–3 lần. Trung vị nghỉ = 4 nhưng max = 75: có “đuôi dài”, nên chỉ nhìn trung bình sẽ dễ hiểu sai mức nghỉ học điển hình.</p>
+        </section>
+
+        <section>
+          <h2>6.5 — SciPy trên môn Toán</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+from scipy import stats
+
+pairs = [
+    ("G1", "G3"), ("G2", "G3"), ("studytime", "G3"),
+    ("failures", "G3"), ("absences", "G3"),
+]
+for x, y in pairs:
+    result = stats.spearmanr(math[x], math[y])
+    print(f"{x} vs {y}: rho={result.statistic:.3f}, p-value={result.pvalue:.5g}")
+</code></pre>
+          <div class="term-box"><span class="term">Hệ số Spearman</span> đo xem hai biến có “đi cùng chiều theo thứ hạng” không (một tăng thì cái kia có xu hướng tăng), phù hợp biến thứ bậc. <span class="term">Pearson</span> đo quan hệ đường thẳng. <span class="term">p-value</span> nhỏ chỉ nói “khó xảy ra nếu không có liên hệ nào”; nó không chứng minh A gây ra B.</div>
+        </section>
+
+        <section>
+          <h2>Kết quả 4 — Hệ số tương quan (Toán)</h2>
+          <pre class="result-out">G1 vs G3:        rho=0.878, p≈0
+G2 vs G3:        rho=0.957, p≈0
+studytime vs G3: rho=0.105, p=0.0367
+failures vs G3:  rho=-0.361, p≈0
+absences vs G3:  rho=0.018, p=0.725</pre>
+          <p class="story-p lg"><strong>Phân tích / giải thích.</strong> Spearman đo mức “đi cùng chiều theo thứ hạng”. G1/G2 gắn rất chặt với G3 (≈0,88 và 0,96): quỹ đạo điểm trong năm khá ổn định. Failures gắn ngược chiều vừa phải (−0,36). Studytime chỉ yếu (0,11). Absences gần như không có xu hướng đơn điệu rõ trên Toán (p≈0,73). “Đi cùng nhau” chưa chứng minh nguyên nhân — có thể cùng bị ảnh hưởng bởi động lực, gia đình hoặc chất lượng dạy.</p>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt 3 — Phản biện (1/2)</h2>
+          <div class="prompt-sheet xl" aria-label="Prompt 3 phần 1">
+            <p class="prompt-line role"><span class="tag">Vai trò.</span> Hãy đóng vai một nhà thống kê độc lập để phản biện kết quả EDA của bộ Student Performance.</p>
+            <p class="prompt-line task"><span class="tag">1–2.</span> Đọc dữ liệu và thực hiện phân tích bằng SciPy. Tính Pearson và Spearman cho các cặp G1–G3, G2–G3, studytime–G3, failures–G3 và absences–G3. Giải thích vì sao studytime và failures là biến thứ bậc, và vì sao không nên mặc định mọi quan hệ đều tuyến tính.</p>
+            <p class="prompt-line task"><span class="tag">3–4.</span> Báo cáo hệ số, p-value, kích thước mẫu và giới hạn của phép kiểm định. Điều chỉnh p-value cho các giả thuyết được kiểm tra đồng thời bằng Benjamini–Hochberg; trình bày cả p-value ban đầu và p-value đã điều chỉnh.</p>
+          </div>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt 3 — Phản biện (2/2)</h2>
+          <div class="prompt-sheet xl" aria-label="Prompt 3 phần 2">
+            <p class="prompt-line rule"><span class="tag">5–6.</span> Với so sánh giữa hai môn, xác định liệu có thể ghép cặp quan sát hay không. Không tự ý giả định thứ tự dòng giữa hai file tương ứng với cùng một học sinh. Phân biệt ý nghĩa thống kê, độ lớn hiệu ứng và ý nghĩa thực tiễn.</p>
+            <p class="prompt-line out"><span class="tag">7–8.</span> Viết bảng: giả thuyết, phương pháp, kết quả thực tế, cách diễn giải và hạn chế. Không khẳng định nguyên nhân từ kết quả quan sát. Nêu biến gây nhiễu có thể có và phân tích cần thiết để kiểm tra sâu hơn.</p>
+            <p class="prompt-line check"><span class="tag">Bắt buộc.</span> Chỉ sử dụng kết quả được tính từ dữ liệu thật. Nếu chưa chạy code thì phải nói rõ, không được tự tạo hệ số hoặc p-value.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Kết quả 5 — Chỉnh p-value (Benjamini–Hochberg)</h2>
+          <table class="era-table">
+            <thead><tr><th>Cặp</th><th>Spearman</th><th>p</th><th>p đã chỉnh</th><th>Pearson</th></tr></thead>
+            <tbody>
+              <tr><td>G1–G3</td><td>0,878</td><td>≈0</td><td>≈0</td><td>0,801</td></tr>
+              <tr><td>G2–G3</td><td>0,957</td><td>≈0</td><td>≈0</td><td>0,905</td></tr>
+              <tr><td>studytime–G3</td><td>0,105</td><td>0,037</td><td>0,046</td><td>0,098</td></tr>
+              <tr><td>failures–G3</td><td>−0,361</td><td>≈0</td><td>≈0</td><td>−0,360</td></tr>
+              <tr><td>absences–G3</td><td>0,018</td><td>0,725</td><td>0,725</td><td>0,034</td></tr>
+            </tbody>
+          </table>
+          <p class="story-p lg"><strong>Phân tích / giải thích.</strong> BH chỉnh p khi thử nhiều cặp cùng lúc, để giảm “tìm thấy liên hệ giả”. Studytime vẫn còn ý nghĩa sau BH nhưng độ lớn rất nhỏ; Pearson studytime p≈0,052 nên tín hiệu đường thẳng lung lay. Cần tách ba lớp: có khác ngẫu nhiên không, khác bao nhiêu, và có đáng đổi chính sách không.</p>
+        </section>
+
+        <section>
+          <h2>6.6 — Luồng AI trong repository</h2>
+          <div class="flow-row">
+            <div class="stage"><b>1. UCI</b>CSV · metadata · student.txt</div>
+            <div class="arrow">→</div>
+            <div class="stage"><b>2. Agent</b>Viết code EDA và test</div>
+            <div class="arrow">→</div>
+            <div class="stage"><b>3. Python</b>pandas · NumPy · SciPy · Matplotlib</div>
+            <div class="arrow">→</div>
+            <div class="stage"><b>4. Kiểm</b>Bảng · hình · p-value · test</div>
+            <div class="arrow">→</div>
+            <div class="stage"><b>5. Báo cáo</b>Kết luận · giới hạn · tái lập</div>
+          </div>
+          <div class="key-box"><span class="box-title">Khác chatbot thuần</span> Không dán cả bảng rồi nhờ máy kết luận. Agent đọc file thật, chạy code, sinh viên đối chiếu output.</div>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt 4 — Báo cáo (1/2)</h2>
+          <div class="prompt-sheet xl" aria-label="Prompt 4 phần 1">
+            <p class="prompt-line role"><span class="tag">Vai trò.</span> Bạn là một nhà khoa học dữ liệu độc lập, có nhiệm vụ hoàn thiện báo cáo EDA bằng tiếng Việt cho bộ Student Performance của UCI.</p>
+            <p class="prompt-line data"><span class="tag">Nguồn.</span> Hãy sử dụng các file dữ liệu gốc, code phân tích, bảng thống kê, kết quả kiểm định và biểu đồ đã được tạo trong repository.</p>
+            <p class="prompt-line task"><span class="tag">Bước 1 — Kiểm tra bằng chứng.</span> Xác định kết quả nào đã được tính bằng code và kết quả nào chưa có bằng chứng. Chạy lại code cần thiết nếu môi trường cho phép. Không tự điền số liệu dựa trên phỏng đoán hoặc kiến thức chung.</p>
+            <p class="prompt-line task"><span class="tag">Bước 2 — Trả lời câu hỏi nghiên cứu.</span> Mô tả phân phối điểm cuối kỳ. So sánh Toán và Portuguese. Phân tích liên hệ G1, G2, studytime, failures, absences với G3. Phân biệt liên hệ thống kê với quan hệ nhân quả.</p>
+          </div>
+        </section>
+
+        <section class="prompt-all">
+          <h2>Prompt 4 — Báo cáo (2/2)</h2>
+          <div class="prompt-sheet xl" aria-label="Prompt 4 phần 2">
+            <p class="prompt-line rule"><span class="tag">Bước 3 — Phản biện.</span> Nêu yếu tố gây nhiễu. Phân tích sai lệch do cỡ mẫu, biến thứ bậc và ngoại lệ. Không đánh đồng tương quan với nhân quả. Không khẳng định đại diện mọi học sinh Bồ Đào Nha hoặc Việt Nam.</p>
+            <p class="prompt-line out"><span class="tag">Bước 4 — Tạo báo cáo.</span> Tạo reports/eda_report.md: (1) tóm tắt; (2) nguồn và giấy phép; (3) phương pháp; (4) thống kê mô tả; (5) từng biểu đồ; (6) kiểm định; (7) kết luận; (8) hạn chế; (9) hướng dẫn tái lập.</p>
+            <p class="prompt-line check"><span class="tag">Bước 5 — Nhất quán.</span> Mọi số khớp bảng/code. Mọi hình có tiêu đề, nhãn, nguồn. Không trình bày giả thuyết như đã chứng minh. Ghi rõ phân tích chưa làm được. Không tuyên bố đã tạo/chạy/kiểm nếu chưa thực sự thực hiện.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Kết quả 6 — Điểm các kỳ trước (G1, G2)</h2>
+          <div class="result-pair">
+            <figure class="lab-shot">
+              <img src="img/lec02/student-lab/previous_grades.png" alt="Scatter G1 G2 với G3">
+            </figure>
+            <div class="analyze">
+              <p class="story-p">Trên 395 học sinh Toán, Spearman G2–G3 ≈ <strong>0,96</strong>; G1–G3 ≈ <strong>0,88</strong>. Điểm nằm thành dải chéo: ai thấp giữa năm thường thấp cuối năm.</p>
+              <p class="story-p"><strong>Giải thích.</strong> UCI cảnh báo G1/G2 là điểm cùng năm với G3, nên gắn chặt là điều kỳ vọng. Dùng G1/G2 để dự đoán cuối năm thì hợp lệ; dùng chúng cho cảnh báo sớm đầu năm khi chưa có điểm kỳ này thì là <strong>rò thông tin mục tiêu</strong> (nhìn thấy đáp án trước).</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Kết quả 7 — Thời gian học (studytime)</h2>
+          <div class="result-pair">
+            <figure class="lab-shot">
+              <img src="img/lec02/student-lab/grade_by_studytime.png" alt="Boxplot studytime">
+            </figure>
+            <div class="analyze">
+              <p class="story-p">Mức 1→4: n = 105 / 198 / 65 / 27; trung bình G3 ≈ 10,05 / 10,17 / 11,40 / 11,26. Spearman ≈ 0,11.</p>
+              <p class="story-p"><strong>Giải thích.</strong> Nhóm khai báo học nhiều hơn có điểm nhỉnh khoảng một điểm, nhưng mức 4 chỉ 27 người — mẫu mỏng. studytime là thang tự khai báo, không phải giờ đo được. Không đủ để đổ ngân sách vào chiến dịch “ép tăng giờ học”.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Kết quả 8 — Số lần đã trượt (failures)</h2>
+          <div class="result-pair">
+            <figure class="lab-shot">
+              <img src="img/lec02/student-lab/grade_by_failures.png" alt="Boxplot failures">
+            </figure>
+            <div class="analyze">
+              <p class="story-p">Failures 0→3: n = 312 / 50 / 17 / 16; trung bình G3 ≈ 11,25 / 8,12 / 6,24 / 5,69. Spearman ≈ −0,36.</p>
+              <p class="story-p"><strong>Giải thích.</strong> Đây là tín hiệu rõ nhất ngoài G1/G2: từng trượt thường gắn với điểm cuối thấp hơn và khó khăn có vẻ kéo dài. Không chứng minh “trượt gây ra điểm thấp”, nhưng đủ để ưu tiên kèm cặp sớm ngay từ lần trượt đầu.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Kết quả 9 — Số buổi nghỉ (absences)</h2>
+          <div class="result-pair">
+            <figure class="lab-shot">
+              <img src="img/lec02/student-lab/absences_vs_grade.png" alt="Scatter absences">
+            </figure>
+            <div class="analyze">
+              <p class="story-p">Toán: Spearman ≈ 0,02; p ≈ 0,73 — không thấy xu hướng đơn điệu rõ. Portuguese: ≈ −0,16 và vẫn còn ý nghĩa sau BH. Có điểm nghỉ cực cao (tới 75).</p>
+              <p class="story-p"><strong>Giải thích.</strong> “Không thấy liên hệ trên Toán” ≠ “nghỉ học vô hại”. Quan hệ có thể phi tuyến hoặc khác theo môn. Cần tách nhóm nghỉ rất cao và bổ sung lý do nghỉ trước khi ra quy định kỷ luật.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Kết quả 10 — So với Portuguese</h2>
+          <table class="era-table">
+            <thead><tr><th>Cặp (649 học sinh)</th><th>Spearman</th><th>p đã chỉnh</th></tr></thead>
+            <tbody>
+              <tr><td>G1–G3 / G2–G3</td><td>0,883 / 0,944</td><td>≈0</td></tr>
+              <tr><td>studytime–G3</td><td>0,275</td><td>≈0</td></tr>
+              <tr><td>failures–G3</td><td>−0,448</td><td>≈0</td></tr>
+              <tr><td>absences–G3</td><td>−0,159</td><td>≈0</td></tr>
+            </tbody>
+          </table>
+          <p class="story-p lg"><strong>Phân tích / giải thích.</strong> Trên Portuguese, studytime và absences “nói to” hơn Toán; failures gắn ngược chiều mạnh hơn (−0,45). Bức tranh chung vẫn nhất quán: quỹ đạo điểm trong năm và lịch sử trượt là hai tín hiệu trung tâm. Hai môn không nên bị ép vào cùng một chính sách nếu chưa kiểm chứng lại trên từng môn.</p>
+        </section>
+
+        <section class="story-prose">
+          <h2>Câu chuyện tổng quan — bức tranh học sinh</h2>
+          <p class="story-p">Hãy hình dung hai trường trung học ở Bồ Đào Nha trong bộ dữ liệu UCI. Trên giấy tờ, ta cầm hai bảng điểm và hồ sơ: <strong>395 học sinh môn Toán</strong> và <strong>649 học sinh môn Tiếng Bồ Đào Nha</strong>, mỗi người gắn với 33 thông tin về nhân khẩu, gia đình, thói quen học và điểm số. Khoảng vài trăm em có thể xuất hiện ở cả hai môn, nên đây không phải hai thế giới tách biệt hoàn toàn, mà là một cộng đồng học đường được nhìn qua hai lăng kính.</p>
+          <p class="story-p">Nếu bước vào lớp Toán cuối năm, bức tranh điểm số khá “rộng”: trung bình quanh <strong>10,4/20</strong>, học sinh đứng giữa đạt khoảng <strong>11</strong>, nhưng độ lệch chuẩn gần <strong>4,6</strong> cho thấy lớp có cả em rất thấp và em khá cao. Đặc biệt, khoảng <strong>một phần mười</strong> học sinh Toán (38/395) kết thúc năm với điểm 0 — một khối đủ lớn để kéo cả lớp trông yếu hơn so với cảm nhận ở giữa danh sách. Sang lớp Portuguese, không khí đồng đều hơn: trung bình gần <strong>11,9</strong>, trung vị <strong>12</strong>, độ lệch chuẩn khoảng <strong>3,2</strong>, và chỉ khoảng <strong>2%</strong> (15/649) nhận điểm 0.</p>
+        </section>
+
+        <section class="story-prose">
+          <h2>Câu chuyện tổng quan — nhịp học trong năm</h2>
+          <p class="story-p">Theo dõi từng em qua năm học, ta thấy quỹ đạo khá ổn định. Điểm kỳ 1 và kỳ 2 đi sát điểm cuối năm (hệ số tương quan khoảng <strong>0,88</strong> và <strong>0,96</strong> trên Toán): ai đã thấp giữa năm thường vẫn thấp khi đóng sổ điểm. Đa số chưa từng trượt lớp trước đó (trung vị số lần trượt bằng 0), nhưng nhóm đã trượt một lần thường kết thúc quanh mức <strong>8</strong>, còn nhóm trượt hai–ba lần tụt xuống quanh <strong>5–6</strong> — như một dấu hiệu khó khăn đang kéo dài chứ không phải một kỳ “xui”.</p>
+          <p class="story-p">Về nhịp sống học đường, học sinh Toán nghỉ trung vị khoảng <strong>4 buổi</strong>, nhưng có người nghỉ tới <strong>75 buổi</strong>: phần lớn vẫn đi học đều, trong khi một thiểu số vắng mặt rất nặng. Thời gian học tự khai báo thường ở mức trung bình (thang 1–4, trung vị = 2); nhóm khai báo học nhiều hơn có điểm nhỉnh nhẹ, song tín hiệu này mỏng và không đủ để kể thành câu chuyện “học thêm giờ là cứu cánh”. Trên Portuguese, mối liên hệ với thời gian học và buổi nghỉ hiện rõ hơn một chút, nhưng thông điệp lớn vẫn giống nhau: <strong>điểm các kỳ trước và lịch sử trượt</strong> mới là hai sợi chỉ đỏ xuyên suốt câu chuyện của các em.</p>
+          <p class="source">Câu chuyện tổng hợp từ phân tích đã chạy trên ZIP UCI 00320; không suy diễn sang học sinh Việt Nam.</p>
+        </section>
+
+        <section>
+          <h2>Bảng insight để ra quyết định</h2>
+          <table class="insight-table era-table">
+            <thead>
+              <tr>
+                <th>Insight</th>
+                <th>Nguyên nhân (giả thuyết làm việc)</th>
+                <th>Bằng chứng</th>
+                <th>Giải thích</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Toán phân tán và có nhiều điểm 0 hơn Portuguese</td>
+                <td>Độ khó môn / cách ghi nhận điểm 0 / thành phần lớp khác nhau</td>
+                <td>TB 10,4 vs 11,9; std 4,6 vs 3,2; G3=0: 38 vs 15</td>
+                <td>Khác biệt quan sát được, nhưng hai mẫu có thể chồng học sinh</td>
+                <td>Điều tra riêng tỷ lệ điểm 0 Toán; không gộp hai môn thành một KPI</td>
+              </tr>
+              <tr>
+                <td>Điểm giữa năm gần như dự báo điểm cuối năm</td>
+                <td>Cùng quá trình học trong một năm; năng lực/động lực ổn định tương đối</td>
+                <td>Spearman G2–G3 ≈ 0,96; G1–G3 ≈ 0,88 (n=395)</td>
+                <td>Liên hệ rất mạnh nhưng dễ gây rò nếu dùng cho cảnh báo đầu năm</td>
+                <td>Dùng G1/G2 để theo dõi cuối năm; cảnh báo sớm phải dùng tín hiệu đầu năm</td>
+              </tr>
+              <tr>
+                <td>Học sinh từng trượt thường kết thúc năm thấp hơn</td>
+                <td>Khó khăn học tập kéo dài; thiếu hỗ trợ sau lần trượt đầu</td>
+                <td>TB G3: 11,3 → 8,1 → 6,2 → 5,7 theo failures 0–3; ρ≈−0,36</td>
+                <td>Tín hiệu rõ và nhất quán, dù nhóm trượt nhiều lần còn nhỏ</td>
+                <td>Ưu tiên kèm cặp ngay khi xuất hiện lần trượt đầu</td>
+              </tr>
+              <tr>
+                <td>“Học nhiều hơn” không phải đòn bẩy mạnh trên Toán</td>
+                <td>studytime tự khai báo; mẫu mức 4 mỏng; nhiễu động lực/điều kiện</td>
+                <td>ρ≈0,11; mức 4 chỉ 27 học sinh; chênh TB khoảng 1 điểm</td>
+                <td>Có tín hiệu nhỏ, chưa đủ để kết luận nhân quả hay đổ ngân sách lớn</td>
+                <td>Đo giờ/chất lượng học thật trước khi mở chiến dịch tăng giờ</td>
+              </tr>
+              <tr>
+                <td>Nghỉ học không được bỏ qua dù hệ số Toán yếu</td>
+                <td>Quan hệ có thể phi tuyến; lý do nghỉ khác nhau; khác biệt theo môn</td>
+                <td>Toán ρ≈0,02 p≈0,73; Portuguese ρ≈−0,16; max nghỉ=75</td>
+                <td>Thiếu liên hệ đơn điệu ≠ vô hại; đuôi nghỉ cực cao cần xem riêng</td>
+                <td>Tách nhóm nghỉ cao + bổ sung lý do nghỉ trước khi kỷ luật</td>
+              </tr>
+              <tr>
+                <td>Không mang kết luận Bồ Đào Nha sang Việt Nam nguyên xi</td>
+                <td>Khác hệ thống giáo dục, thang điểm, bối cảnh xã hội</td>
+                <td>Dữ liệu chỉ từ hai trường THPT Bồ Đào Nha (UCI)</td>
+                <td>Insight mang tính học phương pháp và giả thuyết, không phải chuẩn quốc gia</td>
+                <td>Lặp lại quy trình trên dữ liệu trường/sở địa phương trước khi áp dụng</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>10.1 — Chạy lại trên ba môi trường</h2>
+          <ul>
+            <li><strong>JupyterLab cục bộ.</strong> Quản venv, đường dẫn, Git. <span class="inline-code">jupyter lab</span>.</li>
+            <li><strong>Google Colab.</strong> Upload ZIP, giải nén trong phiên, chạy cùng notebook.</li>
+            <li><strong>Kaggle Code.</strong> Add Input, sửa đường dẫn <span class="inline-code">/kaggle/input/...</span>.</li>
+          </ul>
+          <div class="key-box"><span class="box-title">Bài tập</span> Cùng dữ liệu, cùng bước xử lý → số thống kê phải giống. Giao diện, đường dẫn, thời gian chạy có thể khác.</div>
+        </section>
+
+        <section>
+          <h2>10.2 — So IDE / AI trên cùng nhiệm vụ</h2>
+          <ul>
+            <li>Giao Prompt 1 cho hai công cụ, ví dụ Cursor và OpenCode.</li>
+            <li>Chấm: độ chính xác số, số test vượt, lỗi do AI tạo, mức dễ đọc, khả năng tái lập.</li>
+            <li>Không kết luận công cụ nào hơn chỉ vì sinh code nhanh hơn.</li>
+          </ul>
+          <div class="good-box"><span class="box-title">VS Code · Cursor · Claude Code · OpenCode</span> Cùng một nhiệm vụ, cùng tiêu chí kiểm chứng.</div>
+        </section>
+
+        <section>
+          <h2>10.3 — Git, PostgreSQL, MongoDB, S3</h2>
+          <table class="era-table">
+            <thead><tr><th>Công nghệ</th><th>Vai trò trong lab</th><th>Mở rộng</th></tr></thead>
+            <tbody>
+              <tr><td>Git</td><td>Theo dõi code và lịch sử</td><td>Nhánh phân tích, PR, review</td></tr>
+              <tr><td>PostgreSQL</td><td>Bảng, truy vấn thống kê</td><td>Import CSV, GROUP BY</td></tr>
+              <tr><td>MongoDB</td><td>Document JSON</td><td>Lưu metadata và báo cáo</td></tr>
+              <tr><td>Amazon S3</td><td>Object / artifact</td><td>Upload CSV, PNG, báo cáo</td></tr>
+            </tbody>
+          </table>
+          <p class="era-note">PostgreSQL/MongoDB là mở rộng. Bắt đầu bằng CSV. S3 không thay truy vấn quan hệ. Không commit credential.</p>
+        </section>
+
+        <section>
+          <h2>10.4 — Mở rộng kho dữ liệu</h2>
+          <ul>
+            <li>Hugging Face Datasets · Kaggle Datasets · UCI Repository.</li>
+            <li>Tự tìm một dataset bảng: kiểm nguồn–giấy phép, audit, EDA bằng AI, kiểm bằng code.</li>
+            <li>Đối chiếu với bản UCI nếu gặp lại Student Performance trên Kaggle.</li>
+          </ul>
+          <div class="key-box"><span class="box-title">Quy trình</span> Xác minh nguồn → tải cục bộ → audit → AI EDA → kiểm chứng → lưu artifact.</div>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Tổng kết buổi 2</h2>
+          <ul>
+            <li>Nhiều logo, một trách nhiệm: tự kiểm số trước khi tin công cụ hay AI.</li>
+            <li>Python/venv + NumPy/pandas/Matplotlib/SciPy/scikit-learn có thực hành.</li>
+            <li>Jupyter, VS Code, Cloud, SQL/Git, vibe coding — so bằng độ đúng số.</li>
+            <li>Lab UCI Student Performance: 395 và 649 dòng; prompt đầy đủ.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Việc trước buổi sau</h2>
+          <ol>
+            <li>Tải student.zip, tạo cấu trúc lab, cài bốn thư viện trong venv.</li>
+            <li>Chạy audit + assert: khóa 395×33 và 649×33 trước Prompt 1.</li>
+            <li>Chạy đủ bốn prompt. Mỗi bước đối chiếu pandas / SciPy / PNG trên máy của bạn.</li>
+          </ol>
+          <div class="good-box"><span class="box-title">Câu mang về</span> AI viết nhanh. Số chỉ tin khi máy của bạn vừa in ra đúng số đó.</div>
+        </section>
+      </section>
+
+      <div class="footer">
+        Giới thiệu khoa học dữ liệu · Bài 2: Cài đặt và môi trường
+      </div>
+    </div>
+  </div>
+
+  <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controlsLayout: "edges",
+      slideNumber: true,
+      hash: true,
+      hashOneBasedIndex: true,
+      plugins: [RevealHighlight],
+      width: 1100,
+      height: 700,
+      margin: 0.04
+    });
+  </script>
+</body>
+
+</html>
