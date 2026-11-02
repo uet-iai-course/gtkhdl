@@ -1,0 +1,213 @@
+
+      <section>
+        <section>
+          <h1><span class="text-light">6.</span><br>Toán rời rạc và<br>lý thuyết đồ thị</h1>
+          <p class="text-light">Discrete Mathematics &amp; Graph Theory: mạng xã hội, PageRank và đường đi ngắn nhất</p>
+        </section>
+
+        <section class="fit">
+          <h2>Vì sao cần lý thuyết đồ thị?</h2>
+          <p>Facebook gợi ý kết bạn, Google xếp hạng trang web, Grab tìm đường đi nhanh nhất. Ba bài toán có chung một cấu trúc dữ liệu:</p>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="{{i:social-network}}" alt="Trực quan hóa một mạng xã hội gồm các nút và cạnh" style="max-height:210px">
+              <figcaption class="caption">{{cap:social-network|Mạng xã hội trực quan hóa dưới dạng đồ thị: nút là người, cạnh là quan hệ}}</figcaption>
+            </figure>
+            <div>
+              <table class="sym-table">
+                <tbody>
+                  <tr><td>Nút (đỉnh)</td><td>Người dùng, trang web, giao lộ</td></tr>
+                  <tr><td>Cạnh</td><td>Quan hệ bạn bè, liên kết, đoạn đường</td></tr>
+                  <tr><td>Trọng số</td><td>Độ thân thiết, độ quan trọng, chi phí</td></tr>
+                </tbody>
+              </table>
+              <div class="formula sm">$$G=(V,E)$$</div>
+            </div>
+          </div>
+          <div class="key-box"><span class="box-title">Điểm mấu chốt</span> Khi dữ liệu là <strong>quan hệ giữa các đối tượng</strong>, bảng số liệu thông thường chưa đủ. Đồ thị mô tả trực tiếp quan hệ đó.</div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian lý thuyết đồ thị</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của lý thuyết đồ thị">
+            <div class="timeline-event"><div class="timeline-date">1736</div><div class="timeline-dot"></div><div class="timeline-name">Euler</div><div class="timeline-note">Bài toán bảy cây cầu Königsberg</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XIX</div><div class="timeline-dot"></div><div class="timeline-name">Cayley</div><div class="timeline-note">Cây và cấu trúc hợp chất hóa học</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XX</div><div class="timeline-dot"></div><div class="timeline-name">Erdős và Rényi</div><div class="timeline-note">Đồ thị ngẫu nhiên</div></div>
+            <div class="timeline-event"><div class="timeline-date">1996 – 1998</div><div class="timeline-dot"></div><div class="timeline-name">PageRank</div><div class="timeline-note">Page và Brin xếp hạng trang web</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thập niên 2010</div><div class="timeline-dot"></div><div class="timeline-name">Graph Neural Network</div><div class="timeline-note">Học máy trên dữ liệu đồ thị</div></div>
+          </div>
+          <p class="era-note">Các mốc là cột mốc tiêu biểu, không phải lịch sử đầy đủ của ngành.</p>
+          <p class="source">Nguồn tổng quan: <a href="https://en.wikipedia.org/wiki/Graph_theory#History" target="_blank" rel="noopener">Wikipedia — Graph theory (History)</a> · <a href="https://arxiv.org/abs/1609.02907" target="_blank" rel="noopener">Kipf &amp; Welling, <em>Semi-Supervised Classification with Graph Convolutional Networks</em>, arXiv, 2016</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1736: bảy cây cầu Königsberg</h2>
+          <div class="slide-badge-row"><span class="history-date">1736</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr 1fr; max-width:420px">
+              {{pf:euler|Leonhard Euler|1707–1783}}
+              {{pf:konigsberg|Bản đồ Königsberg|Bảy cây cầu}}
+            </div>
+            <div>
+              <p>Leonhard Euler giải quyết bài toán <strong>bảy cây cầu</strong>: có thể đi qua mỗi cây cầu đúng một lần hay không.</p>
+              <p>Euler coi mỗi vùng đất là một <strong>nút</strong>, mỗi cây cầu là một <strong>cạnh</strong>. Lập luận của ông chỉ phụ thuộc cấu trúc kết nối, không phụ thuộc hình dạng hay khoảng cách.</p>
+              <div class="key-box"><span class="box-title">Ý nghĩa</span> Thường được xem là bài toán đầu tiên của lý thuyết đồ thị.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg" target="_blank" rel="noopener">Wikipedia — Seven Bridges of Königsberg</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Euler/" target="_blank" rel="noopener">MacTutor — Euler</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cayley, Erdős và Rényi</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XIX – XX</span></div>
+          <div class="portrait-row three short" style="grid-template-columns:repeat(3,1fr)">
+            {{pf:cayley|Arthur Cayley|1821–1895. Nghiên cứu cây (tree)}}
+            {{pf:erdos|Paul Erdős|1913–1996}}
+            {{pf:renyi|Alfréd Rényi|1921–1970}}
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th></tr></thead>
+            <tbody>
+              <tr><td>Thế kỷ XIX</td><td>Cayley nghiên cứu <strong>cây</strong> và liệt kê cấu trúc hợp chất hóa học bằng đồ thị</td></tr>
+              <tr><td>1959 – 1960</td><td>Erdős và Rényi đặt nền cho <strong>đồ thị ngẫu nhiên</strong>, tiền đề của khoa học mạng (network science)</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Cayley/" target="_blank" rel="noopener">MacTutor — Cayley</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Erdos/" target="_blank" rel="noopener">MacTutor — Erdős</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Renyi/" target="_blank" rel="noopener">MacTutor — Rényi</a> · <a href="https://users.renyi.hu/~p_erdos/1959-11.pdf" target="_blank" rel="noopener">Erdős &amp; Rényi, <em>On random graphs I</em>, 1959</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1996 – 1998: PageRank</h2>
+          <div class="slide-badge-row"><span class="history-date">1996 – 1998</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="{{i:page-brin}}" alt="Larry Page và Sergey Brin" style="max-height:260px">
+              <figcaption class="caption">{{cap:page-brin|Larry Page và Sergey Brin, hai người sáng lập Google}}</figcaption>
+            </figure>
+            <div>
+              <p>Larry Page và Sergey Brin, khi còn là nghiên cứu sinh tại Stanford, đề xuất <strong>PageRank</strong>: xếp hạng trang web dựa trên cấu trúc liên kết.</p>
+              <p>Một trang quan trọng khi được <strong>nhiều trang quan trọng khác</strong> trỏ tới. Định nghĩa này đệ quy, và được giải bằng đại số tuyến tính trên đồ thị.</p>
+              <div class="key-box"><span class="box-title">Liên hệ</span> Kiến thức đại số tuyến tính ở bài 3 (ma trận, trị riêng) trở lại ở đây: PageRank là vector riêng của ma trận chuyển.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="http://infolab.stanford.edu/~backrub/google.html" target="_blank" rel="noopener">Brin &amp; Page, <em>The Anatomy of a Large-Scale Hypertextual Web Search Engine</em>, 1998</a> · <a href="http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener">Page, Brin, Motwani &amp; Winograd, <em>The PageRank Citation Ranking</em>, Stanford InfoLab, 1999</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Những nhân vật tiêu biểu</h2>
+          <div class="portrait-row five tall">
+            {{pf:euler|Leonhard Euler|Bài toán Königsberg}}
+            {{pf:dijkstra-person|Edsger Dijkstra|Đường đi ngắn nhất, 1959}}
+            {{pf:erdos|Paul Erdős|Đồ thị ngẫu nhiên}}
+            {{pf:renyi|Alfréd Rényi|Đồ thị ngẫu nhiên}}
+            {{pf:page-brin|Page và Brin|PageRank}}
+          </div>
+          <p class="source">Nguồn: <a href="https://en.wikipedia.org/wiki/Graph_theory#History" target="_blank" rel="noopener">Wikipedia — Graph theory (History)</a> · <a href="https://amturing.acm.org/award_winners/dijkstra_1053701.cfm" target="_blank" rel="noopener">ACM A.M. Turing Award — Dijkstra</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. Phân tích mạng xã hội</h2>
+          <p>Cần tìm người dùng có ảnh hưởng lớn trong một mạng. Một thước đo đơn giản là <strong>độ trung tâm bậc</strong> (degree centrality):</p>
+          <div class="formula sm">$$C_D(v)=\frac{\deg(v)}{n-1}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(\deg(v)\)</td><td>Số cạnh nối với nút \(v\), tức số người mà \(v\) kết nối trực tiếp</td></tr>
+              <tr><td>\(n\)</td><td>Tổng số nút trong đồ thị</td></tr>
+              <tr><td>\(C_D(v)\)</td><td>Tỉ lệ nút còn lại mà \(v\) kết nối tới, nhận giá trị từ 0 đến 1</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Hạn chế</span> Đếm số kết nối chưa phân biệt kết nối với người quan trọng và người ít quan trọng. PageRank khắc phục điểm này.</div>
+          <p class="source">Thực hành: <code>networkx.degree_centrality(G)</code>. <a href="https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.degree_centrality.html" target="_blank" rel="noopener">NetworkX — degree_centrality</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. PageRank: công thức</h2>
+          <div class="formula">$$PR(p)=\frac{1-d}{N}+d\sum_{q\to p}\frac{PR(q)}{L(q)}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(PR(p)\)</td><td>Điểm PageRank của trang \(p\)</td></tr>
+              <tr><td>\(q\to p\)</td><td>Các trang \(q\) có liên kết tới \(p\)</td></tr>
+              <tr><td>\(L(q)\)</td><td>Số liên kết đi ra của trang \(q\)</td></tr>
+              <tr><td>\(N\)</td><td>Tổng số trang</td></tr>
+              <tr><td>\(d\)</td><td>Hệ số damping, thường lấy 0,85</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.62em">Mỗi trang chia điểm của mình đều cho các trang nó trỏ tới. Số hạng \((1-d)/N\) mô tả người lướt web thỉnh thoảng nhảy sang một trang bất kỳ.</p>
+          <p class="source">Nguồn: <a href="http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener">Page, Brin, Motwani &amp; Winograd, 1999</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>PageRank bằng NetworkX</h2>
+          <div class="code-split">
+            <div>{{code:pagerank|cls=sm}}</div>
+            <div>
+              {{out:pagerank}}
+              <div class="good-box" style="font-size:0.62em"><span class="box-title">Kiểm lại</span> Trang D và E không có liên kết đến nên điểm đúng bằng \((1-0{,}85)/5=0{,}03\). Trang C được bốn trang trỏ tới nên cao nhất.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.link_analysis.pagerank_alg.pagerank.html" target="_blank" rel="noopener">NetworkX — pagerank</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Đồ thị của ví dụ PageRank</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/pagerank-graph.png" alt="Đồ thị có hướng gồm năm nút A, B, C, D, E; kích thước nút tỉ lệ với PageRank" style="max-height:300px">
+              <figcaption class="caption">Kích thước nút tỉ lệ với PageRank. Hình do biên soạn từ kết quả chạy.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="{{i:pagerank}}" alt="Ví dụ PageRank trên mạng liên kết các trang web" style="max-height:300px">
+              <figcaption class="caption">{{cap:pagerank|Ví dụ PageRank trên mạng lớn hơn: nút lớn có điểm cao}}</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 3. Đường đi ngắn nhất</h2>
+          <p>Ứng dụng gọi xe cần tìm lộ trình có chi phí nhỏ nhất giữa hai điểm.</p>
+          <div class="formula sm">$$d(s,t)=\min_{P:\,s\to t}\ \sum_{e\in P}w(e)$$</div>
+          <p style="margin:0.1em 0">Thuật toán Dijkstra (1959) cập nhật khoảng cách tạm thời qua phép nới lỏng cạnh (relaxation):</p>
+          <div class="formula sm">$$d[v]\leftarrow\min\big(d[v],\ d[u]+w(u,v)\big)$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(w(e)\)</td><td>Trọng số (chi phí) của cạnh \(e\), không âm</td></tr>
+              <tr><td>\(P\)</td><td>Một đường đi từ \(s\) tới \(t\)</td></tr>
+              <tr><td>\(d[v]\)</td><td>Chi phí nhỏ nhất đã biết từ nguồn tới nút \(v\)</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1007/BF01386390" target="_blank" rel="noopener">E. W. Dijkstra, <em>A note on two problems in connexion with graphs</em>, Numerische Mathematik 1, 269–271, 1959</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Đường đi ngắn nhất bằng NetworkX</h2>
+          <div class="code-split even">
+            <div>{{code:shortest|cls=sm}}</div>
+            <div>
+              {{out:shortest}}
+              <div class="good-box" style="font-size:0.62em"><span class="box-title">Kiểm lại</span> \(2+1+5+2=10\). Đường đi trực tiếp A–C–E tốn \(2+10=12\), nên đường vòng qua B và D rẻ hơn.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://networkx.org/documentation/stable/reference/algorithms/shortest_paths.html" target="_blank" rel="noopener">NetworkX — Shortest Paths</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Minh họa Dijkstra</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/shortest-path.png" alt="Đồ thị có trọng số, đường đi ngắn nhất A–C–B–D–E được tô đậm" style="max-height:300px">
+              <figcaption class="caption">Đường đi A–C–B–D–E (chi phí 10). Hình do biên soạn.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="{{i:dijkstra}}" alt="Hoạt ảnh thuật toán Dijkstra" style="max-height:260px">
+              <figcaption class="caption">{{cap:dijkstra|Thuật toán Dijkstra mở rộng dần vùng đã biết khoảng cách}}</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: đồ thị</h2>
+          <div class="kw-row">
+            <span class="kw">PageRank</span><span class="kw">Social Network Analysis</span><span class="kw">Recommendation Systems</span><span class="kw">Knowledge Graph</span><span class="kw">Community Detection</span><span class="kw">Graph Neural Network</span><span class="kw">Routing</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn phân tích mối quan hệ giữa các đối tượng.</div>
+        </section>
+      </section>

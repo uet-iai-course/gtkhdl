@@ -1,0 +1,185 @@
+
+      <section>
+        <section>
+          <h1><span class="text-light">4.</span><br>Giải tích</h1>
+          <p class="text-light">Calculus: vi phân và tích phân</p>
+        </section>
+
+        <section class="fit">
+          <h2>Vì sao cần giải tích?</h2>
+          <p>Huấn luyện một AI dự đoán giá nhà. AI dự đoán 2 tỷ đồng, trong khi giá thực tế là 2,5 tỷ đồng.</p>
+          <p>Cần điều chỉnh các tham số để lần sau dự đoán tốt hơn.</p>
+          <div class="key-box"><span class="box-title">Điểm mấu chốt</span> AI cần biết thay đổi tham số theo <strong>hướng nào</strong> và thay đổi <strong>bao nhiêu</strong>.</div>
+          <p>Đây chính là vấn đề của <strong>đạo hàm</strong> và <strong>gradient</strong>.</p>
+          <div class="two-col">
+            <figure class="fig">
+              <img src="{{i:tangent}}" alt="Đường cong và tiếp tuyến tại một điểm" style="max-height:150px">
+              <figcaption class="caption">{{cap:tangent|Đạo hàm là hệ số góc của tiếp tuyến}}</figcaption>
+            </figure>
+            <div class="formula sm">$$f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$$</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian giải tích</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của giải tích">
+            <div class="timeline-event"><div class="timeline-date">Khoảng 250 TCN</div><div class="timeline-dot"></div><div class="timeline-name">Archimedes</div><div class="timeline-note">Vét cạn, tiền thân của tích phân</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XVII</div><div class="timeline-dot"></div><div class="timeline-name">Newton và Leibniz</div><div class="timeline-note">Vi phân và tích phân</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XVIII</div><div class="timeline-dot"></div><div class="timeline-name">Euler và Lagrange</div><div class="timeline-note">Phương trình vi phân, giải tích biến phân</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XIX</div><div class="timeline-dot"></div><div class="timeline-name">Cauchy và Weierstrass</div><div class="timeline-note">Giới hạn, liên tục, đạo hàm chặt chẽ</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XX – XXI</div><div class="timeline-dot"></div><div class="timeline-name">Giải tích nhiều biến</div><div class="timeline-note">Chain rule, gradient, backpropagation</div></div>
+          </div>
+          <p class="source">Nguồn tổng quan: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/The_rise_of_calculus/" target="_blank" rel="noopener">MacTutor — The rise of calculus</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Archimedes và phương pháp vét cạn</h2>
+          <div class="slide-badge-row"><span class="history-date">Khoảng 250 TCN</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:archimedes|Archimedes|Khoảng 287–212 TCN. Tranh của Domenico Fetti, 1620}}
+            </div>
+            <div>
+              <p>Archimedes sử dụng <strong>phương pháp vét cạn</strong> để tính diện tích và thể tích, một tiền thân quan trọng của tư tưởng tích phân.</p>
+              <figure class="fig">
+                <img src="{{i:integral}}" alt="Diện tích dưới đường cong được xấp xỉ bằng các hình chữ nhật" style="max-height:170px">
+                <figcaption class="caption">{{cap:integral|Diện tích dưới đường cong được xấp xỉ bằng các dải hẹp}}</figcaption>
+              </figure>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Archimedes/" target="_blank" rel="noopener">MacTutor — Archimedes</a> · <a href="https://www.archimedespalimpsest.org/" target="_blank" rel="noopener">The Archimedes Palimpsest Project</a>.</p>
+        </section>
+
+        <section>
+          <h2>Newton và Leibniz</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XVII</span></div>
+          <div class="portrait-row two short">
+            {{pf:newton|Isaac Newton|1643–1727. Tranh của Godfrey Kneller, 1689}}
+            {{pf:leibniz|Gottfried Wilhelm Leibniz|1646–1716. Tranh của Christoph Bernhard Francke}}
+          </div>
+          <p>Isaac Newton và Gottfried Wilhelm Leibniz <strong>độc lập</strong> phát triển giải tích vi phân và tích phân.</p>
+          <div class="formula sm">$$\frac{dy}{dx}\qquad\qquad\int f(x)\,dx$$</div>
+          <p style="font-size:0.62em">Hai ký hiệu trên gắn liền với truyền thống ký hiệu của Leibniz, vẫn dùng đến ngày nay.</p>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Newton/" target="_blank" rel="noopener">MacTutor — Newton</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Leibniz/" target="_blank" rel="noopener">MacTutor — Leibniz</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Euler và Lagrange</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XVIII</span></div>
+          <div class="portrait-row two short">
+            {{pf:euler|Leonhard Euler|1707–1783. Tranh của Jakob Emanuel Handmann}}
+            {{pf:lagrange|Joseph-Louis Lagrange|1736–1813}}
+          </div>
+          <p>Phát triển mạnh các <strong>phương pháp giải tích</strong>, <strong>phương trình vi phân</strong> và <strong>giải tích biến phân</strong>.</p>
+          <div class="key-box"><span class="box-title">Liên hệ</span> Giải tích biến phân và nhân tử Lagrange là nền của tối ưu có ràng buộc (mục 5 của bài này).</div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Euler/" target="_blank" rel="noopener">MacTutor — Euler</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Lagrange/" target="_blank" rel="noopener">MacTutor — Lagrange</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cauchy và Weierstrass: nền tảng chặt chẽ</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XIX</span></div>
+          <div class="portrait-row two short">
+            {{pf:cauchy|Augustin-Louis Cauchy|1789–1857}}
+            {{pf:weierstrass|Karl Weierstrass|1815–1897}}
+          </div>
+          <p>Đặt nền tảng chặt chẽ hơn cho <strong>giới hạn</strong>, <strong>tính liên tục</strong> và <strong>đạo hàm</strong>.</p>
+          <div class="formula sm">$$\lim_{x\to a}f(x)=L\iff\forall\varepsilon&gt;0\ \exists\delta&gt;0:\ 0&lt;|x-a|&lt;\delta\Rightarrow|f(x)-L|&lt;\varepsilon$$</div>
+          <p style="font-size:0.58em">Định nghĩa \(\varepsilon\)–\(\delta\): \(f(x)\) gần \(L\) tùy ý khi \(x\) đủ gần \(a\). Đây là dạng chặt chẽ của giới hạn trong định nghĩa đạo hàm.</p>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/" target="_blank" rel="noopener">MacTutor — Cauchy</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Weierstrass/" target="_blank" rel="noopener">MacTutor — Weierstrass</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Giải tích nhiều biến và học sâu</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XX – XXI</span></div>
+          <p>Đạo hàm riêng, chain rule và gradient trở thành nền tảng của <strong>backpropagation</strong> và huấn luyện mạng neural network.</p>
+          <div class="pipeline">
+            <div class="stage"><div class="stage-title">Đầu vào \(x\)</div><div class="stage-desc">Dữ liệu</div></div>
+            <div class="arrow">→</div>
+            <div class="stage"><div class="stage-title">\(z=Wx+b\)</div><div class="stage-desc">Biến đổi tuyến tính</div></div>
+            <div class="arrow">→</div>
+            <div class="stage"><div class="stage-title">\(a=\sigma(z)\)</div><div class="stage-desc">Kích hoạt</div></div>
+            <div class="arrow">→</div>
+            <div class="stage stage-highlight"><div class="stage-title">\(L(a,y)\)</div><div class="stage-desc">Hàm mất mát</div></div>
+          </div>
+          <div class="formula sm">$$\frac{\partial L}{\partial W}=\frac{\partial L}{\partial a}\cdot\frac{\partial a}{\partial z}\cdot\frac{\partial z}{\partial W}\qquad\qquad\nabla L=\Big(\frac{\partial L}{\partial\theta_1},\dots,\frac{\partial L}{\partial\theta_n}\Big)$$</div>
+          <p style="font-size:0.58em">Chain rule nhân các đạo hàm dọc theo đường đi ngược từ mất mát về tham số. Gradient gom mọi đạo hàm riêng thành một vector chỉ hướng tăng nhanh nhất của \(L\).</p>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1038/323533a0" target="_blank" rel="noopener">Rumelhart, Hinton &amp; Williams, 1986, <em>Nature</em></a> · <a href="https://www.deeplearningbook.org/contents/mlp.html" target="_blank" rel="noopener">Goodfellow et al., <em>Deep Learning</em>, chương 6</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Các nhân vật nổi bật</h2>
+          <div class="portrait-row four tall">
+            {{pf:newton|Isaac Newton|1643–1727. Giải tích và cơ học}}
+            {{pf:leibniz|Gottfried Wilhelm Leibniz|1646–1716. Ký hiệu và phát triển giải tích}}
+            {{pf:euler|Leonhard Euler|1707–1783. Phương trình và giải tích}}
+            {{pf:cauchy|Augustin-Louis Cauchy|1789–1857. Nền tảng giải tích chặt chẽ}}
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/The_rise_of_calculus/" target="_blank" rel="noopener">MacTutor — The rise of calculus</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. Đạo hàm: AI biết cần sửa sai thế nào</h2>
+          <p>Mô hình có một tham số \(w\), hàm lỗi:</p>
+          <div class="formula sm">$$L(w)=(w-3)^2$$</div>
+          <p>Cần tìm \(w\) để lỗi nhỏ nhất. Đạo hàm:</p>
+          <div class="formula sm">$$\frac{dL}{dw}=2(w-3)$$</div>
+          <p>Nếu \(w=5\) thì \(\dfrac{dL}{dw}=4\).</p>
+          <div class="key-box"><span class="box-title">Đọc đạo hàm</span> Đạo hàm dương cho biết tăng \(w\) sẽ làm lỗi tăng tại điểm này. Vì vậy cần <strong>giảm</strong> \(w\).</div>
+        </section>
+
+        <section class="fit">
+          <h2>Cập nhật tham số bằng Gradient Descent</h2>
+          <div class="formula sm">$$w_{\text{new}}=w_{\text{old}}-\eta\,\frac{dL}{dw}$$</div>
+          <p>\(\eta\) là <strong>learning rate</strong> – tốc độ học. Với \(\eta=0{,}1\) và \(w=5\):</p>
+          <div class="formula sm">$$w_{\text{new}}=5-0{,}1\times4=4{,}6$$</div>
+          <figure class="fig">
+            <img src="img/lec03/gd-1d.png" alt="Parabol L(w) = (w-3)^2 với các bước cập nhật tiến dần về w = 3" style="max-height:250px">
+            <figcaption class="caption">30 bước cập nhật từ \(w=5\): mỗi bước nhỏ dần vì đạo hàm nhỏ dần. Hình do biên soạn.</figcaption>
+          </figure>
+          <p class="source">Nguồn: <a href="https://www.emis.de/journals/DMJDMV/vol-ismp/40_lemarechal-claude.pdf" target="_blank" rel="noopener">Lemaréchal, <em>Cauchy and the Gradient Method</em>, Documenta Mathematica, 2012</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: Gradient Descent từ đầu</h2>
+          <div class="code-split">
+            <div>{{code:gradient}}</div>
+            <div>
+              {{out:gradient|7|tail=2}}
+              <div class="good-box" style="font-size:0.66em"><span class="box-title">Kiểm lại</span> Dòng đầu: \(w=4{,}6\), khớp tính tay. Cột cuối là loss <em>trước</em> mỗi lần cập nhật nên dòng đầu in 4,0. Sau 30 bước \(w\approx3{,}00248\), rất gần nghiệm \(w=3\).</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Tích phân: tổng lượng biến thiên</h2>
+          <p>Một cửa hàng có tốc độ bán hàng \(v(t)\) thay đổi theo thời gian. Tổng lượng hàng bán ra từ \(t_0\) đến \(t_1\):</p>
+          <div class="formula sm">$$Q=\int_{t_0}^{t_1}v(t)\,dt$$</div>
+          <div class="two-col two-col--wide-right">
+            <div>
+              <p style="margin:0.1em 0">Nếu \(v(t)=2t+1\), trong 3 giờ đầu:</p>
+              <div class="formula sm">$$Q=\int_0^3(2t+1)\,dt=\Big[t^2+t\Big]_0^3=12$$</div>
+              <p style="font-size:0.7em">Tổng lượng bán là 12 đơn vị, nếu tốc độ tính theo đơn vị hàng/giờ.</p>
+            </div>
+            <figure class="fig">
+              <img src="img/lec03/integral-sales.png" alt="Diện tích dưới đường v(t) = 2t + 1 từ 0 đến 3 bằng 12" style="max-height:200px">
+              <figcaption class="caption">Tích phân là diện tích dưới đường tốc độ bán. Hình do biên soạn.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mã Python: tích phân số bằng SciPy</h2>
+          {{code:integral}}
+          {{out:integral}}
+          <div class="good-box"><span class="box-title">Kiểm lại</span> SciPy cho 12,0, khớp \([t^2+t]_0^3=12\). Sai số ước lượng cỡ \(10^{-13}\): kết quả số rất sát giá trị giải tích.</div>
+          <p class="source">Nguồn: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html" target="_blank" rel="noopener">SciPy — scipy.integrate.quad</a>.</p>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: giải tích</h2>
+          <div class="kw-row">
+            <span class="kw">Gradient Descent</span><span class="kw">Backpropagation</span><span class="kw">Neural Networks</span><span class="kw">Continuous Optimization</span><span class="kw">Neural ODE</span><span class="kw">Continuous Probability Models</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn biết mô hình thay đổi như thế nào khi tham số thay đổi.</div>
+        </section>
+      </section>

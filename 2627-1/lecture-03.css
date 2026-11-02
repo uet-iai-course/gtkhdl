@@ -1,0 +1,494 @@
+/* Bài 3 và bài 4 — Toán học trong khoa học dữ liệu. Bổ sung cho lecture-style.css. */
+
+.reveal .source {
+    margin: 0.35em 0 0;
+    color: #666;
+    font-size: 0.4em;
+    line-height: 1.35;
+}
+
+.reveal .source a,
+.reveal .caption a,
+.reveal .portrait-row figcaption a {
+    color: #2A7291;
+}
+
+/* ---------- Chân dung ---------- */
+.reveal .portrait-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45em;
+    margin: 0.15em 0 0.35em;
+}
+
+.reveal .portrait-row.two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reveal .portrait-row.four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.reveal .portrait-row.five {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.reveal .portrait-row figure {
+    margin: 0;
+    padding: 0.25em 0.25em 0.3em;
+    text-align: center;
+    background: #f6f4ef;
+    border-radius: 8px;
+}
+
+.reveal .portrait-row img {
+    width: auto;
+    max-width: 100%;
+    height: 148px;
+    max-height: 148px;
+    object-fit: contain;
+    object-position: center top;
+    background: #efece4;
+}
+
+.reveal .portrait-row.short img {
+    height: 108px;
+    max-height: 108px;
+}
+
+.reveal .portrait-row.tall img {
+    height: 190px;
+    max-height: 190px;
+}
+
+.reveal .portrait-row.five img {
+    height: 168px;
+    max-height: 168px;
+}
+
+.reveal .portrait-row figcaption {
+    margin-top: 0.25em;
+    color: #333;
+    font-size: 0.38em;
+    font-style: normal;
+    line-height: 1.25;
+}
+
+.reveal .portrait-row figcaption b {
+    display: block;
+    color: #1F5F73;
+    font-size: 1.12em;
+}
+
+/* ---------- Bảng ---------- */
+.reveal table.era-table {
+    font-size: 0.46em;
+    line-height: 1.28;
+    margin-top: 0.2em;
+}
+
+.reveal table.era-table th {
+    color: #2A7291;
+}
+
+.reveal table.era-table td,
+.reveal table.era-table th {
+    padding: 0.28em 0.4em;
+    vertical-align: top;
+    text-align: left;
+}
+
+.reveal table.era-table.big {
+    font-size: 0.56em;
+}
+
+.reveal table.era-table.xs {
+    font-size: 0.4em;
+}
+
+.reveal .era-note {
+    margin: 0.25em 0 0;
+    color: #553582;
+    font-size: 0.48em;
+    font-weight: 700;
+    text-align: center;
+}
+
+.reveal .card-plain {
+    padding: 0.45em 0.55em;
+    border-radius: 8px;
+    background: #f6f4ef;
+    font-size: 0.85em;
+    line-height: 1.35;
+}
+
+.reveal .card-plain.sm {
+    font-size: 0.7em;
+}
+
+.reveal h3 {
+    margin-top: 0.15em;
+    margin-bottom: 0.2em;
+}
+
+.reveal section.fit {
+    font-size: 0.8em;
+}
+
+.reveal section.fit2 {
+    font-size: 0.7em;
+}
+
+/* ---------- Từ khóa / liên hệ ngành ---------- */
+.reveal .kw-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.28em;
+    margin: 0.2em 0 0.45em;
+}
+
+.reveal .kw {
+    padding: 0.12em 0.4em;
+    border: 2px solid #2A7291;
+    border-radius: 999px;
+    background: #F3F2EC;
+    color: #1F5F73;
+    font-size: 0.42em;
+    font-weight: 700;
+}
+
+.reveal .kw.org {
+    border-color: #6D4AA8;
+    color: #553582;
+}
+
+/* ---------- Công thức ---------- */
+.reveal .formula {
+    margin: 0.3em 0;
+    padding: 0.25em 0.5em;
+    text-align: center;
+    background: #F2F8FA;
+    border-left: 6px solid #2A7291;
+    border-radius: 6px;
+    font-size: 0.82em;
+}
+
+.reveal .formula.lg {
+    font-size: 1em;
+}
+
+.reveal .formula.sm {
+    font-size: 0.68em;
+}
+
+.reveal .formula .katex-display {
+    margin: 0.2em 0;
+}
+
+.reveal table.sym-table {
+    font-size: 0.5em;
+    line-height: 1.3;
+    margin: 0.3em 0;
+}
+
+.reveal table.sym-table td,
+.reveal table.sym-table th {
+    padding: 0.18em 0.45em;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.reveal table.sym-table td:first-child {
+    width: 4.2em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.reveal .katex {
+    font-size: 1.08em;
+}
+
+.reveal p.mt {
+    margin-top: 0.25em;
+}
+
+/* ---------- Mã nguồn ---------- */
+.reveal pre.demo-code {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0.2em 0;
+    font-size: 0.38em;
+    line-height: 1.35;
+    box-shadow: none;
+}
+
+.reveal pre.demo-code code {
+    max-height: none;
+}
+
+.reveal pre.demo-code.lab {
+    font-size: 0.42em;
+    line-height: 1.38;
+}
+
+.reveal pre.demo-code.sm {
+    font-size: 0.36em;
+    line-height: 1.32;
+}
+
+.reveal pre.demo-code.xs {
+    font-size: 0.32em;
+    line-height: 1.3;
+}
+
+.reveal pre.result-out {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0.15em 0;
+    padding: 0.35em 0.5em;
+    font-size: 0.38em;
+    line-height: 1.35;
+    box-shadow: none;
+    background: #1e1e1e;
+    color: #c6e1a7;
+    text-align: left;
+    white-space: pre;
+    overflow: hidden;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.reveal pre.result-out.sm {
+    font-size: 0.34em;
+}
+
+.reveal pre.result-out::before {
+    content: "Kết quả chạy";
+    display: block;
+    margin-bottom: 0.25em;
+    color: #f1c76a;
+    font-weight: 700;
+}
+
+.reveal .code-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    gap: 0.5em;
+    align-items: start;
+}
+
+.reveal .code-split.even {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.reveal .code-split pre.demo-code,
+.reveal .code-split pre.result-out {
+    margin: 0 0 0.25em;
+}
+
+/* ---------- Bản đồ tám nhánh ---------- */
+.reveal .branch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.35em;
+    margin: 0.2em 0;
+}
+
+.reveal .branch-card {
+    padding: 0.35em 0.45em;
+    border-radius: 10px;
+    border: 2px solid #2A7291;
+    background: #F3F2EC;
+    font-size: 0.42em;
+    line-height: 1.3;
+}
+
+.reveal .branch-card .no {
+    display: inline-block;
+    width: 1.6em;
+    height: 1.6em;
+    margin-right: 0.3em;
+    border-radius: 50%;
+    background: #2A7291;
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.6em;
+}
+
+.reveal .branch-card b {
+    display: block;
+    margin: 0.2em 0 0.1em;
+    color: #1F5F73;
+    font-size: 1.1em;
+}
+
+.reveal .branch-card i {
+    display: block;
+    color: #777;
+    font-size: 0.88em;
+}
+
+.reveal .branch-card.b1 { border-color: #2A7291; }
+.reveal .branch-card.b2 { border-color: #6D4AA8; }
+.reveal .branch-card.b2 .no { background: #6D4AA8; }
+.reveal .branch-card.b3 { border-color: #E8890C; }
+.reveal .branch-card.b3 .no { background: #E8890C; }
+.reveal .branch-card.b4 { border-color: #2E8B57; }
+.reveal .branch-card.b4 .no { background: #2E8B57; }
+.reveal .branch-card.b5 { border-color: #B8467A; }
+.reveal .branch-card.b5 .no { background: #B8467A; }
+.reveal .branch-card.b6 { border-color: #1F5F73; }
+.reveal .branch-card.b6 .no { background: #1F5F73; }
+.reveal .branch-card.b7 { border-color: #8A5A08; }
+.reveal .branch-card.b7 .no { background: #8A5A08; }
+.reveal .branch-card.b8 { border-color: #9E1C1C; }
+.reveal .branch-card.b8 .no { background: #9E1C1C; }
+
+.reveal .q-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25em 0.5em;
+    margin-top: 0.2em;
+}
+
+.reveal .q-item {
+    padding: 0.3em 0.5em;
+    border-radius: 8px;
+    background: #F3F2EC;
+    font-size: 0.5em;
+    line-height: 1.3;
+}
+
+.reveal .q-item span {
+    display: block;
+    margin-top: 0.1em;
+    color: #553582;
+    font-size: 0.82em;
+    font-weight: 700;
+}
+
+/* ---------- Khung nhiều cột nhỏ ---------- */
+.reveal .three-col {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5em;
+    align-items: start;
+}
+
+.reveal .step-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.35em;
+    margin: 0.2em 0;
+}
+
+.reveal .step {
+    padding: 0.35em 0.45em;
+    border-radius: 8px;
+    border-top: 4px solid #2A7291;
+    background: #F2F8FA;
+    font-size: 0.44em;
+    line-height: 1.3;
+}
+
+.reveal .step b {
+    display: block;
+    color: #1F5F73;
+}
+
+.reveal .step.hl {
+    border-top-color: #E8890C;
+    background: #FDF3E3;
+}
+
+.reveal .lab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.3em 0.45em;
+    margin: 0.2em 0;
+}
+
+.reveal .lab-card {
+    padding: 0.3em 0.5em;
+    border-radius: 8px;
+    background: #F3F2EC;
+    border-left: 5px solid #2A7291;
+    font-size: 0.45em;
+    line-height: 1.3;
+}
+
+.reveal .lab-card b {
+    display: block;
+    color: #1F5F73;
+}
+
+.reveal .lab-card em {
+    color: #553582;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.reveal .lib-wall {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.3em;
+    margin: 0.2em 0;
+}
+
+.reveal .lib-card {
+    padding: 0.3em 0.45em;
+    border-radius: 8px;
+    background: #E4F2F5;
+    color: #1F5F73;
+    font-size: 0.46em;
+    line-height: 1.3;
+}
+
+.reveal .lib-card b {
+    display: block;
+    margin-bottom: 0.1em;
+    font-size: 1.15em;
+}
+
+.reveal .lib-card img {
+    float: right;
+    height: 2.2em;
+    max-width: 3.2em;
+    margin: 0 0 0 0.4em;
+    object-fit: contain;
+}
+
+.reveal .fig.wide img {
+    max-height: 380px;
+}
+
+.reveal .fig.mid img {
+    max-height: 300px;
+}
+
+.reveal .two-col .fig.tall img {
+    max-height: 330px;
+}
+
+.reveal .fig.small img {
+    max-height: 210px;
+}
+
+.reveal .fig.tiny img {
+    max-height: 160px;
+}
+
+.reveal .two-col .fig.mid img {
+    max-height: 290px;
+}
+
+.reveal .history-timeline.seven { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.reveal .history-timeline.five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.reveal .history-timeline.six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.reveal .history-timeline.six::before { left: 7%; right: 7%; }
+.reveal .history-timeline.seven::before { left: 5%; right: 5%; }
+.reveal .history-timeline.five::before { left: 9%; right: 9%; }
+.reveal .history-timeline .timeline-date { font-size: 0.4em; }

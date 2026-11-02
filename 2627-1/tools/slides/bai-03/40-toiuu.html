@@ -1,0 +1,269 @@
+
+      <section>
+        <section>
+          <h1><span class="text-light">5.</span><br>Tối ưu hóa</h1>
+          <p class="text-light">Mathematical Optimization</p>
+        </section>
+
+        <section>
+          <h2>Vì sao cần tối ưu hóa?</h2>
+          <p>Quản lý một nhà máy. Cần biết nên sản xuất bao nhiêu sản phẩm A và B để lợi nhuận cao nhất.</p>
+          <table class="era-table big">
+            <thead><tr><th>Sản phẩm</th><th>Thời gian sản xuất</th><th>Lợi nhuận mỗi sản phẩm</th></tr></thead>
+            <tbody>
+              <tr><td>A</td><td>2 giờ</td><td>100.000 đồng</td></tr>
+              <tr><td>B</td><td>1 giờ</td><td>60.000 đồng</td></tr>
+              <tr><td colspan="3">Nhà máy chỉ có 100 giờ làm việc.</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Đây là bài toán tối ưu hóa</span> Trong Machine Learning, vấn đề tương tự xuất hiện khi tìm bộ tham số giúp hàm mất mát nhỏ nhất.</div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian tối ưu hóa</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của tối ưu hóa">
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XVIII</div><div class="timeline-dot"></div><div class="timeline-name">Euler và Lagrange</div><div class="timeline-note">Giải tích biến phân, nhân tử Lagrange</div></div>
+            <div class="timeline-event"><div class="timeline-date">1847</div><div class="timeline-dot"></div><div class="timeline-name">Cauchy</div><div class="timeline-note">Steepest descent, tiền thân của Gradient Descent</div></div>
+            <div class="timeline-event"><div class="timeline-date">1947</div><div class="timeline-dot"></div><div class="timeline-name">Simplex Method</div><div class="timeline-note">Dantzig, quy hoạch tuyến tính</div></div>
+            <div class="timeline-event"><div class="timeline-date">1950 – 1980</div><div class="timeline-dot"></div><div class="timeline-name">Tối ưu hiện đại</div><div class="timeline-note">Dynamic Programming, điểm trong, phi tuyến</div></div>
+            <div class="timeline-event"><div class="timeline-date">2014</div><div class="timeline-dot"></div><div class="timeline-name">Adam Optimizer</div><div class="timeline-note">Kingma và Ba, Deep Learning</div></div>
+          </div>
+          <p class="source">Nguồn tổng quan: <a href="https://www.informs.org/Explore/History-of-O.R.-Excellence" target="_blank" rel="noopener">INFORMS — History of O.R. Excellence</a> · <a href="https://web.stanford.edu/~boyd/cvxbook/" target="_blank" rel="noopener">Boyd &amp; Vandenberghe, <em>Convex Optimization</em></a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Euler, Lagrange và tối ưu có ràng buộc</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XVIII</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:lagrange|Joseph-Louis Lagrange|1736–1813}}
+            </div>
+            <div>
+              <p>Phát triển <strong>giải tích biến phân</strong> và <strong>phương pháp nhân tử Lagrange</strong> để giải các bài toán tối ưu có ràng buộc.</p>
+              <div class="formula sm">$$\min_x f(x)\ \text{với}\ g(x)=0\;\;\Rightarrow\;\;\mathcal{L}(x,\lambda)=f(x)+\lambda\,g(x)$$</div>
+              <p style="font-size:0.58em">\(f\): hàm cần tối thiểu. \(g(x)=0\): ràng buộc. \(\lambda\): nhân tử Lagrange. Nghiệm tối ưu là điểm dừng của \(\mathcal{L}\).</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Lagrange/" target="_blank" rel="noopener">MacTutor — Lagrange</a> · Boyd &amp; Vandenberghe, <em>Convex Optimization</em>, chương 5.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cauchy và phương pháp giảm dốc</h2>
+          <div class="slide-badge-row"><span class="history-date">1847</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:cauchy|Augustin-Louis Cauchy|1789–1857}}
+            </div>
+            <div>
+              <p>Cauchy đề xuất phương pháp <strong>steepest descent</strong>, tiền thân của Gradient Descent.</p>
+              <div class="formula sm">$$x_{k+1}=x_k-\eta\,\nabla f(x_k)$$</div>
+              <p style="font-size:0.58em">Đi ngược hướng gradient, vì đó là hướng giảm nhanh nhất cục bộ của \(f\).</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.emis.de/journals/DMJDMV/vol-ismp/40_lemarechal-claude.pdf" target="_blank" rel="noopener">Lemaréchal, <em>Cauchy and the Gradient Method</em>, 2012</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Simplex Method và quy hoạch tuyến tính</h2>
+          <div class="slide-badge-row"><span class="history-date">1947</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:dantzig|George Dantzig|1914–2005}}
+            </div>
+            <div>
+              <p>George Dantzig phát triển <strong>thuật toán Simplex</strong> cho quy hoạch tuyến tính.</p>
+              <div class="formula sm">$$\max_x\ c^{\top}x\quad\text{với}\ Ax\le b,\ x\ge0$$</div>
+              <p style="font-size:0.58em">Nghiệm tối ưu của quy hoạch tuyến tính nằm ở một đỉnh của miền khả thi. Simplex đi dọc các cạnh từ đỉnh này sang đỉnh khác.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.informs.org/Explore/History-of-O.R.-Excellence/Biographical-Profiles/Dantzig-George-B" target="_blank" rel="noopener">INFORMS — George B. Dantzig</a> · <a href="https://doi.org/10.1016/0167-6377(82)90043-8" target="_blank" rel="noopener">Dantzig, 1982, <em>Reminiscences about the origins of linear programming</em></a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Quy hoạch toán học và tối ưu hiện đại</h2>
+          <div class="slide-badge-row"><span class="history-date">1950 – 1980</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:boyd|Stephen Boyd|Tối ưu lồi (thập niên 1990 – nay)}}
+            </div>
+            <div>
+              <p>Dynamic Programming, stochastic approximation, phương pháp điểm trong và các phương pháp tối ưu phi tuyến phát triển mạnh.</p>
+              <table class="era-table">
+                <thead><tr><th>Mốc</th><th>Công trình</th></tr></thead>
+                <tbody>
+                  <tr><td>1951</td><td>Robbins và Monro: stochastic approximation, nền của SGD</td></tr>
+                  <tr><td>1957</td><td>Bellman: <em>Dynamic Programming</em></td></tr>
+                  <tr><td>1984</td><td>Karmarkar: phương pháp điểm trong cho quy hoạch tuyến tính</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1214/aoms/1177729586" target="_blank" rel="noopener">Robbins &amp; Monro, 1951</a> · <a href="https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming" target="_blank" rel="noopener">Bellman, 1957</a> · <a href="https://doi.org/10.1007/BF02579150" target="_blank" rel="noopener">Karmarkar, 1984</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Adam Optimizer</h2>
+          <div class="slide-badge-row"><span class="history-date">2014</span></div>
+          <p>Kingma và Ba công bố <strong>Adam</strong>, một thuật toán tối ưu được sử dụng rộng rãi trong Deep Learning.</p>
+          <div class="formula sm">$$m_t=\beta_1m_{t-1}+(1-\beta_1)g_t,\qquad v_t=\beta_2v_{t-1}+(1-\beta_2)g_t^{2}$$$$\theta_{t+1}=\theta_t-\eta\,\frac{\hat m_t}{\sqrt{\hat v_t}+\varepsilon}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(g_t\)</td><td>Gradient của hàm mất mát tại bước \(t\)</td></tr>
+              <tr><td>\(m_t,v_t\)</td><td>Trung bình động bậc một (động lượng) và bậc hai của gradient</td></tr>
+              <tr><td>\(\hat m_t,\hat v_t\)</td><td>Hai đại lượng trên sau hiệu chỉnh lệch</td></tr>
+              <tr><td>\(\beta_1,\beta_2,\varepsilon\)</td><td>Siêu tham số, mặc định trong bài báo: 0,9; 0,999; \(10^{-8}\)</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://arxiv.org/abs/1412.6980" target="_blank" rel="noopener">Kingma &amp; Ba, <em>Adam: A Method for Stochastic Optimization</em>, arXiv, 2014; ICLR 2015</a>. Chưa tìm được ảnh chân dung có giấy phép mở.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Những nhân vật tiêu biểu</h2>
+          <div class="portrait-row four tall">
+            {{pf:lagrange|Joseph-Louis Lagrange|Nhân tử Lagrange}}
+            {{pf:dantzig|George Dantzig|Linear Programming}}
+            {{pf:cauchy|Augustin-Louis Cauchy|Steepest descent}}
+            {{pf:boyd|Stephen Boyd|Convex Optimization}}
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Lagrange/" target="_blank" rel="noopener">MacTutor — Lagrange</a> · <a href="https://www.informs.org/Explore/History-of-O.R.-Excellence/Biographical-Profiles/Dantzig-George-B" target="_blank" rel="noopener">INFORMS — Dantzig</a> · <a href="https://web.stanford.edu/~boyd/" target="_blank" rel="noopener">Stephen Boyd, Stanford</a>.</p>
+        </section>
+
+        <section>
+          <h2>Ứng dụng 1. Tối đa hóa lợi nhuận nhà máy</h2>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(x\)</td><td>Số sản phẩm A</td></tr>
+              <tr><td>\(y\)</td><td>Số sản phẩm B</td></tr>
+            </tbody>
+          </table>
+          <p style="margin:0.1em 0">Hàm mục tiêu (đơn vị nghìn đồng):</p>
+          <div class="formula sm">$$\max Z=100x+60y$$</div>
+          <p style="margin:0.1em 0">Ràng buộc thời gian, ràng buộc nguyên liệu, và điều kiện không âm:</p>
+          <div class="formula sm">$$2x+y\le100\qquad\quad x+2y\le80\qquad\quad x,y\ge0$$</div>
+          <div class="key-box"><span class="box-title">Phân loại</span> Đây là <strong>Linear Programming</strong>: mục tiêu và ràng buộc đều tuyến tính. Dùng SciPy để tìm nghiệm.</div>
+        </section>
+
+        <section class="fit">
+          <h2>Miền khả thi và nghiệm tối ưu</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec03/lp-feasible.png" alt="Miền khả thi của bài toán quy hoạch tuyến tính với điểm tối ưu (40, 20)" style="max-height:310px">
+              <figcaption class="caption">Miền khả thi có bốn đỉnh. Hình do biên soạn.</figcaption>
+            </figure>
+            <div>
+              <table class="era-table">
+                <thead><tr><th>Đỉnh \((x,y)\)</th><th>\(Z\)</th></tr></thead>
+                <tbody>
+                  <tr><td>(0, 0)</td><td>0</td></tr>
+                  <tr><td>(50, 0)</td><td>5.000</td></tr>
+                  <tr><td>(0, 40)</td><td>2.400</td></tr>
+                  <tr><td><strong>(40, 20)</strong></td><td><strong>5.200</strong></td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:0.58em">Đỉnh \((40,20)\) là giao của \(2x+y=100\) và \(x+2y=80\). Lợi nhuận tối đa \(Z=100\cdot40+60\cdot20=5.200\) nghìn đồng.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mã Python: linprog</h2>
+          <div class="code-split even">
+            <div>{{code:linprog}}</div>
+            <div>
+              {{out:linprog}}
+              <div class="good-box" style="font-size:0.66em"><span class="box-title">Kiểm lại</span> Nghiệm 40 sản phẩm A, 20 sản phẩm B và 5.200 nghìn đồng khớp bảng đỉnh ở slide trước. SciPy tìm giá trị nhỏ nhất nên đổi dấu hệ số mục tiêu để tìm giá trị lớn nhất.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html" target="_blank" rel="noopener">SciPy — scipy.optimize.linprog</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Tìm bộ tham số tốt nhất cho AI</h2>
+          <p>Một mô hình Machine Learning có thể có hàng triệu tham số. Cần tìm:</p>
+          <div class="formula sm">$$\theta^{*}=\arg\min_{\theta}L(\theta)$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(\theta\)</td><td>Toàn bộ tham số của mô hình</td></tr>
+              <tr><td>\(L(\theta)\)</td><td>Hàm mất mát</td></tr>
+              <tr><td>\(\theta^{*}\)</td><td>Bộ tham số làm mất mát nhỏ nhất</td></tr>
+            </tbody>
+          </table>
+          <p>Một thuật toán phổ biến là Gradient Descent:</p>
+          <div class="formula sm">$$\theta_{t+1}=\theta_t-\eta\,\nabla L(\theta_t)$$</div>
+        </section>
+
+        <section class="fit">
+          <h2>Gradient Descent trên hàm hai tham số</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec03/gd-2d.png" alt="Đường đồng mức của hàm mất mát và đường đi của Gradient Descent về cực tiểu" style="max-height:300px">
+              <figcaption class="caption">\(L(\theta)=(\theta_1-3)^2+4(\theta_2+1)^2\), \(\eta=0{,}1\), xuất phát \((-2,2)\). Hình do biên soạn.</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.85em">
+                <li>Mỗi bước đi ngược gradient, vuông góc với đường đồng mức.</li>
+                <li>Hướng \(\theta_2\) dốc hơn nên các bước dọc hướng đó ban đầu dài hơn.</li>
+                <li>Mô hình thật có hàng triệu chiều, nhưng quy tắc cập nhật giữ nguyên.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: SGD với scikit-learn</h2>
+          <div class="code-split">
+            <div>{{code:sgd|cls=sm}}</div>
+            <div>
+              {{out:sgd}}
+              <div class="good-box" style="font-size:0.66em"><span class="box-title">Kiểm lại</span> Dữ liệu sinh với nhiễu \(\sigma=15\), nên phương sai nhiễu là \(15^2=225\). MSE trên tập kiểm tra là 249,58: cùng cỡ với mức nhiễu không thể giảm, tức mô hình đã học tốt.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html" target="_blank" rel="noopener">scikit-learn — SGDRegressor</a>.</p>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: tối ưu hóa</h2>
+          <div class="kw-row">
+            <span class="kw">Gradient Descent</span><span class="kw">SGD</span><span class="kw">Adam</span><span class="kw">Linear Programming</span><span class="kw">Convex Optimization</span><span class="kw">Hyperparameter Optimization</span><span class="kw">Operations Research</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn tìm phương án tốt nhất.</div>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Tổng kết buổi 3</h2>
+          <ul>
+            <li><strong>Bản đồ:</strong> tám nhánh toán, mỗi nhánh giải một loại vấn đề; các nhánh phối hợp trong cùng một thuật toán.</li>
+            <li><strong>Xác suất và thống kê:</strong> Bayes cập nhật xác suất 20% lên 53,33%; Naive Bayes dự đoán khách mới mua với xác suất 54,24%; A/B testing cho p-value 0,488, chưa đủ bằng chứng.</li>
+            <li><strong>Đại số tuyến tính:</strong> khách hàng là vector, bảng là ma trận; PCA giảm chiều, cosine đo tương đồng.</li>
+            <li><strong>Giải tích:</strong> đạo hàm chỉ hướng sửa sai, Gradient Descent cập nhật tham số; tích phân cộng dồn biến thiên.</li>
+            <li><strong>Tối ưu hóa:</strong> linprog cho 40 sản phẩm A, 20 sản phẩm B, lợi nhuận 5.200 nghìn đồng.</li>
+          </ul>
+        </section>
+
+        <section class="fit">
+          <h2>Học liệu tham khảo</h2>
+          <div class="portrait-row two tall" style="grid-template-columns:repeat(2,1fr)">
+            <figure>
+              <img src="img/lec03/books/practical-stats.jpg" alt="Bìa sách Practical Statistics for Data Scientists, tái bản lần 2" style="height:290px;max-height:290px;width:auto">
+              <figcaption><b>Practical Statistics for Data Scientists</b>P. Bruce, A. Bruce &amp; P. Gedeck, O’Reilly, 2020 (tái bản lần 2). Hơn 50 khái niệm thống kê thiết yếu, kèm mã R và Python. Bìa sách © O’Reilly Media, <a href="https://openlibrary.org/isbn/9781492072942" target="_blank" rel="noopener">Open Library</a>.</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec03/books/essential-math.jpg" alt="Bìa sách Essential Math for Data Science" style="height:290px;max-height:290px;width:auto">
+              <figcaption><b>Essential Math for Data Science</b>T. Nield, O’Reilly, 2022. Đại số tuyến tính, xác suất, thống kê, giải tích và hồi quy tuyến tính, minh họa bằng Python. Bìa sách © O’Reilly Media, <a href="https://openlibrary.org/isbn/9781098102937" target="_blank" rel="noopener">Open Library</a>.</figcaption>
+            </figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.oreilly.com/library/view/practical-statistics-for/9781492072935/" target="_blank" rel="noopener">O’Reilly — Practical Statistics for Data Scientists</a> · <a href="https://github.com/gedeck/practical-statistics-for-data-scientists" target="_blank" rel="noopener">mã nguồn đi kèm (GitHub)</a> · <a href="https://www.oreilly.com/library/view/essential-math-for/9781098102920/" target="_blank" rel="noopener">O’Reilly — Essential Math for Data Science</a>. Ảnh bìa dùng với mục đích giới thiệu học liệu.</p>
+        </section>
+
+        <section>
+          <h2>Việc trước buổi sau</h2>
+          <ol>
+            <li>Chạy lại các đoạn mã của bài 3 trong một môi trường ảo. Đối chiếu từng số in ra với số trên slide.</li>
+            <li>Đổi cỡ mẫu A/B thành 5.000 người mỗi nhóm (cùng 5% và 6%). Dự đoán p-value tăng hay giảm, rồi chạy kiểm chứng.</li>
+            <li>Đổi learning rate Gradient Descent thành 1,1 rồi 0,01. Ghi nhận \(w\) sau 30 bước và giải thích vì sao.</li>
+          </ol>
+          <div class="good-box"><span class="box-title">Câu mang về</span> Toán không thay thế thư viện. Toán cho biết thuật toán đang làm gì và khi nào nó sai.</div>
+        </section>
+      </section>

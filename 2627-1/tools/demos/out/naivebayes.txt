@@ -1,0 +1,4 @@
+No: điểm = 0.01875, xác suất = 45.76%
+Yes: điểm = 0.02222, xác suất = 54.24%
+alpha=1e-10: P(No)=0.4576, P(Yes)=0.5424 -> Yes
+alpha=1: P(No)=0.4394, P(Yes)=0.5606 -> Yes

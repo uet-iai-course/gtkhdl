@@ -1,0 +1,235 @@
+
+      <section>
+        <section>
+          <h1><span class="text-light">10.</span><br>Tổng kết tám nhánh<br>toán học</h1>
+          <p class="text-light">Mỗi nhánh giải một loại vấn đề, và nhiều nhánh cùng chạy trong một thuật toán</p>
+        </section>
+
+        <section class="fit">
+          <h2>Bảng tổng hợp: nhánh toán và thuật toán</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Nhánh toán</th><th>Vấn đề giải quyết</th><th>Thuật toán, ứng dụng tiêu biểu</th></tr></thead>
+            <tbody>
+              <tr><td>1. Xác suất và thống kê</td><td>Bất định, dự đoán, kiểm định</td><td>Naive Bayes, A/B testing, hồi quy, Bayesian inference</td></tr>
+              <tr><td>2. Đại số tuyến tính</td><td>Biểu diễn dữ liệu, tìm cấu trúc ẩn</td><td>PCA, SVD, embedding, hệ khuyến nghị, Transformer</td></tr>
+              <tr><td>3. Giải tích</td><td>Sự thay đổi, hướng cải thiện</td><td>Gradient, backpropagation, tối ưu hàm mất mát</td></tr>
+              <tr><td>4. Tối ưu hóa</td><td>Tìm tham số hoặc phương án tốt nhất</td><td>Gradient Descent, SGD, Adam, quy hoạch tuyến tính</td></tr>
+              <tr><td>5. Toán rời rạc và đồ thị</td><td>Quan hệ giữa các đối tượng</td><td>PageRank, phát hiện cộng đồng, đường đi ngắn nhất, GNN</td></tr>
+              <tr><td>6. Lý thuyết thông tin</td><td>Đo thông tin, độ bất định</td><td>Entropy, Information Gain, Cross-Entropy, cây quyết định</td></tr>
+              <tr><td>7. Toán học tính toán</td><td>Tính toán số, sai số, hiệu năng</td><td>Sai phân hữu hạn, Newton, đại số tuyến tính số, GPU</td></tr>
+              <tr><td>8. Hình học và tô pô</td><td>Khoảng cách, hình dạng dữ liệu</td><td>KNN, K-Means, manifold learning, Persistent Homology</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Bảng do biên soạn, tổng hợp từ nội dung bài 3 và bài 4.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ví dụ tổng hợp: một mạng neural network</h2>
+          <p style="font-size:0.7em;margin:0.1em 0">Bốn bước của một lần huấn luyện, và nhánh toán tương ứng:</p>
+          <div class="step-row">
+            <div class="step"><b>Lớp tuyến tính (đại số tuyến tính)</b>\(z=Wx+b\)</div>
+            <div class="step"><b>Kích hoạt (giải tích, xác suất)</b>\(a=\sigma(z)\)</div>
+            <div class="step"><b>Mất mát (thông tin)</b>\(L=-\sum_i y_i\log\hat y_i\)</div>
+            <div class="step hl"><b>Cập nhật (tối ưu hóa, giải tích)</b>\(W_{t+1}=W_t-\eta\,\dfrac{\partial L}{\partial W_t}\)</div>
+          </div>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="{{i:neural-net}}" alt="Sơ đồ mạng neural network ba lớp" style="max-height:230px">
+              <figcaption class="caption">{{cap:neural-net|Mạng neural network gồm lớp vào, lớp ẩn và lớp ra}}</figcaption>
+            </figure>
+            <table class="sym-table">
+              <tbody>
+                <tr><td>\(W,b\)</td><td>Trọng số và độ lệch: các tham số cần học</td></tr>
+                <tr><td>\(\sigma\)</td><td>Hàm kích hoạt, ví dụ sigmoid, ReLU</td></tr>
+                <tr><td>\(y_i,\hat y_i\)</td><td>Nhãn thật (one-hot) và xác suất dự đoán</td></tr>
+                <tr><td>\(\eta\)</td><td>Tốc độ học (learning rate)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.deeplearningbook.org/contents/mlp.html" target="_blank" rel="noopener">Goodfellow et al., <em>Deep Learning</em>, chương 6</a>. Thêm các nhánh còn lại: đồ thị cho GNN, tính toán số cho GPU và độ chính xác hỗn hợp, hình học cho không gian embedding.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">11.</span><br>Thư viện mã nguồn mở</h1>
+          <p class="text-light">Chín thư viện Python thường dùng cho phần toán của khoa học dữ liệu</p>
+        </section>
+
+        <section class="fit">
+          <h2>Chín thư viện mã nguồn mở</h2>
+          <div class="lib-wall">
+            <div class="lib-card"><img src="img/lec02/logos/numpy.svg" alt="Logo NumPy"><b>NumPy</b>Mảng nhiều chiều, đại số tuyến tính cơ bản.</div>
+            <div class="lib-card"><b>SciPy</b>Tối ưu hóa, thống kê, tích phân, đại số tuyến tính nâng cao.</div>
+            <div class="lib-card"><img src="img/lec02/logos/pandas.svg" alt="Logo pandas"><b>Pandas</b>Bảng dữ liệu, làm sạch và tổng hợp.</div>
+            <div class="lib-card"><img src="img/lec02/logos/scikit-learn.svg" alt="Logo scikit-learn"><b>Scikit-learn</b>PCA, cây quyết định, SGD, phân cụm, đánh giá mô hình.</div>
+            <div class="lib-card"><img src="{{i:pytorch}}" alt="Logo PyTorch"><b>PyTorch</b>Tính gradient tự động, huấn luyện mạng neural network.</div>
+            <div class="lib-card"><b>NetworkX</b>Đồ thị, PageRank, đường đi ngắn nhất, cộng đồng.</div>
+            <div class="lib-card"><b>GUDHI</b>Phân tích dữ liệu tô pô, Persistent Homology.</div>
+            <div class="lib-card"><b>SymPy</b>Toán ký hiệu: đạo hàm, tích phân, giải phương trình.</div>
+            <div class="lib-card"><b>CVXPY</b>Mô hình hóa và giải bài toán tối ưu lồi.</div>
+          </div>
+          <p class="source"><a href="https://numpy.org/" target="_blank" rel="noopener">NumPy</a> · <a href="https://scipy.org/" target="_blank" rel="noopener">SciPy</a> · <a href="https://pandas.pydata.org/" target="_blank" rel="noopener">pandas</a> · <a href="https://scikit-learn.org/" target="_blank" rel="noopener">scikit-learn</a> · <a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a> · <a href="https://networkx.org/" target="_blank" rel="noopener">NetworkX</a> · <a href="https://gudhi.inria.fr/" target="_blank" rel="noopener">GUDHI</a> · <a href="https://www.sympy.org/" target="_blank" rel="noopener">SymPy</a> · <a href="https://www.cvxpy.org/" target="_blank" rel="noopener">CVXPY</a>. Logo thuộc về các dự án tương ứng.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Thư viện và nhánh toán</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Thư viện</th><th>Nhánh toán chính</th><th>Hàm tiêu biểu</th></tr></thead>
+            <tbody>
+              <tr><td>NumPy, SciPy</td><td>Đại số tuyến tính, thống kê, tối ưu hóa</td><td><code>np.linalg</code>, <code>scipy.optimize.linprog</code>, <code>scipy.stats.entropy</code></td></tr>
+              <tr><td>Scikit-learn</td><td>Đại số tuyến tính, tối ưu hóa, thông tin, hình học</td><td><code>PCA</code>, <code>SGDRegressor</code>, <code>DecisionTreeClassifier</code>, <code>euclidean_distances</code></td></tr>
+              <tr><td>NetworkX</td><td>Toán rời rạc và đồ thị</td><td><code>pagerank</code>, <code>shortest_path</code></td></tr>
+              <tr><td>GUDHI</td><td>Hình học và tô pô</td><td><code>RipsComplex</code>, <code>persistence</code></td></tr>
+              <tr><td>PyTorch</td><td>Giải tích, tối ưu hóa</td><td><code>autograd</code>, <code>torch.optim</code></td></tr>
+              <tr><td>SymPy, CVXPY</td><td>Giải tích ký hiệu, tối ưu lồi</td><td><code>diff</code>, <code>integrate</code>, <code>Problem.solve</code></td></tr>
+            </tbody>
+          </table>
+          <p class="source">PyTorch, SymPy và CVXPY chưa có mã trong hai bài, dùng ở các lab. Môi trường chạy lại mã của hai bài: Python 3.12, NumPy 2.5.4, SciPy 1.18.1, scikit-learn 1.9.1, NetworkX 3.7, GUDHI 3.13.0.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">12.</span><br>Lộ trình thực hành<br>tám lab</h1>
+          <p class="text-light">Data Science Mathematics Lab trên dữ liệu thương mại điện tử</p>
+        </section>
+
+        <section class="fit">
+          <h2>Data Science Mathematics Lab</h2>
+          <p style="font-size:0.7em;margin:0.1em 0">Một bộ dữ liệu thương mại điện tử (khách hàng, sản phẩm, đơn hàng, lượt xem) dùng xuyên suốt tám lab. Mỗi lab ứng với một nhánh toán.</p>
+          <div class="lab-grid">
+            <div class="lab-card"><em>Lab 1 · Xác suất và thống kê</em><b>Tỉ lệ chuyển đổi và A/B testing</b>Ước lượng xác suất mua, khoảng tin cậy, kiểm định giữa hai giao diện.</div>
+            <div class="lab-card"><em>Lab 2 · Đại số tuyến tính</em><b>Ma trận khách hàng – sản phẩm</b>PCA giảm chiều, độ tương đồng cosine, gợi ý sản phẩm.</div>
+            <div class="lab-card"><em>Lab 3 · Giải tích</em><b>Hồi quy từ đầu</b>Tính gradient hàm mất mát và tự cài Gradient Descent dự đoán doanh thu.</div>
+            <div class="lab-card"><em>Lab 4 · Tối ưu hóa</em><b>Phân bổ ngân sách</b>Quy hoạch tuyến tính cho tồn kho, so sánh GD và SGD.</div>
+            <div class="lab-card"><em>Lab 5 · Đồ thị</em><b>Mạng đồng mua</b>Xây đồ thị sản phẩm mua cùng nhau, PageRank, cộng đồng sản phẩm.</div>
+            <div class="lab-card"><em>Lab 6 · Lý thuyết thông tin</em><b>Chọn đặc trưng</b>Entropy hành vi, information gain, cây quyết định dự đoán mua hàng.</div>
+            <div class="lab-card"><em>Lab 7 · Toán học tính toán</em><b>Sai số và độ ổn định</b>Gradient checking, so sánh float32 và float64, điều kiện của ma trận.</div>
+            <div class="lab-card"><em>Lab 8 · Hình học và tô pô</em><b>Phân nhóm khách hàng</b>Chuẩn hóa, khoảng cách, KNN, K-Means, Persistent Homology trên không gian hành vi.</div>
+          </div>
+          <p class="source">Lộ trình do biên soạn. Dữ liệu có thể là dữ liệu mô phỏng hoặc bộ dữ liệu công khai, ví dụ <a href="https://archive.ics.uci.edu/dataset/352/online+retail" target="_blank" rel="noopener">UCI — Online Retail</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cấu trúc một buổi lab</h2>
+          <div class="step-row">
+            <div class="step"><b>1. Câu hỏi kinh doanh</b>Phát biểu vấn đề bằng ngôn ngữ của doanh nghiệp.</div>
+            <div class="step"><b>2. Mô hình toán</b>Chuyển câu hỏi thành công thức, nêu rõ ký hiệu.</div>
+            <div class="step"><b>3. Cài đặt</b>Viết mã từ đầu, sau đó đối chiếu với thư viện.</div>
+            <div class="step hl"><b>4. Kiểm chứng</b>Đối chiếu bằng tay, kiểm tra đơn vị, giải thích kết quả.</div>
+          </div>
+          <div class="key-box"><span class="box-title">Nguyên tắc</span> Mỗi kết quả phải trả lời hai câu hỏi: con số này có đúng không, và nó có ý nghĩa gì với bài toán ban đầu.</div>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">13.</span><br>Tài liệu tham khảo</h1>
+          <p class="text-light">Sách và giáo trình để học tiếp từng nhánh</p>
+        </section>
+
+        <section class="fit">
+          <h2>Tài liệu tham khảo (1/2)</h2>
+          <table class="era-table xs">
+            <thead><tr><th>#</th><th>Tài liệu</th><th>Nhánh</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><a href="https://mml-book.github.io/" target="_blank" rel="noopener">Deisenroth, Faisal &amp; Ong, <em>Mathematics for Machine Learning</em>, Cambridge University Press, 2020</a></td><td>Tổng quan</td></tr>
+              <tr><td>2</td><td><a href="https://hastie.su.domains/ElemStatLearn/" target="_blank" rel="noopener">Hastie, Tibshirani &amp; Friedman, <em>The Elements of Statistical Learning</em>, Springer, 2009</a></td><td>Xác suất, thống kê</td></tr>
+              <tr><td>3</td><td><a href="https://math.mit.edu/~gs/learningfromdata/" target="_blank" rel="noopener">G. Strang, <em>Linear Algebra and Learning from Data</em>, Wellesley–Cambridge Press, 2019</a></td><td>Đại số tuyến tính</td></tr>
+              <tr><td>4</td><td><a href="https://www.deeplearningbook.org/" target="_blank" rel="noopener">Goodfellow, Bengio &amp; Courville, <em>Deep Learning</em>, MIT Press, 2016</a></td><td>Giải tích, tối ưu hóa</td></tr>
+              <tr><td>5</td><td><a href="https://web.stanford.edu/~boyd/cvxbook/" target="_blank" rel="noopener">Boyd &amp; Vandenberghe, <em>Convex Optimization</em>, Cambridge University Press, 2004</a></td><td>Tối ưu hóa</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="fit">
+          <h2>Tài liệu tham khảo (2/2)</h2>
+          <table class="era-table xs">
+            <thead><tr><th>#</th><th>Tài liệu</th><th>Nhánh</th></tr></thead>
+            <tbody>
+              <tr><td>6</td><td><a href="https://global.oup.com/academic/product/networks-9780198805090" target="_blank" rel="noopener">M. Newman, <em>Networks</em>, 2nd ed., Oxford University Press, 2018</a></td><td>Đồ thị</td></tr>
+              <tr><td>7</td><td><a href="https://onlinelibrary.wiley.com/doi/book/10.1002/047174882X" target="_blank" rel="noopener">Cover &amp; Thomas, <em>Elements of Information Theory</em>, 2nd ed., Wiley, 2006</a></td><td>Lý thuyết thông tin</td></tr>
+              <tr><td>8</td><td><a href="https://epubs.siam.org/doi/book/10.1137/1.9780898719574" target="_blank" rel="noopener">Trefethen &amp; Bau, <em>Numerical Linear Algebra</em>, SIAM, 1997</a></td><td>Toán học tính toán</td></tr>
+              <tr><td>9</td><td><a href="https://bookstore.ams.org/mbk-69" target="_blank" rel="noopener">Edelsbrunner &amp; Harer, <em>Computational Topology: An Introduction</em>, AMS, 2010</a></td><td>Hình học, tô pô</td></tr>
+              <tr><td>10</td><td><a href="https://www.hup.harvard.edu/books/9780674403413" target="_blank" rel="noopener">S. Stigler, <em>The History of Statistics</em>, Harvard University Press, 1986</a></td><td>Lịch sử</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Lịch sử và tiểu sử nhân vật: <a href="https://mathshistory.st-andrews.ac.uk/" target="_blank" rel="noopener">MacTutor History of Mathematics Archive, University of St Andrews</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Học liệu tham khảo</h2>
+          <div class="portrait-row two tall" style="grid-template-columns:repeat(2,1fr)">
+            <figure>
+              <img src="img/lec04/books/info-theoretic.jpg" alt="Bìa sách Information-Theoretic Methods in Data Science" style="height:290px;max-height:290px;width:auto">
+              <figcaption><b>Information-Theoretic Methods in Data Science</b>M. R. D. Rodrigues &amp; Y. C. Eldar (chủ biên), Cambridge University Press, 2021. Ứng dụng entropy, thông tin tương hỗ và nén dữ liệu vào học máy và khoa học dữ liệu. Bìa sách © Cambridge University Press, <a href="https://openlibrary.org/isbn/9781108427135" target="_blank" rel="noopener">Open Library</a>.</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec04/books/graph-algorithms.png" alt="Bìa sách Graph Algorithms for Data Science" style="height:290px;max-height:290px;width:auto">
+              <figcaption><b>Graph Algorithms for Data Science: With examples in Neo4j</b>T. Bratanič, Manning, 2024. Thuật toán đồ thị, trung tâm, cộng đồng và embedding, minh họa bằng Neo4j. Bìa sách © Manning Publications, <a href="https://www.manning.com/books/graph-algorithms-for-data-science" target="_blank" rel="noopener">manning.com</a>.</figcaption>
+            </figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1017/9781108616799" target="_blank" rel="noopener">Cambridge University Press — Information-Theoretic Methods in Data Science (DOI)</a> · <a href="https://www.manning.com/books/graph-algorithms-for-data-science" target="_blank" rel="noopener">Manning — Graph Algorithms for Data Science</a>. Ảnh bìa dùng với mục đích giới thiệu học liệu. Liên quan trực tiếp đến mục 6 (đồ thị) và mục 7 (lý thuyết thông tin).</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">14.</span><br>Kết luận</h1>
+        </section>
+
+        <section class="fit">
+          <h2>Khi muốn … thì học …</h2>
+          <div class="q-grid">
+            <div class="q-item">Khi muốn hiểu dữ liệu và sự bất định<span>→ học xác suất và thống kê</span></div>
+            <div class="q-item">Khi muốn biểu diễn dữ liệu và tìm cấu trúc ẩn<span>→ học đại số tuyến tính</span></div>
+            <div class="q-item">Khi muốn hiểu cách mô hình học<span>→ học giải tích</span></div>
+            <div class="q-item">Khi muốn tìm phương án tốt nhất<span>→ học tối ưu hóa</span></div>
+            <div class="q-item">Khi muốn phân tích quan hệ giữa các đối tượng<span>→ học toán rời rạc và lý thuyết đồ thị</span></div>
+            <div class="q-item">Khi muốn đo lượng thông tin và chọn đặc trưng<span>→ học lý thuyết thông tin</span></div>
+            <div class="q-item">Khi muốn tính toán hiệu quả và kiểm soát sai số<span>→ học toán học tính toán</span></div>
+            <div class="q-item">Khi muốn hiểu hình dạng và khoảng cách trong dữ liệu<span>→ học hình học và tô pô</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Thông điệp cuối</h2>
+          <p>Khoa học dữ liệu không chỉ là công cụ. Mỗi thuật toán đều dựa trên một hoặc nhiều nhánh toán học đã phát triển qua hàng trăm năm.</p>
+          <p>Thư viện giúp chạy thuật toán nhanh, nhưng hiểu được toán học bên dưới mới giúp <strong>chọn đúng phương pháp</strong>, <strong>nhận ra khi nào kết quả sai</strong> và <strong>cải tiến</strong> mô hình.</p>
+          <div class="good-box"><span class="box-title">Câu mang về</span> Bắt đầu từ câu hỏi thực tế, tìm nhánh toán phù hợp, sau đó kiểm chứng bằng mã.</div>
+        </section>
+
+        <section class="fit">
+          <h2>Tổng kết buổi 4</h2>
+          <ul>
+            <li><strong>Đồ thị:</strong> PageRank cho C = 0,384, A = 0,369; đường đi ngắn nhất A–C–B–D–E có chi phí 10.</li>
+            <li><strong>Lý thuyết thông tin:</strong> entropy 1; 0,469; 0 bit; information gain của nút gốc cây quyết định ≈ 0,561 bit, độ chính xác 0,956.</li>
+            <li><strong>Toán học tính toán:</strong> sai phân hữu hạn cho 6,001 thay vì 6; Newton hội tụ về \(\sqrt{10}\approx3{,}1622777\) sau 6 bước.</li>
+            <li><strong>Hình học và tô pô:</strong> khoảng cách Euclid \(d=5\); Persistent Homology phát hiện đúng một vòng trong dữ liệu.</li>
+            <li><strong>Toàn bộ:</strong> tám nhánh toán cùng chạy trong một mạng neural network.</li>
+          </ul>
+        </section>
+
+        <section class="fit">
+          <h2>Việc cần làm sau hai bài</h2>
+          <ol>
+            <li>Chạy lại toàn bộ mã của bài 3 và bài 4, đối chiếu từng số in ra với số trên slide.</li>
+            <li>Với đồ thị PageRank, thêm cạnh <code>("E", "A")</code> và dự đoán điểm của A, C thay đổi thế nào trước khi chạy.</li>
+            <li>Đổi <code>h</code> trong ví dụ đạo hàm xấp xỉ thành \(10^{-4}\), \(10^{-8}\), \(10^{-12}\) và giải thích xu hướng của sai số.</li>
+            <li>Tăng nhiễu của dữ liệu vòng tròn từ 0,03 lên 0,3 và quan sát điểm \(H_1\) trên persistence diagram.</li>
+            <li>Chọn một thuật toán yêu thích, liệt kê các nhánh toán mà nó dùng.</li>
+          </ol>
+        </section>
+
+        <section class="fit">
+          <h2>Lưu ý biên soạn</h2>
+          <ul style="font-size:0.78em">
+            <li><strong>Nội dung:</strong> bám sát tài liệu “Bản đồ toán học trong khoa học dữ liệu”, chỉ chuyển sang văn phong trang trọng hơn; số liệu và công thức được bổ sung kiểm chứng.</li>
+            <li><strong>Mã nguồn:</strong> được chạy lại để lấy kết quả thật; mã trong slide giữ nguyên với mã đã chạy.</li>
+            <li><strong>Hình ảnh:</strong> ảnh nhân vật và minh họa lấy từ Wikimedia Commons, ghi rõ tác giả, giấy phép và liên kết trang gốc trong chú thích. Các biểu đồ khác do biên soạn từ dữ liệu của mã.</li>
+            <li><strong>Mốc thời gian:</strong> là các mốc tiêu biểu, không phải lịch sử đầy đủ.</li>
+          </ul>
+          <p class="source">Nguồn lịch sử chung: <a href="https://mathshistory.st-andrews.ac.uk/" target="_blank" rel="noopener">MacTutor</a> · <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>.</p>
+        </section>
+      </section>

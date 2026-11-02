@@ -1,0 +1,1305 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Khoa học dữ liệu | Bài 4: Toán học trong khoa học dữ liệu (phần 2)</title>
+  <link rel="stylesheet" href="revealjs/dist/reset.css">
+  <link rel="stylesheet" href="revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css">
+  <link rel="stylesheet" href="plugin/highlight/zenburn.css">
+  <link rel="stylesheet" href="lecture-style.css">
+  <link rel="stylesheet" href="lecture-03.css?v=3">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section>
+        <section>
+          <h1>Giới thiệu<br>khoa học dữ liệu</h1>
+          <p class="text-light">Học kỳ I, năm học 2026–2027</p>
+          <p class="text-light">Trường Đại học Công nghệ, ĐHQGHN</p>
+        </section>
+
+        <section>
+          <h1><span class="text-light">Bài 4</span><br>Toán học trong<br>khoa học dữ liệu</h1>
+          <p class="text-light">Phần 2: toán rời rạc và đồ thị, lý thuyết thông tin,<br>toán học tính toán, hình học và tô pô, tổng kết và lộ trình thực hành.</p>
+        </section>
+
+        <section>
+          <h2>Nhắc lại bản đồ tám nhánh</h2>
+          <div class="branch-grid">
+            <div class="branch-card b1"><span class="no">1</span><b>Xác suất &amp; Thống kê</b>Bài 3</div>
+            <div class="branch-card b2"><span class="no">2</span><b>Đại số tuyến tính</b>Bài 3</div>
+            <div class="branch-card b3"><span class="no">3</span><b>Giải tích</b>Bài 3</div>
+            <div class="branch-card b4"><span class="no">4</span><b>Tối ưu hóa</b>Bài 3</div>
+            <div class="branch-card b5"><span class="no">5</span><b>Toán rời rạc &amp; Lý thuyết đồ thị</b><i>Bài 4: mạng xã hội, PageRank, đường đi ngắn nhất</i></div>
+            <div class="branch-card b6"><span class="no">6</span><b>Lý thuyết thông tin</b><i>Bài 4: entropy, information gain, cây quyết định</i></div>
+            <div class="branch-card b7"><span class="no">7</span><b>Toán học tính toán</b><i>Bài 4: sai số, xấp xỉ, phương pháp Newton</i></div>
+            <div class="branch-card b8"><span class="no">8</span><b>Hình học &amp; Tô pô</b><i>Bài 4: khoảng cách, hình dạng dữ liệu, Persistent Homology</i></div>
+          </div>
+          <p class="source">Khung tham chiếu: <a href="https://mml-book.github.io/" target="_blank" rel="noopener">Deisenroth, Faisal &amp; Ong, <em>Mathematics for Machine Learning</em>, Cambridge University Press, 2020</a>.</p>
+        </section>
+
+        <section>
+          <h2>Tổng quan buổi học</h2>
+          <ol>
+            <li>Toán rời rạc và lý thuyết đồ thị: mạng xã hội, PageRank, đường đi ngắn nhất</li>
+            <li>Lý thuyết thông tin: entropy, information gain, cây quyết định</li>
+            <li>Toán học tính toán: sai số số học, đạo hàm xấp xỉ, phương pháp Newton</li>
+            <li>Hình học và tô pô: khoảng cách Euclid, Persistent Homology</li>
+            <li>Tổng kết tám nhánh, ví dụ mạng neural network, chín thư viện mã nguồn mở</li>
+            <li>Lộ trình thực hành tám lab, tài liệu tham khảo, kết luận</li>
+          </ol>
+          <p class="source">Mỗi nhánh theo cùng một cấu trúc như bài 3: vấn đề thực tế, lịch sử, nhân vật, công thức, mã Python chạy được và liên hệ ngành.</p>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h1><span class="text-light">6.</span><br>Toán rời rạc và<br>lý thuyết đồ thị</h1>
+          <p class="text-light">Discrete Mathematics &amp; Graph Theory: mạng xã hội, PageRank và đường đi ngắn nhất</p>
+        </section>
+
+        <section class="fit">
+          <h2>Vì sao cần lý thuyết đồ thị?</h2>
+          <p>Facebook gợi ý kết bạn, Google xếp hạng trang web, Grab tìm đường đi nhanh nhất. Ba bài toán có chung một cấu trúc dữ liệu:</p>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/social-network.png" alt="Trực quan hóa một mạng xã hội gồm các nút và cạnh" style="max-height:210px">
+              <figcaption class="caption">Mạng xã hội trực quan hóa dưới dạng đồ thị: nút là người, cạnh là quan hệ. Martin Grandjean, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Social_Network_Analysis_Visualization.png" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <table class="sym-table">
+                <tbody>
+                  <tr><td>Nút (đỉnh)</td><td>Người dùng, trang web, giao lộ</td></tr>
+                  <tr><td>Cạnh</td><td>Quan hệ bạn bè, liên kết, đoạn đường</td></tr>
+                  <tr><td>Trọng số</td><td>Độ thân thiết, độ quan trọng, chi phí</td></tr>
+                </tbody>
+              </table>
+              <div class="formula sm">$$G=(V,E)$$</div>
+            </div>
+          </div>
+          <div class="key-box"><span class="box-title">Điểm mấu chốt</span> Khi dữ liệu là <strong>quan hệ giữa các đối tượng</strong>, bảng số liệu thông thường chưa đủ. Đồ thị mô tả trực tiếp quan hệ đó.</div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian lý thuyết đồ thị</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của lý thuyết đồ thị">
+            <div class="timeline-event"><div class="timeline-date">1736</div><div class="timeline-dot"></div><div class="timeline-name">Euler</div><div class="timeline-note">Bài toán bảy cây cầu Königsberg</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XIX</div><div class="timeline-dot"></div><div class="timeline-name">Cayley</div><div class="timeline-note">Cây và cấu trúc hợp chất hóa học</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XX</div><div class="timeline-dot"></div><div class="timeline-name">Erdős và Rényi</div><div class="timeline-note">Đồ thị ngẫu nhiên</div></div>
+            <div class="timeline-event"><div class="timeline-date">1996 – 1998</div><div class="timeline-dot"></div><div class="timeline-name">PageRank</div><div class="timeline-note">Page và Brin xếp hạng trang web</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thập niên 2010</div><div class="timeline-dot"></div><div class="timeline-name">Graph Neural Network</div><div class="timeline-note">Học máy trên dữ liệu đồ thị</div></div>
+          </div>
+          <p class="era-note">Các mốc là cột mốc tiêu biểu, không phải lịch sử đầy đủ của ngành.</p>
+          <p class="source">Nguồn tổng quan: <a href="https://en.wikipedia.org/wiki/Graph_theory#History" target="_blank" rel="noopener">Wikipedia — Graph theory (History)</a> · <a href="https://arxiv.org/abs/1609.02907" target="_blank" rel="noopener">Kipf &amp; Welling, <em>Semi-Supervised Classification with Graph Convolutional Networks</em>, arXiv, 2016</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1736: bảy cây cầu Königsberg</h2>
+          <div class="slide-badge-row"><span class="history-date">1736</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr 1fr; max-width:420px">
+              <figure><img src="img/lec03/euler.jpg" alt="Leonhard Euler"><figcaption><b>Leonhard Euler</b>1707–1783<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Leonhard_Euler.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+              <figure><img src="img/lec04/konigsberg.png" alt="Bản đồ Königsberg"><figcaption><b>Bản đồ Königsberg</b>Bảy cây cầu<br>Bogdan Giuşcă, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Konigsberg_bridges.png" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Leonhard Euler giải quyết bài toán <strong>bảy cây cầu</strong>: có thể đi qua mỗi cây cầu đúng một lần hay không.</p>
+              <p>Euler coi mỗi vùng đất là một <strong>nút</strong>, mỗi cây cầu là một <strong>cạnh</strong>. Lập luận của ông chỉ phụ thuộc cấu trúc kết nối, không phụ thuộc hình dạng hay khoảng cách.</p>
+              <div class="key-box"><span class="box-title">Ý nghĩa</span> Thường được xem là bài toán đầu tiên của lý thuyết đồ thị.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg" target="_blank" rel="noopener">Wikipedia — Seven Bridges of Königsberg</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Euler/" target="_blank" rel="noopener">MacTutor — Euler</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cayley, Erdős và Rényi</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XIX – XX</span></div>
+          <div class="portrait-row three short" style="grid-template-columns:repeat(3,1fr)">
+            <figure><img src="img/lec03/cayley.jpg" alt="Arthur Cayley"><figcaption><b>Arthur Cayley</b>1821–1895. Nghiên cứu cây (tree)<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Arthur_Cayley.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/erdos.jpg" alt="Paul Erdős"><figcaption><b>Paul Erdős</b>1913–1996<br>Kmhkmh, CC BY 3.0, <a href="https://commons.wikimedia.org/wiki/File:Erdos_budapest_fall_1992_(cropped).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/renyi.jpg" alt="Alfréd Rényi"><figcaption><b>Alfréd Rényi</b>1921–1970<br>Konrad Jacobs, CC BY-SA 4.0, <a href="https://commons.wikimedia.org/wiki/File:Alfred_Kato_Renyi.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th></tr></thead>
+            <tbody>
+              <tr><td>Thế kỷ XIX</td><td>Cayley nghiên cứu <strong>cây</strong> và liệt kê cấu trúc hợp chất hóa học bằng đồ thị</td></tr>
+              <tr><td>1959 – 1960</td><td>Erdős và Rényi đặt nền cho <strong>đồ thị ngẫu nhiên</strong>, tiền đề của khoa học mạng (network science)</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Cayley/" target="_blank" rel="noopener">MacTutor — Cayley</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Erdos/" target="_blank" rel="noopener">MacTutor — Erdős</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Renyi/" target="_blank" rel="noopener">MacTutor — Rényi</a> · <a href="https://users.renyi.hu/~p_erdos/1959-11.pdf" target="_blank" rel="noopener">Erdős &amp; Rényi, <em>On random graphs I</em>, 1959</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1996 – 1998: PageRank</h2>
+          <div class="slide-badge-row"><span class="history-date">1996 – 1998</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec04/page-brin.jpg" alt="Larry Page và Sergey Brin" style="max-height:260px">
+              <figcaption class="caption">Larry Page và Sergey Brin, hai người sáng lập Google. Ehud Kenan, CC BY 2.0, <a href="https://commons.wikimedia.org/wiki/File:Google_page_brin.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <p>Larry Page và Sergey Brin, khi còn là nghiên cứu sinh tại Stanford, đề xuất <strong>PageRank</strong>: xếp hạng trang web dựa trên cấu trúc liên kết.</p>
+              <p>Một trang quan trọng khi được <strong>nhiều trang quan trọng khác</strong> trỏ tới. Định nghĩa này đệ quy, và được giải bằng đại số tuyến tính trên đồ thị.</p>
+              <div class="key-box"><span class="box-title">Liên hệ</span> Kiến thức đại số tuyến tính ở bài 3 (ma trận, trị riêng) trở lại ở đây: PageRank là vector riêng của ma trận chuyển.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="http://infolab.stanford.edu/~backrub/google.html" target="_blank" rel="noopener">Brin &amp; Page, <em>The Anatomy of a Large-Scale Hypertextual Web Search Engine</em>, 1998</a> · <a href="http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener">Page, Brin, Motwani &amp; Winograd, <em>The PageRank Citation Ranking</em>, Stanford InfoLab, 1999</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Những nhân vật tiêu biểu</h2>
+          <div class="portrait-row five tall">
+            <figure><img src="img/lec03/euler.jpg" alt="Leonhard Euler"><figcaption><b>Leonhard Euler</b>Bài toán Königsberg<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Leonhard_Euler.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/dijkstra-person.jpg" alt="Edsger Dijkstra"><figcaption><b>Edsger Dijkstra</b>Đường đi ngắn nhất, 1959<br>Hamilton Richards, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Edsger_Wybe_Dijkstra.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/erdos.jpg" alt="Paul Erdős"><figcaption><b>Paul Erdős</b>Đồ thị ngẫu nhiên<br>Kmhkmh, CC BY 3.0, <a href="https://commons.wikimedia.org/wiki/File:Erdos_budapest_fall_1992_(cropped).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/renyi.jpg" alt="Alfréd Rényi"><figcaption><b>Alfréd Rényi</b>Đồ thị ngẫu nhiên<br>Konrad Jacobs, CC BY-SA 4.0, <a href="https://commons.wikimedia.org/wiki/File:Alfred_Kato_Renyi.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/page-brin.jpg" alt="Page và Brin"><figcaption><b>Page và Brin</b>PageRank<br>Ehud Kenan, CC BY 2.0, <a href="https://commons.wikimedia.org/wiki/File:Google_page_brin.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://en.wikipedia.org/wiki/Graph_theory#History" target="_blank" rel="noopener">Wikipedia — Graph theory (History)</a> · <a href="https://amturing.acm.org/award_winners/dijkstra_1053701.cfm" target="_blank" rel="noopener">ACM A.M. Turing Award — Dijkstra</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. Phân tích mạng xã hội</h2>
+          <p>Cần tìm người dùng có ảnh hưởng lớn trong một mạng. Một thước đo đơn giản là <strong>độ trung tâm bậc</strong> (degree centrality):</p>
+          <div class="formula sm">$$C_D(v)=\frac{\deg(v)}{n-1}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(\deg(v)\)</td><td>Số cạnh nối với nút \(v\), tức số người mà \(v\) kết nối trực tiếp</td></tr>
+              <tr><td>\(n\)</td><td>Tổng số nút trong đồ thị</td></tr>
+              <tr><td>\(C_D(v)\)</td><td>Tỉ lệ nút còn lại mà \(v\) kết nối tới, nhận giá trị từ 0 đến 1</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Hạn chế</span> Đếm số kết nối chưa phân biệt kết nối với người quan trọng và người ít quan trọng. PageRank khắc phục điểm này.</div>
+          <p class="source">Thực hành: <code>networkx.degree_centrality(G)</code>. <a href="https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.degree_centrality.html" target="_blank" rel="noopener">NetworkX — degree_centrality</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. PageRank: công thức</h2>
+          <div class="formula">$$PR(p)=\frac{1-d}{N}+d\sum_{q\to p}\frac{PR(q)}{L(q)}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(PR(p)\)</td><td>Điểm PageRank của trang \(p\)</td></tr>
+              <tr><td>\(q\to p\)</td><td>Các trang \(q\) có liên kết tới \(p\)</td></tr>
+              <tr><td>\(L(q)\)</td><td>Số liên kết đi ra của trang \(q\)</td></tr>
+              <tr><td>\(N\)</td><td>Tổng số trang</td></tr>
+              <tr><td>\(d\)</td><td>Hệ số damping, thường lấy 0,85</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.62em">Mỗi trang chia điểm của mình đều cho các trang nó trỏ tới. Số hạng \((1-d)/N\) mô tả người lướt web thỉnh thoảng nhảy sang một trang bất kỳ.</p>
+          <p class="source">Nguồn: <a href="http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener">Page, Brin, Motwani &amp; Winograd, 1999</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>PageRank bằng NetworkX</h2>
+          <div class="code-split">
+            <div><pre class="demo-code sm"><code class="language-python" data-trim>
+import networkx as nx
+
+G = nx.DiGraph()
+
+G.add_edges_from([
+    (&quot;A&quot;, &quot;B&quot;),
+    (&quot;A&quot;, &quot;C&quot;),
+    (&quot;B&quot;, &quot;C&quot;),
+    (&quot;C&quot;, &quot;A&quot;),
+    (&quot;D&quot;, &quot;C&quot;),
+    (&quot;D&quot;, &quot;A&quot;),
+    (&quot;E&quot;, &quot;C&quot;)
+])
+
+scores = nx.pagerank(G, alpha=0.85)
+
+for node, score in sorted(
+    scores.items(),
+    key=lambda item: item[1],
+    reverse=True
+):
+    print(node, round(score, 4))
+</code></pre></div>
+            <div>
+              <pre class="result-out">C 0.384
+A 0.3691
+B 0.1869
+D 0.03
+E 0.03</pre>
+              <div class="good-box" style="font-size:0.62em"><span class="box-title">Kiểm lại</span> Trang D và E không có liên kết đến nên điểm đúng bằng \((1-0{,}85)/5=0{,}03\). Trang C được bốn trang trỏ tới nên cao nhất.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.link_analysis.pagerank_alg.pagerank.html" target="_blank" rel="noopener">NetworkX — pagerank</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Đồ thị của ví dụ PageRank</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/pagerank-graph.png" alt="Đồ thị có hướng gồm năm nút A, B, C, D, E; kích thước nút tỉ lệ với PageRank" style="max-height:300px">
+              <figcaption class="caption">Kích thước nút tỉ lệ với PageRank. Hình do biên soạn từ kết quả chạy.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="img/lec04/pagerank.svg" alt="Ví dụ PageRank trên mạng liên kết các trang web" style="max-height:300px">
+              <figcaption class="caption">Ví dụ PageRank trên mạng lớn hơn: nút lớn có điểm cao. Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:PageRanks-Example.svg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 3. Đường đi ngắn nhất</h2>
+          <p>Ứng dụng gọi xe cần tìm lộ trình có chi phí nhỏ nhất giữa hai điểm.</p>
+          <div class="formula sm">$$d(s,t)=\min_{P:\,s\to t}\ \sum_{e\in P}w(e)$$</div>
+          <p style="margin:0.1em 0">Thuật toán Dijkstra (1959) cập nhật khoảng cách tạm thời qua phép nới lỏng cạnh (relaxation):</p>
+          <div class="formula sm">$$d[v]\leftarrow\min\big(d[v],\ d[u]+w(u,v)\big)$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(w(e)\)</td><td>Trọng số (chi phí) của cạnh \(e\), không âm</td></tr>
+              <tr><td>\(P\)</td><td>Một đường đi từ \(s\) tới \(t\)</td></tr>
+              <tr><td>\(d[v]\)</td><td>Chi phí nhỏ nhất đã biết từ nguồn tới nút \(v\)</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1007/BF01386390" target="_blank" rel="noopener">E. W. Dijkstra, <em>A note on two problems in connexion with graphs</em>, Numerische Mathematik 1, 269–271, 1959</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Đường đi ngắn nhất bằng NetworkX</h2>
+          <div class="code-split even">
+            <div><pre class="demo-code sm"><code class="language-python" data-trim>
+import networkx as nx
+
+G = nx.Graph()
+
+G.add_weighted_edges_from([
+    (&quot;A&quot;, &quot;B&quot;, 4),
+    (&quot;A&quot;, &quot;C&quot;, 2),
+    (&quot;B&quot;, &quot;C&quot;, 1),
+    (&quot;B&quot;, &quot;D&quot;, 5),
+    (&quot;C&quot;, &quot;D&quot;, 8),
+    (&quot;C&quot;, &quot;E&quot;, 10),
+    (&quot;D&quot;, &quot;E&quot;, 2)
+])
+
+path = nx.shortest_path(
+    G, &quot;A&quot;, &quot;E&quot;, weight=&quot;weight&quot;
+)
+
+distance = nx.shortest_path_length(
+    G, &quot;A&quot;, &quot;E&quot;, weight=&quot;weight&quot;
+)
+
+print(&quot;Đường đi:&quot;, path)
+print(&quot;Chi phí:&quot;, distance)
+</code></pre></div>
+            <div>
+              <pre class="result-out">Đường đi: [&#x27;A&#x27;, &#x27;C&#x27;, &#x27;B&#x27;, &#x27;D&#x27;, &#x27;E&#x27;]
+Chi phí: 10</pre>
+              <div class="good-box" style="font-size:0.62em"><span class="box-title">Kiểm lại</span> \(2+1+5+2=10\). Đường đi trực tiếp A–C–E tốn \(2+10=12\), nên đường vòng qua B và D rẻ hơn.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://networkx.org/documentation/stable/reference/algorithms/shortest_paths.html" target="_blank" rel="noopener">NetworkX — Shortest Paths</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Minh họa Dijkstra</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/shortest-path.png" alt="Đồ thị có trọng số, đường đi ngắn nhất A–C–B–D–E được tô đậm" style="max-height:300px">
+              <figcaption class="caption">Đường đi A–C–B–D–E (chi phí 10). Hình do biên soạn.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="img/lec04/dijkstra.gif" alt="Hoạt ảnh thuật toán Dijkstra" style="max-height:260px">
+              <figcaption class="caption">Thuật toán Dijkstra mở rộng dần vùng đã biết khoảng cách. Subh83, CC BY 3.0, <a href="https://commons.wikimedia.org/wiki/File:Dijkstras_progress_animation.gif" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: đồ thị</h2>
+          <div class="kw-row">
+            <span class="kw">PageRank</span><span class="kw">Social Network Analysis</span><span class="kw">Recommendation Systems</span><span class="kw">Knowledge Graph</span><span class="kw">Community Detection</span><span class="kw">Graph Neural Network</span><span class="kw">Routing</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn phân tích mối quan hệ giữa các đối tượng.</div>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h1><span class="text-light">7.</span><br>Lý thuyết thông tin</h1>
+          <p class="text-light">Information Theory: entropy, information gain và cây quyết định</p>
+        </section>
+
+        <section class="fit">
+          <h2>Vì sao cần lý thuyết thông tin?</h2>
+          <p>Ba chiếc hộp, mỗi hộp chứa bóng đỏ và bóng xanh. Rút ngẫu nhiên một quả, hộp nào cho kết quả <strong>khó đoán nhất</strong>?</p>
+          <table class="era-table big">
+            <thead><tr><th>Hộp</th><th>Tỉ lệ đỏ : xanh</th><th>Mức khó đoán</th><th>Entropy</th></tr></thead>
+            <tbody>
+              <tr><td>A</td><td>50% : 50%</td><td>Khó đoán nhất</td><td><strong>1 bit</strong></td></tr>
+              <tr><td>B</td><td>90% : 10%</td><td>Khá dễ đoán</td><td>0,469 bit</td></tr>
+              <tr><td>C</td><td>100% : 0%</td><td>Chắc chắn</td><td>0 bit</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Điểm mấu chốt</span> Một đặc trưng tốt là đặc trưng <strong>làm giảm độ bất định</strong> về nhãn cần dự đoán. Lý thuyết thông tin cho một đơn vị đo cụ thể: bit.</div>
+          <p class="source">Giá trị entropy ở cột cuối sẽ được tính ở mục “Entropy” và kiểm bằng mã Python.</p>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian lý thuyết thông tin</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của lý thuyết thông tin">
+            <div class="timeline-event"><div class="timeline-date">1928</div><div class="timeline-dot"></div><div class="timeline-name">Hartley</div><div class="timeline-note">Đề xuất thước đo lượng thông tin</div></div>
+            <div class="timeline-event"><div class="timeline-date">1948</div><div class="timeline-dot"></div><div class="timeline-name">Shannon</div><div class="timeline-note">A Mathematical Theory of Communication</div></div>
+            <div class="timeline-event"><div class="timeline-date">1950 – 1970</div><div class="timeline-dot"></div><div class="timeline-name">Mã hóa và nén</div><div class="timeline-note">Huffman, KL divergence, mã sửa lỗi</div></div>
+            <div class="timeline-event"><div class="timeline-date">1980 – 2000</div><div class="timeline-dot"></div><div class="timeline-name">Entropy trong học máy</div><div class="timeline-note">Cây quyết định ID3, C4.5, CART</div></div>
+            <div class="timeline-event"><div class="timeline-date">Hiện đại</div><div class="timeline-dot"></div><div class="timeline-name">Học sâu</div><div class="timeline-note">Cross-entropy, KL divergence, mutual information</div></div>
+          </div>
+          <p class="era-note">Các mốc là cột mốc tiêu biểu, không phải lịch sử đầy đủ của ngành.</p>
+          <p class="source">Nguồn tổng quan: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Shannon/" target="_blank" rel="noopener">MacTutor — Claude Shannon</a> · <a href="https://www.itsoc.org/about" target="_blank" rel="noopener">IEEE Information Theory Society — giới thiệu</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1928: Ralph Hartley</h2>
+          <div class="slide-badge-row"><span class="history-date">1928</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec04/hartley.jpg" alt="Ralph V. L. Hartley"><figcaption><b>Ralph V. L. Hartley</b>1888–1970<br>This photograph of RVL Hartley was among his personal belong, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Hartley_ralph-vinton-lyon-001.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Hartley công bố bài <em>Transmission of Information</em> tại Bell System Technical Journal. Ông đề xuất đo lượng thông tin bằng <strong>số lượng lựa chọn có thể</strong>:</p>
+              <div class="formula sm">$$H=n\log s$$</div>
+              <p style="font-size:0.62em">\(s\): số ký hiệu khả dĩ ở mỗi lần chọn. \(n\): số lần chọn. Lượng thông tin tăng tuyến tính theo \(n\) nhờ hàm logarit.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1002/j.1538-7305.1928.tb01236.x" target="_blank" rel="noopener">R. V. L. Hartley, <em>Transmission of Information</em>, Bell System Technical Journal 7(3), 535–563, 1928</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1948: Claude Shannon</h2>
+          <div class="slide-badge-row"><span class="history-date">1948</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec04/shannon.jpg" alt="Claude Shannon"><figcaption><b>Claude Shannon</b>1916–2001<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Claude_Shannon_1958_MIT_portrait_cropped.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Claude Shannon công bố <em>A Mathematical Theory of Communication</em> tại Bell Labs, đặt nền móng cho <strong>lý thuyết thông tin</strong>.</p>
+              <ul style="font-size:0.85em">
+                <li>Đưa ra khái niệm <strong>entropy</strong> của một nguồn tin.</li>
+                <li>Xác định giới hạn nén dữ liệu không mất mát.</li>
+                <li>Xác định <strong>dung lượng kênh truyền</strong> tối đa khi có nhiễu.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x" target="_blank" rel="noopener">C. E. Shannon, <em>A Mathematical Theory of Communication</em>, Bell System Technical Journal 27, 379–423, 1948</a> · <a href="https://www.nokia.com/bell-labs/about/" target="_blank" rel="noopener">Nokia Bell Labs</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Wiener, Bell Labs và các tổ chức</h2>
+          <div class="slide-badge-row"><span class="history-date">1948</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec04/wiener.jpg" alt="Norbert Wiener"><figcaption><b>Norbert Wiener</b>1894–1964<br>Konrad Jacobs, CC BY-SA 2.0 de, <a href="https://commons.wikimedia.org/wiki/File:Norbert_wiener.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Cùng năm 1948, Norbert Wiener xuất bản <em>Cybernetics</em>, nghiên cứu điều khiển và truyền thông trong máy và sinh vật, bổ sung nền tảng cho xử lý tín hiệu và thông tin.</p>
+              <figure class="fig">
+                <img src="img/lec04/bell-labs.jpg" alt="Khuôn viên Nokia Bell Labs tại Murray Hill" style="max-height:130px">
+                <figcaption class="caption">Bell Labs tại Murray Hill, New Jersey, nơi Shannon công tác. Ckaack, CC BY-SA 4.0, <a href="https://commons.wikimedia.org/wiki/File:Nokia_Bell_Labs_Murray_Hill,_NJ.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="kw-row"><span class="kw org">Bell Labs</span><span class="kw org">IEEE Information Theory Society</span><span class="kw org">MIT</span></div>
+          <p class="source">Nguồn: <a href="https://mitpress.mit.edu/9780262730099/cybernetics-or-control-and-communication-in-the-animal-and-the-machine/" target="_blank" rel="noopener">N. Wiener, <em>Cybernetics</em>, MIT Press, 1948</a> · <a href="https://www.itsoc.org/" target="_blank" rel="noopener">IEEE Information Theory Society</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Những nhân vật tiêu biểu</h2>
+          <div class="portrait-row four tall">
+            <figure><img src="img/lec04/hartley.jpg" alt="Ralph Hartley"><figcaption><b>Ralph Hartley</b>Thước đo thông tin, 1928<br>This photograph of RVL Hartley was among his personal belong, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Hartley_ralph-vinton-lyon-001.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/shannon.jpg" alt="Claude Shannon"><figcaption><b>Claude Shannon</b>Entropy, 1948<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Claude_Shannon_1958_MIT_portrait_cropped.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/wiener.jpg" alt="Norbert Wiener"><figcaption><b>Norbert Wiener</b>Cybernetics, 1948<br>Konrad Jacobs, CC BY-SA 2.0 de, <a href="https://commons.wikimedia.org/wiki/File:Norbert_wiener.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/turing.jpg" alt="Alan Turing"><figcaption><b>Alan Turing</b>Thông tin và tính toán<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Alan_Turing_(1951)_(crop).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Shannon/" target="_blank" rel="noopener">MacTutor — Shannon</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Wiener_Norbert/" target="_blank" rel="noopener">MacTutor — Wiener</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Turing/" target="_blank" rel="noopener">MacTutor — Turing</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. Entropy</h2>
+          <p>Đo mức bất định của một phân phối xác suất:</p>
+          <div class="formula">$$H(X)=-\sum_{i}p_i\log_2 p_i$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(p_i\)</td><td>Xác suất của kết quả thứ \(i\)</td></tr>
+              <tr><td>\(\log_2\)</td><td>Logarit cơ số 2, đơn vị đo là bit</td></tr>
+              <tr><td>\(H(X)\)</td><td>Entropy: số bit trung bình cần để mô tả một kết quả</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.62em">Quy ước \(0\log 0=0\). Entropy lớn nhất khi các kết quả đồng khả năng, bằng 0 khi kết quả chắc chắn.</p>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x" target="_blank" rel="noopener">Shannon, 1948</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Tính entropy bằng SciPy</h2>
+          <div class="code-split even">
+            <div><pre class="demo-code sm"><code class="language-python" data-trim>
+import numpy as np
+from scipy.stats import entropy
+
+distributions = [
+    [0.5, 0.5],
+    [0.9, 0.1],
+    [1.0, 0.0]
+]
+
+for p in distributions:
+    print(entropy(p, base=2))
+</code></pre></div>
+            <div>
+              <pre class="result-out">1.0
+0.46899559358928117
+0.0</pre>
+              <div class="good-box" style="font-size:0.62em"><span class="box-title">Kiểm lại</span> \(-0{,}9\log_2 0{,}9-0{,}1\log_2 0{,}1\approx0{,}469\). Ba giá trị trùng bảng ở slide “Vì sao cần lý thuyết thông tin”.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.entropy.html" target="_blank" rel="noopener">SciPy — scipy.stats.entropy</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Entropy của biến nhị phân</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/entropy-curve.png" alt="Đường entropy nhị phân với ba điểm 50-50, 90-10 và 100-0" style="max-height:290px">
+              <figcaption class="caption">Entropy theo xác suất \(p\), có đánh dấu ba hộp bóng. Hình do biên soạn.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="img/lec04/binary-entropy.svg" alt="Đồ thị hàm entropy nhị phân" style="max-height:240px">
+              <figcaption class="caption">Hàm entropy nhị phân đạt cực đại 1 bit tại p = 0,5. Original: Brona Vector: Alessio Damato Newer version by Rubb, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Binary_entropy_plot.svg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Information Gain</h2>
+          <p>Một đặc trưng tốt giúp giảm độ bất định về nhãn \(Y\). Mức giảm đó là <strong>information gain</strong>:</p>
+          <div class="formula">$$IG(Y,X)=H(Y)-H(Y\mid X)$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(H(Y)\)</td><td>Entropy của nhãn trước khi biết đặc trưng</td></tr>
+              <tr><td>\(H(Y\mid X)\)</td><td>Entropy trung bình của nhãn sau khi chia dữ liệu theo \(X\)</td></tr>
+              <tr><td>\(IG\)</td><td>Lượng thông tin về \(Y\) mà \(X\) cung cấp</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.62em">Cây quyết định chọn, tại mỗi nút, phép chia có information gain lớn nhất. Đại lượng này chính là <strong>mutual information</strong> giữa \(X\) và \(Y\).</p>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1007/BF00116251" target="_blank" rel="noopener">J. R. Quinlan, <em>Induction of Decision Trees</em>, Machine Learning 1, 81–106, 1986</a> · <a href="https://scikit-learn.org/stable/modules/tree.html#mathematical-formulation" target="_blank" rel="noopener">scikit-learn — Decision Trees</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cây quyết định với tiêu chí entropy</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+import numpy as np
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+data = load_breast_cancer()
+X, y = data.data, data.target
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+model = DecisionTreeClassifier(
+    criterion=&quot;entropy&quot;,
+    max_depth=4,
+    random_state=42
+)
+
+model.fit(X_train, y_train)
+
+pred = model.predict(X_test)
+
+print(&quot;Accuracy:&quot;, accuracy_score(y_test, pred))
+print(&quot;Information gain:&quot;, model.feature_importances_)
+</code></pre></div>
+            <div>
+              <pre class="result-out sm">Accuracy: 0.956140350877193
+Information gain: [0.         0.         0.         0.         0.         0.
+ 0.         0.61264211 0.         0.         0.         0.00661784
+ 0.00945136 0.02248308 0.         0.         0.         0.01934258
+ 0.         0.         0.08230492 0.11464579 0.10962389 0.
+ 0.         0.         0.         0.02288843 0.         0.        ]</pre>
+              <div class="good-box" style="font-size:0.58em"><span class="box-title">Kiểm lại</span> Tập huấn luyện có 455 mẫu. Phép chia đầu tiên theo <code>mean concave points</code> đưa entropy từ 0,952 xuống còn 0,391 (trung bình có trọng số hai nhánh), tức \(IG\approx0{,}561\) bit tại nút gốc. Mảng in ra là <code>feature_importances_</code>: tổng giảm entropy của từng đặc trưng trên toàn cây, đã chuẩn hóa để tổng bằng 1.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html" target="_blank" rel="noopener">scikit-learn — DecisionTreeClassifier</a> · <a href="https://scikit-learn.org/stable/datasets/toy_dataset.html#breast-cancer-dataset" target="_blank" rel="noopener">Breast cancer Wisconsin dataset</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Đọc kết quả cây quyết định</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/decision-tree.png" alt="Cây quyết định độ sâu hạn chế trên bộ dữ liệu ung thư vú" style="max-height:310px">
+              <figcaption class="caption">Các tầng đầu của cây. Hình do biên soạn từ mô hình đã huấn luyện.</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.8em">
+                <li>Độ chính xác trên tập kiểm tra: <strong>0,956</strong>.</li>
+                <li>Đặc trưng quan trọng nhất: <code>mean concave points</code> (0,613).</li>
+                <li>Hai đặc trưng tiếp theo: <code>worst texture</code> (0,115) và <code>worst perimeter</code> (0,110).</li>
+                <li>Phần lớn đặc trưng có giá trị 0 vì cây giới hạn độ sâu 4 và không dùng chúng.</li>
+              </ul>
+              <div class="warn-box" style="font-size:0.6em"><span class="box-title">Lưu ý</span> Độ quan trọng đặc trưng phụ thuộc cây cụ thể. Đặc trưng tương quan với nhau có thể chia sẻ vai trò.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: lý thuyết thông tin</h2>
+          <div class="kw-row">
+            <span class="kw">Decision Tree</span><span class="kw">Random Forest</span><span class="kw">Cross-Entropy Loss</span><span class="kw">KL Divergence</span><span class="kw">Mutual Information</span><span class="kw">Feature Selection</span><span class="kw">Data Compression</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn đo lượng thông tin, độ bất định và chọn đặc trưng.</div>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h1><span class="text-light">8.</span><br>Toán học tính toán</h1>
+          <p class="text-light">Numerical Mathematics: sai số, xấp xỉ và tính toán hiệu quả</p>
+        </section>
+
+        <section class="fit">
+          <h2>Vì sao cần toán học tính toán?</h2>
+          <p>Máy tính không làm việc với số thực chính xác. Nó lưu số bằng một số hữu hạn bit, nên mọi phép tính đều có <strong>sai số làm tròn</strong>.</p>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/ieee754.svg" alt="Cấu trúc số dấu phẩy động hai lần độ chính xác theo IEEE 754" style="max-height:130px">
+              <figcaption class="caption">Số dấu phẩy động 64 bit (IEEE 754): 1 bit dấu, 11 bit mũ, 52 bit phần định trị. Codekaizen, CC BY-SA 4.0, <a href="https://commons.wikimedia.org/wiki/File:IEEE_754_Double_Floating_Point_Format.svg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <pre class="demo-code sm"><code class="language-python" data-trim>
+print(0.1 + 0.2)
+print(0.1 + 0.2 == 0.3)
+</code></pre>
+              <pre class="result-out sm">0.30000000000000004
+False</pre>
+            </div>
+          </div>
+          <div class="key-box"><span class="box-title">Điểm mấu chốt</span> Với dữ liệu lớn, sai số nhỏ có thể tích lũy hoặc khuếch đại. Cần hiểu cách tính xấp xỉ và kiểm soát sai số.</div>
+          <p class="source">Nguồn: <a href="https://docs.python.org/3/tutorial/floatingpoint.html" target="_blank" rel="noopener">Python — Floating-Point Arithmetic: Issues and Limitations</a> · <a href="https://standards.ieee.org/ieee/754/6210/" target="_blank" rel="noopener">IEEE 754-2019</a>.</p>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian toán học tính toán</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của toán học tính toán">
+            <div class="timeline-event"><div class="timeline-date">Cổ đại</div><div class="timeline-dot"></div><div class="timeline-name">Số học xấp xỉ</div><div class="timeline-note">Bảng số Babylon, tính căn bậc hai</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XVII – XIX</div><div class="timeline-dot"></div><div class="timeline-name">Phương pháp số</div><div class="timeline-note">Newton, Euler, Gauss</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thập niên 1940</div><div class="timeline-dot"></div><div class="timeline-name">Máy tính điện tử</div><div class="timeline-note">ENIAC, von Neumann, Turing</div></div>
+            <div class="timeline-event"><div class="timeline-date">1950 – 1970</div><div class="timeline-dot"></div><div class="timeline-name">Phần mềm khoa học</div><div class="timeline-note">FORTRAN, giải tích số</div></div>
+            <div class="timeline-event"><div class="timeline-date">1990 – nay</div><div class="timeline-dot"></div><div class="timeline-name">Thư viện và GPU</div><div class="timeline-note">LAPACK, NumPy, SciPy, CUDA</div></div>
+          </div>
+          <p class="era-note">Các mốc là cột mốc tiêu biểu, không phải lịch sử đầy đủ của ngành.</p>
+          <p class="source">Nguồn tổng quan: <a href="https://www.siam.org/" target="_blank" rel="noopener">SIAM — Society for Industrial and Applied Mathematics</a> · <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_mathematics/" target="_blank" rel="noopener">MacTutor — Babylonian mathematics</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cổ đại: tính toán xấp xỉ</h2>
+          <div class="slide-badge-row"><span class="history-date">Khoảng 1800 TCN</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec04/plimpton.jpg" alt="Bảng đất sét Plimpton 322" style="max-height:230px">
+              <figcaption class="caption">Bảng đất sét Plimpton 322, bảng số của người Babylon. Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Plimpton_322.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <p>Người Babylon dùng hệ đếm lục thập phân và lập bảng số để tính toán. Họ cũng biết cách tính <strong>xấp xỉ căn bậc hai</strong> bằng phép lặp.</p>
+              <p>Ý tưởng “đoán một giá trị rồi cải thiện dần” này là nguồn gốc của phương pháp Newton, sẽ gặp lại ở cuối bài.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_mathematics/" target="_blank" rel="noopener">MacTutor — Babylonian mathematics</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Thập niên 1940: máy tính điện tử</h2>
+          <div class="slide-badge-row"><span class="history-date">1945 – 1948</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec04/eniac-beck.jpg" alt="Hai lập trình viên lập trình cho ENIAC" style="max-height:230px">
+              <figcaption class="caption">Glen Beck và Betty Snyder lập trình ENIAC tại Ballistic Research Laboratory. Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <table class="era-table xs">
+                <thead><tr><th>Năm</th><th>Sự kiện</th></tr></thead>
+                <tbody>
+                  <tr><td>1945 – 1946</td><td>ENIAC bắt đầu chạy, dùng cho tính toán đạn đạo</td></tr>
+                  <tr><td>1947</td><td>von Neumann và Goldstine phân tích sai số khi nghịch đảo ma trận lớn</td></tr>
+                  <tr><td>1948</td><td>Turing nghiên cứu sai số làm tròn trong các phép biến đổi ma trận</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.seas.upenn.edu/about/history-heritage/eniac/" target="_blank" rel="noopener">Penn Engineering — ENIAC</a> · <a href="https://doi.org/10.1090/S0002-9904-1947-08909-6" target="_blank" rel="noopener">von Neumann &amp; Goldstine, <em>Numerical inverting of matrices of high order</em>, 1947</a> · <a href="https://doi.org/10.1093/qjmam/1.1.287" target="_blank" rel="noopener">Turing, <em>Rounding-off errors in matrix processes</em>, 1948</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1950 – 1970: FORTRAN và phần mềm khoa học</h2>
+          <div class="slide-badge-row"><span class="history-date">1950 – 1970</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec04/fortran-card.jpg" alt="Thẻ đục lỗ chứa một dòng mã FORTRAN" style="max-height:200px">
+              <figcaption class="caption">Thẻ đục lỗ chứa mã FORTRAN. Arnold Reinhold, CC BY-SA 2.5, <a href="https://commons.wikimedia.org/wiki/File:FortranCardPROJ039.agr.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.8em">
+                <li><strong>1957:</strong> IBM công bố FORTRAN, ngôn ngữ lập trình bậc cao đầu tiên được dùng rộng rãi cho tính toán khoa học.</li>
+                <li><strong>1960s:</strong> George Forsythe thúc đẩy giải tích số trở thành ngành độc lập, đồng sáng lập khoa Khoa học máy tính của Stanford.</li>
+                <li><strong>1962:</strong> Richard Hamming xuất bản <em>Numerical Methods for Scientists and Engineers</em>.</li>
+                <li><strong>1979:</strong> BLAS và LINPACK chuẩn hóa các phép đại số tuyến tính cơ bản.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.ibm.com/history/fortran" target="_blank" rel="noopener">IBM — FORTRAN</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Forsythe/" target="_blank" rel="noopener">MacTutor — Forsythe</a> · <a href="https://www.netlib.org/blas/" target="_blank" rel="noopener">Netlib — BLAS</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1990 – nay: LAPACK, NumPy, SciPy và GPU</h2>
+          <div class="slide-badge-row"><span class="history-date">1992 – nay</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec04/gpu.jpg" alt="Card đồ họa có GPU NVIDIA" style="max-height:200px">
+              <figcaption class="caption">Card đồ họa có GPU. Từ 2007, CUDA cho phép dùng GPU tính toán tổng quát. Henry Mühlpfordt, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:NVidia_GeForce_6600GT_AGP_with_GPU_2009-01-27.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <table class="era-table xs">
+                <thead><tr><th>Mốc</th><th>Sự kiện</th></tr></thead>
+                <tbody>
+                  <tr><td>1992</td><td>LAPACK phát hành, thư viện đại số tuyến tính số chuẩn</td></tr>
+                  <tr><td>2001</td><td>SciPy ra đời</td></tr>
+                  <tr><td>2006</td><td>NumPy 1.0</td></tr>
+                  <tr><td>2007</td><td>NVIDIA công bố CUDA</td></tr>
+                </tbody>
+              </table>
+              <div class="kw-row"><span class="kw org">SIAM</span><span class="kw org">Netlib</span><span class="kw org">LAPACK</span><span class="kw org">NumPy / SciPy</span></div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.netlib.org/lapack/" target="_blank" rel="noopener">Netlib — LAPACK</a> · <a href="https://doi.org/10.1038/s41592-019-0686-2" target="_blank" rel="noopener">SciPy 1.0, <em>Nature Methods</em>, 2020</a> · <a href="https://doi.org/10.1038/s41586-020-2649-2" target="_blank" rel="noopener">Harris et al., <em>Array programming with NumPy</em>, <em>Nature</em>, 2020</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Những nhân vật tiêu biểu</h2>
+          <div class="portrait-row four tall">
+            <figure><img src="img/lec03/von-neumann.gif" alt="John von Neumann"><figcaption><b>John von Neumann</b>1903–1957. Phân tích sai số số học<br>LANL, Attribution, <a href="https://commons.wikimedia.org/wiki/File:JohnvonNeumann-LosAlamos.gif" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/turing.jpg" alt="Alan Turing"><figcaption><b>Alan Turing</b>1912–1954. Sai số làm tròn<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Alan_Turing_(1951)_(crop).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/forsythe.jpg" alt="George Forsythe"><figcaption><b>George Forsythe</b>1917–1972. Giải tích số<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:George_E._Forsythe.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/eniac-beck.jpg" alt="ENIAC"><figcaption><b>ENIAC</b>Máy tính điện tử, 1945<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Von_Neumann/" target="_blank" rel="noopener">MacTutor — von Neumann</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Turing/" target="_blank" rel="noopener">MacTutor — Turing</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Forsythe/" target="_blank" rel="noopener">MacTutor — Forsythe</a>. Chưa tìm được ảnh chân dung Hamming có giấy phép mở.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. Đạo hàm xấp xỉ</h2>
+          <p>Nhiều hàm không có công thức đạo hàm sẵn, hoặc quá phức tạp. Có thể xấp xỉ bằng <strong>sai phân hữu hạn</strong>:</p>
+          <div class="formula">$$f'(x)\approx\frac{f(x+h)-f(x)}{h}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(h\)</td><td>Bước nhỏ. \(h\) nhỏ giảm sai số xấp xỉ, nhưng \(h\) quá nhỏ làm tăng sai số làm tròn</td></tr>
+              <tr><td>\(f(x)=x^2\)</td><td>Ví dụ: \(f'(3)=6\). Xấp xỉ với \(h=0{,}001\) cho \(\frac{(3{,}001)^2-9}{0{,}001}=6{,}001\)</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.62em">Khai triển Taylor cho thấy sai số xấp xỉ khoảng \(\tfrac{h}{2}f''(x)\), tức sai số tỉ lệ thuận với \(h\).</p>
+          <p class="source">Nguồn: <a href="https://en.wikipedia.org/wiki/Numerical_differentiation" target="_blank" rel="noopener">Numerical differentiation</a> · <a href="https://www.deeplearningbook.org/contents/numerical.html" target="_blank" rel="noopener">Goodfellow et al., <em>Deep Learning</em>, chương 4</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Đạo hàm xấp xỉ bằng Python</h2>
+          <div class="code-split even">
+            <div><pre class="demo-code sm"><code class="language-python" data-trim>
+def f(x):
+    return x ** 2
+
+x = 3.0
+h = 0.001
+
+numerical_derivative = (f(x + h) - f(x)) / h
+exact_derivative = 2 * x
+
+print(&quot;Đạo hàm xấp xỉ:&quot;, numerical_derivative)
+print(&quot;Đạo hàm chính xác:&quot;, exact_derivative)
+</code></pre></div>
+            <div>
+              <pre class="result-out">Đạo hàm xấp xỉ: 6.000999999999479
+Đạo hàm chính xác: 6.0</pre>
+              <div class="good-box" style="font-size:0.62em"><span class="box-title">Kiểm lại</span> Sai lệch \(6{,}001-6=0{,}001=h\), khớp với ước lượng sai số \(\tfrac{h}{2}f''=\tfrac{0{,}001}{2}\cdot2\) ở slide trước. Chữ số cuối sai khác nhẹ là sai số làm tròn.</div>
+            </div>
+          </div>
+          <p class="source">Ứng dụng: <em>gradient checking</em> so sánh gradient viết tay với gradient số khi kiểm tra cài đặt backpropagation.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Sai số và bước \(h\)</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/finite-diff-error.png" alt="Đồ thị log-log sai số của sai phân hữu hạn theo bước h" style="max-height:310px">
+              <figcaption class="caption">Sai số theo \(h\) (thang log-log). Hình do biên soạn.</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.8em">
+                <li>\(h\) lớn: sai số do xấp xỉ chiếm ưu thế, giảm khi \(h\) giảm.</li>
+                <li>\(h\) rất nhỏ: sai số làm tròn chiếm ưu thế và tăng trở lại.</li>
+                <li>Có một giá trị \(h\) tối ưu ở giữa, khoảng \(\sqrt{\varepsilon_{\text{máy}}}\approx10^{-8}\).</li>
+              </ul>
+              <div class="key-box" style="font-size:0.6em"><span class="box-title">Bài học</span> Càng chia nhỏ càng chính xác chưa chắc đúng trong tính toán số.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Phương pháp Newton tính căn bậc hai</h2>
+          <p>Tìm \(\sqrt{a}\) là tìm nghiệm của \(f(x)=x^2-a\). Phương pháp Newton lặp:</p>
+          <div class="formula sm">$$x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}=\frac12\left(x_n+\frac{a}{x_n}\right)$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(x_n\)</td><td>Giá trị xấp xỉ ở bước \(n\)</td></tr>
+              <tr><td>\(a\)</td><td>Số cần lấy căn, ví dụ \(a=10\)</td></tr>
+              <tr><td>\(f'(x)\)</td><td>Đạo hàm \(2x\): tiếp tuyến tại \(x_n\) cắt trục hoành ở \(x_{n+1}\)</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.62em">Ý tưởng hình học: thay đường cong bằng tiếp tuyến rồi lấy giao điểm của tiếp tuyến với trục hoành. Đây là cách máy tính tính căn bậc hai từ rất lâu và vẫn là nền tảng của nhiều thuật toán tối ưu bậc hai.</p>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_mathematics/" target="_blank" rel="noopener">MacTutor — Babylonian mathematics</a> · <a href="https://en.wikipedia.org/wiki/Newton%27s_method" target="_blank" rel="noopener">Newton’s method</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Phương pháp Newton bằng Python</h2>
+          <div class="code-split">
+            <div><pre class="demo-code sm"><code class="language-python" data-trim>
+def newton_sqrt(number, initial=1.0, iterations=10):
+    x = initial
+
+    for i in range(iterations):
+        x = 0.5 * (x + number / x)
+        print(i + 1, x)
+
+    return x
+
+result = newton_sqrt(10)
+print(&quot;Kết quả:&quot;, result)
+</code></pre></div>
+            <div>
+              <pre class="result-out">1 5.5
+2 3.659090909090909
+3 3.196005081874647
+4 3.16245562280389
+5 3.162277665175675
+6 3.162277660168379
+7 3.162277660168379
+…
+Kết quả: 3.162277660168379</pre>
+              <div class="good-box" style="font-size:0.62em"><span class="box-title">Kiểm lại</span> Sau 5 bước đã đúng 8 chữ số thập phân, sau 6 bước đạt độ chính xác máy. Số chữ số đúng gần như <strong>nhân đôi</strong> sau mỗi bước (hội tụ bậc hai). \(\sqrt{10}\approx3{,}16227766\).</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Tốc độ hội tụ</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/newton-sqrt.png" alt="Sai số của phương pháp Newton giảm rất nhanh theo số bước lặp" style="max-height:300px">
+              <figcaption class="caption">Sai số của \(x_n\) so với \(\sqrt{10}\) theo bước lặp. Hình do biên soạn.</figcaption>
+            </figure>
+            <div>
+              <table class="era-table xs">
+                <thead><tr><th>Bước</th><th>\(x_n\)</th><th>Sai số</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>5,5</td><td>2,34</td></tr>
+                  <tr><td>2</td><td>3,659</td><td>0,497</td></tr>
+                  <tr><td>3</td><td>3,196</td><td>0,034</td></tr>
+                  <tr><td>4</td><td>3,16246</td><td>1,8·10⁻⁴</td></tr>
+                  <tr><td>5</td><td>3,162277665</td><td>5·10⁻⁹</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: toán học tính toán</h2>
+          <div class="kw-row">
+            <span class="kw">Numerical Linear Algebra</span><span class="kw">Gradient Checking</span><span class="kw">Newton và Quasi-Newton</span><span class="kw">Mixed Precision</span><span class="kw">GPU Computing</span><span class="kw">Simulation</span><span class="kw">NumPy / SciPy</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi cần tính toán hiệu quả, xấp xỉ và kiểm soát sai số.</div>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h1><span class="text-light">9.</span><br>Hình học và tô pô</h1>
+          <p class="text-light">Geometry &amp; Topology: khoảng cách, hình dạng và cấu trúc của dữ liệu</p>
+        </section>
+
+        <section class="fit">
+          <h2>Vì sao cần hình học và tô pô?</h2>
+          <p>Mỗi khách hàng là một điểm trong không gian đặc trưng. Hai câu hỏi tự nhiên:</p>
+          <div class="two-col">
+            <div class="card-plain">Hai khách hàng <strong>gần nhau</strong> đến mức nào?<br><span style="font-size:0.8em">→ hình học: khoảng cách, góc</span></div>
+            <div class="card-plain">Cả đám mây điểm có <strong>hình dạng</strong> gì: một cụm, hai cụm, một vòng?<br><span style="font-size:0.8em">→ tô pô: thành phần liên thông, lỗ hổng</span></div>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Hình học (Geometry)</th><th>Tô pô (Topology)</th></tr></thead>
+            <tbody>
+              <tr><td>Quan tâm khoảng cách, góc, độ dài</td><td>Quan tâm tính liên thông, lỗ hổng, hình dạng tổng thể</td></tr>
+              <tr><td>Thay đổi khi kéo giãn</td><td>Không đổi khi kéo giãn liên tục, không xé, không dán</td></tr>
+              <tr><td>Ví dụ: khoảng cách giữa hai khách hàng</td><td>Ví dụ: dữ liệu tạo thành một vòng tròn</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Điểm mấu chốt</span> Khoảng cách trả lời “gần hay xa”. Tô pô trả lời “dữ liệu có dạng gì”.</div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian hình học và tô pô</h2>
+          <div class="history-timeline six" aria-label="Sáu mốc của hình học và tô pô">
+            <div class="timeline-event"><div class="timeline-date">1736</div><div class="timeline-dot"></div><div class="timeline-name">Euler</div><div class="timeline-note">Geometria situs: hình học của vị trí</div></div>
+            <div class="timeline-event"><div class="timeline-date">1854</div><div class="timeline-dot"></div><div class="timeline-name">Riemann</div><div class="timeline-note">Khái niệm đa tạp</div></div>
+            <div class="timeline-event"><div class="timeline-date">1858</div><div class="timeline-dot"></div><div class="timeline-name">Möbius</div><div class="timeline-note">Dải Möbius</div></div>
+            <div class="timeline-event"><div class="timeline-date">1895</div><div class="timeline-dot"></div><div class="timeline-name">Poincaré</div><div class="timeline-note"><em>Analysis Situs</em>, nền tảng tô pô đại số</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XX</div><div class="timeline-dot"></div><div class="timeline-name">Tô pô hiện đại</div><div class="timeline-note">Đa tạp, đồng điều</div></div>
+            <div class="timeline-event"><div class="timeline-date">2000 – nay</div><div class="timeline-dot"></div><div class="timeline-name">TDA</div><div class="timeline-note">Topological Data Analysis</div></div>
+          </div>
+          <p class="era-note">Các mốc là cột mốc tiêu biểu, không phải lịch sử đầy đủ của ngành.</p>
+          <p class="source">Nguồn tổng quan: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Topology_in_mathematics/" target="_blank" rel="noopener">MacTutor — A history of topology</a> · <a href="https://doi.org/10.1090/S0273-0979-09-01249-X" target="_blank" rel="noopener">G. Carlsson, <em>Topology and Data</em>, Bull. AMS 46, 2009</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1854: Riemann và khái niệm đa tạp</h2>
+          <div class="slide-badge-row"><span class="history-date">1854</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec04/riemann.jpeg" alt="Bernhard Riemann"><figcaption><b>Bernhard Riemann</b>1826–1866<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Georg_Friedrich_Bernhard_Riemann.jpeg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Trong bài giảng habilitation <em>Über die Hypothesen, welche der Geometrie zu Grunde liegen</em>, Riemann đưa ra khái niệm <strong>đa tạp</strong> (manifold): một không gian có thể có số chiều bất kỳ, mà ở gần mỗi điểm trông giống không gian Euclid.</p>
+              <div class="key-box" style="font-size:0.7em"><span class="box-title">Liên hệ</span> Giả thuyết đa tạp (manifold hypothesis) trong học máy: dữ liệu nhiều chiều thường nằm gần một đa tạp có số chiều thấp hơn nhiều.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/" target="_blank" rel="noopener">MacTutor — Riemann</a> · <a href="https://www.maths.tcd.ie/pub/HistMath/People/Riemann/Geom/" target="_blank" rel="noopener">Bản dịch bài giảng 1854 (Clifford)</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1858: Möbius và dải một mặt</h2>
+          <div class="slide-badge-row"><span class="history-date">1858</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec04/mobius.jpg" alt="Mô hình dải Möbius" style="max-height:240px">
+              <figcaption class="caption">Dải Möbius: bề mặt chỉ có một mặt và một cạnh. David Benbennick, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:M%C3%B6bius_strip.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <p>August Möbius và Johann Listing độc lập mô tả <strong>dải Möbius</strong>, năm 1858. Đây là ví dụ kinh điển về tính chất tô pô: dù kéo giãn hay uốn cong, dải vẫn chỉ có một mặt.</p>
+              <p>Tô pô nghiên cứu những tính chất <strong>không đổi</strong> dưới biến dạng liên tục.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Mobius/" target="_blank" rel="noopener">MacTutor — Möbius</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1895: Poincaré và Analysis Situs</h2>
+          <div class="slide-badge-row"><span class="history-date">1895</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec04/poincare.jpg" alt="Henri Poincaré"><figcaption><b>Henri Poincaré</b>1854–1912<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Henri_Poincar%C3%A9-2.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Henri Poincaré công bố <em>Analysis Situs</em>, đặt nền tảng cho <strong>tô pô đại số</strong>. Ông đưa ra các bất biến như <strong>nhóm cơ bản</strong> và <strong>số Betti</strong>, dùng đại số để phân biệt các hình dạng.</p>
+              <table class="sym-table">
+                <tbody>
+                  <tr><td>\(\beta_0\)</td><td>Số thành phần liên thông</td></tr>
+                  <tr><td>\(\beta_1\)</td><td>Số vòng (lỗ hổng một chiều)</td></tr>
+                  <tr><td>\(\beta_2\)</td><td>Số khoang rỗng</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/" target="_blank" rel="noopener">MacTutor — Poincaré</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Từ năm 2000: Topological Data Analysis</h2>
+          <div class="slide-badge-row"><span class="history-date">2000 – nay</span></div>
+          <table class="era-table xs">
+            <thead><tr><th>Năm</th><th>Công trình</th></tr></thead>
+            <tbody>
+              <tr><td>2002</td><td>Edelsbrunner, Letscher, Zomorodian: <em>Topological persistence and simplification</em>, định nghĩa persistent homology</td></tr>
+              <tr><td>2005</td><td>Zomorodian và Carlsson: thuật toán tính persistent homology</td></tr>
+              <tr><td>2009</td><td>Carlsson: <em>Topology and Data</em>, tổng quan nền tảng của TDA</td></tr>
+              <tr><td>Thập niên 2010</td><td>Thư viện mã nguồn mở như GUDHI đưa TDA vào thực hành</td></tr>
+            </tbody>
+          </table>
+          <div class="portrait-row two short" style="grid-template-columns:1fr 1fr">
+            <figure><img src="img/lec04/edelsbrunner.jpg" alt="Herbert Edelsbrunner"><figcaption><b>Herbert Edelsbrunner</b>Persistent homology<br>David Eppstein, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Herbert_Edelsbrunner_SoCG_2011.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec04/carlsson.jpg" alt="Gunnar Carlsson"><figcaption><b>Gunnar Carlsson</b>Topological Data Analysis<br>Katrin Breithaupt, Copyright is MFO, CC BY-SA 2.0 de, <a href="https://commons.wikimedia.org/wiki/File:Gunnar_Carlsson.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1007/s00454-002-2885-2" target="_blank" rel="noopener">Edelsbrunner et al., 2002</a> · <a href="https://doi.org/10.1007/s00454-004-1146-y" target="_blank" rel="noopener">Zomorodian &amp; Carlsson, 2005</a> · <a href="https://doi.org/10.1090/S0273-0979-09-01249-X" target="_blank" rel="noopener">Carlsson, 2009</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. Khoảng cách Euclid</h2>
+          <p>Nhóm khách hàng có hành vi tương tự nhau là nhóm các điểm gần nhau. Khoảng cách Euclid giữa hai điểm:</p>
+          <div class="formula">$$d(x,y)=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^2}$$</div>
+          <p style="margin:0.1em 0">Ví dụ hai khách hàng \(x=(2,3)\) và \(y=(5,7)\):</p>
+          <div class="formula sm">$$d(x,y)=\sqrt{(2-5)^2+(3-7)^2}=\sqrt{9+16}=5$$</div>
+          <div class="warn-box" style="font-size:0.66em"><span class="box-title">Lưu ý</span> Nếu các đặc trưng có thang đo khác nhau (tuổi, thu nhập), đặc trưng có giá trị lớn sẽ lấn át khoảng cách. Cần <strong>chuẩn hóa</strong> dữ liệu (ví dụ <code>StandardScaler</code>) trước khi tính.</div>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.euclidean_distances.html" target="_blank" rel="noopener">scikit-learn — euclidean_distances</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Khoảng cách Euclid bằng scikit-learn</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+import numpy as np
+from sklearn.metrics.pairwise import euclidean_distances
+
+customers = np.array([
+    [2, 3],
+    [5, 7],
+    [2, 4],
+    [9, 10]
+])
+
+distances = euclidean_distances(customers)
+
+print(distances)
+
+# Khách hàng gần nhất với khách hàng đầu tiên
+scores = distances[0].copy()
+scores[0] = np.inf
+
+nearest = np.argmin(scores)
+
+print(&quot;Khách hàng gần nhất:&quot;, nearest)
+</code></pre></div>
+            <div>
+              <pre class="result-out sm">[[0.         5.         1.         9.89949494]
+ [5.         0.         4.24264069 5.        ]
+ [1.         4.24264069 0.         9.21954446]
+ [9.89949494 5.         9.21954446 0.        ]]
+Khách hàng gần nhất: 2</pre>
+              <div class="good-box" style="font-size:0.6em"><span class="box-title">Kiểm lại</span> Phần tử hàng 0, cột 1 bằng 5, trùng phép tính tay. Khách hàng gần khách hàng đầu tiên nhất là chỉ số 2, ở khoảng cách 1, vì <code>(2, 4)</code> sát <code>(2, 3)</code>.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Khoảng cách trong thực tế: KNN</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/euclid-customers.png" alt="Bốn khách hàng trên mặt phẳng, đoạn thẳng nối thể hiện khoảng cách" style="max-height:300px">
+              <figcaption class="caption">Bốn khách hàng của ví dụ. Hình do biên soạn.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="img/lec04/knn.svg" alt="Minh họa phân loại k láng giềng gần nhất" style="max-height:260px">
+              <figcaption class="caption">k-NN: điểm cần phân loại lấy nhãn theo các láng giềng gần nhất. Natana Jadri AnAj, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:KnnClassification.svg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+          </div>
+          <p style="font-size:0.62em">Khoảng cách là nền của k-NN, k-means, phân cụm phân cấp, DBSCAN và nhiều phương pháp tìm kiếm tương tự.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Persistent Homology: ý tưởng</h2>
+          <p>Cho một đám mây điểm, vẽ quanh mỗi điểm một quả cầu bán kính \(\varepsilon\) và tăng dần \(\varepsilon\). Hai điểm nối với nhau khi quả cầu chạm nhau.</p>
+          <div class="formula sm">$$\mathrm{Rips}_\varepsilon(X)=\{\sigma\subseteq X:\ d(x_i,x_j)\le\varepsilon\ \ \forall x_i,x_j\in\sigma\}$$</div>
+          <div class="step-row">
+            <div class="step"><b>1. Tăng \(\varepsilon\)</b>Các điểm lần lượt được nối thành cạnh, tam giác, bốn mặt…</div>
+            <div class="step"><b>2. Theo dõi đặc trưng</b>Thành phần liên thông (\(H_0\)) và vòng (\(H_1\)) xuất hiện rồi biến mất.</div>
+            <div class="step"><b>3. Ghi sinh – tử</b>Mỗi đặc trưng có cặp (birth, death) theo \(\varepsilon\).</div>
+            <div class="step hl"><b>4. Đọc độ bền</b>Đặc trưng sống lâu là cấu trúc thật, sống ngắn là nhiễu.</div>
+          </div>
+          <div class="formula sm">$$\mathrm{persistence}=\text{death}-\text{birth}$$</div>
+          <p class="source">Nguồn: <a href="https://gudhi.inria.fr/python/latest/rips_complex_user.html" target="_blank" rel="noopener">GUDHI — Rips complex</a> · <a href="https://doi.org/10.1007/s00454-002-2885-2" target="_blank" rel="noopener">Edelsbrunner et al., 2002</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Persistent Homology với GUDHI</h2>
+          <p style="font-size:0.7em;margin:0.1em 0">Cài đặt: <code>pip install gudhi</code>. Dữ liệu là 100 điểm nằm gần một đường tròn, có nhiễu \(\sigma=0{,}03\).</p>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+import numpy as np
+import gudhi as gd
+import matplotlib.pyplot as plt
+
+# Sinh dữ liệu nằm gần một đường tròn
+np.random.seed(42)
+
+n = 100
+theta = np.linspace(0, 2*np.pi, n, endpoint=False)
+
+X = np.column_stack([
+    np.cos(theta),
+    np.sin(theta)
+])
+
+X += np.random.normal(0, 0.03, X.shape)
+
+# Xây dựng Vietoris-Rips complex
+rips = gd.RipsComplex(
+    points=X,
+    max_edge_length=1.0
+)
+
+simplex_tree = rips.create_simplex_tree(
+    max_dimension=2
+)
+
+# Tính persistent homology
+persistence = simplex_tree.persistence()
+
+# In các khoảng tồn tại
+for dim, interval in persistence:
+    print(
+        &quot;Dimension:&quot;, dim,
+        &quot;Birth/Death:&quot;, interval
+    )
+
+# Vẽ biểu đồ persistence
+gd.plot_persistence_diagram(persistence)
+plt.show()
+</code></pre></div>
+            <div>
+              <pre class="result-out sm">Dimension: 1 Birth/Death: (0.1400327386906784, inf)
+Dimension: 0 Birth/Death: (0.0, inf)
+Dimension: 0 Birth/Death: (0.0, 0.137126668567522)
+Dimension: 0 Birth/Death: (0.0, 0.13443162290972235)
+Dimension: 0 Birth/Death: (0.0, 0.1291850708281321)
+…</pre>
+              <div class="good-box" style="font-size:0.58em"><span class="box-title">Kiểm lại</span> Có đúng <strong>một</strong> vòng (\(H_1\)) sinh ra ở \(\varepsilon\approx0{,}14\) và tồn tại đến hết ngưỡng 1,0: dữ liệu có một lỗ hổng, đúng với đường tròn. Các thành phần \(H_0\) (tổng 100, trong đó 99 chết sớm, trước \(\varepsilon=0{,}14\)) là các điểm lẻ nhập vào nhau.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://gudhi.inria.fr/" target="_blank" rel="noopener">GUDHI — Geometry Understanding in Higher Dimensions, INRIA</a> · <a href="https://gudhi.inria.fr/python/latest/persistence_graphical_tools_user.html" target="_blank" rel="noopener">GUDHI — persistence graphical tools</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Biểu đồ persistence</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/persistence.png" alt="Biểu đồ persistence diagram và barcode của dữ liệu quanh đường tròn" style="max-height:300px">
+              <figcaption class="caption">Persistence diagram và barcode của dữ liệu ở slide trước. Hình do biên soạn bằng GUDHI.</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.78em">
+                <li>Điểm \(H_1\) nằm <strong>xa đường chéo</strong>: đặc trưng bền, tức vòng thật.</li>
+                <li>Các điểm \(H_0\) sát đường chéo hoặc thanh ngắn: nhiễu hoặc sự nhập cụm ban đầu.</li>
+              </ul>
+              <div class="warn-box" style="font-size:0.58em"><span class="box-title">Lưu ý</span> Chi phí tính toán tăng nhanh theo số điểm. Kết quả phụ thuộc ngưỡng <code>max_edge_length</code> và cách lấy mẫu. Việc diễn giải cần thận trọng.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Giả thuyết đa tạp</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/swiss-roll.png" alt="Dữ liệu Swiss roll ba chiều và dạng được trải phẳng hai chiều" style="max-height:290px">
+              <figcaption class="caption">Swiss roll: dữ liệu trong 3 chiều nhưng thực chất là một mặt 2 chiều cuộn lại. Hình do biên soạn bằng scikit-learn.</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.78em">
+                <li>Khoảng cách Euclid trong không gian gốc có thể gây hiểu lầm: hai điểm gần nhau trong 3 chiều có thể xa nhau dọc theo mặt cuộn.</li>
+                <li>Các phương pháp học đa tạp (Isomap, t-SNE, UMAP) cố giữ cấu trúc cục bộ khi giảm chiều.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/manifold.html" target="_blank" rel="noopener">scikit-learn — Manifold learning</a> · <a href="https://doi.org/10.1126/science.290.5500.2319" target="_blank" rel="noopener">Tenenbaum, de Silva &amp; Langford, <em>Science</em>, 2000</a>.</p>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: hình học và tô pô</h2>
+          <div class="kw-row">
+            <span class="kw">K-Nearest Neighbors</span><span class="kw">K-Means</span><span class="kw">DBSCAN</span><span class="kw">Manifold Learning</span><span class="kw">t-SNE / UMAP</span><span class="kw">Topological Data Analysis</span><span class="kw">Computer Vision</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn hiểu hình dạng và cấu trúc của dữ liệu.</div>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h1><span class="text-light">10.</span><br>Tổng kết tám nhánh<br>toán học</h1>
+          <p class="text-light">Mỗi nhánh giải một loại vấn đề, và nhiều nhánh cùng chạy trong một thuật toán</p>
+        </section>
+
+        <section class="fit">
+          <h2>Bảng tổng hợp: nhánh toán và thuật toán</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Nhánh toán</th><th>Vấn đề giải quyết</th><th>Thuật toán, ứng dụng tiêu biểu</th></tr></thead>
+            <tbody>
+              <tr><td>1. Xác suất và thống kê</td><td>Bất định, dự đoán, kiểm định</td><td>Naive Bayes, A/B testing, hồi quy, Bayesian inference</td></tr>
+              <tr><td>2. Đại số tuyến tính</td><td>Biểu diễn dữ liệu, tìm cấu trúc ẩn</td><td>PCA, SVD, embedding, hệ khuyến nghị, Transformer</td></tr>
+              <tr><td>3. Giải tích</td><td>Sự thay đổi, hướng cải thiện</td><td>Gradient, backpropagation, tối ưu hàm mất mát</td></tr>
+              <tr><td>4. Tối ưu hóa</td><td>Tìm tham số hoặc phương án tốt nhất</td><td>Gradient Descent, SGD, Adam, quy hoạch tuyến tính</td></tr>
+              <tr><td>5. Toán rời rạc và đồ thị</td><td>Quan hệ giữa các đối tượng</td><td>PageRank, phát hiện cộng đồng, đường đi ngắn nhất, GNN</td></tr>
+              <tr><td>6. Lý thuyết thông tin</td><td>Đo thông tin, độ bất định</td><td>Entropy, Information Gain, Cross-Entropy, cây quyết định</td></tr>
+              <tr><td>7. Toán học tính toán</td><td>Tính toán số, sai số, hiệu năng</td><td>Sai phân hữu hạn, Newton, đại số tuyến tính số, GPU</td></tr>
+              <tr><td>8. Hình học và tô pô</td><td>Khoảng cách, hình dạng dữ liệu</td><td>KNN, K-Means, manifold learning, Persistent Homology</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Bảng do biên soạn, tổng hợp từ nội dung bài 3 và bài 4.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ví dụ tổng hợp: một mạng neural network</h2>
+          <p style="font-size:0.7em;margin:0.1em 0">Bốn bước của một lần huấn luyện, và nhánh toán tương ứng:</p>
+          <div class="step-row">
+            <div class="step"><b>Lớp tuyến tính (đại số tuyến tính)</b>\(z=Wx+b\)</div>
+            <div class="step"><b>Kích hoạt (giải tích, xác suất)</b>\(a=\sigma(z)\)</div>
+            <div class="step"><b>Mất mát (thông tin)</b>\(L=-\sum_i y_i\log\hat y_i\)</div>
+            <div class="step hl"><b>Cập nhật (tối ưu hóa, giải tích)</b>\(W_{t+1}=W_t-\eta\,\dfrac{\partial L}{\partial W_t}\)</div>
+          </div>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/neural-net.svg" alt="Sơ đồ mạng neural network ba lớp" style="max-height:230px">
+              <figcaption class="caption">Mạng neural network gồm lớp vào, lớp ẩn và lớp ra. Glosser.ca, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Colored_neural_network.svg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <table class="sym-table">
+              <tbody>
+                <tr><td>\(W,b\)</td><td>Trọng số và độ lệch: các tham số cần học</td></tr>
+                <tr><td>\(\sigma\)</td><td>Hàm kích hoạt, ví dụ sigmoid, ReLU</td></tr>
+                <tr><td>\(y_i,\hat y_i\)</td><td>Nhãn thật (one-hot) và xác suất dự đoán</td></tr>
+                <tr><td>\(\eta\)</td><td>Tốc độ học (learning rate)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.deeplearningbook.org/contents/mlp.html" target="_blank" rel="noopener">Goodfellow et al., <em>Deep Learning</em>, chương 6</a>. Thêm các nhánh còn lại: đồ thị cho GNN, tính toán số cho GPU và độ chính xác hỗn hợp, hình học cho không gian embedding.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">11.</span><br>Thư viện mã nguồn mở</h1>
+          <p class="text-light">Chín thư viện Python thường dùng cho phần toán của khoa học dữ liệu</p>
+        </section>
+
+        <section class="fit">
+          <h2>Chín thư viện mã nguồn mở</h2>
+          <div class="lib-wall">
+            <div class="lib-card"><img src="img/lec02/logos/numpy.svg" alt="Logo NumPy"><b>NumPy</b>Mảng nhiều chiều, đại số tuyến tính cơ bản.</div>
+            <div class="lib-card"><b>SciPy</b>Tối ưu hóa, thống kê, tích phân, đại số tuyến tính nâng cao.</div>
+            <div class="lib-card"><img src="img/lec02/logos/pandas.svg" alt="Logo pandas"><b>Pandas</b>Bảng dữ liệu, làm sạch và tổng hợp.</div>
+            <div class="lib-card"><img src="img/lec02/logos/scikit-learn.svg" alt="Logo scikit-learn"><b>Scikit-learn</b>PCA, cây quyết định, SGD, phân cụm, đánh giá mô hình.</div>
+            <div class="lib-card"><img src="img/lec04/pytorch.svg" alt="Logo PyTorch"><b>PyTorch</b>Tính gradient tự động, huấn luyện mạng neural network.</div>
+            <div class="lib-card"><b>NetworkX</b>Đồ thị, PageRank, đường đi ngắn nhất, cộng đồng.</div>
+            <div class="lib-card"><b>GUDHI</b>Phân tích dữ liệu tô pô, Persistent Homology.</div>
+            <div class="lib-card"><b>SymPy</b>Toán ký hiệu: đạo hàm, tích phân, giải phương trình.</div>
+            <div class="lib-card"><b>CVXPY</b>Mô hình hóa và giải bài toán tối ưu lồi.</div>
+          </div>
+          <p class="source"><a href="https://numpy.org/" target="_blank" rel="noopener">NumPy</a> · <a href="https://scipy.org/" target="_blank" rel="noopener">SciPy</a> · <a href="https://pandas.pydata.org/" target="_blank" rel="noopener">pandas</a> · <a href="https://scikit-learn.org/" target="_blank" rel="noopener">scikit-learn</a> · <a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a> · <a href="https://networkx.org/" target="_blank" rel="noopener">NetworkX</a> · <a href="https://gudhi.inria.fr/" target="_blank" rel="noopener">GUDHI</a> · <a href="https://www.sympy.org/" target="_blank" rel="noopener">SymPy</a> · <a href="https://www.cvxpy.org/" target="_blank" rel="noopener">CVXPY</a>. Logo thuộc về các dự án tương ứng.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Thư viện và nhánh toán</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Thư viện</th><th>Nhánh toán chính</th><th>Hàm tiêu biểu</th></tr></thead>
+            <tbody>
+              <tr><td>NumPy, SciPy</td><td>Đại số tuyến tính, thống kê, tối ưu hóa</td><td><code>np.linalg</code>, <code>scipy.optimize.linprog</code>, <code>scipy.stats.entropy</code></td></tr>
+              <tr><td>Scikit-learn</td><td>Đại số tuyến tính, tối ưu hóa, thông tin, hình học</td><td><code>PCA</code>, <code>SGDRegressor</code>, <code>DecisionTreeClassifier</code>, <code>euclidean_distances</code></td></tr>
+              <tr><td>NetworkX</td><td>Toán rời rạc và đồ thị</td><td><code>pagerank</code>, <code>shortest_path</code></td></tr>
+              <tr><td>GUDHI</td><td>Hình học và tô pô</td><td><code>RipsComplex</code>, <code>persistence</code></td></tr>
+              <tr><td>PyTorch</td><td>Giải tích, tối ưu hóa</td><td><code>autograd</code>, <code>torch.optim</code></td></tr>
+              <tr><td>SymPy, CVXPY</td><td>Giải tích ký hiệu, tối ưu lồi</td><td><code>diff</code>, <code>integrate</code>, <code>Problem.solve</code></td></tr>
+            </tbody>
+          </table>
+          <p class="source">PyTorch, SymPy và CVXPY chưa có mã trong hai bài, dùng ở các lab. Môi trường chạy lại mã của hai bài: Python 3.12, NumPy 2.5.4, SciPy 1.18.1, scikit-learn 1.9.1, NetworkX 3.7, GUDHI 3.13.0.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">12.</span><br>Kết luận</h1>
+        </section>
+
+        <section class="fit">
+          <h2>Khi muốn … thì học …</h2>
+          <div class="q-grid">
+            <div class="q-item">Khi muốn hiểu dữ liệu và sự bất định<span>→ học xác suất và thống kê</span></div>
+            <div class="q-item">Khi muốn biểu diễn dữ liệu và tìm cấu trúc ẩn<span>→ học đại số tuyến tính</span></div>
+            <div class="q-item">Khi muốn hiểu cách mô hình học<span>→ học giải tích</span></div>
+            <div class="q-item">Khi muốn tìm phương án tốt nhất<span>→ học tối ưu hóa</span></div>
+            <div class="q-item">Khi muốn phân tích quan hệ giữa các đối tượng<span>→ học toán rời rạc và lý thuyết đồ thị</span></div>
+            <div class="q-item">Khi muốn đo lượng thông tin và chọn đặc trưng<span>→ học lý thuyết thông tin</span></div>
+            <div class="q-item">Khi muốn tính toán hiệu quả và kiểm soát sai số<span>→ học toán học tính toán</span></div>
+            <div class="q-item">Khi muốn hiểu hình dạng và khoảng cách trong dữ liệu<span>→ học hình học và tô pô</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Thông điệp cuối</h2>
+          <p>Khoa học dữ liệu không chỉ là công cụ. Mỗi thuật toán đều dựa trên một hoặc nhiều nhánh toán học đã phát triển qua hàng trăm năm.</p>
+          <p>Thư viện giúp chạy thuật toán nhanh, nhưng hiểu được toán học bên dưới mới giúp <strong>chọn đúng phương pháp</strong>, <strong>nhận ra khi nào kết quả sai</strong> và <strong>cải tiến</strong> mô hình.</p>
+          <div class="good-box"><span class="box-title">Câu mang về</span> Bắt đầu từ câu hỏi thực tế, tìm nhánh toán phù hợp, sau đó kiểm chứng bằng mã.</div>
+        </section>
+
+        <section class="fit">
+          <h2>Tổng kết buổi 4</h2>
+          <ul>
+            <li><strong>Đồ thị:</strong> PageRank cho C = 0,384, A = 0,369; đường đi ngắn nhất A–C–B–D–E có chi phí 10.</li>
+            <li><strong>Lý thuyết thông tin:</strong> entropy 1; 0,469; 0 bit; information gain của nút gốc cây quyết định ≈ 0,561 bit, độ chính xác 0,956.</li>
+            <li><strong>Toán học tính toán:</strong> sai phân hữu hạn cho 6,001 thay vì 6; Newton hội tụ về \(\sqrt{10}\approx3{,}1622777\) sau 6 bước.</li>
+            <li><strong>Hình học và tô pô:</strong> khoảng cách Euclid \(d=5\); Persistent Homology phát hiện đúng một vòng trong dữ liệu.</li>
+            <li><strong>Toàn bộ:</strong> tám nhánh toán cùng chạy trong một mạng neural network.</li>
+          </ul>
+        </section>
+
+        <section class="fit">
+          <h2>Học liệu tham khảo</h2>
+          <div class="portrait-row two tall" style="grid-template-columns:repeat(2,1fr)">
+            <figure>
+              <img src="img/lec04/books/info-theoretic.jpg" alt="Bìa sách Information-Theoretic Methods in Data Science" style="height:290px;max-height:290px;width:auto">
+              <figcaption><b>Information-Theoretic Methods in Data Science</b>M. R. D. Rodrigues &amp; Y. C. Eldar (chủ biên), Cambridge University Press, 2021. Ứng dụng entropy, thông tin tương hỗ và nén dữ liệu vào học máy và khoa học dữ liệu. Bìa sách © Cambridge University Press, <a href="https://openlibrary.org/isbn/9781108427135" target="_blank" rel="noopener">Open Library</a>.</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec04/books/graph-algorithms.png" alt="Bìa sách Graph Algorithms for Data Science" style="height:290px;max-height:290px;width:auto">
+              <figcaption><b>Graph Algorithms for Data Science: With examples in Neo4j</b>T. Bratanič, Manning, 2024. Thuật toán đồ thị, trung tâm, cộng đồng và embedding, minh họa bằng Neo4j. Bìa sách © Manning Publications, <a href="https://www.manning.com/books/graph-algorithms-for-data-science" target="_blank" rel="noopener">manning.com</a>.</figcaption>
+            </figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1017/9781108616799" target="_blank" rel="noopener">Cambridge University Press — Information-Theoretic Methods in Data Science (DOI)</a> · <a href="https://www.manning.com/books/graph-algorithms-for-data-science" target="_blank" rel="noopener">Manning — Graph Algorithms for Data Science</a>. Ảnh bìa dùng với mục đích giới thiệu học liệu. Liên quan trực tiếp đến mục 6 (đồ thị) và mục 7 (lý thuyết thông tin).</p>
+        </section>
+
+        <section class="fit">
+          <h2>Việc cần làm sau hai bài</h2>
+          <ol>
+            <li>Chạy lại toàn bộ mã của bài 3 và bài 4, đối chiếu từng số in ra với số trên slide.</li>
+            <li>Với đồ thị PageRank, thêm cạnh <code>("E", "A")</code> và dự đoán điểm của A, C thay đổi thế nào trước khi chạy.</li>
+            <li>Đổi <code>h</code> trong ví dụ đạo hàm xấp xỉ thành \(10^{-4}\), \(10^{-8}\), \(10^{-12}\) và giải thích xu hướng của sai số.</li>
+            <li>Tăng nhiễu của dữ liệu vòng tròn từ 0,03 lên 0,3 và quan sát điểm \(H_1\) trên persistence diagram.</li>
+            <li>Chọn một thuật toán yêu thích, liệt kê các nhánh toán mà nó dùng.</li>
+          </ol>
+        </section>
+      </section>
+
+      <div class="footer">
+        Giới thiệu khoa học dữ liệu · Bài 4: Toán học trong khoa học dữ liệu (phần 2)
+      </div>
+    </div>
+  </div>
+
+  <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script src="plugin/math/math.js"></script>
+  <script>
+    Reveal.initialize({
+      controlsLayout: "edges",
+      slideNumber: true,
+      hash: true,
+      hashOneBasedIndex: true,
+      katex: { local: "plugin/katex" },
+      plugins: [RevealHighlight, RevealMath.KaTeX],
+      width: 1100,
+      height: 700,
+      margin: 0.04
+    });
+  </script>
+</body>
+
+</html>

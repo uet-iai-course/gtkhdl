@@ -1,0 +1,215 @@
+
+      <section>
+        <section>
+          <h1><span class="text-light">9.</span><br>Hình học và tô pô</h1>
+          <p class="text-light">Geometry &amp; Topology: khoảng cách, hình dạng và cấu trúc của dữ liệu</p>
+        </section>
+
+        <section class="fit">
+          <h2>Vì sao cần hình học và tô pô?</h2>
+          <p>Mỗi khách hàng là một điểm trong không gian đặc trưng. Hai câu hỏi tự nhiên:</p>
+          <div class="two-col">
+            <div class="card-plain">Hai khách hàng <strong>gần nhau</strong> đến mức nào?<br><span style="font-size:0.8em">→ hình học: khoảng cách, góc</span></div>
+            <div class="card-plain">Cả đám mây điểm có <strong>hình dạng</strong> gì: một cụm, hai cụm, một vòng?<br><span style="font-size:0.8em">→ tô pô: thành phần liên thông, lỗ hổng</span></div>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Hình học (Geometry)</th><th>Tô pô (Topology)</th></tr></thead>
+            <tbody>
+              <tr><td>Quan tâm khoảng cách, góc, độ dài</td><td>Quan tâm tính liên thông, lỗ hổng, hình dạng tổng thể</td></tr>
+              <tr><td>Thay đổi khi kéo giãn</td><td>Không đổi khi kéo giãn liên tục, không xé, không dán</td></tr>
+              <tr><td>Ví dụ: khoảng cách giữa hai khách hàng</td><td>Ví dụ: dữ liệu tạo thành một vòng tròn</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Điểm mấu chốt</span> Khoảng cách trả lời “gần hay xa”. Tô pô trả lời “dữ liệu có dạng gì”.</div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian hình học và tô pô</h2>
+          <div class="history-timeline six" aria-label="Sáu mốc của hình học và tô pô">
+            <div class="timeline-event"><div class="timeline-date">1736</div><div class="timeline-dot"></div><div class="timeline-name">Euler</div><div class="timeline-note">Geometria situs: hình học của vị trí</div></div>
+            <div class="timeline-event"><div class="timeline-date">1854</div><div class="timeline-dot"></div><div class="timeline-name">Riemann</div><div class="timeline-note">Khái niệm đa tạp</div></div>
+            <div class="timeline-event"><div class="timeline-date">1858</div><div class="timeline-dot"></div><div class="timeline-name">Möbius</div><div class="timeline-note">Dải Möbius</div></div>
+            <div class="timeline-event"><div class="timeline-date">1895</div><div class="timeline-dot"></div><div class="timeline-name">Poincaré</div><div class="timeline-note"><em>Analysis Situs</em>, nền tảng tô pô đại số</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XX</div><div class="timeline-dot"></div><div class="timeline-name">Tô pô hiện đại</div><div class="timeline-note">Đa tạp, đồng điều</div></div>
+            <div class="timeline-event"><div class="timeline-date">2000 – nay</div><div class="timeline-dot"></div><div class="timeline-name">TDA</div><div class="timeline-note">Topological Data Analysis</div></div>
+          </div>
+          <p class="era-note">Các mốc là cột mốc tiêu biểu, không phải lịch sử đầy đủ của ngành.</p>
+          <p class="source">Nguồn tổng quan: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Topology_in_mathematics/" target="_blank" rel="noopener">MacTutor — A history of topology</a> · <a href="https://doi.org/10.1090/S0273-0979-09-01249-X" target="_blank" rel="noopener">G. Carlsson, <em>Topology and Data</em>, Bull. AMS 46, 2009</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1854: Riemann và khái niệm đa tạp</h2>
+          <div class="slide-badge-row"><span class="history-date">1854</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:riemann|Bernhard Riemann|1826–1866}}
+            </div>
+            <div>
+              <p>Trong bài giảng habilitation <em>Über die Hypothesen, welche der Geometrie zu Grunde liegen</em>, Riemann đưa ra khái niệm <strong>đa tạp</strong> (manifold): một không gian có thể có số chiều bất kỳ, mà ở gần mỗi điểm trông giống không gian Euclid.</p>
+              <div class="key-box" style="font-size:0.7em"><span class="box-title">Liên hệ</span> Giả thuyết đa tạp (manifold hypothesis) trong học máy: dữ liệu nhiều chiều thường nằm gần một đa tạp có số chiều thấp hơn nhiều.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/" target="_blank" rel="noopener">MacTutor — Riemann</a> · <a href="https://www.maths.tcd.ie/pub/HistMath/People/Riemann/Geom/" target="_blank" rel="noopener">Bản dịch bài giảng 1854 (Clifford)</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1858: Möbius và dải một mặt</h2>
+          <div class="slide-badge-row"><span class="history-date">1858</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="{{i:mobius}}" alt="Mô hình dải Möbius" style="max-height:240px">
+              <figcaption class="caption">{{cap:mobius|Dải Möbius: bề mặt chỉ có một mặt và một cạnh}}</figcaption>
+            </figure>
+            <div>
+              <p>August Möbius và Johann Listing độc lập mô tả <strong>dải Möbius</strong>, năm 1858. Đây là ví dụ kinh điển về tính chất tô pô: dù kéo giãn hay uốn cong, dải vẫn chỉ có một mặt.</p>
+              <p>Tô pô nghiên cứu những tính chất <strong>không đổi</strong> dưới biến dạng liên tục.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Mobius/" target="_blank" rel="noopener">MacTutor — Möbius</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1895: Poincaré và Analysis Situs</h2>
+          <div class="slide-badge-row"><span class="history-date">1895</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:poincare|Henri Poincaré|1854–1912}}
+            </div>
+            <div>
+              <p>Henri Poincaré công bố <em>Analysis Situs</em>, đặt nền tảng cho <strong>tô pô đại số</strong>. Ông đưa ra các bất biến như <strong>nhóm cơ bản</strong> và <strong>số Betti</strong>, dùng đại số để phân biệt các hình dạng.</p>
+              <table class="sym-table">
+                <tbody>
+                  <tr><td>\(\beta_0\)</td><td>Số thành phần liên thông</td></tr>
+                  <tr><td>\(\beta_1\)</td><td>Số vòng (lỗ hổng một chiều)</td></tr>
+                  <tr><td>\(\beta_2\)</td><td>Số khoang rỗng</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/" target="_blank" rel="noopener">MacTutor — Poincaré</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Từ năm 2000: Topological Data Analysis</h2>
+          <div class="slide-badge-row"><span class="history-date">2000 – nay</span></div>
+          <table class="era-table xs">
+            <thead><tr><th>Năm</th><th>Công trình</th></tr></thead>
+            <tbody>
+              <tr><td>2002</td><td>Edelsbrunner, Letscher, Zomorodian: <em>Topological persistence and simplification</em>, định nghĩa persistent homology</td></tr>
+              <tr><td>2005</td><td>Zomorodian và Carlsson: thuật toán tính persistent homology</td></tr>
+              <tr><td>2009</td><td>Carlsson: <em>Topology and Data</em>, tổng quan nền tảng của TDA</td></tr>
+              <tr><td>Thập niên 2010</td><td>Thư viện mã nguồn mở như GUDHI đưa TDA vào thực hành</td></tr>
+            </tbody>
+          </table>
+          <div class="portrait-row two short" style="grid-template-columns:1fr 1fr">
+            {{pf:edelsbrunner|Herbert Edelsbrunner|Persistent homology}}
+            {{pf:carlsson|Gunnar Carlsson|Topological Data Analysis}}
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1007/s00454-002-2885-2" target="_blank" rel="noopener">Edelsbrunner et al., 2002</a> · <a href="https://doi.org/10.1007/s00454-004-1146-y" target="_blank" rel="noopener">Zomorodian &amp; Carlsson, 2005</a> · <a href="https://doi.org/10.1090/S0273-0979-09-01249-X" target="_blank" rel="noopener">Carlsson, 2009</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. Khoảng cách Euclid</h2>
+          <p>Nhóm khách hàng có hành vi tương tự nhau là nhóm các điểm gần nhau. Khoảng cách Euclid giữa hai điểm:</p>
+          <div class="formula">$$d(x,y)=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^2}$$</div>
+          <p style="margin:0.1em 0">Ví dụ hai khách hàng \(x=(2,3)\) và \(y=(5,7)\):</p>
+          <div class="formula sm">$$d(x,y)=\sqrt{(2-5)^2+(3-7)^2}=\sqrt{9+16}=5$$</div>
+          <div class="warn-box" style="font-size:0.66em"><span class="box-title">Lưu ý</span> Nếu các đặc trưng có thang đo khác nhau (tuổi, thu nhập), đặc trưng có giá trị lớn sẽ lấn át khoảng cách. Cần <strong>chuẩn hóa</strong> dữ liệu (ví dụ <code>StandardScaler</code>) trước khi tính.</div>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.euclidean_distances.html" target="_blank" rel="noopener">scikit-learn — euclidean_distances</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Khoảng cách Euclid bằng scikit-learn</h2>
+          <div class="code-split">
+            <div>{{code:euclid|cls=xs}}</div>
+            <div>
+              {{out:euclid|cls=sm}}
+              <div class="good-box" style="font-size:0.6em"><span class="box-title">Kiểm lại</span> Phần tử hàng 0, cột 1 bằng 5, trùng phép tính tay. Khách hàng gần khách hàng đầu tiên nhất là chỉ số 2, ở khoảng cách 1, vì <code>(2, 4)</code> sát <code>(2, 3)</code>.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Khoảng cách trong thực tế: KNN</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/euclid-customers.png" alt="Bốn khách hàng trên mặt phẳng, đoạn thẳng nối thể hiện khoảng cách" style="max-height:300px">
+              <figcaption class="caption">Bốn khách hàng của ví dụ. Hình do biên soạn.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="{{i:knn}}" alt="Minh họa phân loại k láng giềng gần nhất" style="max-height:260px">
+              <figcaption class="caption">{{cap:knn|k-NN: điểm cần phân loại lấy nhãn theo các láng giềng gần nhất}}</figcaption>
+            </figure>
+          </div>
+          <p style="font-size:0.62em">Khoảng cách là nền của k-NN, k-means, phân cụm phân cấp, DBSCAN và nhiều phương pháp tìm kiếm tương tự.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Persistent Homology: ý tưởng</h2>
+          <p>Cho một đám mây điểm, vẽ quanh mỗi điểm một quả cầu bán kính \(\varepsilon\) và tăng dần \(\varepsilon\). Hai điểm nối với nhau khi quả cầu chạm nhau.</p>
+          <div class="formula sm">$$\mathrm{Rips}_\varepsilon(X)=\{\sigma\subseteq X:\ d(x_i,x_j)\le\varepsilon\ \ \forall x_i,x_j\in\sigma\}$$</div>
+          <div class="step-row">
+            <div class="step"><b>1. Tăng \(\varepsilon\)</b>Các điểm lần lượt được nối thành cạnh, tam giác, bốn mặt…</div>
+            <div class="step"><b>2. Theo dõi đặc trưng</b>Thành phần liên thông (\(H_0\)) và vòng (\(H_1\)) xuất hiện rồi biến mất.</div>
+            <div class="step"><b>3. Ghi sinh – tử</b>Mỗi đặc trưng có cặp (birth, death) theo \(\varepsilon\).</div>
+            <div class="step hl"><b>4. Đọc độ bền</b>Đặc trưng sống lâu là cấu trúc thật, sống ngắn là nhiễu.</div>
+          </div>
+          <div class="formula sm">$$\mathrm{persistence}=\text{death}-\text{birth}$$</div>
+          <p class="source">Nguồn: <a href="https://gudhi.inria.fr/python/latest/rips_complex_user.html" target="_blank" rel="noopener">GUDHI — Rips complex</a> · <a href="https://doi.org/10.1007/s00454-002-2885-2" target="_blank" rel="noopener">Edelsbrunner et al., 2002</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Persistent Homology với GUDHI</h2>
+          <p style="font-size:0.7em;margin:0.1em 0">Cài đặt: <code>pip install gudhi</code>. Dữ liệu là 100 điểm nằm gần một đường tròn, có nhiễu \(\sigma=0{,}03\).</p>
+          <div class="code-split">
+            <div>{{code:persistent|cls=xs}}</div>
+            <div>
+              {{out:persistent|5|cls=sm}}
+              <div class="good-box" style="font-size:0.58em"><span class="box-title">Kiểm lại</span> Có đúng <strong>một</strong> vòng (\(H_1\)) sinh ra ở \(\varepsilon\approx0{,}14\) và tồn tại đến hết ngưỡng 1,0: dữ liệu có một lỗ hổng, đúng với đường tròn. Các thành phần \(H_0\) (tổng 100, trong đó 99 chết sớm, trước \(\varepsilon=0{,}14\)) là các điểm lẻ nhập vào nhau.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://gudhi.inria.fr/" target="_blank" rel="noopener">GUDHI — Geometry Understanding in Higher Dimensions, INRIA</a> · <a href="https://gudhi.inria.fr/python/latest/persistence_graphical_tools_user.html" target="_blank" rel="noopener">GUDHI — persistence graphical tools</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Biểu đồ persistence</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/persistence.png" alt="Biểu đồ persistence diagram và barcode của dữ liệu quanh đường tròn" style="max-height:300px">
+              <figcaption class="caption">Persistence diagram và barcode của dữ liệu ở slide trước. Hình do biên soạn bằng GUDHI.</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.78em">
+                <li>Điểm \(H_1\) nằm <strong>xa đường chéo</strong>: đặc trưng bền, tức vòng thật.</li>
+                <li>Các điểm \(H_0\) sát đường chéo hoặc thanh ngắn: nhiễu hoặc sự nhập cụm ban đầu.</li>
+              </ul>
+              <div class="warn-box" style="font-size:0.58em"><span class="box-title">Lưu ý</span> Chi phí tính toán tăng nhanh theo số điểm. Kết quả phụ thuộc ngưỡng <code>max_edge_length</code> và cách lấy mẫu. Việc diễn giải cần thận trọng.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Giả thuyết đa tạp</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/swiss-roll.png" alt="Dữ liệu Swiss roll ba chiều và dạng được trải phẳng hai chiều" style="max-height:290px">
+              <figcaption class="caption">Swiss roll: dữ liệu trong 3 chiều nhưng thực chất là một mặt 2 chiều cuộn lại. Hình do biên soạn bằng scikit-learn.</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.78em">
+                <li>Khoảng cách Euclid trong không gian gốc có thể gây hiểu lầm: hai điểm gần nhau trong 3 chiều có thể xa nhau dọc theo mặt cuộn.</li>
+                <li>Các phương pháp học đa tạp (Isomap, t-SNE, UMAP) cố giữ cấu trúc cục bộ khi giảm chiều.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/manifold.html" target="_blank" rel="noopener">scikit-learn — Manifold learning</a> · <a href="https://doi.org/10.1126/science.290.5500.2319" target="_blank" rel="noopener">Tenenbaum, de Silva &amp; Langford, <em>Science</em>, 2000</a>.</p>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: hình học và tô pô</h2>
+          <div class="kw-row">
+            <span class="kw">K-Nearest Neighbors</span><span class="kw">K-Means</span><span class="kw">DBSCAN</span><span class="kw">Manifold Learning</span><span class="kw">t-SNE / UMAP</span><span class="kw">Topological Data Analysis</span><span class="kw">Computer Vision</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn hiểu hình dạng và cấu trúc của dữ liệu.</div>
+        </section>
+      </section>

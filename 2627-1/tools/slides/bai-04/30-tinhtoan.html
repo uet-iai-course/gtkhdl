@@ -1,0 +1,234 @@
+
+      <section>
+        <section>
+          <h1><span class="text-light">8.</span><br>Toán học tính toán</h1>
+          <p class="text-light">Numerical Mathematics: sai số, xấp xỉ và tính toán hiệu quả</p>
+        </section>
+
+        <section class="fit">
+          <h2>Vì sao cần toán học tính toán?</h2>
+          <p>Máy tính không làm việc với số thực chính xác. Nó lưu số bằng một số hữu hạn bit, nên mọi phép tính đều có <strong>sai số làm tròn</strong>.</p>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="{{i:ieee754}}" alt="Cấu trúc số dấu phẩy động hai lần độ chính xác theo IEEE 754" style="max-height:130px">
+              <figcaption class="caption">{{cap:ieee754|Số dấu phẩy động 64 bit (IEEE 754): 1 bit dấu, 11 bit mũ, 52 bit phần định trị}}</figcaption>
+            </figure>
+            <div>
+              <pre class="demo-code sm"><code class="language-python" data-trim>
+print(0.1 + 0.2)
+print(0.1 + 0.2 == 0.3)
+</code></pre>
+              <pre class="result-out sm">0.30000000000000004
+False</pre>
+            </div>
+          </div>
+          <div class="key-box"><span class="box-title">Điểm mấu chốt</span> Với dữ liệu lớn, sai số nhỏ có thể tích lũy hoặc khuếch đại. Cần hiểu cách tính xấp xỉ và kiểm soát sai số.</div>
+          <p class="source">Nguồn: <a href="https://docs.python.org/3/tutorial/floatingpoint.html" target="_blank" rel="noopener">Python — Floating-Point Arithmetic: Issues and Limitations</a> · <a href="https://standards.ieee.org/ieee/754/6210/" target="_blank" rel="noopener">IEEE 754-2019</a>.</p>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian toán học tính toán</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của toán học tính toán">
+            <div class="timeline-event"><div class="timeline-date">Cổ đại</div><div class="timeline-dot"></div><div class="timeline-name">Số học xấp xỉ</div><div class="timeline-note">Bảng số Babylon, tính căn bậc hai</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XVII – XIX</div><div class="timeline-dot"></div><div class="timeline-name">Phương pháp số</div><div class="timeline-note">Newton, Euler, Gauss</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thập niên 1940</div><div class="timeline-dot"></div><div class="timeline-name">Máy tính điện tử</div><div class="timeline-note">ENIAC, von Neumann, Turing</div></div>
+            <div class="timeline-event"><div class="timeline-date">1950 – 1970</div><div class="timeline-dot"></div><div class="timeline-name">Phần mềm khoa học</div><div class="timeline-note">FORTRAN, giải tích số</div></div>
+            <div class="timeline-event"><div class="timeline-date">1990 – nay</div><div class="timeline-dot"></div><div class="timeline-name">Thư viện và GPU</div><div class="timeline-note">LAPACK, NumPy, SciPy, CUDA</div></div>
+          </div>
+          <p class="era-note">Các mốc là cột mốc tiêu biểu, không phải lịch sử đầy đủ của ngành.</p>
+          <p class="source">Nguồn tổng quan: <a href="https://www.siam.org/" target="_blank" rel="noopener">SIAM — Society for Industrial and Applied Mathematics</a> · <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_mathematics/" target="_blank" rel="noopener">MacTutor — Babylonian mathematics</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cổ đại: tính toán xấp xỉ</h2>
+          <div class="slide-badge-row"><span class="history-date">Khoảng 1800 TCN</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="{{i:plimpton}}" alt="Bảng đất sét Plimpton 322" style="max-height:230px">
+              <figcaption class="caption">{{cap:plimpton|Bảng đất sét Plimpton 322, bảng số của người Babylon}}</figcaption>
+            </figure>
+            <div>
+              <p>Người Babylon dùng hệ đếm lục thập phân và lập bảng số để tính toán. Họ cũng biết cách tính <strong>xấp xỉ căn bậc hai</strong> bằng phép lặp.</p>
+              <p>Ý tưởng “đoán một giá trị rồi cải thiện dần” này là nguồn gốc của phương pháp Newton, sẽ gặp lại ở cuối bài.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_mathematics/" target="_blank" rel="noopener">MacTutor — Babylonian mathematics</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Thập niên 1940: máy tính điện tử</h2>
+          <div class="slide-badge-row"><span class="history-date">1945 – 1948</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="{{i:eniac-beck}}" alt="Hai lập trình viên lập trình cho ENIAC" style="max-height:230px">
+              <figcaption class="caption">{{cap:eniac-beck|Glen Beck và Betty Snyder lập trình ENIAC tại Ballistic Research Laboratory}}</figcaption>
+            </figure>
+            <div>
+              <table class="era-table xs">
+                <thead><tr><th>Năm</th><th>Sự kiện</th></tr></thead>
+                <tbody>
+                  <tr><td>1945 – 1946</td><td>ENIAC bắt đầu chạy, dùng cho tính toán đạn đạo</td></tr>
+                  <tr><td>1947</td><td>von Neumann và Goldstine phân tích sai số khi nghịch đảo ma trận lớn</td></tr>
+                  <tr><td>1948</td><td>Turing nghiên cứu sai số làm tròn trong các phép biến đổi ma trận</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.seas.upenn.edu/about/history-heritage/eniac/" target="_blank" rel="noopener">Penn Engineering — ENIAC</a> · <a href="https://doi.org/10.1090/S0002-9904-1947-08909-6" target="_blank" rel="noopener">von Neumann &amp; Goldstine, <em>Numerical inverting of matrices of high order</em>, 1947</a> · <a href="https://doi.org/10.1093/qjmam/1.1.287" target="_blank" rel="noopener">Turing, <em>Rounding-off errors in matrix processes</em>, 1948</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1950 – 1970: FORTRAN và phần mềm khoa học</h2>
+          <div class="slide-badge-row"><span class="history-date">1950 – 1970</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="{{i:fortran-card}}" alt="Thẻ đục lỗ chứa một dòng mã FORTRAN" style="max-height:200px">
+              <figcaption class="caption">{{cap:fortran-card|Thẻ đục lỗ chứa mã FORTRAN}}</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.8em">
+                <li><strong>1957:</strong> IBM công bố FORTRAN, ngôn ngữ lập trình bậc cao đầu tiên được dùng rộng rãi cho tính toán khoa học.</li>
+                <li><strong>1960s:</strong> George Forsythe thúc đẩy giải tích số trở thành ngành độc lập, đồng sáng lập khoa Khoa học máy tính của Stanford.</li>
+                <li><strong>1962:</strong> Richard Hamming xuất bản <em>Numerical Methods for Scientists and Engineers</em>.</li>
+                <li><strong>1979:</strong> BLAS và LINPACK chuẩn hóa các phép đại số tuyến tính cơ bản.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.ibm.com/history/fortran" target="_blank" rel="noopener">IBM — FORTRAN</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Forsythe/" target="_blank" rel="noopener">MacTutor — Forsythe</a> · <a href="https://www.netlib.org/blas/" target="_blank" rel="noopener">Netlib — BLAS</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1990 – nay: LAPACK, NumPy, SciPy và GPU</h2>
+          <div class="slide-badge-row"><span class="history-date">1992 – nay</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="{{i:gpu}}" alt="Card đồ họa có GPU NVIDIA" style="max-height:200px">
+              <figcaption class="caption">{{cap:gpu|Card đồ họa có GPU. Từ 2007, CUDA cho phép dùng GPU tính toán tổng quát}}</figcaption>
+            </figure>
+            <div>
+              <table class="era-table xs">
+                <thead><tr><th>Mốc</th><th>Sự kiện</th></tr></thead>
+                <tbody>
+                  <tr><td>1992</td><td>LAPACK phát hành, thư viện đại số tuyến tính số chuẩn</td></tr>
+                  <tr><td>2001</td><td>SciPy ra đời</td></tr>
+                  <tr><td>2006</td><td>NumPy 1.0</td></tr>
+                  <tr><td>2007</td><td>NVIDIA công bố CUDA</td></tr>
+                </tbody>
+              </table>
+              <div class="kw-row"><span class="kw org">SIAM</span><span class="kw org">Netlib</span><span class="kw org">LAPACK</span><span class="kw org">NumPy / SciPy</span></div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.netlib.org/lapack/" target="_blank" rel="noopener">Netlib — LAPACK</a> · <a href="https://doi.org/10.1038/s41592-019-0686-2" target="_blank" rel="noopener">SciPy 1.0, <em>Nature Methods</em>, 2020</a> · <a href="https://doi.org/10.1038/s41586-020-2649-2" target="_blank" rel="noopener">Harris et al., <em>Array programming with NumPy</em>, <em>Nature</em>, 2020</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Những nhân vật tiêu biểu</h2>
+          <div class="portrait-row four tall">
+            {{pf:von-neumann|John von Neumann|1903–1957. Phân tích sai số số học}}
+            {{pf:turing|Alan Turing|1912–1954. Sai số làm tròn}}
+            {{pf:forsythe|George Forsythe|1917–1972. Giải tích số}}
+            {{pf:eniac-beck|ENIAC|Máy tính điện tử, 1945}}
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Von_Neumann/" target="_blank" rel="noopener">MacTutor — von Neumann</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Turing/" target="_blank" rel="noopener">MacTutor — Turing</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Forsythe/" target="_blank" rel="noopener">MacTutor — Forsythe</a>. Chưa tìm được ảnh chân dung Hamming có giấy phép mở.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. Đạo hàm xấp xỉ</h2>
+          <p>Nhiều hàm không có công thức đạo hàm sẵn, hoặc quá phức tạp. Có thể xấp xỉ bằng <strong>sai phân hữu hạn</strong>:</p>
+          <div class="formula">$$f'(x)\approx\frac{f(x+h)-f(x)}{h}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(h\)</td><td>Bước nhỏ. \(h\) nhỏ giảm sai số xấp xỉ, nhưng \(h\) quá nhỏ làm tăng sai số làm tròn</td></tr>
+              <tr><td>\(f(x)=x^2\)</td><td>Ví dụ: \(f'(3)=6\). Xấp xỉ với \(h=0{,}001\) cho \(\frac{(3{,}001)^2-9}{0{,}001}=6{,}001\)</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.62em">Khai triển Taylor cho thấy sai số xấp xỉ khoảng \(\tfrac{h}{2}f''(x)\), tức sai số tỉ lệ thuận với \(h\).</p>
+          <p class="source">Nguồn: <a href="https://en.wikipedia.org/wiki/Numerical_differentiation" target="_blank" rel="noopener">Numerical differentiation</a> · <a href="https://www.deeplearningbook.org/contents/numerical.html" target="_blank" rel="noopener">Goodfellow et al., <em>Deep Learning</em>, chương 4</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Đạo hàm xấp xỉ bằng Python</h2>
+          <div class="code-split even">
+            <div>{{code:finitediff|cls=sm}}</div>
+            <div>
+              {{out:finitediff}}
+              <div class="good-box" style="font-size:0.62em"><span class="box-title">Kiểm lại</span> Sai lệch \(6{,}001-6=0{,}001=h\), khớp với ước lượng sai số \(\tfrac{h}{2}f''=\tfrac{0{,}001}{2}\cdot2\) ở slide trước. Chữ số cuối sai khác nhẹ là sai số làm tròn.</div>
+            </div>
+          </div>
+          <p class="source">Ứng dụng: <em>gradient checking</em> so sánh gradient viết tay với gradient số khi kiểm tra cài đặt backpropagation.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Sai số và bước \(h\)</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/finite-diff-error.png" alt="Đồ thị log-log sai số của sai phân hữu hạn theo bước h" style="max-height:310px">
+              <figcaption class="caption">Sai số theo \(h\) (thang log-log). Hình do biên soạn.</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.8em">
+                <li>\(h\) lớn: sai số do xấp xỉ chiếm ưu thế, giảm khi \(h\) giảm.</li>
+                <li>\(h\) rất nhỏ: sai số làm tròn chiếm ưu thế và tăng trở lại.</li>
+                <li>Có một giá trị \(h\) tối ưu ở giữa, khoảng \(\sqrt{\varepsilon_{\text{máy}}}\approx10^{-8}\).</li>
+              </ul>
+              <div class="key-box" style="font-size:0.6em"><span class="box-title">Bài học</span> Càng chia nhỏ càng chính xác chưa chắc đúng trong tính toán số.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Phương pháp Newton tính căn bậc hai</h2>
+          <p>Tìm \(\sqrt{a}\) là tìm nghiệm của \(f(x)=x^2-a\). Phương pháp Newton lặp:</p>
+          <div class="formula sm">$$x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}=\frac12\left(x_n+\frac{a}{x_n}\right)$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(x_n\)</td><td>Giá trị xấp xỉ ở bước \(n\)</td></tr>
+              <tr><td>\(a\)</td><td>Số cần lấy căn, ví dụ \(a=10\)</td></tr>
+              <tr><td>\(f'(x)\)</td><td>Đạo hàm \(2x\): tiếp tuyến tại \(x_n\) cắt trục hoành ở \(x_{n+1}\)</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.62em">Ý tưởng hình học: thay đường cong bằng tiếp tuyến rồi lấy giao điểm của tiếp tuyến với trục hoành. Đây là cách máy tính tính căn bậc hai từ rất lâu và vẫn là nền tảng của nhiều thuật toán tối ưu bậc hai.</p>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_mathematics/" target="_blank" rel="noopener">MacTutor — Babylonian mathematics</a> · <a href="https://en.wikipedia.org/wiki/Newton%27s_method" target="_blank" rel="noopener">Newton’s method</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Phương pháp Newton bằng Python</h2>
+          <div class="code-split">
+            <div>{{code:newton|cls=sm}}</div>
+            <div>
+              {{out:newton|7|tail=1}}
+              <div class="good-box" style="font-size:0.62em"><span class="box-title">Kiểm lại</span> Sau 5 bước đã đúng 8 chữ số thập phân, sau 6 bước đạt độ chính xác máy. Số chữ số đúng gần như <strong>nhân đôi</strong> sau mỗi bước (hội tụ bậc hai). \(\sqrt{10}\approx3{,}16227766\).</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Tốc độ hội tụ</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/newton-sqrt.png" alt="Sai số của phương pháp Newton giảm rất nhanh theo số bước lặp" style="max-height:300px">
+              <figcaption class="caption">Sai số của \(x_n\) so với \(\sqrt{10}\) theo bước lặp. Hình do biên soạn.</figcaption>
+            </figure>
+            <div>
+              <table class="era-table xs">
+                <thead><tr><th>Bước</th><th>\(x_n\)</th><th>Sai số</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>5,5</td><td>2,34</td></tr>
+                  <tr><td>2</td><td>3,659</td><td>0,497</td></tr>
+                  <tr><td>3</td><td>3,196</td><td>0,034</td></tr>
+                  <tr><td>4</td><td>3,16246</td><td>1,8·10⁻⁴</td></tr>
+                  <tr><td>5</td><td>3,162277665</td><td>5·10⁻⁹</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: toán học tính toán</h2>
+          <div class="kw-row">
+            <span class="kw">Numerical Linear Algebra</span><span class="kw">Gradient Checking</span><span class="kw">Newton và Quasi-Newton</span><span class="kw">Mixed Precision</span><span class="kw">GPU Computing</span><span class="kw">Simulation</span><span class="kw">NumPy / SciPy</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi cần tính toán hiệu quả, xấp xỉ và kiểm soát sai số.</div>
+        </section>
+      </section>

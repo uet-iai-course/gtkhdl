@@ -1,0 +1,451 @@
+
+      <section>
+        <section>
+          <h1><span class="text-light">2.</span><br>Xác suất<br>và thống kê</h1>
+          <p class="text-light">Probability Theory &amp; Statistics</p>
+        </section>
+
+        <section>
+          <h2>Vì sao cần xác suất và thống kê?</h2>
+          <p>Một cửa hàng có 10.000 khách hàng. Cần trả lời:</p>
+          <ul>
+            <li>Khách hàng nào có khả năng mua hàng?</li>
+            <li>Tỷ lệ khách hàng quay lại mua hàng là bao nhiêu?</li>
+            <li>Doanh thu tháng sau có thể tăng hay giảm?</li>
+            <li>Một chiến dịch quảng cáo làm doanh thu tăng 10%: hiệu quả thật, hay chỉ là ngẫu nhiên?</li>
+            <li>Khảo sát 100 người thì kết luận được gì về 10.000 khách hàng?</li>
+          </ul>
+          <div class="key-box"><span class="box-title">Nhận xét</span> Đây chính là những vấn đề mà xác suất và thống kê giải quyết.</div>
+        </section>
+
+        <section>
+          <h2>Phân biệt xác suất và thống kê</h2>
+          <table class="era-table big">
+            <thead><tr><th>Xác suất (Probability)</th><th>Thống kê (Statistics)</th></tr></thead>
+            <tbody>
+              <tr><td>Biết quy luật, tính khả năng xảy ra</td><td>Có dữ liệu, suy luận về quy luật</td></tr>
+              <tr><td>Từ mô hình đến dữ liệu</td><td>Từ dữ liệu đến mô hình</td></tr>
+              <tr><td>Ví dụ: xác suất tung đồng xu ra mặt ngửa</td><td>Ví dụ: đồng xu có thực sự cân bằng không?</td></tr>
+            </tbody>
+          </table>
+          <div class="two-col" style="margin-top:0.6em">
+            <figure class="fig">
+              <img src="img/lec01/math-normal.png" alt="Bốn đường phân phối chuẩn, khác trung bình và phương sai" style="max-height:200px">
+              <figcaption class="caption">Phân phối chuẩn: một mô hình xác suất. Wikimedia, CC BY-SA 3.0.</figcaption>
+            </figure>
+            <div class="card-plain sm">Cùng một đồng xu: xác suất cho biết nếu nó cân bằng thì 10 lần tung thường ra mấy mặt ngửa. Thống kê nhìn 10 kết quả đã có để hỏi liệu đồng xu có cân bằng hay không.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian xác suất và thống kê</h2>
+          <div class="history-timeline seven" aria-label="Bảy mốc của xác suất và thống kê">
+            <div class="timeline-event"><div class="timeline-date">1654</div><div class="timeline-dot"></div><div class="timeline-name">Xác suất ra đời</div><div class="timeline-note">Pascal và Fermat trao đổi thư</div></div>
+            <div class="timeline-event"><div class="timeline-date">1713</div><div class="timeline-dot"></div><div class="timeline-name">Luật số lớn</div><div class="timeline-note">Bernoulli, <em>Ars Conjectandi</em></div></div>
+            <div class="timeline-event"><div class="timeline-date">1763</div><div class="timeline-dot"></div><div class="timeline-name">Định lý Bayes</div><div class="timeline-note">Price công bố bài của Bayes</div></div>
+            <div class="timeline-event"><div class="timeline-date">1805 – 1812</div><div class="timeline-dot"></div><div class="timeline-name">Bình phương tối thiểu</div><div class="timeline-note">Legendre, Gauss, Laplace</div></div>
+            <div class="timeline-event"><div class="timeline-date">Cuối XIX – đầu XX</div><div class="timeline-dot"></div><div class="timeline-name">Thống kê hiện đại</div><div class="timeline-note">Galton, Pearson, Gosset, Fisher</div></div>
+            <div class="timeline-event"><div class="timeline-date">1933</div><div class="timeline-dot"></div><div class="timeline-name">Tiên đề xác suất</div><div class="timeline-note">Kolmogorov</div></div>
+            <div class="timeline-event"><div class="timeline-date">Cuối XX – nay</div><div class="timeline-dot"></div><div class="timeline-name">Thống kê tính toán</div><div class="timeline-note">Bootstrap, MCMC, học máy</div></div>
+          </div>
+          <p class="era-note">Các mốc là cột mốc tiêu biểu, không phải lịch sử đầy đủ của ngành.</p>
+          <p class="source">Nguồn tổng quan: <a href="https://www.hup.harvard.edu/books/9780674403413" target="_blank" rel="noopener">Stephen Stigler, <em>The History of Statistics</em>, Harvard University Press, 1986</a> · <a href="https://www.isi-web.org/" target="_blank" rel="noopener">International Statistical Institute</a>.</p>
+        </section>
+
+        <section>
+          <h2>Thế kỷ XVII: sự ra đời của xác suất</h2>
+          <div class="slide-badge-row"><span class="history-date">1654</span></div>
+          <div class="portrait-row two short">
+            <figure>
+              <img src="img/lec01/pascal.jpg" alt="Chân dung Blaise Pascal">
+              <figcaption><b>Blaise Pascal</b>Phạm vi công cộng, Wikimedia</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec01/fermat.jpg" alt="Chân dung thường được gắn với Pierre de Fermat">
+              <figcaption><b>Pierre de Fermat</b>Chân dung truyền thống</figcaption>
+            </figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr><td>1654</td><td>Blaise Pascal và Pierre de Fermat trao đổi thư từ về bài toán chia tiền cược khi trò chơi bị gián đoạn</td><td>Một trong những cột mốc quan trọng của xác suất hiện đại: lập luận có hệ thống về bất định</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Pascal/" target="_blank" rel="noopener">MacTutor — Pascal</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Fermat/" target="_blank" rel="noopener">MacTutor — Fermat</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Luật số lớn của Bernoulli</h2>
+          <div class="slide-badge-row"><span class="history-date">1713</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two short" style="grid-template-columns:1fr 1fr">
+              {{pf:bernoulli|Jakob Bernoulli|1654–1705}}
+              {{pf:ars-conjectandi|<em>Ars Conjectandi</em>|Bản in 1713}}
+            </div>
+            <div>
+              <p>Jakob Bernoulli công bố <em>Ars Conjectandi</em>. Công trình đặt nền tảng cho <strong>luật số lớn</strong>: khi số lần thử đủ lớn, tần suất quan sát có xu hướng tiến gần xác suất lý thuyết.</p>
+              <div class="formula sm">$$\frac{S_n}{n}\;\longrightarrow\;p\quad\text{khi } n\to\infty$$</div>
+              <p style="font-size:0.62em">\(S_n\): số lần xảy ra biến cố sau \(n\) lần thử độc lập. \(p\): xác suất lý thuyết của biến cố.</p>
+            </div>
+          </div>
+          <figure class="fig">
+            <img src="img/lec03/lln-coin.png" alt="Tần suất mặt ngửa của 5000 lần tung đồng xu tiến gần 0,5" style="max-height:170px">
+            <figcaption class="caption">Mô phỏng 5.000 lần tung đồng xu (hạt giống ngẫu nhiên 42). Hình do biên soạn tạo bằng Matplotlib.</figcaption>
+          </figure>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Bernoulli_Jacob/" target="_blank" rel="noopener">MacTutor — Jakob Bernoulli</a>. Ngày xuất bản 1713, sau khi tác giả qua đời.</p>
+        </section>
+
+        <section>
+          <h2>Định lý Bayes ra đời</h2>
+          <div class="slide-badge-row"><span class="history-date">1763</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:bayes|Thomas Bayes|1701–1761. Chân dung thường dùng, chưa được xác thực}}
+            </div>
+            <div>
+              <p>Công trình của <strong>Thomas Bayes</strong> được <strong>Richard Price</strong> công bố sau khi Bayes qua đời. Đây là nền móng của <strong>thống kê Bayes</strong>.</p>
+              <div class="key-box"><span class="box-title">Ý nghĩa</span> Niềm tin về một giả thuyết được cập nhật khi có dữ liệu mới. Công thức tường minh ở phần ứng dụng 1.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1098/rstl.1763.0053" target="_blank" rel="noopener">Bayes, <em>An Essay towards solving a Problem in the Doctrine of Chances</em>, Philosophical Transactions, 1763</a>. Không có chân dung nào được xác thực là Bayes.</p>
+        </section>
+
+        <section>
+          <h2>Bình phương tối thiểu và xác suất giải tích</h2>
+          <div class="slide-badge-row"><span class="history-date">1805 – 1812</span></div>
+          <div class="portrait-row">
+            {{pf:legendre|Adrien-Marie Legendre|Tranh biếm họa của Boilly, hình duy nhất được biết}}
+            <figure>
+              <img src="img/lec01/gauss.jpg" alt="Chân dung Carl Friedrich Gauss">
+              <figcaption><b>Carl Friedrich Gauss</b>Phạm vi công cộng</figcaption>
+            </figure>
+            {{pf:laplace|Pierre-Simon Laplace|Tranh của Guérin}}
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr><td>1805</td><td>Legendre công bố phương pháp bình phương tối thiểu</td><td>Chọn tham số làm tổng bình phương sai số nhỏ nhất</td></tr>
+              <tr><td>1809</td><td>Gauss công bố công trình liên quan</td><td>Gắn bình phương tối thiểu với phân phối sai số</td></tr>
+              <tr><td>1812</td><td>Laplace phát triển lý thuyết xác suất trong <em>Théorie analytique des probabilités</em></td><td>Xác suất trở thành một ngành giải tích</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Legendre/" target="_blank" rel="noopener">MacTutor — Legendre</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Gauss/" target="_blank" rel="noopener">MacTutor — Gauss</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Laplace/" target="_blank" rel="noopener">MacTutor — Laplace</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Thống kê hiện đại</h2>
+          <div class="slide-badge-row"><span class="history-date">Cuối thế kỷ XIX – đầu thế kỷ XX</span></div>
+          <div class="portrait-row four">
+            {{pf:galton|Francis Galton|1822–1911}}
+            <figure>
+              <img src="img/lec01/pearson.jpg" alt="Karl Pearson tại bàn làm việc, khoảng 1910">
+              <figcaption><b>Karl Pearson</b>Khoảng 1910. Phạm vi công cộng</figcaption>
+            </figure>
+            {{pf:gosset|William Gosset|“Student”}}
+            {{pf:fisher|Ronald Fisher|Thời trẻ}}
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Nhà khoa học</th><th>Đóng góp</th></tr></thead>
+            <tbody>
+              <tr><td>Francis Galton</td><td>Phát triển các khái niệm tương quan và hồi quy</td></tr>
+              <tr><td>Karl Pearson</td><td>Phát triển kiểm định Chi-square (1900)</td></tr>
+              <tr><td>William Gosset</td><td>Giới thiệu phân phối t (1908), xuất bản dưới bút danh “Student”</td></tr>
+              <tr><td>Ronald Fisher</td><td>Phát triển mạnh suy luận thống kê, likelihood và ANOVA</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Galton/" target="_blank" rel="noopener">MacTutor — Galton</a> · <a href="https://doi.org/10.1080/14786440009463897" target="_blank" rel="noopener">Pearson, 1900</a> · <a href="https://doi.org/10.2307/2331554" target="_blank" rel="noopener">Student, 1908, Biometrika</a> · <a href="https://en.wikipedia.org/wiki/The_Design_of_Experiments" target="_blank" rel="noopener">Fisher, <em>The Design of Experiments</em>, 1935</a>.</p>
+        </section>
+
+        <section>
+          <h2>Nền tảng tiên đề của xác suất</h2>
+          <div class="slide-badge-row"><span class="history-date">1933</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:kolmogorov|Andrey Kolmogorov|1903–1987}}
+            </div>
+            <div>
+              <p>Andrey Kolmogorov đưa ra <strong>hệ tiên đề hiện đại</strong> cho xác suất, tạo nền tảng toán học chặt chẽ cho lý thuyết xác suất.</p>
+              <div class="formula sm">$$P(A)\ge 0,\qquad P(\Omega)=1,\qquad P\Big(\bigcup_{i=1}^{\infty}A_i\Big)=\sum_{i=1}^{\infty}P(A_i)$$</div>
+              <p style="font-size:0.55em">Với các biến cố \(A_i\) đôi một xung khắc. \(\Omega\): không gian mẫu. Ba tiên đề: không âm, chuẩn hóa, cộng tính đếm được.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Kolmogorov/" target="_blank" rel="noopener">MacTutor — Kolmogorov</a> · <a href="https://doi.org/10.1007/978-3-642-49888-6" target="_blank" rel="noopener">Kolmogorov, <em>Grundbegriffe der Wahrscheinlichkeitsrechnung</em>, 1933</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Thống kê tính toán và Machine Learning</h2>
+          <div class="slide-badge-row"><span class="history-date">Cuối thế kỷ XX đến nay</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:efron|Bradley Efron|Người đề xuất bootstrap}}
+            </div>
+            <div>
+              <p>Bootstrap, MCMC, mô hình Bayes phân cấp, thống kê phi tham số và học máy đã mở rộng đáng kể khả năng phân tích dữ liệu.</p>
+              <ul style="font-size:0.78em">
+                <li><strong>Bootstrap</strong> — Efron, 1979: ước lượng độ bất định bằng cách lấy mẫu lại.</li>
+                <li><strong>MCMC</strong> — Metropolis và cộng sự, 1953; Hastings, 1970; Gelfand và Smith, 1990: lấy mẫu từ phân phối khó tính trực tiếp.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1214/aos/1176344552" target="_blank" rel="noopener">Efron, 1979, Annals of Statistics</a> · <a href="https://doi.org/10.1063/1.1699114" target="_blank" rel="noopener">Metropolis et al., 1953</a> · <a href="https://doi.org/10.1093/biomet/57.1.97" target="_blank" rel="noopener">Hastings, 1970</a> · <a href="https://doi.org/10.1080/01621459.1990.10476213" target="_blank" rel="noopener">Gelfand &amp; Smith, 1990</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Những nhà khoa học tiêu biểu</h2>
+          <div class="portrait-row five">
+            {{pf:bayes|Thomas Bayes|1701–1761. Nền tảng của suy luận Bayes: cập nhật niềm tin khi có bằng chứng mới}}
+            <figure>
+              <img src="img/lec01/gauss.jpg" alt="Chân dung Carl Friedrich Gauss">
+              <figcaption><b>Carl Friedrich Gauss</b>1777–1855. Phân phối chuẩn, bình phương tối thiểu và lý thuyết sai số</figcaption>
+            </figure>
+            {{pf:fisher|Ronald Fisher|1890–1962. Likelihood, ANOVA, thiết kế thí nghiệm và suy luận thống kê}}
+            <figure>
+              <img src="img/lec01/nightingale.jpg" alt="Ảnh Florence Nightingale">
+              <figcaption><b>Florence Nightingale</b>1820–1910. Tiên phong dùng thống kê và trực quan hóa dữ liệu để cải thiện y tế công cộng. Ảnh H. Lenthall, phạm vi công cộng</figcaption>
+            </figure>
+            {{pf:kolmogorov|Andrey Kolmogorov|1903–1987. Đặt nền tảng tiên đề cho xác suất hiện đại}}
+          </div>
+          <p class="source">Nguồn: <a href="https://www.sciencemuseum.org.uk/objects-and-stories/florence-nightingale" target="_blank" rel="noopener">Science Museum — Florence Nightingale</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Fisher/" target="_blank" rel="noopener">MacTutor — Fisher</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Gauss/" target="_blank" rel="noopener">MacTutor — Gauss</a>.</p>
+        </section>
+
+        <section>
+          <h2>Tổ chức và cộng đồng nổi bật</h2>
+          <table class="era-table big">
+            <thead><tr><th>Tổ chức</th><th>Vai trò</th><th>Thành lập</th></tr></thead>
+            <tbody>
+              <tr><td><a href="https://www.isi-web.org/" target="_blank" rel="noopener">International Statistical Institute (ISI)</a></td><td>Cộng đồng thống kê quốc tế</td><td>1885</td></tr>
+              <tr><td><a href="https://www.amstat.org/" target="_blank" rel="noopener">American Statistical Association (ASA)</a></td><td>Tổ chức nghề nghiệp và học thuật về thống kê</td><td>1839</td></tr>
+              <tr><td><a href="https://rss.org.uk/" target="_blank" rel="noopener">Royal Statistical Society (RSS)</a></td><td>Một trong những hội thống kê lâu đời nhất</td><td>1834</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Năm thành lập theo thông tin giới thiệu của từng tổ chức (trang chủ): <a href="https://www.isi-web.org/" target="_blank" rel="noopener">ISI</a> · <a href="https://www.amstat.org/" target="_blank" rel="noopener">ASA</a> · <a href="https://rss.org.uk/about/history/" target="_blank" rel="noopener">RSS</a>.</p>
+        </section>
+
+        <section>
+          <h2>Ứng dụng 1. Khách hàng có mua hay không?</h2>
+          <p>Giả sử có 100 khách hàng: 20 người mua hàng, 80 người không mua.</p>
+          <p>Chọn ngẫu nhiên một người, xác suất người đó mua hàng là:</p>
+          <div class="formula lg">$$P(\text{Mua})=\frac{20}{100}=0{,}2$$</div>
+          <p>Tức 20%.</p>
+          <div class="key-box"><span class="box-title">Câu hỏi</span> Nếu biết người đó đã thêm sản phẩm vào giỏ hàng, xác suất mua có thể cao hơn. Cần dùng <strong>xác suất có điều kiện</strong>.</div>
+        </section>
+
+        <section>
+          <h2>Định lý Bayes</h2>
+          <div class="formula lg">$$P(A\mid B)=\frac{P(B\mid A)\,P(A)}{P(B)}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(A\)</td><td>Khách hàng thực sự mua hàng</td></tr>
+              <tr><td>\(B\)</td><td>Khách hàng thêm sản phẩm vào giỏ</td></tr>
+              <tr><td>\(P(A)\)</td><td>Xác suất mua hàng ban đầu</td></tr>
+              <tr><td>\(P(B\mid A)\)</td><td>Xác suất người mua đã thêm vào giỏ</td></tr>
+              <tr><td>\(P(B)\)</td><td>Xác suất một khách bất kỳ thêm vào giỏ</td></tr>
+              <tr><td>\(P(A\mid B)\)</td><td>Xác suất mua hàng khi biết khách đã thêm vào giỏ</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: Wasserman, <em>All of Statistics</em>, Springer, 2004, chương 1 · <a href="https://doi.org/10.1098/rstl.1763.0053" target="_blank" rel="noopener">Bayes, 1763</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Tính ví dụ bằng Bayes</h2>
+          <div class="two-col two-col--wide-right">
+            <div>
+              <ul>
+                <li>20% khách hàng mua hàng: \(P(A)=0{,}2\).</li>
+                <li>80% người mua hàng đã thêm vào giỏ: \(P(B\mid A)=0{,}8\).</li>
+                <li>30% toàn bộ khách hàng đã thêm vào giỏ: \(P(B)=0{,}3\).</li>
+              </ul>
+              <div class="formula sm">$$P(A\mid B)=\frac{0{,}8\times 0{,}2}{0{,}3}=0{,}5333$$</div>
+              <div class="key-box"><span class="box-title">Diễn giải</span> Khi biết khách đã thêm sản phẩm vào giỏ, khả năng họ mua hàng tăng từ <strong>20%</strong> lên <strong>53,33%</strong>.</div>
+            </div>
+            <figure class="fig">
+              <img src="img/lec03/bayes-100-khach.png" alt="Lưới 100 khách hàng chia thành bốn nhóm theo mua và thêm giỏ" style="max-height:290px">
+              <figcaption class="caption">Cùng ví dụ nhìn bằng 100 khách: 16 / (16 + 14) = 53,33%. Hình do biên soạn.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mã Python: suy luận Bayes</h2>
+          {{code:bayes}}
+          {{out:bayes}}
+          <div class="good-box"><span class="box-title">Kiểm lại</span> In đúng <span class="inline-code">53.33%</span>, khớp phép tính tay \(0{,}8\times0{,}2/0{,}3\).</div>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Naive Bayes: dữ liệu</h2>
+          <p style="font-size:0.7em;margin:0.1em 0">Ứng dụng 1 chỉ dùng <strong>một</strong> dấu hiệu (thêm vào giỏ). Thực tế có nhiều dấu hiệu cùng lúc. Dữ liệu mô phỏng 10 khách hàng:</p>
+          <table class="era-table xs">
+            <thead><tr><th>No.</th><th>Age</th><th>Student</th><th>Income</th><th>Credit</th><th>Buys</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Young</td><td>Yes</td><td>High</td><td>Fair</td><td>No</td></tr>
+              <tr><td>2</td><td>Senior</td><td>No</td><td>High</td><td>Excellent</td><td>Yes</td></tr>
+              <tr><td>3</td><td>Middle</td><td>Yes</td><td>Medium</td><td>Fair</td><td>Yes</td></tr>
+              <tr><td>4</td><td>Young</td><td>Yes</td><td>Low</td><td>Fair</td><td>No</td></tr>
+              <tr><td>5</td><td>Middle</td><td>Yes</td><td>Low</td><td>Excellent</td><td>Yes</td></tr>
+              <tr><td>6</td><td>Senior</td><td>No</td><td>Medium</td><td>Excellent</td><td>No</td></tr>
+              <tr><td>7</td><td>Young</td><td>No</td><td>Medium</td><td>Excellent</td><td>Yes</td></tr>
+              <tr><td>8</td><td>Young</td><td>Yes</td><td>Medium</td><td>Fair</td><td>Yes</td></tr>
+              <tr><td>9</td><td>Middle</td><td>Yes</td><td>High</td><td>Excellent</td><td>Yes</td></tr>
+              <tr><td>10</td><td>Senior</td><td>No</td><td>Low</td><td>Fair</td><td>No</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box" style="font-size:0.66em"><span class="box-title">Câu hỏi</span> Khách hàng mới: <strong>Age = Young, Student = Yes, Income = Medium, Credit = Fair</strong>. Khả năng người này mua hàng (Buys = Yes) là bao nhiêu? Dữ liệu có 6 người mua và 4 người không mua.</div>
+          <p class="source">Dữ liệu mô phỏng, dùng cho mục đích minh họa. Nhãn cần dự đoán là cột Buys (khách hàng có mua hay không).</p>
+        </section>
+
+        <section class="fit">
+          <h2>Naive Bayes: công thức</h2>
+          <p style="margin:0.1em 0">Mở rộng định lý Bayes cho nhiều đặc trưng \(x_1,\dots,x_n\) và lớp \(C\):</p>
+          <div class="formula sm">$$P(C\mid x_1,\dots,x_n)=\frac{P(C)\,P(x_1,\dots,x_n\mid C)}{P(x_1,\dots,x_n)}$$</div>
+          <p style="margin:0.1em 0">Giả định “ngây thơ” (naive): các đặc trưng <strong>độc lập có điều kiện</strong> khi biết lớp:</p>
+          <div class="formula sm">$$P(C\mid x_1,\dots,x_n)\;\propto\;P(C)\prod_{i=1}^{n}P(x_i\mid C)\qquad\hat C=\arg\max_{C}\;P(C)\prod_{i=1}^{n}P(x_i\mid C)$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(P(C)\)</td><td>Xác suất tiên nghiệm của lớp: tỉ lệ người mua (hoặc không mua) trong dữ liệu</td></tr>
+              <tr><td>\(P(x_i\mid C)\)</td><td>Tỉ lệ khách có giá trị \(x_i\) trong nhóm lớp \(C\)</td></tr>
+              <tr><td>\(\propto\)</td><td>Tỉ lệ thuận: mẫu số \(P(x_1,\dots,x_n)\) như nhau cho mọi lớp nên chỉ cần so sánh tử số</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.58em;margin:0.1em 0">Làm trơn Laplace khi một tổ hợp chưa từng xuất hiện (tránh xác suất 0): \(P(x_i\mid C)=\dfrac{N_{x_i,C}+\alpha}{N_C+\alpha k}\), với \(k\) là số giá trị khả dĩ của đặc trưng.</p>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/naive_bayes.html" target="_blank" rel="noopener">scikit-learn — Naive Bayes</a> · Manning, Raghavan &amp; Schütze, <a href="https://nlp.stanford.edu/IR-book/html/htmledition/naive-bayes-text-classification-1.html" target="_blank" rel="noopener"><em>Introduction to Information Retrieval</em>, chương 13</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Naive Bayes: tính tay</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Thành phần</th><th>Buys = Yes (6 người)</th><th>Buys = No (4 người)</th></tr></thead>
+            <tbody>
+              <tr><td>\(P(C)\)</td><td>6/10 = 0,6</td><td>4/10 = 0,4</td></tr>
+              <tr><td>\(P(\text{Young}\mid C)\)</td><td>2/6</td><td>2/4</td></tr>
+              <tr><td>\(P(\text{Student}=\text{Yes}\mid C)\)</td><td>4/6</td><td>2/4</td></tr>
+              <tr><td>\(P(\text{Medium}\mid C)\)</td><td>3/6</td><td>1/4</td></tr>
+              <tr><td>\(P(\text{Fair}\mid C)\)</td><td>2/6</td><td>3/4</td></tr>
+              <tr><td><strong>Điểm \(P(C)\prod P(x_i\mid C)\)</strong></td><td><strong>0,6 × 48/1296 ≈ 0,02222</strong></td><td><strong>0,4 × 12/256 ≈ 0,01875</strong></td></tr>
+            </tbody>
+          </table>
+          <div class="formula sm">$$P(\text{Yes}\mid x)=\frac{0{,}02222}{0{,}02222+0{,}01875}\approx0{,}5424\qquad P(\text{No}\mid x)\approx0{,}4576$$</div>
+          <div class="key-box" style="font-size:0.66em"><span class="box-title">Kết luận</span> Điểm của Yes lớn hơn, nên dự đoán <strong>khách hàng sẽ mua</strong>, với xác suất khoảng <strong>54,24%</strong>. Kết quả sát ngưỡng 50%, do dữ liệu chỉ có 10 mẫu.</div>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: Naive Bayes tự cài đặt</h2>
+          <p style="font-size:0.62em;margin:0.1em 0">Cần thêm thư viện: <code>pip install pandas scikit-learn</code>.</p>
+          <div class="code-split">
+            <div>{{code:naivebayes|1-19|cls=xs}}</div>
+            <div>
+              {{code:naivebayes|21-31|cls=xs}}
+              {{out:naivebayes|1-2|cls=sm}}
+              <div class="good-box" style="font-size:0.56em"><span class="box-title">Kiểm lại</span> Điểm 0,02222 và 0,01875, xác suất 54,24% và 45,76%: khớp bảng tính tay ở slide trước.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html" target="_blank" rel="noopener">pandas — DataFrame.groupby</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: đối chiếu với scikit-learn</h2>
+          <div class="code-split even">
+            <div>{{code:naivebayes|33-47|cls=xs}}</div>
+            <div>
+              {{out:naivebayes|3-4|cls=sm}}
+              <div class="good-box" style="font-size:0.58em"><span class="box-title">Kiểm lại</span> Với \(\alpha\approx0\) (gần như không làm trơn), <code>CategoricalNB</code> cho đúng 0,4576 và 0,5424 như tay. Với \(\alpha=1\) (mặc định, làm trơn Laplace) kết quả là 0,4394 và 0,5606: xác suất đổi nhẹ nhưng dự đoán vẫn là <strong>Yes</strong>.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.CategoricalNB.html" target="_blank" rel="noopener">scikit-learn — CategoricalNB</a> · <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank" rel="noopener">OrdinalEncoder</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Naive Bayes: ưu điểm và giới hạn</h2>
+          <div class="two-col">
+            <div class="good-box" style="font-size:0.7em"><span class="box-title">Ưu điểm</span>
+              <ul>
+                <li>Huấn luyện chỉ là đếm tần suất, rất nhanh.</li>
+                <li>Hoạt động tốt với ít dữ liệu và nhiều đặc trưng.</li>
+                <li>Cho xác suất, dễ giải thích từng đóng góp \(P(x_i\mid C)\).</li>
+              </ul>
+            </div>
+            <div class="warn-box" style="font-size:0.7em"><span class="box-title">Giới hạn</span>
+              <ul>
+                <li>Giả định độc lập hiếm khi đúng: tuổi và thu nhập thường tương quan.</li>
+                <li>Xác suất đầu ra thường kém hiệu chuẩn, dùng để xếp hạng tốt hơn để đọc tuyệt đối.</li>
+                <li>Cần làm trơn khi có tổ hợp chưa từng thấy.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="kw-row"><span class="kw">Lọc thư rác</span><span class="kw">Phân loại văn bản</span><span class="kw">GaussianNB</span><span class="kw">MultinomialNB</span><span class="kw">CategoricalNB</span></div>
+          <p class="source">Trong khi tích nhiều xác suất nhỏ, mã thực tế thường cộng logarit xác suất để tránh tràn số dưới: \(\log P(C)+\sum_i\log P(x_i\mid C)\).</p>
+        </section>
+
+        <section>
+          <h2>Ứng dụng 3. Quảng cáo có thực sự hiệu quả?</h2>
+          <p>Trước quảng cáo, tỷ lệ chuyển đổi là 5%. Sau quảng cáo, tỷ lệ này là 6%.</p>
+          <p>Sự khác biệt là thật, hay chỉ là ngẫu nhiên? Đây là bài toán <strong>Statistical Hypothesis Testing</strong> và <strong>A/B Testing</strong>.</p>
+          <div class="formula sm">$$H_0:\;p_A=p_B\qquad\qquad H_1:\;p_A\ne p_B$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(H_0\)</td><td>Giả thuyết không: quảng cáo không tạo ra sự khác biệt</td></tr>
+              <tr><td>\(H_1\)</td><td>Giả thuyết đối: quảng cáo tạo ra sự khác biệt</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: Kohavi, Tang &amp; Xu, <a href="https://experimentguide.com/" target="_blank" rel="noopener"><em>Trustworthy Online Controlled Experiments</em></a>, Cambridge University Press, 2020.</p>
+        </section>
+
+        <section>
+          <h2>Thống kê kiểm định z cho hai tỷ lệ</h2>
+          <p>Với hai tỷ lệ độc lập, thống kê kiểm định:</p>
+          <div class="formula lg">$$z=\frac{\hat p_B-\hat p_A}{\sqrt{\hat p\,(1-\hat p)\left(\dfrac{1}{n_A}+\dfrac{1}{n_B}\right)}}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(\hat p_A,\hat p_B\)</td><td>Tỷ lệ chuyển đổi quan sát của nhóm A và nhóm B</td></tr>
+              <tr><td>\(n_A,n_B\)</td><td>Cỡ mẫu của hai nhóm</td></tr>
+              <tr><td>\(\hat p\)</td><td>Tỷ lệ chuyển đổi gộp của hai nhóm: \(\hat p=\dfrac{x_A+x_B}{n_A+n_B}\)</td></tr>
+              <tr><td>p-value</td><td>\(2\,\Pr(Z\ge |z|)\) với \(Z\sim N(0,1)\). Nhỏ hơn 0,05 thì có bằng chứng về sự khác biệt</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html" target="_blank" rel="noopener">SciPy — scipy.stats.norm</a> · Wasserman, <em>All of Statistics</em>, chương 10.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: kiểm định, phần 1 — dữ liệu và sai số chuẩn</h2>
+          <p>Nhóm A: 500 người, 25 người mua. Nhóm B: 500 người, 30 người mua.</p>
+          {{code:abtest|1-17}}
+          <p class="source">Phần 2 tính z, p-value và đưa ra kết luận.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: kiểm định, phần 2 — kết quả</h2>
+          <div class="code-split">
+            <div>{{code:abtest|19-30}}</div>
+            <div>{{out:abtest}}
+              <div class="good-box" style="font-size:0.7em"><span class="box-title">Kiểm lại</span> \(\hat p=55/1000=0{,}055\). Sai số chuẩn \(=\sqrt{0{,}055\cdot0{,}945\cdot0{,}004}\approx0{,}0144\). \(z=0{,}01/0{,}0144\approx0{,}694\).</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Đọc kết quả A/B testing</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec03/ab-test-z.png" alt="Phân phối chuẩn với z quan sát 0,694 nằm trong vùng không bác bỏ" style="max-height:260px">
+              <figcaption class="caption">\(z=0{,}694\) nằm xa ngưỡng \(\pm1{,}96\). p-value = 0,488. Hình do biên soạn.</figcaption>
+            </figure>
+            <div>
+              <p>5% lên 6% chưa đủ bằng chứng ở cỡ mẫu 500 mỗi nhóm.</p>
+              <ul>
+                <li>Không đủ bằng chứng thống kê <strong>không đồng nghĩa</strong> hai chiến dịch chắc chắn giống nhau.</li>
+                <li>Cần xem cỡ mẫu, cách phân nhóm và ảnh hưởng thực tế của mức tăng.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="warn-box"><span class="box-title">Lưu ý</span> Một thử nghiệm tốt còn phải xem xét cỡ mẫu, cách phân nhóm ngẫu nhiên và ảnh hưởng thực tế của mức tăng, không chỉ p-value.</div>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: xác suất và thống kê</h2>
+          <div class="kw-row">
+            <span class="kw">Logistic Regression</span><span class="kw">Naive Bayes</span><span class="kw">Bayesian Networks</span><span class="kw">A/B Testing</span><span class="kw">Time Series Forecasting</span><span class="kw">Anomaly Detection</span><span class="kw">Recommendation Systems</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn hiểu dữ liệu và sự bất định.</div>
+          <p class="source">Bài tập: đổi số trong ví dụ A/B (ví dụ 5.000 người mỗi nhóm, cùng tỷ lệ 5% và 6%) và quan sát p-value thay đổi thế nào.</p>
+        </section>
+      </section>

@@ -1,0 +1,1543 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Khoa học dữ liệu | Bài 3: Toán học trong khoa học dữ liệu (phần 1)</title>
+  <link rel="stylesheet" href="revealjs/dist/reset.css">
+  <link rel="stylesheet" href="revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css">
+  <link rel="stylesheet" href="plugin/highlight/zenburn.css">
+  <link rel="stylesheet" href="lecture-style.css">
+  <link rel="stylesheet" href="lecture-03.css?v=3">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section>
+        <section>
+          <h1>Giới thiệu<br>khoa học dữ liệu</h1>
+          <p class="text-light">Học kỳ I, năm học 2026–2027</p>
+          <p class="text-light">Trường Đại học Công nghệ, ĐHQGHN</p>
+        </section>
+
+        <section>
+          <h1><span class="text-light">Bài 3</span><br>Toán học trong<br>khoa học dữ liệu</h1>
+          <p class="text-light">Phần 1: bản đồ tám nhánh toán, xác suất và thống kê,<br>đại số tuyến tính, giải tích, tối ưu hóa.</p>
+        </section>
+
+        <section>
+          <h2>Tổng quan buổi học</h2>
+          <ol>
+            <li>Bản đồ toán học trong khoa học dữ liệu: tám nhánh và bảy câu hỏi mở đầu</li>
+            <li>Xác suất và thống kê: Bayes, Naive Bayes, kiểm định giả thuyết, A/B testing</li>
+            <li>Đại số tuyến tính: vector, ma trận, PCA, độ tương đồng cosine</li>
+            <li>Giải tích: đạo hàm, gradient, tích phân</li>
+            <li>Tối ưu hóa: quy hoạch tuyến tính, Gradient Descent</li>
+            <li>Mỗi nhánh gồm vấn đề thực tế, lịch sử, nhân vật, công thức và mã Python chạy được</li>
+          </ol>
+          <p class="source">Phần 2 (bài 4): toán rời rạc và đồ thị, lý thuyết thông tin, toán học tính toán, hình học và tô pô, lộ trình thực hành.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">1.</span><br>Bản đồ toán học<br>trong khoa học dữ liệu</h1>
+          <p class="text-light">Mathematics behind Data Science: từ lịch sử toán học đến ứng dụng thực tế, công thức và lập trình.</p>
+        </section>
+
+        <section>
+          <h2>Mục tiêu của bài</h2>
+          <p>Giúp người mới vào ngành hiểu một điều quan trọng:</p>
+          <div class="key-box"><span class="box-title">Ý chính</span> Khoa học dữ liệu không đơn thuần là học Python, pandas, Machine Learning hay Deep Learning. Đằng sau mỗi thuật toán đều có một nhánh toán học giải quyết một loại vấn đề cụ thể.</div>
+          <ul>
+            <li>Không bắt đầu bằng định nghĩa toán học trừu tượng.</li>
+            <li>Bắt đầu từ những <strong>câu hỏi quen thuộc</strong>. Mỗi câu hỏi dẫn tới một hoặc nhiều nhánh toán.</li>
+          </ul>
+          <p class="source">Khung tham chiếu về nền toán cho học máy: <a href="https://mml-book.github.io/" target="_blank" rel="noopener">Deisenroth, Faisal &amp; Ong, <em>Mathematics for Machine Learning</em>, Cambridge University Press, 2020</a>.</p>
+        </section>
+
+        <section>
+          <h2>Bảy câu hỏi mở đầu</h2>
+          <div class="q-grid">
+            <div class="q-item">Làm thế nào dự đoán ngày mai trời mưa dựa trên dữ liệu những ngày trước?<span>→ xác suất và thống kê</span></div>
+            <div class="q-item">Làm thế nào biết một sản phẩm có khả năng được khách hàng mua?<span>→ xác suất có điều kiện, tối ưu hóa</span></div>
+            <div class="q-item">Làm thế nào tìm ra những nhóm khách hàng có hành vi tương tự nhau?<span>→ hình học (khoảng cách), đại số tuyến tính</span></div>
+            <div class="q-item">Làm thế nào Google tìm được trang web quan trọng nhất?<span>→ lý thuyết đồ thị, đại số tuyến tính</span></div>
+            <div class="q-item">Làm thế nào máy tính nhận diện khuôn mặt, phân loại ảnh?<span>→ đại số tuyến tính, giải tích, tối ưu hóa</span></div>
+            <div class="q-item">Làm thế nào biết mô hình AI đang học tốt hơn hay chỉ đang ghi nhớ dữ liệu?<span>→ thống kê, tối ưu hóa</span></div>
+            <div class="q-item" style="grid-column: 1 / -1">Làm thế nào tìm ra quy luật ẩn trong hàng triệu bản ghi dữ liệu?<span>→ giảm chiều (đại số tuyến tính), hình học và tô pô</span></div>
+          </div>
+          <p class="source">Ghép câu hỏi với nhánh toán chỉ mang tính gợi ý. Một câu hỏi thường cần nhiều nhánh cùng lúc.</p>
+        </section>
+
+        <section>
+          <h2>Tám nhánh toán học</h2>
+          <div class="branch-grid">
+            <div class="branch-card b1"><span class="no">1</span><b>Xác suất &amp; Thống kê</b><i>Probability &amp; Statistics</i>Hiểu dữ liệu, sự bất định, dự đoán và kiểm định giả thuyết.</div>
+            <div class="branch-card b2"><span class="no">2</span><b>Đại số tuyến tính</b><i>Linear Algebra</i>Biểu diễn dữ liệu bằng vector, ma trận, tensor và tìm cấu trúc ẩn.</div>
+            <div class="branch-card b3"><span class="no">3</span><b>Giải tích</b><i>Calculus</i>Hiểu sự thay đổi, đạo hàm, gradient và cách mô hình học.</div>
+            <div class="branch-card b4"><span class="no">4</span><b>Tối ưu hóa</b><i>Optimization</i>Tìm bộ tham số tốt nhất để mô hình đưa ra kết quả chính xác.</div>
+            <div class="branch-card b5"><span class="no">5</span><b>Toán rời rạc &amp; Lý thuyết đồ thị</b><i>Discrete Mathematics &amp; Graph Theory</i>Phân tích mạng xã hội, quan hệ giữa các đối tượng và thuật toán tìm kiếm.</div>
+            <div class="branch-card b6"><span class="no">6</span><b>Lý thuyết thông tin</b><i>Information Theory</i>Đo lường thông tin, độ bất định, entropy và lựa chọn đặc trưng.</div>
+            <div class="branch-card b7"><span class="no">7</span><b>Toán học tính toán</b><i>Numerical Mathematics</i>Giải các bài toán số lớn, xấp xỉ, sai số và tính toán hiệu quả.</div>
+            <div class="branch-card b8"><span class="no">8</span><b>Hình học &amp; Tô pô</b><i>Geometry &amp; Topology</i>Hiểu khoảng cách, hình dạng, cấu trúc không gian và dữ liệu nhiều chiều.</div>
+          </div>
+          <p class="era-note">Bài 3: nhánh 1–4. Bài 4: nhánh 5–8.</p>
+          <p class="source">Đây là cách phân loại theo vai trò của toán học trong một hệ thống khoa học dữ liệu, không phải phân loại chính thức duy nhất của ngành. Sơ đồ do biên soạn.</p>
+        </section>
+
+        <section>
+          <h2>Các nhánh không hoạt động độc lập</h2>
+          <p>Ví dụ huấn luyện một mạng neural network, đồng thời dùng:</p>
+          <div class="step-row">
+            <div class="step"><b>Đại số tuyến tính</b>Biểu diễn dữ liệu và tính toán giữa các lớp.</div>
+            <div class="step"><b>Giải tích</b>Tính gradient của hàm mất mát theo tham số.</div>
+            <div class="step"><b>Xác suất</b>Mô hình hóa đầu ra như một phân phối xác suất.</div>
+            <div class="step hl"><b>Tối ưu hóa</b>Cập nhật tham số để giảm hàm mất mát.</div>
+          </div>
+          <div class="key-box"><span class="box-title">Hệ quả</span> Học từng nhánh riêng rẽ chưa đủ. Cần biết nhánh nào đang chạy ở bước nào của thuật toán. Phần tổng kết ở bài 4 quay lại ví dụ này bằng công thức.</div>
+        </section>
+
+        <section>
+          <h2>Cách tiếp cận từng nhánh</h2>
+          <div class="step-row">
+            <div class="step"><b>1. Vấn đề thực tế</b>Một câu hỏi quen thuộc dẫn tới nhu cầu dùng nhánh toán.</div>
+            <div class="step"><b>2. Lịch sử</b>Mốc thời gian, công trình, sự kiện và bước ngoặt.</div>
+            <div class="step"><b>3. Nhân vật, tổ chức</b>Nhà khoa học nổi bật, có ảnh minh họa.</div>
+            <div class="step"><b>4. Ứng dụng</b>Một đến hai bài toán thực tế trong Data Science.</div>
+          </div>
+          <div class="step-row">
+            <div class="step hl"><b>5. Toán học phía sau</b>Công thức, ý nghĩa từng ký hiệu, cách hiểu trực quan.</div>
+            <div class="step hl"><b>6. Thực hành</b>Mã Python chạy được, dùng thư viện phổ biến hoặc mã nguồn mở.</div>
+            <div class="step"><b>7. Liên hệ ngành</b>Thuật toán Machine Learning, Deep Learning, AI dùng kiến thức đó.</div>
+            <div class="step"><b>Mức độ</b>Đi từ trực quan đến công thức. Không yêu cầu kiến thức đại học trước khi đọc.</div>
+          </div>
+          <p class="source">Toàn bộ mã trong hai bài đã được chạy lại bằng Python 3.12, NumPy, SciPy, scikit-learn, NetworkX và GUDHI. Số trong phần “Kết quả chạy” là số máy in ra.</p>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h1><span class="text-light">2.</span><br>Xác suất<br>và thống kê</h1>
+          <p class="text-light">Probability Theory &amp; Statistics</p>
+        </section>
+
+        <section>
+          <h2>Vì sao cần xác suất và thống kê?</h2>
+          <p>Một cửa hàng có 10.000 khách hàng. Cần trả lời:</p>
+          <ul>
+            <li>Khách hàng nào có khả năng mua hàng?</li>
+            <li>Tỷ lệ khách hàng quay lại mua hàng là bao nhiêu?</li>
+            <li>Doanh thu tháng sau có thể tăng hay giảm?</li>
+            <li>Một chiến dịch quảng cáo làm doanh thu tăng 10%: hiệu quả thật, hay chỉ là ngẫu nhiên?</li>
+            <li>Khảo sát 100 người thì kết luận được gì về 10.000 khách hàng?</li>
+          </ul>
+          <div class="key-box"><span class="box-title">Nhận xét</span> Đây chính là những vấn đề mà xác suất và thống kê giải quyết.</div>
+        </section>
+
+        <section>
+          <h2>Phân biệt xác suất và thống kê</h2>
+          <table class="era-table big">
+            <thead><tr><th>Xác suất (Probability)</th><th>Thống kê (Statistics)</th></tr></thead>
+            <tbody>
+              <tr><td>Biết quy luật, tính khả năng xảy ra</td><td>Có dữ liệu, suy luận về quy luật</td></tr>
+              <tr><td>Từ mô hình đến dữ liệu</td><td>Từ dữ liệu đến mô hình</td></tr>
+              <tr><td>Ví dụ: xác suất tung đồng xu ra mặt ngửa</td><td>Ví dụ: đồng xu có thực sự cân bằng không?</td></tr>
+            </tbody>
+          </table>
+          <div class="two-col" style="margin-top:0.6em">
+            <figure class="fig">
+              <img src="img/lec01/math-normal.png" alt="Bốn đường phân phối chuẩn, khác trung bình và phương sai" style="max-height:200px">
+              <figcaption class="caption">Phân phối chuẩn: một mô hình xác suất. Wikimedia, CC BY-SA 3.0.</figcaption>
+            </figure>
+            <div class="card-plain sm">Cùng một đồng xu: xác suất cho biết nếu nó cân bằng thì 10 lần tung thường ra mấy mặt ngửa. Thống kê nhìn 10 kết quả đã có để hỏi liệu đồng xu có cân bằng hay không.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian xác suất và thống kê</h2>
+          <div class="history-timeline seven" aria-label="Bảy mốc của xác suất và thống kê">
+            <div class="timeline-event"><div class="timeline-date">1654</div><div class="timeline-dot"></div><div class="timeline-name">Xác suất ra đời</div><div class="timeline-note">Pascal và Fermat trao đổi thư</div></div>
+            <div class="timeline-event"><div class="timeline-date">1713</div><div class="timeline-dot"></div><div class="timeline-name">Luật số lớn</div><div class="timeline-note">Bernoulli, <em>Ars Conjectandi</em></div></div>
+            <div class="timeline-event"><div class="timeline-date">1763</div><div class="timeline-dot"></div><div class="timeline-name">Định lý Bayes</div><div class="timeline-note">Price công bố bài của Bayes</div></div>
+            <div class="timeline-event"><div class="timeline-date">1805 – 1812</div><div class="timeline-dot"></div><div class="timeline-name">Bình phương tối thiểu</div><div class="timeline-note">Legendre, Gauss, Laplace</div></div>
+            <div class="timeline-event"><div class="timeline-date">Cuối XIX – đầu XX</div><div class="timeline-dot"></div><div class="timeline-name">Thống kê hiện đại</div><div class="timeline-note">Galton, Pearson, Gosset, Fisher</div></div>
+            <div class="timeline-event"><div class="timeline-date">1933</div><div class="timeline-dot"></div><div class="timeline-name">Tiên đề xác suất</div><div class="timeline-note">Kolmogorov</div></div>
+            <div class="timeline-event"><div class="timeline-date">Cuối XX – nay</div><div class="timeline-dot"></div><div class="timeline-name">Thống kê tính toán</div><div class="timeline-note">Bootstrap, MCMC, học máy</div></div>
+          </div>
+          <p class="era-note">Các mốc là cột mốc tiêu biểu, không phải lịch sử đầy đủ của ngành.</p>
+          <p class="source">Nguồn tổng quan: <a href="https://www.hup.harvard.edu/books/9780674403413" target="_blank" rel="noopener">Stephen Stigler, <em>The History of Statistics</em>, Harvard University Press, 1986</a> · <a href="https://www.isi-web.org/" target="_blank" rel="noopener">International Statistical Institute</a>.</p>
+        </section>
+
+        <section>
+          <h2>Thế kỷ XVII: sự ra đời của xác suất</h2>
+          <div class="slide-badge-row"><span class="history-date">1654</span></div>
+          <div class="portrait-row two short">
+            <figure>
+              <img src="img/lec01/pascal.jpg" alt="Chân dung Blaise Pascal">
+              <figcaption><b>Blaise Pascal</b>Phạm vi công cộng, Wikimedia</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec01/fermat.jpg" alt="Chân dung thường được gắn với Pierre de Fermat">
+              <figcaption><b>Pierre de Fermat</b>Chân dung truyền thống</figcaption>
+            </figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr><td>1654</td><td>Blaise Pascal và Pierre de Fermat trao đổi thư từ về bài toán chia tiền cược khi trò chơi bị gián đoạn</td><td>Một trong những cột mốc quan trọng của xác suất hiện đại: lập luận có hệ thống về bất định</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Pascal/" target="_blank" rel="noopener">MacTutor — Pascal</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Fermat/" target="_blank" rel="noopener">MacTutor — Fermat</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Luật số lớn của Bernoulli</h2>
+          <div class="slide-badge-row"><span class="history-date">1713</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two short" style="grid-template-columns:1fr 1fr">
+              <figure><img src="img/lec03/bernoulli.jpg" alt="Jakob Bernoulli"><figcaption><b>Jakob Bernoulli</b>1654–1705<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Jakob_Bernoulli.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+              <figure><img src="img/lec03/ars-conjectandi.jpg" alt="&lt;em&gt;Ars Conjectandi&lt;/em&gt;"><figcaption><b><em>Ars Conjectandi</em></b>Bản in 1713<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Bernoulli_-_Ars_conjectandi,_1713_-_058.tif" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Jakob Bernoulli công bố <em>Ars Conjectandi</em>. Công trình đặt nền tảng cho <strong>luật số lớn</strong>: khi số lần thử đủ lớn, tần suất quan sát có xu hướng tiến gần xác suất lý thuyết.</p>
+              <div class="formula sm">$$\frac{S_n}{n}\;\longrightarrow\;p\quad\text{khi } n\to\infty$$</div>
+              <p style="font-size:0.62em">\(S_n\): số lần xảy ra biến cố sau \(n\) lần thử độc lập. \(p\): xác suất lý thuyết của biến cố.</p>
+            </div>
+          </div>
+          <figure class="fig">
+            <img src="img/lec03/lln-coin.png" alt="Tần suất mặt ngửa của 5000 lần tung đồng xu tiến gần 0,5" style="max-height:170px">
+            <figcaption class="caption">Mô phỏng 5.000 lần tung đồng xu (hạt giống ngẫu nhiên 42). Hình do biên soạn tạo bằng Matplotlib.</figcaption>
+          </figure>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Bernoulli_Jacob/" target="_blank" rel="noopener">MacTutor — Jakob Bernoulli</a>. Ngày xuất bản 1713, sau khi tác giả qua đời.</p>
+        </section>
+
+        <section>
+          <h2>Định lý Bayes ra đời</h2>
+          <div class="slide-badge-row"><span class="history-date">1763</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec03/bayes.gif" alt="Thomas Bayes"><figcaption><b>Thomas Bayes</b>1701–1761. Chân dung thường dùng, chưa được xác thực<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Thomas_Bayes.gif" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Công trình của <strong>Thomas Bayes</strong> được <strong>Richard Price</strong> công bố sau khi Bayes qua đời. Đây là nền móng của <strong>thống kê Bayes</strong>.</p>
+              <div class="key-box"><span class="box-title">Ý nghĩa</span> Niềm tin về một giả thuyết được cập nhật khi có dữ liệu mới. Công thức tường minh ở phần ứng dụng 1.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1098/rstl.1763.0053" target="_blank" rel="noopener">Bayes, <em>An Essay towards solving a Problem in the Doctrine of Chances</em>, Philosophical Transactions, 1763</a>. Không có chân dung nào được xác thực là Bayes.</p>
+        </section>
+
+        <section>
+          <h2>Bình phương tối thiểu và xác suất giải tích</h2>
+          <div class="slide-badge-row"><span class="history-date">1805 – 1812</span></div>
+          <div class="portrait-row">
+            <figure><img src="img/lec03/legendre.jpg" alt="Adrien-Marie Legendre"><figcaption><b>Adrien-Marie Legendre</b>Tranh biếm họa của Boilly, hình duy nhất được biết<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Legendre.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure>
+              <img src="img/lec01/gauss.jpg" alt="Chân dung Carl Friedrich Gauss">
+              <figcaption><b>Carl Friedrich Gauss</b>Phạm vi công cộng</figcaption>
+            </figure>
+            <figure><img src="img/lec03/laplace.jpg" alt="Pierre-Simon Laplace"><figcaption><b>Pierre-Simon Laplace</b>Tranh của Guérin<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Pierre-Simon_Laplace.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr><td>1805</td><td>Legendre công bố phương pháp bình phương tối thiểu</td><td>Chọn tham số làm tổng bình phương sai số nhỏ nhất</td></tr>
+              <tr><td>1809</td><td>Gauss công bố công trình liên quan</td><td>Gắn bình phương tối thiểu với phân phối sai số</td></tr>
+              <tr><td>1812</td><td>Laplace phát triển lý thuyết xác suất trong <em>Théorie analytique des probabilités</em></td><td>Xác suất trở thành một ngành giải tích</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Legendre/" target="_blank" rel="noopener">MacTutor — Legendre</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Gauss/" target="_blank" rel="noopener">MacTutor — Gauss</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Laplace/" target="_blank" rel="noopener">MacTutor — Laplace</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Thống kê hiện đại</h2>
+          <div class="slide-badge-row"><span class="history-date">Cuối thế kỷ XIX – đầu thế kỷ XX</span></div>
+          <div class="portrait-row four">
+            <figure><img src="img/lec03/galton.jpg" alt="Francis Galton"><figcaption><b>Francis Galton</b>1822–1911<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Francis_Galton_1850s.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure>
+              <img src="img/lec01/pearson.jpg" alt="Karl Pearson tại bàn làm việc, khoảng 1910">
+              <figcaption><b>Karl Pearson</b>Khoảng 1910. Phạm vi công cộng</figcaption>
+            </figure>
+            <figure><img src="img/lec03/gosset.jpg" alt="William Gosset"><figcaption><b>William Gosset</b>“Student”<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:William_Sealy_Gosset.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/fisher.jpg" alt="Ronald Fisher"><figcaption><b>Ronald Fisher</b>Thời trẻ<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Youngronaldfisher2.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Nhà khoa học</th><th>Đóng góp</th></tr></thead>
+            <tbody>
+              <tr><td>Francis Galton</td><td>Phát triển các khái niệm tương quan và hồi quy</td></tr>
+              <tr><td>Karl Pearson</td><td>Phát triển kiểm định Chi-square (1900)</td></tr>
+              <tr><td>William Gosset</td><td>Giới thiệu phân phối t (1908), xuất bản dưới bút danh “Student”</td></tr>
+              <tr><td>Ronald Fisher</td><td>Phát triển mạnh suy luận thống kê, likelihood và ANOVA</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Galton/" target="_blank" rel="noopener">MacTutor — Galton</a> · <a href="https://doi.org/10.1080/14786440009463897" target="_blank" rel="noopener">Pearson, 1900</a> · <a href="https://doi.org/10.2307/2331554" target="_blank" rel="noopener">Student, 1908, Biometrika</a> · <a href="https://en.wikipedia.org/wiki/The_Design_of_Experiments" target="_blank" rel="noopener">Fisher, <em>The Design of Experiments</em>, 1935</a>.</p>
+        </section>
+
+        <section>
+          <h2>Nền tảng tiên đề của xác suất</h2>
+          <div class="slide-badge-row"><span class="history-date">1933</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec03/kolmogorov.jpg" alt="Andrey Kolmogorov"><figcaption><b>Andrey Kolmogorov</b>1903–1987<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Kolmogorov.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Andrey Kolmogorov đưa ra <strong>hệ tiên đề hiện đại</strong> cho xác suất, tạo nền tảng toán học chặt chẽ cho lý thuyết xác suất.</p>
+              <div class="formula sm">$$P(A)\ge 0,\qquad P(\Omega)=1,\qquad P\Big(\bigcup_{i=1}^{\infty}A_i\Big)=\sum_{i=1}^{\infty}P(A_i)$$</div>
+              <p style="font-size:0.55em">Với các biến cố \(A_i\) đôi một xung khắc. \(\Omega\): không gian mẫu. Ba tiên đề: không âm, chuẩn hóa, cộng tính đếm được.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Kolmogorov/" target="_blank" rel="noopener">MacTutor — Kolmogorov</a> · <a href="https://doi.org/10.1007/978-3-642-49888-6" target="_blank" rel="noopener">Kolmogorov, <em>Grundbegriffe der Wahrscheinlichkeitsrechnung</em>, 1933</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Thống kê tính toán và Machine Learning</h2>
+          <div class="slide-badge-row"><span class="history-date">Cuối thế kỷ XX đến nay</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec03/efron.jpg" alt="Bradley Efron"><figcaption><b>Bradley Efron</b>Người đề xuất bootstrap<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Bradley_Efron_National_Medal_of_Science_2007_(cropped).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Bootstrap, MCMC, mô hình Bayes phân cấp, thống kê phi tham số và học máy đã mở rộng đáng kể khả năng phân tích dữ liệu.</p>
+              <ul style="font-size:0.78em">
+                <li><strong>Bootstrap</strong> — Efron, 1979: ước lượng độ bất định bằng cách lấy mẫu lại.</li>
+                <li><strong>MCMC</strong> — Metropolis và cộng sự, 1953; Hastings, 1970; Gelfand và Smith, 1990: lấy mẫu từ phân phối khó tính trực tiếp.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1214/aos/1176344552" target="_blank" rel="noopener">Efron, 1979, Annals of Statistics</a> · <a href="https://doi.org/10.1063/1.1699114" target="_blank" rel="noopener">Metropolis et al., 1953</a> · <a href="https://doi.org/10.1093/biomet/57.1.97" target="_blank" rel="noopener">Hastings, 1970</a> · <a href="https://doi.org/10.1080/01621459.1990.10476213" target="_blank" rel="noopener">Gelfand &amp; Smith, 1990</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Những nhà khoa học tiêu biểu</h2>
+          <div class="portrait-row five">
+            <figure><img src="img/lec03/bayes.gif" alt="Thomas Bayes"><figcaption><b>Thomas Bayes</b>1701–1761. Nền tảng của suy luận Bayes: cập nhật niềm tin khi có bằng chứng mới<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Thomas_Bayes.gif" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure>
+              <img src="img/lec01/gauss.jpg" alt="Chân dung Carl Friedrich Gauss">
+              <figcaption><b>Carl Friedrich Gauss</b>1777–1855. Phân phối chuẩn, bình phương tối thiểu và lý thuyết sai số</figcaption>
+            </figure>
+            <figure><img src="img/lec03/fisher.jpg" alt="Ronald Fisher"><figcaption><b>Ronald Fisher</b>1890–1962. Likelihood, ANOVA, thiết kế thí nghiệm và suy luận thống kê<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Youngronaldfisher2.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure>
+              <img src="img/lec01/nightingale.jpg" alt="Ảnh Florence Nightingale">
+              <figcaption><b>Florence Nightingale</b>1820–1910. Tiên phong dùng thống kê và trực quan hóa dữ liệu để cải thiện y tế công cộng. Ảnh H. Lenthall, phạm vi công cộng</figcaption>
+            </figure>
+            <figure><img src="img/lec03/kolmogorov.jpg" alt="Andrey Kolmogorov"><figcaption><b>Andrey Kolmogorov</b>1903–1987. Đặt nền tảng tiên đề cho xác suất hiện đại<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Kolmogorov.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.sciencemuseum.org.uk/objects-and-stories/florence-nightingale" target="_blank" rel="noopener">Science Museum — Florence Nightingale</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Fisher/" target="_blank" rel="noopener">MacTutor — Fisher</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Gauss/" target="_blank" rel="noopener">MacTutor — Gauss</a>.</p>
+        </section>
+
+        <section>
+          <h2>Tổ chức và cộng đồng nổi bật</h2>
+          <table class="era-table big">
+            <thead><tr><th>Tổ chức</th><th>Vai trò</th><th>Thành lập</th></tr></thead>
+            <tbody>
+              <tr><td><a href="https://www.isi-web.org/" target="_blank" rel="noopener">International Statistical Institute (ISI)</a></td><td>Cộng đồng thống kê quốc tế</td><td>1885</td></tr>
+              <tr><td><a href="https://www.amstat.org/" target="_blank" rel="noopener">American Statistical Association (ASA)</a></td><td>Tổ chức nghề nghiệp và học thuật về thống kê</td><td>1839</td></tr>
+              <tr><td><a href="https://rss.org.uk/" target="_blank" rel="noopener">Royal Statistical Society (RSS)</a></td><td>Một trong những hội thống kê lâu đời nhất</td><td>1834</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Năm thành lập theo thông tin giới thiệu của từng tổ chức (trang chủ): <a href="https://www.isi-web.org/" target="_blank" rel="noopener">ISI</a> · <a href="https://www.amstat.org/" target="_blank" rel="noopener">ASA</a> · <a href="https://rss.org.uk/about/history/" target="_blank" rel="noopener">RSS</a>.</p>
+        </section>
+
+        <section>
+          <h2>Ứng dụng 1. Khách hàng có mua hay không?</h2>
+          <p>Giả sử có 100 khách hàng: 20 người mua hàng, 80 người không mua.</p>
+          <p>Chọn ngẫu nhiên một người, xác suất người đó mua hàng là:</p>
+          <div class="formula lg">$$P(\text{Mua})=\frac{20}{100}=0{,}2$$</div>
+          <p>Tức 20%.</p>
+          <div class="key-box"><span class="box-title">Câu hỏi</span> Nếu biết người đó đã thêm sản phẩm vào giỏ hàng, xác suất mua có thể cao hơn. Cần dùng <strong>xác suất có điều kiện</strong>.</div>
+        </section>
+
+        <section>
+          <h2>Định lý Bayes</h2>
+          <div class="formula lg">$$P(A\mid B)=\frac{P(B\mid A)\,P(A)}{P(B)}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(A\)</td><td>Khách hàng thực sự mua hàng</td></tr>
+              <tr><td>\(B\)</td><td>Khách hàng thêm sản phẩm vào giỏ</td></tr>
+              <tr><td>\(P(A)\)</td><td>Xác suất mua hàng ban đầu</td></tr>
+              <tr><td>\(P(B\mid A)\)</td><td>Xác suất người mua đã thêm vào giỏ</td></tr>
+              <tr><td>\(P(B)\)</td><td>Xác suất một khách bất kỳ thêm vào giỏ</td></tr>
+              <tr><td>\(P(A\mid B)\)</td><td>Xác suất mua hàng khi biết khách đã thêm vào giỏ</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: Wasserman, <em>All of Statistics</em>, Springer, 2004, chương 1 · <a href="https://doi.org/10.1098/rstl.1763.0053" target="_blank" rel="noopener">Bayes, 1763</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Tính ví dụ bằng Bayes</h2>
+          <div class="two-col two-col--wide-right">
+            <div>
+              <ul>
+                <li>20% khách hàng mua hàng: \(P(A)=0{,}2\).</li>
+                <li>80% người mua hàng đã thêm vào giỏ: \(P(B\mid A)=0{,}8\).</li>
+                <li>30% toàn bộ khách hàng đã thêm vào giỏ: \(P(B)=0{,}3\).</li>
+              </ul>
+              <div class="formula sm">$$P(A\mid B)=\frac{0{,}8\times 0{,}2}{0{,}3}=0{,}5333$$</div>
+              <div class="key-box"><span class="box-title">Diễn giải</span> Khi biết khách đã thêm sản phẩm vào giỏ, khả năng họ mua hàng tăng từ <strong>20%</strong> lên <strong>53,33%</strong>.</div>
+            </div>
+            <figure class="fig">
+              <img src="img/lec03/bayes-100-khach.png" alt="Lưới 100 khách hàng chia thành bốn nhóm theo mua và thêm giỏ" style="max-height:290px">
+              <figcaption class="caption">Cùng ví dụ nhìn bằng 100 khách: 16 / (16 + 14) = 53,33%. Hình do biên soạn.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mã Python: suy luận Bayes</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+# Bayesian inference: dự đoán khả năng mua hàng
+
+p_buy = 0.20
+p_cart_given_buy = 0.80
+p_cart = 0.30
+
+p_buy_given_cart = (
+    p_cart_given_buy * p_buy / p_cart
+)
+
+print(f&quot;P(Mua | Thêm giỏ) = {p_buy_given_cart:.2%}&quot;)
+</code></pre>
+          <pre class="result-out">P(Mua | Thêm giỏ) = 53.33%</pre>
+          <div class="good-box"><span class="box-title">Kiểm lại</span> In đúng <span class="inline-code">53.33%</span>, khớp phép tính tay \(0{,}8\times0{,}2/0{,}3\).</div>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Naive Bayes: dữ liệu</h2>
+          <p style="font-size:0.7em;margin:0.1em 0">Ứng dụng 1 chỉ dùng <strong>một</strong> dấu hiệu (thêm vào giỏ). Thực tế có nhiều dấu hiệu cùng lúc. Dữ liệu mô phỏng 10 khách hàng:</p>
+          <table class="era-table xs">
+            <thead><tr><th>No.</th><th>Age</th><th>Student</th><th>Income</th><th>Credit</th><th>Buys</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Young</td><td>Yes</td><td>High</td><td>Fair</td><td>No</td></tr>
+              <tr><td>2</td><td>Senior</td><td>No</td><td>High</td><td>Excellent</td><td>Yes</td></tr>
+              <tr><td>3</td><td>Middle</td><td>Yes</td><td>Medium</td><td>Fair</td><td>Yes</td></tr>
+              <tr><td>4</td><td>Young</td><td>Yes</td><td>Low</td><td>Fair</td><td>No</td></tr>
+              <tr><td>5</td><td>Middle</td><td>Yes</td><td>Low</td><td>Excellent</td><td>Yes</td></tr>
+              <tr><td>6</td><td>Senior</td><td>No</td><td>Medium</td><td>Excellent</td><td>No</td></tr>
+              <tr><td>7</td><td>Young</td><td>No</td><td>Medium</td><td>Excellent</td><td>Yes</td></tr>
+              <tr><td>8</td><td>Young</td><td>Yes</td><td>Medium</td><td>Fair</td><td>Yes</td></tr>
+              <tr><td>9</td><td>Middle</td><td>Yes</td><td>High</td><td>Excellent</td><td>Yes</td></tr>
+              <tr><td>10</td><td>Senior</td><td>No</td><td>Low</td><td>Fair</td><td>No</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box" style="font-size:0.66em"><span class="box-title">Câu hỏi</span> Khách hàng mới: <strong>Age = Young, Student = Yes, Income = Medium, Credit = Fair</strong>. Khả năng người này mua hàng (Buys = Yes) là bao nhiêu? Dữ liệu có 6 người mua và 4 người không mua.</div>
+          <p class="source">Dữ liệu mô phỏng, dùng cho mục đích minh họa. Nhãn cần dự đoán là cột Buys (khách hàng có mua hay không).</p>
+        </section>
+
+        <section class="fit">
+          <h2>Naive Bayes: công thức</h2>
+          <p style="margin:0.1em 0">Mở rộng định lý Bayes cho nhiều đặc trưng \(x_1,\dots,x_n\) và lớp \(C\):</p>
+          <div class="formula sm">$$P(C\mid x_1,\dots,x_n)=\frac{P(C)\,P(x_1,\dots,x_n\mid C)}{P(x_1,\dots,x_n)}$$</div>
+          <p style="margin:0.1em 0">Giả định “ngây thơ” (naive): các đặc trưng <strong>độc lập có điều kiện</strong> khi biết lớp:</p>
+          <div class="formula sm">$$P(C\mid x_1,\dots,x_n)\;\propto\;P(C)\prod_{i=1}^{n}P(x_i\mid C)\qquad\hat C=\arg\max_{C}\;P(C)\prod_{i=1}^{n}P(x_i\mid C)$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(P(C)\)</td><td>Xác suất tiên nghiệm của lớp: tỉ lệ người mua (hoặc không mua) trong dữ liệu</td></tr>
+              <tr><td>\(P(x_i\mid C)\)</td><td>Tỉ lệ khách có giá trị \(x_i\) trong nhóm lớp \(C\)</td></tr>
+              <tr><td>\(\propto\)</td><td>Tỉ lệ thuận: mẫu số \(P(x_1,\dots,x_n)\) như nhau cho mọi lớp nên chỉ cần so sánh tử số</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.58em;margin:0.1em 0">Làm trơn Laplace khi một tổ hợp chưa từng xuất hiện (tránh xác suất 0): \(P(x_i\mid C)=\dfrac{N_{x_i,C}+\alpha}{N_C+\alpha k}\), với \(k\) là số giá trị khả dĩ của đặc trưng.</p>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/naive_bayes.html" target="_blank" rel="noopener">scikit-learn — Naive Bayes</a> · Manning, Raghavan &amp; Schütze, <a href="https://nlp.stanford.edu/IR-book/html/htmledition/naive-bayes-text-classification-1.html" target="_blank" rel="noopener"><em>Introduction to Information Retrieval</em>, chương 13</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Naive Bayes: tính tay</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Thành phần</th><th>Buys = Yes (6 người)</th><th>Buys = No (4 người)</th></tr></thead>
+            <tbody>
+              <tr><td>\(P(C)\)</td><td>6/10 = 0,6</td><td>4/10 = 0,4</td></tr>
+              <tr><td>\(P(\text{Young}\mid C)\)</td><td>2/6</td><td>2/4</td></tr>
+              <tr><td>\(P(\text{Student}=\text{Yes}\mid C)\)</td><td>4/6</td><td>2/4</td></tr>
+              <tr><td>\(P(\text{Medium}\mid C)\)</td><td>3/6</td><td>1/4</td></tr>
+              <tr><td>\(P(\text{Fair}\mid C)\)</td><td>2/6</td><td>3/4</td></tr>
+              <tr><td><strong>Điểm \(P(C)\prod P(x_i\mid C)\)</strong></td><td><strong>0,6 × 48/1296 ≈ 0,02222</strong></td><td><strong>0,4 × 12/256 ≈ 0,01875</strong></td></tr>
+            </tbody>
+          </table>
+          <div class="formula sm">$$P(\text{Yes}\mid x)=\frac{0{,}02222}{0{,}02222+0{,}01875}\approx0{,}5424\qquad P(\text{No}\mid x)\approx0{,}4576$$</div>
+          <div class="key-box" style="font-size:0.66em"><span class="box-title">Kết luận</span> Điểm của Yes lớn hơn, nên dự đoán <strong>khách hàng sẽ mua</strong>, với xác suất khoảng <strong>54,24%</strong>. Kết quả sát ngưỡng 50%, do dữ liệu chỉ có 10 mẫu.</div>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: Naive Bayes tự cài đặt</h2>
+          <p style="font-size:0.62em;margin:0.1em 0">Cần thêm thư viện: <code>pip install pandas scikit-learn</code>.</p>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+import pandas as pd
+
+# Dữ liệu mô phỏng: 10 khách hàng
+df = pd.DataFrame({
+    &quot;Age&quot;:     [&quot;Young&quot;, &quot;Senior&quot;, &quot;Middle&quot;, &quot;Young&quot;, &quot;Middle&quot;,
+                &quot;Senior&quot;, &quot;Young&quot;, &quot;Young&quot;, &quot;Middle&quot;, &quot;Senior&quot;],
+    &quot;Student&quot;: [&quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;,
+                &quot;No&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;],
+    &quot;Income&quot;:  [&quot;High&quot;, &quot;High&quot;, &quot;Medium&quot;, &quot;Low&quot;, &quot;Low&quot;,
+                &quot;Medium&quot;, &quot;Medium&quot;, &quot;Medium&quot;, &quot;High&quot;, &quot;Low&quot;],
+    &quot;Credit&quot;:  [&quot;Fair&quot;, &quot;Excellent&quot;, &quot;Fair&quot;, &quot;Fair&quot;, &quot;Excellent&quot;,
+                &quot;Excellent&quot;, &quot;Excellent&quot;, &quot;Fair&quot;, &quot;Excellent&quot;, &quot;Fair&quot;],
+    &quot;Buys&quot;:    [&quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;,
+                &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;],
+})
+
+# Khách hàng mới cần dự đoán
+new = {&quot;Age&quot;: &quot;Young&quot;, &quot;Student&quot;: &quot;Yes&quot;,
+       &quot;Income&quot;: &quot;Medium&quot;, &quot;Credit&quot;: &quot;Fair&quot;}
+</code></pre></div>
+            <div>
+              <pre class="demo-code xs"><code class="language-python" data-trim>
+# Naive Bayes tự cài đặt: P(C) * tích các P(x_i | C)
+score = {}
+for label, g in df.groupby(&quot;Buys&quot;):
+    s = len(g) / len(df)                  # P(C)
+    for col, val in new.items():
+        s *= (g[col] == val).mean()       # P(x_i | C)
+    score[label] = s
+
+total = sum(score.values())
+for label, s in score.items():
+    print(f&quot;{label}: điểm = {s:.5f}, xác suất = {s / total:.2%}&quot;)
+</code></pre>
+              <pre class="result-out sm">No: điểm = 0.01875, xác suất = 45.76%
+Yes: điểm = 0.02222, xác suất = 54.24%</pre>
+              <div class="good-box" style="font-size:0.56em"><span class="box-title">Kiểm lại</span> Điểm 0,02222 và 0,01875, xác suất 54,24% và 45,76%: khớp bảng tính tay ở slide trước.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html" target="_blank" rel="noopener">pandas — DataFrame.groupby</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: đối chiếu với scikit-learn</h2>
+          <div class="code-split even">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+# Đối chiếu với scikit-learn
+from sklearn.naive_bayes import CategoricalNB
+from sklearn.preprocessing import OrdinalEncoder
+
+features = [&quot;Age&quot;, &quot;Student&quot;, &quot;Income&quot;, &quot;Credit&quot;]
+enc = OrdinalEncoder()
+X = enc.fit_transform(df[features])
+x_new = enc.transform(pd.DataFrame([new])[features])
+
+for alpha in (1e-10, 1.0):
+    model = CategoricalNB(alpha=alpha).fit(X, df[&quot;Buys&quot;])
+    proba = model.predict_proba(x_new)[0]
+    # model.classes_ = [&#x27;No&#x27;, &#x27;Yes&#x27;]
+    print(f&quot;alpha={alpha:g}: P(No)={proba[0]:.4f}, &quot;
+          f&quot;P(Yes)={proba[1]:.4f} -&gt; {model.predict(x_new)[0]}&quot;)
+</code></pre></div>
+            <div>
+              <pre class="result-out sm">alpha=1e-10: P(No)=0.4576, P(Yes)=0.5424 -&gt; Yes
+alpha=1: P(No)=0.4394, P(Yes)=0.5606 -&gt; Yes</pre>
+              <div class="good-box" style="font-size:0.58em"><span class="box-title">Kiểm lại</span> Với \(\alpha\approx0\) (gần như không làm trơn), <code>CategoricalNB</code> cho đúng 0,4576 và 0,5424 như tay. Với \(\alpha=1\) (mặc định, làm trơn Laplace) kết quả là 0,4394 và 0,5606: xác suất đổi nhẹ nhưng dự đoán vẫn là <strong>Yes</strong>.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.CategoricalNB.html" target="_blank" rel="noopener">scikit-learn — CategoricalNB</a> · <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank" rel="noopener">OrdinalEncoder</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Naive Bayes: ưu điểm và giới hạn</h2>
+          <div class="two-col">
+            <div class="good-box" style="font-size:0.7em"><span class="box-title">Ưu điểm</span>
+              <ul>
+                <li>Huấn luyện chỉ là đếm tần suất, rất nhanh.</li>
+                <li>Hoạt động tốt với ít dữ liệu và nhiều đặc trưng.</li>
+                <li>Cho xác suất, dễ giải thích từng đóng góp \(P(x_i\mid C)\).</li>
+              </ul>
+            </div>
+            <div class="warn-box" style="font-size:0.7em"><span class="box-title">Giới hạn</span>
+              <ul>
+                <li>Giả định độc lập hiếm khi đúng: tuổi và thu nhập thường tương quan.</li>
+                <li>Xác suất đầu ra thường kém hiệu chuẩn, dùng để xếp hạng tốt hơn để đọc tuyệt đối.</li>
+                <li>Cần làm trơn khi có tổ hợp chưa từng thấy.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="kw-row"><span class="kw">Lọc thư rác</span><span class="kw">Phân loại văn bản</span><span class="kw">GaussianNB</span><span class="kw">MultinomialNB</span><span class="kw">CategoricalNB</span></div>
+          <p class="source">Trong khi tích nhiều xác suất nhỏ, mã thực tế thường cộng logarit xác suất để tránh tràn số dưới: \(\log P(C)+\sum_i\log P(x_i\mid C)\).</p>
+        </section>
+
+        <section>
+          <h2>Ứng dụng 3. Quảng cáo có thực sự hiệu quả?</h2>
+          <p>Trước quảng cáo, tỷ lệ chuyển đổi là 5%. Sau quảng cáo, tỷ lệ này là 6%.</p>
+          <p>Sự khác biệt là thật, hay chỉ là ngẫu nhiên? Đây là bài toán <strong>Statistical Hypothesis Testing</strong> và <strong>A/B Testing</strong>.</p>
+          <div class="formula sm">$$H_0:\;p_A=p_B\qquad\qquad H_1:\;p_A\ne p_B$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(H_0\)</td><td>Giả thuyết không: quảng cáo không tạo ra sự khác biệt</td></tr>
+              <tr><td>\(H_1\)</td><td>Giả thuyết đối: quảng cáo tạo ra sự khác biệt</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: Kohavi, Tang &amp; Xu, <a href="https://experimentguide.com/" target="_blank" rel="noopener"><em>Trustworthy Online Controlled Experiments</em></a>, Cambridge University Press, 2020.</p>
+        </section>
+
+        <section>
+          <h2>Thống kê kiểm định z cho hai tỷ lệ</h2>
+          <p>Với hai tỷ lệ độc lập, thống kê kiểm định:</p>
+          <div class="formula lg">$$z=\frac{\hat p_B-\hat p_A}{\sqrt{\hat p\,(1-\hat p)\left(\dfrac{1}{n_A}+\dfrac{1}{n_B}\right)}}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(\hat p_A,\hat p_B\)</td><td>Tỷ lệ chuyển đổi quan sát của nhóm A và nhóm B</td></tr>
+              <tr><td>\(n_A,n_B\)</td><td>Cỡ mẫu của hai nhóm</td></tr>
+              <tr><td>\(\hat p\)</td><td>Tỷ lệ chuyển đổi gộp của hai nhóm: \(\hat p=\dfrac{x_A+x_B}{n_A+n_B}\)</td></tr>
+              <tr><td>p-value</td><td>\(2\,\Pr(Z\ge |z|)\) với \(Z\sim N(0,1)\). Nhỏ hơn 0,05 thì có bằng chứng về sự khác biệt</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html" target="_blank" rel="noopener">SciPy — scipy.stats.norm</a> · Wasserman, <em>All of Statistics</em>, chương 10.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: kiểm định, phần 1 — dữ liệu và sai số chuẩn</h2>
+          <p>Nhóm A: 500 người, 25 người mua. Nhóm B: 500 người, 30 người mua.</p>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+from scipy.stats import norm
+import numpy as np
+
+# Nhóm A: 500 người, 25 người mua
+# Nhóm B: 500 người, 30 người mua
+n_a, x_a = 500, 25
+n_b, x_b = 500, 30
+
+p_a = x_a / n_a
+p_b = x_b / n_b
+
+p_pool = (x_a + x_b) / (n_a + n_b)
+
+se = np.sqrt(
+    p_pool * (1 - p_pool) *
+    (1 / n_a + 1 / n_b)
+)
+</code></pre>
+          <p class="source">Phần 2 tính z, p-value và đưa ra kết luận.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: kiểm định, phần 2 — kết quả</h2>
+          <div class="code-split">
+            <div><pre class="demo-code lab"><code class="language-python" data-trim>
+z = (p_b - p_a) / se
+p_value = 2 * norm.sf(abs(z))
+
+print(&quot;Conversion A:&quot;, p_a)
+print(&quot;Conversion B:&quot;, p_b)
+print(&quot;Z-score:&quot;, z)
+print(&quot;P-value:&quot;, p_value)
+
+if p_value &lt; 0.05:
+    print(&quot;Có bằng chứng về sự khác biệt.&quot;)
+else:
+    print(&quot;Chưa đủ bằng chứng về sự khác biệt.&quot;)
+</code></pre></div>
+            <div><pre class="result-out">Conversion A: 0.05
+Conversion B: 0.06
+Z-score: 0.6935419821470654
+P-value: 0.4879694890245849
+Chưa đủ bằng chứng về sự khác biệt.</pre>
+              <div class="good-box" style="font-size:0.7em"><span class="box-title">Kiểm lại</span> \(\hat p=55/1000=0{,}055\). Sai số chuẩn \(=\sqrt{0{,}055\cdot0{,}945\cdot0{,}004}\approx0{,}0144\). \(z=0{,}01/0{,}0144\approx0{,}694\).</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Đọc kết quả A/B testing</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec03/ab-test-z.png" alt="Phân phối chuẩn với z quan sát 0,694 nằm trong vùng không bác bỏ" style="max-height:260px">
+              <figcaption class="caption">\(z=0{,}694\) nằm xa ngưỡng \(\pm1{,}96\). p-value = 0,488. Hình do biên soạn.</figcaption>
+            </figure>
+            <div>
+              <p>5% lên 6% chưa đủ bằng chứng ở cỡ mẫu 500 mỗi nhóm.</p>
+              <ul>
+                <li>Không đủ bằng chứng thống kê <strong>không đồng nghĩa</strong> hai chiến dịch chắc chắn giống nhau.</li>
+                <li>Cần xem cỡ mẫu, cách phân nhóm và ảnh hưởng thực tế của mức tăng.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="warn-box"><span class="box-title">Lưu ý</span> Một thử nghiệm tốt còn phải xem xét cỡ mẫu, cách phân nhóm ngẫu nhiên và ảnh hưởng thực tế của mức tăng, không chỉ p-value.</div>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: xác suất và thống kê</h2>
+          <div class="kw-row">
+            <span class="kw">Logistic Regression</span><span class="kw">Naive Bayes</span><span class="kw">Bayesian Networks</span><span class="kw">A/B Testing</span><span class="kw">Time Series Forecasting</span><span class="kw">Anomaly Detection</span><span class="kw">Recommendation Systems</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn hiểu dữ liệu và sự bất định.</div>
+          <p class="source">Bài tập: đổi số trong ví dụ A/B (ví dụ 5.000 người mỗi nhóm, cùng tỷ lệ 5% và 6%) và quan sát p-value thay đổi thế nào.</p>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h1><span class="text-light">3.</span><br>Đại số<br>tuyến tính</h1>
+          <p class="text-light">Linear Algebra</p>
+        </section>
+
+        <section>
+          <h2>Một khách hàng là một vector</h2>
+          <p>Một cửa hàng có thông tin về một khách hàng: tuổi 25; thu nhập 15 triệu đồng; số lần mua hàng 8; số tiền trung bình mỗi lần mua 500.000 đồng (viết là 500 nghìn đồng).</p>
+          <div class="formula lg">$$\mathbf{x}=\begin{bmatrix}25\\15\\8\\500\end{bmatrix}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(x_1\)</td><td>Tuổi (năm)</td></tr>
+              <tr><td>\(x_2\)</td><td>Thu nhập (triệu đồng)</td></tr>
+              <tr><td>\(x_3\)</td><td>Số lần mua hàng</td></tr>
+              <tr><td>\(x_4\)</td><td>Số tiền trung bình mỗi lần mua (nghìn đồng)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Một triệu khách hàng là một ma trận</h2>
+          <div class="formula lg">$$X=\begin{bmatrix}25&amp;15&amp;8&amp;500\\30&amp;20&amp;3&amp;800\\22&amp;10&amp;12&amp;300\\\vdots&amp;\vdots&amp;\vdots&amp;\vdots\end{bmatrix}$$</div>
+          <p>Mỗi hàng là một khách hàng, mỗi cột là một đặc trưng. Với một triệu khách hàng và bốn đặc trưng, \(X\) có kích thước \(10^6\times 4\).</p>
+          <div class="key-box"><span class="box-title">Trong thực tế</span> Đó là cách NumPy, PyTorch và TensorFlow lưu trữ và xử lý dữ liệu.</div>
+          <p class="source">Nguồn: <a href="https://numpy.org/doc/stable/reference/arrays.ndarray.html" target="_blank" rel="noopener">NumPy — ndarray</a> · Deisenroth, Faisal &amp; Ong, <a href="https://mml-book.github.io/" target="_blank" rel="noopener"><em>Mathematics for Machine Learning</em></a>, chương 2.</p>
+        </section>
+
+        <section>
+          <h2>Đại số tuyến tính trả lời những gì?</h2>
+          <ul>
+            <li>Làm thế nào biểu diễn hàng triệu đối tượng?</li>
+            <li>Làm thế nào tính độ tương đồng giữa hai khách hàng?</li>
+            <li>Làm thế nào giảm hàng nghìn đặc trưng xuống còn vài chiều?</li>
+            <li>Làm thế nào máy tính thực hiện phép biến đổi ảnh?</li>
+            <li>Làm thế nào tính toán các lớp trong mạng neural network?</li>
+          </ul>
+          <div class="kw-row">
+            <span class="kw">vector → biểu diễn</span><span class="kw">tích vô hướng → tương đồng</span><span class="kw">PCA, SVD → giảm chiều</span><span class="kw">ma trận → biến đổi</span><span class="kw">nhân ma trận → lớp neural</span>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian đại số tuyến tính</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của đại số tuyến tính">
+            <div class="timeline-event"><div class="timeline-date">Khoảng 200 TCN</div><div class="timeline-dot"></div><div class="timeline-name">Giải hệ phương trình</div><div class="timeline-note">Cửu chương toán thuật</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XIX</div><div class="timeline-dot"></div><div class="timeline-name">Định thức và ma trận</div><div class="timeline-note">Sylvester khoảng 1850, Cayley 1858</div></div>
+            <div class="timeline-event"><div class="timeline-date">Cuối thế kỷ XIX</div><div class="timeline-dot"></div><div class="timeline-name">Eigenvalue</div><div class="timeline-note">Biến đổi tuyến tính, giá trị riêng</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XX</div><div class="timeline-dot"></div><div class="timeline-name">Đại số tuyến tính số</div><div class="timeline-note">Máy tính điện tử, thuật toán ma trận</div></div>
+            <div class="timeline-event"><div class="timeline-date">Hiện đại</div><div class="timeline-dot"></div><div class="timeline-name">ML và Deep Learning</div><div class="timeline-note">PCA, SVD, embedding, attention</div></div>
+          </div>
+          <p class="source">Nguồn tổng quan: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Matrices_and_determinants/" target="_blank" rel="noopener">MacTutor — Matrices and determinants</a> · <a href="https://epubs.siam.org/doi/book/10.1137/1.9781611977172" target="_blank" rel="noopener">SIAM — <em>A Journey through the History of Numerical Linear Algebra</em></a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Giải hệ phương trình tuyến tính</h2>
+          <div class="slide-badge-row"><span class="history-date">Khoảng 200 TCN</span></div>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec03/nine-chapters.jpg" alt="Trang bìa một bản Cửu chương toán thuật chú giải" style="max-height:280px">
+              <figcaption class="caption">Một bản chú giải <em>Cửu chương toán thuật</em> thời nhà Thanh. Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:%E4%B9%9D%E7%AB%A0%E7%AE%97%E8%A1%93%E7%B4%B0%E8%8D%89%E5%9C%96%E8%AA%AA.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <p>Cửu chương toán thuật của Trung Quốc cổ đại chứa các phương pháp giải hệ phương trình <strong>tương tự khử Gauss</strong> ngày nay.</p>
+              <div class="formula sm">$$\begin{cases}2x+y=100\\x+2y=80\end{cases}\Rightarrow\ \text{khử biến}\Rightarrow\ (x,y)=(40,20)$$</div>
+              <div class="key-box"><span class="box-title">Lưu ý</span> Niên đại 200 TCN là ước định. Văn bản hiện còn được biên soạn muộn hơn, từ các nguồn cũ hơn.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Nine_chapters/" target="_blank" rel="noopener">MacTutor — The Nine Chapters on the Mathematical Art</a>.</p>
+        </section>
+
+        <section>
+          <h2>Lý thuyết định thức và ma trận</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XIX</span></div>
+          <div class="portrait-row two short">
+            <figure><img src="img/lec03/sylvester.jpg" alt="James Joseph Sylvester"><figcaption><b>James Joseph Sylvester</b>1814–1897<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:James_Joseph_Sylvester.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/cayley.jpg" alt="Arthur Cayley"><figcaption><b>Arthur Cayley</b>1821–1895<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Arthur_Cayley.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr><td>Khoảng 1850</td><td>James Joseph Sylvester sử dụng thuật ngữ <em>matrix</em></td><td>Đưa thuật ngữ ma trận vào toán học hiện đại</td></tr>
+              <tr><td>1858</td><td>Arthur Cayley phát triển lý thuyết ma trận và công bố công trình quan trọng</td><td>Ma trận trở thành đối tượng đại số có phép toán riêng</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Sylvester/" target="_blank" rel="noopener">MacTutor — Sylvester</a> · <a href="https://doi.org/10.1098/rstl.1858.0002" target="_blank" rel="noopener">Cayley, <em>A Memoir on the Theory of Matrices</em>, 1858</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Eigenvalue và biến đổi tuyến tính</h2>
+          <div class="slide-badge-row"><span class="history-date">Cuối thế kỷ XIX</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec03/pca-scatter.svg" alt="Đám điểm Gauss hai chiều với hai vector riêng của ma trận hiệp phương sai" style="max-height:230px">
+              <figcaption class="caption">Đám điểm Gauss hai chiều với hai vector riêng (mũi tên). Nicoguaro, CC BY 4.0, <a href="https://commons.wikimedia.org/wiki/File:GaussianScatterPCA.svg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <p>Các nhà toán học phát triển lý thuyết <strong>giá trị riêng</strong>, <strong>vector riêng</strong>, phép biến đổi tuyến tính và cấu trúc đại số ma trận.</p>
+              <div class="formula sm">$$A\mathbf{v}=\lambda\mathbf{v}$$</div>
+              <p style="font-size:0.62em">Phép biến đổi \(A\) chỉ co giãn vector riêng \(\mathbf{v}\) theo hệ số \(\lambda\), không đổi hướng. Ở hình, các vector riêng chỉ đúng hai hướng biến thiên chính của dữ liệu.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Matrices_and_determinants/" target="_blank" rel="noopener">MacTutor — Matrices and determinants</a></p>
+        </section>
+
+        <section class="fit">
+          <h2>Đại số tuyến tính số</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XX</span></div>
+          <div class="portrait-row two short">
+            <figure><img src="img/lec03/von-neumann.gif" alt="John von Neumann"><figcaption><b>John von Neumann</b>1903–1957<br>LANL, Attribution, <a href="https://commons.wikimedia.org/wiki/File:JohnvonNeumann-LosAlamos.gif" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure>
+              <img src="img/lec01/eniac-penn.jpg" alt="Một phần máy ENIAC trưng bày tại Đại học Pennsylvania">
+              <figcaption><b>Một phần ENIAC tại Penn</b>Ảnh sau này, CC BY-SA 3.0</figcaption>
+            </figure>
+          </div>
+          <p>Sự xuất hiện của máy tính điện tử thúc đẩy các thuật toán giải hệ phương trình, phân tích ma trận và tính toán số.</p>
+          <p class="source">Nguồn: <a href="https://www.computerhistory.org/revolution/birth-of-the-computer/4/78" target="_blank" rel="noopener">Computer History Museum — ENIAC</a> · <a href="https://epubs.siam.org/doi/book/10.1137/1.9781611977172" target="_blank" rel="noopener">SIAM — History of Numerical Linear Algebra</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Machine Learning và Deep Learning</h2>
+          <div class="slide-badge-row"><span class="history-date">Hiện đại</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/attention.png" alt="Sơ đồ một đầu attention: Q, K nhân ma trận, scale, mask, softmax, rồi nhân với V" style="max-height:250px">
+              <figcaption class="caption">Một đầu attention. Wikimedia, CC BY-SA 4.0.</figcaption>
+            </figure>
+            <div>
+              <p>Đại số tuyến tính trở thành nền tảng của <strong>PCA, SVD, embeddings, tensor computation, attention</strong> và mạng neural network.</p>
+              <div class="formula sm">$$\operatorname{Attention}(Q,K,V)=\operatorname{softmax}\!\Big(\frac{QK^{\top}}{\sqrt{d_k}}\Big)V$$</div>
+              <p style="font-size:0.6em">Toàn bộ là nhân ma trận. \(Q,K,V\): ba ma trận suy ra từ đầu vào. \(d_k\): số chiều của khóa.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Vaswani et al., 2017, <em>Attention Is All You Need</em></a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Các nhà khoa học tiêu biểu</h2>
+          <div class="portrait-row four tall">
+            <figure><img src="img/lec03/cayley.jpg" alt="Arthur Cayley"><figcaption><b>Arthur Cayley</b>1821–1895. Đặt nền tảng quan trọng cho lý thuyết ma trận<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Arthur_Cayley.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/sylvester.jpg" alt="James Joseph Sylvester"><figcaption><b>James Joseph Sylvester</b>1814–1897. Đưa thuật ngữ matrix vào toán học hiện đại<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:James_Joseph_Sylvester.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/weyl.jpg" alt="Hermann Weyl"><figcaption><b>Hermann Weyl</b>1885–1955. Đóng góp lớn cho đại số, không gian vector và toán học lý thuyết<br>ETH Zürich, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Hermann_Weyl_ETH-Bib_Portr_00890.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/von-neumann.gif" alt="John von Neumann"><figcaption><b>John von Neumann</b>1903–1957. Ảnh hưởng lớn đến tính toán khoa học, lý thuyết toán học và máy tính<br>LANL, Attribution, <a href="https://commons.wikimedia.org/wiki/File:JohnvonNeumann-LosAlamos.gif" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Cayley/" target="_blank" rel="noopener">MacTutor — Cayley</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Weyl/" target="_blank" rel="noopener">MacTutor — Weyl</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Von_Neumann/" target="_blank" rel="noopener">MacTutor — von Neumann</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. PCA: giảm chiều dữ liệu</h2>
+          <p>Một khách hàng được mô tả bởi 100 đặc trưng. Xử lý 100 đặc trưng tốn tài nguyên và khiến việc trực quan hóa khó khăn.</p>
+          <p><strong>PCA (Principal Component Analysis)</strong> tìm các hướng biến thiên quan trọng nhất của dữ liệu để biểu diễn dữ liệu bằng ít chiều hơn.</p>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec03/pca-scatter.svg" alt="PCA trên đám điểm Gauss: hai hướng chính" style="max-height:200px">
+              <figcaption class="caption">Hai hướng chính của dữ liệu; hướng dài hơn mang nhiều phương sai hơn.</figcaption>
+            </figure>
+            <div class="key-box"><span class="box-title">Ý tưởng</span> Giữ lại vài hướng mang nhiều biến thiên nhất, bỏ phần còn lại. Chiếu dữ liệu từ 100 chiều xuống còn 2 hoặc 3 chiều để quan sát được.</div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1080/14786440109462720" target="_blank" rel="noopener">Pearson, 1901</a> · <a href="https://doi.org/10.1037/h0071325" target="_blank" rel="noopener">Hotelling, 1933</a> · <a href="https://scikit-learn.org/stable/modules/decomposition.html#pca" target="_blank" rel="noopener">scikit-learn — PCA</a>.</p>
+        </section>
+
+        <section>
+          <h2>PCA: toán học phía sau</h2>
+          <p style="margin:0.1em 0">Trừ giá trị trung bình để đưa dữ liệu về quanh gốc tọa độ:</p>
+          <div class="formula sm">$$X_c=X-\bar X$$</div>
+          <p style="margin:0.1em 0">Tính ma trận hiệp phương sai:</p>
+          <div class="formula sm">$$C=\frac{1}{n-1}X_c^{\top}X_c$$</div>
+          <p style="margin:0.1em 0">Tìm vector riêng:</p>
+          <div class="formula sm">$$C\mathbf{v}=\lambda\mathbf{v}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(C\)</td><td>Ma trận mô tả mức độ biến thiên và tương quan giữa các đặc trưng</td></tr>
+              <tr><td>\(\mathbf{v}\)</td><td>Hướng mới mà dữ liệu được chiếu lên</td></tr>
+              <tr><td>\(\lambda\)</td><td>Lượng biến thiên theo hướng đó</td></tr>
+            </tbody>
+          </table>
+          <p style="margin:0.1em 0;font-size:0.8em">Giữ lại những vector riêng có giá trị riêng lớn nhất.</p>
+        </section>
+
+        <section>
+          <h2>Mã Python: PCA trên bộ iris</h2>
+          <div class="code-split">
+            <div><pre class="demo-code lab"><code class="language-python" data-trim>
+import numpy as np
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+
+data = load_iris()
+X = data.data
+
+pca = PCA(n_components=2)
+X_reduced = pca.fit_transform(X)
+
+print(&quot;Kích thước ban đầu:&quot;, X.shape)
+print(&quot;Sau PCA:&quot;, X_reduced.shape)
+print(&quot;Tỷ lệ phương sai giữ lại:&quot;,
+      pca.explained_variance_ratio_)
+</code></pre><pre class="result-out">Kích thước ban đầu: (150, 4)
+Sau PCA: (150, 2)
+Tỷ lệ phương sai giữ lại: [0.92461872 0.05306648]</pre></div>
+            <figure class="fig">
+              <img src="img/lec03/pca-iris.png" alt="150 hoa iris chiếu lên hai thành phần chính, ba loài tách thành ba cụm" style="max-height:290px">
+              <figcaption class="caption">Bộ iris: 4 chiều xuống 2 chiều, giữ 92,46% + 5,31% = 97,77% phương sai. Hình do biên soạn.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section>
+          <h2>Ứng dụng 2. Tìm sản phẩm tương tự bằng vector</h2>
+          <p>Mỗi sản phẩm được AI chuyển thành một vector đặc trưng:</p>
+          <div class="formula sm">$$A=[1,2,3]\qquad B=[2,4,6]\qquad C=[1,-1,0]$$</div>
+          <p>Đo độ tương đồng bằng Cosine Similarity:</p>
+          <div class="formula lg">$$\operatorname{sim}(A,B)=\frac{A\cdot B}{\lVert A\rVert\,\lVert B\rVert}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(A\cdot B\)</td><td>Tích vô hướng của hai vector</td></tr>
+              <tr><td>\(\lVert A\rVert\)</td><td>Độ dài vector \(A\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="fit">
+          <h2>Ý nghĩa của cosine</h2>
+          <div class="two-col two-col--wide-right">
+            <div>
+              <ul>
+                <li>Góc càng nhỏ thì hai vector càng cùng hướng.</li>
+                <li>Giá trị gần <strong>1</strong>: rất tương đồng.</li>
+                <li>Giá trị gần <strong>0</strong>: ít tương đồng.</li>
+                <li>Giá trị gần <strong>−1</strong>: ngược hướng.</li>
+              </ul>
+              <div class="formula sm">$$A\cdot B=1\cdot2+2\cdot4+3\cdot6=28,\quad \lVert A\rVert\lVert B\rVert=\sqrt{14}\sqrt{56}=28$$</div>
+              <p style="font-size:0.62em">Nên \(\operatorname{sim}(A,B)=28/28=1\): \(B=2A\), cùng hướng dù \(B\) dài gấp đôi. Cosine so sánh hướng, không so sánh độ lớn.</p>
+            </div>
+            <div class="card-plain sm"><b>Với \(C=[1,-1,0]\)</b><br>\(A\cdot C=1-2+0=-1\), \(\lVert A\rVert\lVert C\rVert=\sqrt{14}\sqrt{2}\approx5{,}29\). Vậy \(\operatorname{sim}(A,C)\approx-0{,}189\): hai vector gần vuông góc, hơi lệch về phía ngược hướng.</div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: cosine similarity</h2>
+          <div class="code-split">
+            <div><pre class="demo-code sm"><code class="language-python" data-trim>
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+
+products = np.array([
+    [1, 2, 3],
+    [2, 4, 6],
+    [1, -1, 0],
+    [1, 2, 2]
+])
+
+similarity = cosine_similarity(products)
+
+print(np.round(similarity, 3))
+
+# Tìm sản phẩm giống sản phẩm đầu tiên nhất
+scores = similarity[0].copy()
+scores[0] = -1
+
+best = np.argmax(scores)
+
+print(&quot;Sản phẩm tương tự nhất:&quot;, best)
+print(&quot;Độ tương đồng:&quot;, scores[best])
+</code></pre></div>
+            <div>
+              <pre class="result-out">[[ 1.     1.    -0.189  0.98 ]
+ [ 1.     1.    -0.189  0.98 ]
+ [-0.189 -0.189  1.    -0.236]
+ [ 0.98   0.98  -0.236  1.   ]]
+Sản phẩm tương tự nhất: 1
+Độ tương đồng: 1.0</pre>
+              <figure class="fig">
+                <img src="img/lec03/cosine-heatmap.png" alt="Ma trận cosine similarity của bốn sản phẩm" style="max-height:150px">
+                <figcaption class="caption">Ma trận tương đồng của bốn sản phẩm. Hình do biên soạn.</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="good-box"><span class="box-title">Kiểm lại</span> Sản phẩm 1 (\([2,4,6]\)) cho độ tương đồng 1,0 với sản phẩm 0 (\([1,2,3]\)), đúng như tính tay. Sản phẩm 3 (\([1,2,2]\)) cho 0,98.</div>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: đại số tuyến tính</h2>
+          <div class="kw-row">
+            <span class="kw">PCA</span><span class="kw">SVD</span><span class="kw">Matrix Factorization</span><span class="kw">Word2Vec</span><span class="kw">Embeddings</span><span class="kw">Vector Database</span><span class="kw">CNN</span><span class="kw">Transformer</span><span class="kw">Attention</span><span class="kw">Recommendation Systems</span>
+          </div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec03/svd.svg" alt="Sơ đồ phân rã giá trị suy biến M = U Σ V*" style="max-height:200px">
+              <figcaption class="caption">Phân rã giá trị suy biến (SVD): một ma trận bằng tích ba ma trận. Georg-Johann, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Singular-Value-Decomposition.svg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div>
+              <div class="formula sm">$$M=U\,\Sigma\,V^{\top}$$</div>
+              <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn biểu diễn và biến đổi dữ liệu.</div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h1><span class="text-light">4.</span><br>Giải tích</h1>
+          <p class="text-light">Calculus: vi phân và tích phân</p>
+        </section>
+
+        <section class="fit">
+          <h2>Vì sao cần giải tích?</h2>
+          <p>Huấn luyện một AI dự đoán giá nhà. AI dự đoán 2 tỷ đồng, trong khi giá thực tế là 2,5 tỷ đồng.</p>
+          <p>Cần điều chỉnh các tham số để lần sau dự đoán tốt hơn.</p>
+          <div class="key-box"><span class="box-title">Điểm mấu chốt</span> AI cần biết thay đổi tham số theo <strong>hướng nào</strong> và thay đổi <strong>bao nhiêu</strong>.</div>
+          <p>Đây chính là vấn đề của <strong>đạo hàm</strong> và <strong>gradient</strong>.</p>
+          <div class="two-col">
+            <figure class="fig">
+              <img src="img/lec03/tangent.svg" alt="Đường cong và tiếp tuyến tại một điểm" style="max-height:150px">
+              <figcaption class="caption">Đạo hàm là hệ số góc của tiếp tuyến. Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Tangent_to_a_curve.svg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <div class="formula sm">$$f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$$</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian giải tích</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của giải tích">
+            <div class="timeline-event"><div class="timeline-date">Khoảng 250 TCN</div><div class="timeline-dot"></div><div class="timeline-name">Archimedes</div><div class="timeline-note">Vét cạn, tiền thân của tích phân</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XVII</div><div class="timeline-dot"></div><div class="timeline-name">Newton và Leibniz</div><div class="timeline-note">Vi phân và tích phân</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XVIII</div><div class="timeline-dot"></div><div class="timeline-name">Euler và Lagrange</div><div class="timeline-note">Phương trình vi phân, giải tích biến phân</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XIX</div><div class="timeline-dot"></div><div class="timeline-name">Cauchy và Weierstrass</div><div class="timeline-note">Giới hạn, liên tục, đạo hàm chặt chẽ</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XX – XXI</div><div class="timeline-dot"></div><div class="timeline-name">Giải tích nhiều biến</div><div class="timeline-note">Chain rule, gradient, backpropagation</div></div>
+          </div>
+          <p class="source">Nguồn tổng quan: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/The_rise_of_calculus/" target="_blank" rel="noopener">MacTutor — The rise of calculus</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Archimedes và phương pháp vét cạn</h2>
+          <div class="slide-badge-row"><span class="history-date">Khoảng 250 TCN</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec03/archimedes.jpg" alt="Archimedes"><figcaption><b>Archimedes</b>Khoảng 287–212 TCN. Tranh của Domenico Fetti, 1620<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Domenico-Fetti_Archimedes_1620.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Archimedes sử dụng <strong>phương pháp vét cạn</strong> để tính diện tích và thể tích, một tiền thân quan trọng của tư tưởng tích phân.</p>
+              <figure class="fig">
+                <img src="img/lec03/integral.svg" alt="Diện tích dưới đường cong được xấp xỉ bằng các hình chữ nhật" style="max-height:170px">
+                <figcaption class="caption">Diện tích dưới đường cong được xấp xỉ bằng các dải hẹp. KSmrq, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/wiki/File:Integral_example.svg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+              </figure>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Archimedes/" target="_blank" rel="noopener">MacTutor — Archimedes</a> · <a href="https://www.archimedespalimpsest.org/" target="_blank" rel="noopener">The Archimedes Palimpsest Project</a>.</p>
+        </section>
+
+        <section>
+          <h2>Newton và Leibniz</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XVII</span></div>
+          <div class="portrait-row two short">
+            <figure><img src="img/lec03/newton.jpg" alt="Isaac Newton"><figcaption><b>Isaac Newton</b>1643–1727. Tranh của Godfrey Kneller, 1689<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Portrait_of_Sir_Isaac_Newton,_1689.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/leibniz.jpg" alt="Gottfried Wilhelm Leibniz"><figcaption><b>Gottfried Wilhelm Leibniz</b>1646–1716. Tranh của Christoph Bernhard Francke<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Gottfried_Wilhelm_Leibniz,_Bernhard_Christoph_Francke.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p>Isaac Newton và Gottfried Wilhelm Leibniz <strong>độc lập</strong> phát triển giải tích vi phân và tích phân.</p>
+          <div class="formula sm">$$\frac{dy}{dx}\qquad\qquad\int f(x)\,dx$$</div>
+          <p style="font-size:0.62em">Hai ký hiệu trên gắn liền với truyền thống ký hiệu của Leibniz, vẫn dùng đến ngày nay.</p>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Newton/" target="_blank" rel="noopener">MacTutor — Newton</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Leibniz/" target="_blank" rel="noopener">MacTutor — Leibniz</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Euler và Lagrange</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XVIII</span></div>
+          <div class="portrait-row two short">
+            <figure><img src="img/lec03/euler.jpg" alt="Leonhard Euler"><figcaption><b>Leonhard Euler</b>1707–1783. Tranh của Jakob Emanuel Handmann<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Leonhard_Euler.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/lagrange.jpg" alt="Joseph-Louis Lagrange"><figcaption><b>Joseph-Louis Lagrange</b>1736–1813<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Lagrange_portrait.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p>Phát triển mạnh các <strong>phương pháp giải tích</strong>, <strong>phương trình vi phân</strong> và <strong>giải tích biến phân</strong>.</p>
+          <div class="key-box"><span class="box-title">Liên hệ</span> Giải tích biến phân và nhân tử Lagrange là nền của tối ưu có ràng buộc (mục 5 của bài này).</div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Euler/" target="_blank" rel="noopener">MacTutor — Euler</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Lagrange/" target="_blank" rel="noopener">MacTutor — Lagrange</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cauchy và Weierstrass: nền tảng chặt chẽ</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XIX</span></div>
+          <div class="portrait-row two short">
+            <figure><img src="img/lec03/cauchy.jpg" alt="Augustin-Louis Cauchy"><figcaption><b>Augustin-Louis Cauchy</b>1789–1857<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Augustin-Louis_Cauchy_1901.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/weierstrass.jpg" alt="Karl Weierstrass"><figcaption><b>Karl Weierstrass</b>1815–1897<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Karl_Weierstrass_x_Rudolf_von_Voigtl%C3%A4nder.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p>Đặt nền tảng chặt chẽ hơn cho <strong>giới hạn</strong>, <strong>tính liên tục</strong> và <strong>đạo hàm</strong>.</p>
+          <div class="formula sm">$$\lim_{x\to a}f(x)=L\iff\forall\varepsilon&gt;0\ \exists\delta&gt;0:\ 0&lt;|x-a|&lt;\delta\Rightarrow|f(x)-L|&lt;\varepsilon$$</div>
+          <p style="font-size:0.58em">Định nghĩa \(\varepsilon\)–\(\delta\): \(f(x)\) gần \(L\) tùy ý khi \(x\) đủ gần \(a\). Đây là dạng chặt chẽ của giới hạn trong định nghĩa đạo hàm.</p>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/" target="_blank" rel="noopener">MacTutor — Cauchy</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Weierstrass/" target="_blank" rel="noopener">MacTutor — Weierstrass</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Giải tích nhiều biến và học sâu</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XX – XXI</span></div>
+          <p>Đạo hàm riêng, chain rule và gradient trở thành nền tảng của <strong>backpropagation</strong> và huấn luyện mạng neural network.</p>
+          <div class="pipeline">
+            <div class="stage"><div class="stage-title">Đầu vào \(x\)</div><div class="stage-desc">Dữ liệu</div></div>
+            <div class="arrow">→</div>
+            <div class="stage"><div class="stage-title">\(z=Wx+b\)</div><div class="stage-desc">Biến đổi tuyến tính</div></div>
+            <div class="arrow">→</div>
+            <div class="stage"><div class="stage-title">\(a=\sigma(z)\)</div><div class="stage-desc">Kích hoạt</div></div>
+            <div class="arrow">→</div>
+            <div class="stage stage-highlight"><div class="stage-title">\(L(a,y)\)</div><div class="stage-desc">Hàm mất mát</div></div>
+          </div>
+          <div class="formula sm">$$\frac{\partial L}{\partial W}=\frac{\partial L}{\partial a}\cdot\frac{\partial a}{\partial z}\cdot\frac{\partial z}{\partial W}\qquad\qquad\nabla L=\Big(\frac{\partial L}{\partial\theta_1},\dots,\frac{\partial L}{\partial\theta_n}\Big)$$</div>
+          <p style="font-size:0.58em">Chain rule nhân các đạo hàm dọc theo đường đi ngược từ mất mát về tham số. Gradient gom mọi đạo hàm riêng thành một vector chỉ hướng tăng nhanh nhất của \(L\).</p>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1038/323533a0" target="_blank" rel="noopener">Rumelhart, Hinton &amp; Williams, 1986, <em>Nature</em></a> · <a href="https://www.deeplearningbook.org/contents/mlp.html" target="_blank" rel="noopener">Goodfellow et al., <em>Deep Learning</em>, chương 6</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Các nhân vật nổi bật</h2>
+          <div class="portrait-row four tall">
+            <figure><img src="img/lec03/newton.jpg" alt="Isaac Newton"><figcaption><b>Isaac Newton</b>1643–1727. Giải tích và cơ học<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Portrait_of_Sir_Isaac_Newton,_1689.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/leibniz.jpg" alt="Gottfried Wilhelm Leibniz"><figcaption><b>Gottfried Wilhelm Leibniz</b>1646–1716. Ký hiệu và phát triển giải tích<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Gottfried_Wilhelm_Leibniz,_Bernhard_Christoph_Francke.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/euler.jpg" alt="Leonhard Euler"><figcaption><b>Leonhard Euler</b>1707–1783. Phương trình và giải tích<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Leonhard_Euler.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/cauchy.jpg" alt="Augustin-Louis Cauchy"><figcaption><b>Augustin-Louis Cauchy</b>1789–1857. Nền tảng giải tích chặt chẽ<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Augustin-Louis_Cauchy_1901.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/The_rise_of_calculus/" target="_blank" rel="noopener">MacTutor — The rise of calculus</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. Đạo hàm: AI biết cần sửa sai thế nào</h2>
+          <p>Mô hình có một tham số \(w\), hàm lỗi:</p>
+          <div class="formula sm">$$L(w)=(w-3)^2$$</div>
+          <p>Cần tìm \(w\) để lỗi nhỏ nhất. Đạo hàm:</p>
+          <div class="formula sm">$$\frac{dL}{dw}=2(w-3)$$</div>
+          <p>Nếu \(w=5\) thì \(\dfrac{dL}{dw}=4\).</p>
+          <div class="key-box"><span class="box-title">Đọc đạo hàm</span> Đạo hàm dương cho biết tăng \(w\) sẽ làm lỗi tăng tại điểm này. Vì vậy cần <strong>giảm</strong> \(w\).</div>
+        </section>
+
+        <section class="fit">
+          <h2>Cập nhật tham số bằng Gradient Descent</h2>
+          <div class="formula sm">$$w_{\text{new}}=w_{\text{old}}-\eta\,\frac{dL}{dw}$$</div>
+          <p>\(\eta\) là <strong>learning rate</strong> – tốc độ học. Với \(\eta=0{,}1\) và \(w=5\):</p>
+          <div class="formula sm">$$w_{\text{new}}=5-0{,}1\times4=4{,}6$$</div>
+          <figure class="fig">
+            <img src="img/lec03/gd-1d.png" alt="Parabol L(w) = (w-3)^2 với các bước cập nhật tiến dần về w = 3" style="max-height:250px">
+            <figcaption class="caption">30 bước cập nhật từ \(w=5\): mỗi bước nhỏ dần vì đạo hàm nhỏ dần. Hình do biên soạn.</figcaption>
+          </figure>
+          <p class="source">Nguồn: <a href="https://www.emis.de/journals/DMJDMV/vol-ismp/40_lemarechal-claude.pdf" target="_blank" rel="noopener">Lemaréchal, <em>Cauchy and the Gradient Method</em>, Documenta Mathematica, 2012</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: Gradient Descent từ đầu</h2>
+          <div class="code-split">
+            <div><pre class="demo-code lab"><code class="language-python" data-trim>
+w = 5.0
+learning_rate = 0.1
+
+for i in range(30):
+    loss = (w - 3) ** 2
+    gradient = 2 * (w - 3)
+
+    w = w - learning_rate * gradient
+
+    print(i, round(w, 5), round(loss, 5))
+
+print(&quot;Nghiệm gần tối ưu:&quot;, w)
+</code></pre></div>
+            <div>
+              <pre class="result-out">0 4.6 4.0
+1 4.28 2.56
+2 4.024 1.6384
+3 3.8192 1.04858
+4 3.65536 0.67109
+5 3.52429 0.4295
+6 3.41943 0.27488
+…
+29 3.00248 1e-05
+Nghiệm gần tối ưu: 3.002475880078571</pre>
+              <div class="good-box" style="font-size:0.66em"><span class="box-title">Kiểm lại</span> Dòng đầu: \(w=4{,}6\), khớp tính tay. Cột cuối là loss <em>trước</em> mỗi lần cập nhật nên dòng đầu in 4,0. Sau 30 bước \(w\approx3{,}00248\), rất gần nghiệm \(w=3\).</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Tích phân: tổng lượng biến thiên</h2>
+          <p>Một cửa hàng có tốc độ bán hàng \(v(t)\) thay đổi theo thời gian. Tổng lượng hàng bán ra từ \(t_0\) đến \(t_1\):</p>
+          <div class="formula sm">$$Q=\int_{t_0}^{t_1}v(t)\,dt$$</div>
+          <div class="two-col two-col--wide-right">
+            <div>
+              <p style="margin:0.1em 0">Nếu \(v(t)=2t+1\), trong 3 giờ đầu:</p>
+              <div class="formula sm">$$Q=\int_0^3(2t+1)\,dt=\Big[t^2+t\Big]_0^3=12$$</div>
+              <p style="font-size:0.7em">Tổng lượng bán là 12 đơn vị, nếu tốc độ tính theo đơn vị hàng/giờ.</p>
+            </div>
+            <figure class="fig">
+              <img src="img/lec03/integral-sales.png" alt="Diện tích dưới đường v(t) = 2t + 1 từ 0 đến 3 bằng 12" style="max-height:200px">
+              <figcaption class="caption">Tích phân là diện tích dưới đường tốc độ bán. Hình do biên soạn.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mã Python: tích phân số bằng SciPy</h2>
+          <pre class="demo-code lab"><code class="language-python" data-trim>
+from scipy.integrate import quad
+
+def sales_rate(t):
+    return 2 * t + 1
+
+total, error = quad(sales_rate, 0, 3)
+
+print(&quot;Tổng lượng hàng bán:&quot;, total)
+print(&quot;Sai số ước lượng:&quot;, error)
+</code></pre>
+          <pre class="result-out">Tổng lượng hàng bán: 12.0
+Sai số ước lượng: 1.3322676295501878e-13</pre>
+          <div class="good-box"><span class="box-title">Kiểm lại</span> SciPy cho 12,0, khớp \([t^2+t]_0^3=12\). Sai số ước lượng cỡ \(10^{-13}\): kết quả số rất sát giá trị giải tích.</div>
+          <p class="source">Nguồn: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html" target="_blank" rel="noopener">SciPy — scipy.integrate.quad</a>.</p>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: giải tích</h2>
+          <div class="kw-row">
+            <span class="kw">Gradient Descent</span><span class="kw">Backpropagation</span><span class="kw">Neural Networks</span><span class="kw">Continuous Optimization</span><span class="kw">Neural ODE</span><span class="kw">Continuous Probability Models</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn biết mô hình thay đổi như thế nào khi tham số thay đổi.</div>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h1><span class="text-light">5.</span><br>Tối ưu hóa</h1>
+          <p class="text-light">Mathematical Optimization</p>
+        </section>
+
+        <section>
+          <h2>Vì sao cần tối ưu hóa?</h2>
+          <p>Quản lý một nhà máy. Cần biết nên sản xuất bao nhiêu sản phẩm A và B để lợi nhuận cao nhất.</p>
+          <table class="era-table big">
+            <thead><tr><th>Sản phẩm</th><th>Thời gian sản xuất</th><th>Lợi nhuận mỗi sản phẩm</th></tr></thead>
+            <tbody>
+              <tr><td>A</td><td>2 giờ</td><td>100.000 đồng</td></tr>
+              <tr><td>B</td><td>1 giờ</td><td>60.000 đồng</td></tr>
+              <tr><td colspan="3">Nhà máy chỉ có 100 giờ làm việc.</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Đây là bài toán tối ưu hóa</span> Trong Machine Learning, vấn đề tương tự xuất hiện khi tìm bộ tham số giúp hàm mất mát nhỏ nhất.</div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian tối ưu hóa</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của tối ưu hóa">
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XVIII</div><div class="timeline-dot"></div><div class="timeline-name">Euler và Lagrange</div><div class="timeline-note">Giải tích biến phân, nhân tử Lagrange</div></div>
+            <div class="timeline-event"><div class="timeline-date">1847</div><div class="timeline-dot"></div><div class="timeline-name">Cauchy</div><div class="timeline-note">Steepest descent, tiền thân của Gradient Descent</div></div>
+            <div class="timeline-event"><div class="timeline-date">1947</div><div class="timeline-dot"></div><div class="timeline-name">Simplex Method</div><div class="timeline-note">Dantzig, quy hoạch tuyến tính</div></div>
+            <div class="timeline-event"><div class="timeline-date">1950 – 1980</div><div class="timeline-dot"></div><div class="timeline-name">Tối ưu hiện đại</div><div class="timeline-note">Dynamic Programming, điểm trong, phi tuyến</div></div>
+            <div class="timeline-event"><div class="timeline-date">2014</div><div class="timeline-dot"></div><div class="timeline-name">Adam Optimizer</div><div class="timeline-note">Kingma và Ba, Deep Learning</div></div>
+          </div>
+          <p class="source">Nguồn tổng quan: <a href="https://www.informs.org/Explore/History-of-O.R.-Excellence" target="_blank" rel="noopener">INFORMS — History of O.R. Excellence</a> · <a href="https://web.stanford.edu/~boyd/cvxbook/" target="_blank" rel="noopener">Boyd &amp; Vandenberghe, <em>Convex Optimization</em></a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Euler, Lagrange và tối ưu có ràng buộc</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XVIII</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec03/lagrange.jpg" alt="Joseph-Louis Lagrange"><figcaption><b>Joseph-Louis Lagrange</b>1736–1813<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Lagrange_portrait.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Phát triển <strong>giải tích biến phân</strong> và <strong>phương pháp nhân tử Lagrange</strong> để giải các bài toán tối ưu có ràng buộc.</p>
+              <div class="formula sm">$$\min_x f(x)\ \text{với}\ g(x)=0\;\;\Rightarrow\;\;\mathcal{L}(x,\lambda)=f(x)+\lambda\,g(x)$$</div>
+              <p style="font-size:0.58em">\(f\): hàm cần tối thiểu. \(g(x)=0\): ràng buộc. \(\lambda\): nhân tử Lagrange. Nghiệm tối ưu là điểm dừng của \(\mathcal{L}\).</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Lagrange/" target="_blank" rel="noopener">MacTutor — Lagrange</a> · Boyd &amp; Vandenberghe, <em>Convex Optimization</em>, chương 5.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cauchy và phương pháp giảm dốc</h2>
+          <div class="slide-badge-row"><span class="history-date">1847</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec03/cauchy.jpg" alt="Augustin-Louis Cauchy"><figcaption><b>Augustin-Louis Cauchy</b>1789–1857<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Augustin-Louis_Cauchy_1901.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Cauchy đề xuất phương pháp <strong>steepest descent</strong>, tiền thân của Gradient Descent.</p>
+              <div class="formula sm">$$x_{k+1}=x_k-\eta\,\nabla f(x_k)$$</div>
+              <p style="font-size:0.58em">Đi ngược hướng gradient, vì đó là hướng giảm nhanh nhất cục bộ của \(f\).</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.emis.de/journals/DMJDMV/vol-ismp/40_lemarechal-claude.pdf" target="_blank" rel="noopener">Lemaréchal, <em>Cauchy and the Gradient Method</em>, 2012</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Simplex Method và quy hoạch tuyến tính</h2>
+          <div class="slide-badge-row"><span class="history-date">1947</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec03/dantzig.webp" alt="George Dantzig"><figcaption><b>George Dantzig</b>1914–2005<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:George_B._Dantzig_at_National_Medal_of_Science_Awards_Ceremony,_1976_2.webp" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>George Dantzig phát triển <strong>thuật toán Simplex</strong> cho quy hoạch tuyến tính.</p>
+              <div class="formula sm">$$\max_x\ c^{\top}x\quad\text{với}\ Ax\le b,\ x\ge0$$</div>
+              <p style="font-size:0.58em">Nghiệm tối ưu của quy hoạch tuyến tính nằm ở một đỉnh của miền khả thi. Simplex đi dọc các cạnh từ đỉnh này sang đỉnh khác.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.informs.org/Explore/History-of-O.R.-Excellence/Biographical-Profiles/Dantzig-George-B" target="_blank" rel="noopener">INFORMS — George B. Dantzig</a> · <a href="https://doi.org/10.1016/0167-6377(82)90043-8" target="_blank" rel="noopener">Dantzig, 1982, <em>Reminiscences about the origins of linear programming</em></a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Quy hoạch toán học và tối ưu hiện đại</h2>
+          <div class="slide-badge-row"><span class="history-date">1950 – 1980</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              <figure><img src="img/lec03/boyd.jpg" alt="Stephen Boyd"><figcaption><b>Stephen Boyd</b>Tối ưu lồi (thập niên 1990 – nay)<br>Hugo van Gelderen / Anefo, CC BY-SA 3.0 nl, <a href="https://commons.wikimedia.org/wiki/File:Stephen_Boyd.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            </div>
+            <div>
+              <p>Dynamic Programming, stochastic approximation, phương pháp điểm trong và các phương pháp tối ưu phi tuyến phát triển mạnh.</p>
+              <table class="era-table">
+                <thead><tr><th>Mốc</th><th>Công trình</th></tr></thead>
+                <tbody>
+                  <tr><td>1951</td><td>Robbins và Monro: stochastic approximation, nền của SGD</td></tr>
+                  <tr><td>1957</td><td>Bellman: <em>Dynamic Programming</em></td></tr>
+                  <tr><td>1984</td><td>Karmarkar: phương pháp điểm trong cho quy hoạch tuyến tính</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1214/aoms/1177729586" target="_blank" rel="noopener">Robbins &amp; Monro, 1951</a> · <a href="https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming" target="_blank" rel="noopener">Bellman, 1957</a> · <a href="https://doi.org/10.1007/BF02579150" target="_blank" rel="noopener">Karmarkar, 1984</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Adam Optimizer</h2>
+          <div class="slide-badge-row"><span class="history-date">2014</span></div>
+          <p>Kingma và Ba công bố <strong>Adam</strong>, một thuật toán tối ưu được sử dụng rộng rãi trong Deep Learning.</p>
+          <div class="formula sm">$$m_t=\beta_1m_{t-1}+(1-\beta_1)g_t,\qquad v_t=\beta_2v_{t-1}+(1-\beta_2)g_t^{2}$$$$\theta_{t+1}=\theta_t-\eta\,\frac{\hat m_t}{\sqrt{\hat v_t}+\varepsilon}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(g_t\)</td><td>Gradient của hàm mất mát tại bước \(t\)</td></tr>
+              <tr><td>\(m_t,v_t\)</td><td>Trung bình động bậc một (động lượng) và bậc hai của gradient</td></tr>
+              <tr><td>\(\hat m_t,\hat v_t\)</td><td>Hai đại lượng trên sau hiệu chỉnh lệch</td></tr>
+              <tr><td>\(\beta_1,\beta_2,\varepsilon\)</td><td>Siêu tham số, mặc định trong bài báo: 0,9; 0,999; \(10^{-8}\)</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://arxiv.org/abs/1412.6980" target="_blank" rel="noopener">Kingma &amp; Ba, <em>Adam: A Method for Stochastic Optimization</em>, arXiv, 2014; ICLR 2015</a>. Chưa tìm được ảnh chân dung có giấy phép mở.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Những nhân vật tiêu biểu</h2>
+          <div class="portrait-row four tall">
+            <figure><img src="img/lec03/lagrange.jpg" alt="Joseph-Louis Lagrange"><figcaption><b>Joseph-Louis Lagrange</b>Nhân tử Lagrange<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Lagrange_portrait.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/dantzig.webp" alt="George Dantzig"><figcaption><b>George Dantzig</b>Linear Programming<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:George_B._Dantzig_at_National_Medal_of_Science_Awards_Ceremony,_1976_2.webp" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/cauchy.jpg" alt="Augustin-Louis Cauchy"><figcaption><b>Augustin-Louis Cauchy</b>Steepest descent<br>Phạm vi công cộng, <a href="https://commons.wikimedia.org/wiki/File:Augustin-Louis_Cauchy_1901.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+            <figure><img src="img/lec03/boyd.jpg" alt="Stephen Boyd"><figcaption><b>Stephen Boyd</b>Convex Optimization<br>Hugo van Gelderen / Anefo, CC BY-SA 3.0 nl, <a href="https://commons.wikimedia.org/wiki/File:Stephen_Boyd.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Lagrange/" target="_blank" rel="noopener">MacTutor — Lagrange</a> · <a href="https://www.informs.org/Explore/History-of-O.R.-Excellence/Biographical-Profiles/Dantzig-George-B" target="_blank" rel="noopener">INFORMS — Dantzig</a> · <a href="https://web.stanford.edu/~boyd/" target="_blank" rel="noopener">Stephen Boyd, Stanford</a>.</p>
+        </section>
+
+        <section>
+          <h2>Ứng dụng 1. Tối đa hóa lợi nhuận nhà máy</h2>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(x\)</td><td>Số sản phẩm A</td></tr>
+              <tr><td>\(y\)</td><td>Số sản phẩm B</td></tr>
+            </tbody>
+          </table>
+          <p style="margin:0.1em 0">Hàm mục tiêu (đơn vị nghìn đồng):</p>
+          <div class="formula sm">$$\max Z=100x+60y$$</div>
+          <p style="margin:0.1em 0">Ràng buộc thời gian, ràng buộc nguyên liệu, và điều kiện không âm:</p>
+          <div class="formula sm">$$2x+y\le100\qquad\quad x+2y\le80\qquad\quad x,y\ge0$$</div>
+          <div class="key-box"><span class="box-title">Phân loại</span> Đây là <strong>Linear Programming</strong>: mục tiêu và ràng buộc đều tuyến tính. Dùng SciPy để tìm nghiệm.</div>
+        </section>
+
+        <section class="fit">
+          <h2>Miền khả thi và nghiệm tối ưu</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec03/lp-feasible.png" alt="Miền khả thi của bài toán quy hoạch tuyến tính với điểm tối ưu (40, 20)" style="max-height:310px">
+              <figcaption class="caption">Miền khả thi có bốn đỉnh. Hình do biên soạn.</figcaption>
+            </figure>
+            <div>
+              <table class="era-table">
+                <thead><tr><th>Đỉnh \((x,y)\)</th><th>\(Z\)</th></tr></thead>
+                <tbody>
+                  <tr><td>(0, 0)</td><td>0</td></tr>
+                  <tr><td>(50, 0)</td><td>5.000</td></tr>
+                  <tr><td>(0, 40)</td><td>2.400</td></tr>
+                  <tr><td><strong>(40, 20)</strong></td><td><strong>5.200</strong></td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:0.58em">Đỉnh \((40,20)\) là giao của \(2x+y=100\) và \(x+2y=80\). Lợi nhuận tối đa \(Z=100\cdot40+60\cdot20=5.200\) nghìn đồng.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mã Python: linprog</h2>
+          <div class="code-split even">
+            <div><pre class="demo-code lab"><code class="language-python" data-trim>
+from scipy.optimize import linprog
+
+# scipy tìm MIN, nên đổi dấu để tìm MAX
+c = [-100, -60]
+
+A = [
+    [2, 1],
+    [1, 2]
+]
+
+b = [100, 80]
+
+result = linprog(
+    c,
+    A_ub=A,
+    b_ub=b,
+    bounds=[(0, None), (0, None)],
+    method=&quot;highs&quot;
+)
+
+print(&quot;Số sản phẩm A:&quot;, result.x[0])
+print(&quot;Số sản phẩm B:&quot;, result.x[1])
+print(&quot;Lợi nhuận tối đa:&quot;, -result.fun, &quot;nghìn đồng&quot;)
+</code></pre></div>
+            <div>
+              <pre class="result-out">Số sản phẩm A: 40.0
+Số sản phẩm B: 20.0
+Lợi nhuận tối đa: 5200.0 nghìn đồng</pre>
+              <div class="good-box" style="font-size:0.66em"><span class="box-title">Kiểm lại</span> Nghiệm 40 sản phẩm A, 20 sản phẩm B và 5.200 nghìn đồng khớp bảng đỉnh ở slide trước. SciPy tìm giá trị nhỏ nhất nên đổi dấu hệ số mục tiêu để tìm giá trị lớn nhất.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html" target="_blank" rel="noopener">SciPy — scipy.optimize.linprog</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Tìm bộ tham số tốt nhất cho AI</h2>
+          <p>Một mô hình Machine Learning có thể có hàng triệu tham số. Cần tìm:</p>
+          <div class="formula sm">$$\theta^{*}=\arg\min_{\theta}L(\theta)$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(\theta\)</td><td>Toàn bộ tham số của mô hình</td></tr>
+              <tr><td>\(L(\theta)\)</td><td>Hàm mất mát</td></tr>
+              <tr><td>\(\theta^{*}\)</td><td>Bộ tham số làm mất mát nhỏ nhất</td></tr>
+            </tbody>
+          </table>
+          <p>Một thuật toán phổ biến là Gradient Descent:</p>
+          <div class="formula sm">$$\theta_{t+1}=\theta_t-\eta\,\nabla L(\theta_t)$$</div>
+        </section>
+
+        <section class="fit">
+          <h2>Gradient Descent trên hàm hai tham số</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec03/gd-2d.png" alt="Đường đồng mức của hàm mất mát và đường đi của Gradient Descent về cực tiểu" style="max-height:300px">
+              <figcaption class="caption">\(L(\theta)=(\theta_1-3)^2+4(\theta_2+1)^2\), \(\eta=0{,}1\), xuất phát \((-2,2)\). Hình do biên soạn.</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.85em">
+                <li>Mỗi bước đi ngược gradient, vuông góc với đường đồng mức.</li>
+                <li>Hướng \(\theta_2\) dốc hơn nên các bước dọc hướng đó ban đầu dài hơn.</li>
+                <li>Mô hình thật có hàng triệu chiều, nhưng quy tắc cập nhật giữ nguyên.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: SGD với scikit-learn</h2>
+          <div class="code-split">
+            <div><pre class="demo-code sm"><code class="language-python" data-trim>
+from sklearn.datasets import make_regression
+from sklearn.linear_model import SGDRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+
+X, y = make_regression(
+    n_samples=1000,
+    n_features=5,
+    noise=15,
+    random_state=42
+)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+model = SGDRegressor(
+    max_iter=2000,
+    learning_rate=&quot;invscaling&quot;,
+    eta0=0.01,
+    random_state=42
+)
+
+model.fit(X_train, y_train)
+
+pred = model.predict(X_test)
+
+print(&quot;MSE:&quot;, mean_squared_error(y_test, pred))
+print(&quot;Parameters:&quot;, model.coef_)
+</code></pre></div>
+            <div>
+              <pre class="result-out">MSE: 249.5834643524079
+Parameters: [27.48905751 45.86787596 16.6407073  24.45373453 19.2849535 ]</pre>
+              <div class="good-box" style="font-size:0.66em"><span class="box-title">Kiểm lại</span> Dữ liệu sinh với nhiễu \(\sigma=15\), nên phương sai nhiễu là \(15^2=225\). MSE trên tập kiểm tra là 249,58: cùng cỡ với mức nhiễu không thể giảm, tức mô hình đã học tốt.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html" target="_blank" rel="noopener">scikit-learn — SGDRegressor</a>.</p>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: tối ưu hóa</h2>
+          <div class="kw-row">
+            <span class="kw">Gradient Descent</span><span class="kw">SGD</span><span class="kw">Adam</span><span class="kw">Linear Programming</span><span class="kw">Convex Optimization</span><span class="kw">Hyperparameter Optimization</span><span class="kw">Operations Research</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn tìm phương án tốt nhất.</div>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Tổng kết buổi 3</h2>
+          <ul>
+            <li><strong>Bản đồ:</strong> tám nhánh toán, mỗi nhánh giải một loại vấn đề; các nhánh phối hợp trong cùng một thuật toán.</li>
+            <li><strong>Xác suất và thống kê:</strong> Bayes cập nhật xác suất 20% lên 53,33%; Naive Bayes dự đoán khách mới mua với xác suất 54,24%; A/B testing cho p-value 0,488, chưa đủ bằng chứng.</li>
+            <li><strong>Đại số tuyến tính:</strong> khách hàng là vector, bảng là ma trận; PCA giảm chiều, cosine đo tương đồng.</li>
+            <li><strong>Giải tích:</strong> đạo hàm chỉ hướng sửa sai, Gradient Descent cập nhật tham số; tích phân cộng dồn biến thiên.</li>
+            <li><strong>Tối ưu hóa:</strong> linprog cho 40 sản phẩm A, 20 sản phẩm B, lợi nhuận 5.200 nghìn đồng.</li>
+          </ul>
+        </section>
+
+        <section class="fit">
+          <h2>Học liệu tham khảo</h2>
+          <div class="portrait-row two tall" style="grid-template-columns:repeat(2,1fr)">
+            <figure>
+              <img src="img/lec03/books/practical-stats.jpg" alt="Bìa sách Practical Statistics for Data Scientists, tái bản lần 2" style="height:290px;max-height:290px;width:auto">
+              <figcaption><b>Practical Statistics for Data Scientists</b>P. Bruce, A. Bruce &amp; P. Gedeck, O’Reilly, 2020 (tái bản lần 2). Hơn 50 khái niệm thống kê thiết yếu, kèm mã R và Python. Bìa sách © O’Reilly Media, <a href="https://openlibrary.org/isbn/9781492072942" target="_blank" rel="noopener">Open Library</a>.</figcaption>
+            </figure>
+            <figure>
+              <img src="img/lec03/books/essential-math.jpg" alt="Bìa sách Essential Math for Data Science" style="height:290px;max-height:290px;width:auto">
+              <figcaption><b>Essential Math for Data Science</b>T. Nield, O’Reilly, 2022. Đại số tuyến tính, xác suất, thống kê, giải tích và hồi quy tuyến tính, minh họa bằng Python. Bìa sách © O’Reilly Media, <a href="https://openlibrary.org/isbn/9781098102937" target="_blank" rel="noopener">Open Library</a>.</figcaption>
+            </figure>
+          </div>
+          <p class="source">Nguồn: <a href="https://www.oreilly.com/library/view/practical-statistics-for/9781492072935/" target="_blank" rel="noopener">O’Reilly — Practical Statistics for Data Scientists</a> · <a href="https://github.com/gedeck/practical-statistics-for-data-scientists" target="_blank" rel="noopener">mã nguồn đi kèm (GitHub)</a> · <a href="https://www.oreilly.com/library/view/essential-math-for/9781098102920/" target="_blank" rel="noopener">O’Reilly — Essential Math for Data Science</a>. Ảnh bìa dùng với mục đích giới thiệu học liệu.</p>
+        </section>
+
+        <section>
+          <h2>Việc trước buổi sau</h2>
+          <ol>
+            <li>Chạy lại các đoạn mã của bài 3 trong một môi trường ảo. Đối chiếu từng số in ra với số trên slide.</li>
+            <li>Đổi cỡ mẫu A/B thành 5.000 người mỗi nhóm (cùng 5% và 6%). Dự đoán p-value tăng hay giảm, rồi chạy kiểm chứng.</li>
+            <li>Đổi learning rate Gradient Descent thành 1,1 rồi 0,01. Ghi nhận \(w\) sau 30 bước và giải thích vì sao.</li>
+          </ol>
+          <div class="good-box"><span class="box-title">Câu mang về</span> Toán không thay thế thư viện. Toán cho biết thuật toán đang làm gì và khi nào nó sai.</div>
+        </section>
+      </section>
+
+      <div class="footer">
+        Giới thiệu khoa học dữ liệu · Bài 3: Toán học trong khoa học dữ liệu (phần 1)
+      </div>
+    </div>
+  </div>
+
+  <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script src="plugin/math/math.js"></script>
+  <script>
+    Reveal.initialize({
+      controlsLayout: "edges",
+      slideNumber: true,
+      hash: true,
+      hashOneBasedIndex: true,
+      katex: { local: "plugin/katex" },
+      plugins: [RevealHighlight, RevealMath.KaTeX],
+      width: 1100,
+      height: 700,
+      margin: 0.04
+    });
+  </script>
+</body>
+
+</html>

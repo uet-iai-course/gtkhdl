@@ -1,0 +1,103 @@
+
+      <section>
+        <section>
+          <h1>Giới thiệu<br>khoa học dữ liệu</h1>
+          <p class="text-light">Học kỳ I, năm học 2026–2027</p>
+          <p class="text-light">Trường Đại học Công nghệ, ĐHQGHN</p>
+        </section>
+
+        <section>
+          <h1><span class="text-light">Bài 3</span><br>Toán học trong<br>khoa học dữ liệu</h1>
+          <p class="text-light">Phần 1: bản đồ tám nhánh toán, xác suất và thống kê,<br>đại số tuyến tính, giải tích, tối ưu hóa.</p>
+        </section>
+
+        <section>
+          <h2>Tổng quan buổi học</h2>
+          <ol>
+            <li>Bản đồ toán học trong khoa học dữ liệu: tám nhánh và bảy câu hỏi mở đầu</li>
+            <li>Xác suất và thống kê: Bayes, Naive Bayes, kiểm định giả thuyết, A/B testing</li>
+            <li>Đại số tuyến tính: vector, ma trận, PCA, độ tương đồng cosine</li>
+            <li>Giải tích: đạo hàm, gradient, tích phân</li>
+            <li>Tối ưu hóa: quy hoạch tuyến tính, Gradient Descent</li>
+            <li>Mỗi nhánh gồm vấn đề thực tế, lịch sử, nhân vật, công thức và mã Python chạy được</li>
+          </ol>
+          <p class="source">Phần 2 (bài 4): toán rời rạc và đồ thị, lý thuyết thông tin, toán học tính toán, hình học và tô pô, lộ trình thực hành.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1><span class="text-light">1.</span><br>Bản đồ toán học<br>trong khoa học dữ liệu</h1>
+          <p class="text-light">Mathematics behind Data Science: từ lịch sử toán học đến ứng dụng thực tế, công thức và lập trình.</p>
+        </section>
+
+        <section>
+          <h2>Mục tiêu của bài</h2>
+          <p>Giúp người mới vào ngành hiểu một điều quan trọng:</p>
+          <div class="key-box"><span class="box-title">Ý chính</span> Khoa học dữ liệu không đơn thuần là học Python, pandas, Machine Learning hay Deep Learning. Đằng sau mỗi thuật toán đều có một nhánh toán học giải quyết một loại vấn đề cụ thể.</div>
+          <ul>
+            <li>Không bắt đầu bằng định nghĩa toán học trừu tượng.</li>
+            <li>Bắt đầu từ những <strong>câu hỏi quen thuộc</strong>. Mỗi câu hỏi dẫn tới một hoặc nhiều nhánh toán.</li>
+          </ul>
+          <p class="source">Khung tham chiếu về nền toán cho học máy: <a href="https://mml-book.github.io/" target="_blank" rel="noopener">Deisenroth, Faisal &amp; Ong, <em>Mathematics for Machine Learning</em>, Cambridge University Press, 2020</a>.</p>
+        </section>
+
+        <section>
+          <h2>Bảy câu hỏi mở đầu</h2>
+          <div class="q-grid">
+            <div class="q-item">Làm thế nào dự đoán ngày mai trời mưa dựa trên dữ liệu những ngày trước?<span>→ xác suất và thống kê</span></div>
+            <div class="q-item">Làm thế nào biết một sản phẩm có khả năng được khách hàng mua?<span>→ xác suất có điều kiện, tối ưu hóa</span></div>
+            <div class="q-item">Làm thế nào tìm ra những nhóm khách hàng có hành vi tương tự nhau?<span>→ hình học (khoảng cách), đại số tuyến tính</span></div>
+            <div class="q-item">Làm thế nào Google tìm được trang web quan trọng nhất?<span>→ lý thuyết đồ thị, đại số tuyến tính</span></div>
+            <div class="q-item">Làm thế nào máy tính nhận diện khuôn mặt, phân loại ảnh?<span>→ đại số tuyến tính, giải tích, tối ưu hóa</span></div>
+            <div class="q-item">Làm thế nào biết mô hình AI đang học tốt hơn hay chỉ đang ghi nhớ dữ liệu?<span>→ thống kê, tối ưu hóa</span></div>
+            <div class="q-item" style="grid-column: 1 / -1">Làm thế nào tìm ra quy luật ẩn trong hàng triệu bản ghi dữ liệu?<span>→ giảm chiều (đại số tuyến tính), hình học và tô pô</span></div>
+          </div>
+          <p class="source">Ghép câu hỏi với nhánh toán chỉ mang tính gợi ý. Một câu hỏi thường cần nhiều nhánh cùng lúc.</p>
+        </section>
+
+        <section>
+          <h2>Tám nhánh toán học</h2>
+          <div class="branch-grid">
+            <div class="branch-card b1"><span class="no">1</span><b>Xác suất &amp; Thống kê</b><i>Probability &amp; Statistics</i>Hiểu dữ liệu, sự bất định, dự đoán và kiểm định giả thuyết.</div>
+            <div class="branch-card b2"><span class="no">2</span><b>Đại số tuyến tính</b><i>Linear Algebra</i>Biểu diễn dữ liệu bằng vector, ma trận, tensor và tìm cấu trúc ẩn.</div>
+            <div class="branch-card b3"><span class="no">3</span><b>Giải tích</b><i>Calculus</i>Hiểu sự thay đổi, đạo hàm, gradient và cách mô hình học.</div>
+            <div class="branch-card b4"><span class="no">4</span><b>Tối ưu hóa</b><i>Optimization</i>Tìm bộ tham số tốt nhất để mô hình đưa ra kết quả chính xác.</div>
+            <div class="branch-card b5"><span class="no">5</span><b>Toán rời rạc &amp; Lý thuyết đồ thị</b><i>Discrete Mathematics &amp; Graph Theory</i>Phân tích mạng xã hội, quan hệ giữa các đối tượng và thuật toán tìm kiếm.</div>
+            <div class="branch-card b6"><span class="no">6</span><b>Lý thuyết thông tin</b><i>Information Theory</i>Đo lường thông tin, độ bất định, entropy và lựa chọn đặc trưng.</div>
+            <div class="branch-card b7"><span class="no">7</span><b>Toán học tính toán</b><i>Numerical Mathematics</i>Giải các bài toán số lớn, xấp xỉ, sai số và tính toán hiệu quả.</div>
+            <div class="branch-card b8"><span class="no">8</span><b>Hình học &amp; Tô pô</b><i>Geometry &amp; Topology</i>Hiểu khoảng cách, hình dạng, cấu trúc không gian và dữ liệu nhiều chiều.</div>
+          </div>
+          <p class="era-note">Bài 3: nhánh 1–4. Bài 4: nhánh 5–8.</p>
+          <p class="source">Đây là cách phân loại theo vai trò của toán học trong một hệ thống khoa học dữ liệu, không phải phân loại chính thức duy nhất của ngành. Sơ đồ do biên soạn.</p>
+        </section>
+
+        <section>
+          <h2>Các nhánh không hoạt động độc lập</h2>
+          <p>Ví dụ huấn luyện một mạng neural network, đồng thời dùng:</p>
+          <div class="step-row">
+            <div class="step"><b>Đại số tuyến tính</b>Biểu diễn dữ liệu và tính toán giữa các lớp.</div>
+            <div class="step"><b>Giải tích</b>Tính gradient của hàm mất mát theo tham số.</div>
+            <div class="step"><b>Xác suất</b>Mô hình hóa đầu ra như một phân phối xác suất.</div>
+            <div class="step hl"><b>Tối ưu hóa</b>Cập nhật tham số để giảm hàm mất mát.</div>
+          </div>
+          <div class="key-box"><span class="box-title">Hệ quả</span> Học từng nhánh riêng rẽ chưa đủ. Cần biết nhánh nào đang chạy ở bước nào của thuật toán. Phần tổng kết ở bài 4 quay lại ví dụ này bằng công thức.</div>
+        </section>
+
+        <section>
+          <h2>Cách tiếp cận từng nhánh</h2>
+          <div class="step-row">
+            <div class="step"><b>1. Vấn đề thực tế</b>Một câu hỏi quen thuộc dẫn tới nhu cầu dùng nhánh toán.</div>
+            <div class="step"><b>2. Lịch sử</b>Mốc thời gian, công trình, sự kiện và bước ngoặt.</div>
+            <div class="step"><b>3. Nhân vật, tổ chức</b>Nhà khoa học nổi bật, có ảnh minh họa.</div>
+            <div class="step"><b>4. Ứng dụng</b>Một đến hai bài toán thực tế trong Data Science.</div>
+          </div>
+          <div class="step-row">
+            <div class="step hl"><b>5. Toán học phía sau</b>Công thức, ý nghĩa từng ký hiệu, cách hiểu trực quan.</div>
+            <div class="step hl"><b>6. Thực hành</b>Mã Python chạy được, dùng thư viện phổ biến hoặc mã nguồn mở.</div>
+            <div class="step"><b>7. Liên hệ ngành</b>Thuật toán Machine Learning, Deep Learning, AI dùng kiến thức đó.</div>
+            <div class="step"><b>Mức độ</b>Đi từ trực quan đến công thức. Không yêu cầu kiến thức đại học trước khi đọc.</div>
+          </div>
+          <p class="source">Toàn bộ mã trong hai bài đã được chạy lại bằng Python 3.12, NumPy, SciPy, scikit-learn, NetworkX và GUDHI. Số trong phần “Kết quả chạy” là số máy in ra.</p>
+        </section>
+      </section>

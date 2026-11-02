@@ -1,0 +1,195 @@
+
+      <section>
+        <section>
+          <h1><span class="text-light">7.</span><br>Lý thuyết thông tin</h1>
+          <p class="text-light">Information Theory: entropy, information gain và cây quyết định</p>
+        </section>
+
+        <section class="fit">
+          <h2>Vì sao cần lý thuyết thông tin?</h2>
+          <p>Ba chiếc hộp, mỗi hộp chứa bóng đỏ và bóng xanh. Rút ngẫu nhiên một quả, hộp nào cho kết quả <strong>khó đoán nhất</strong>?</p>
+          <table class="era-table big">
+            <thead><tr><th>Hộp</th><th>Tỉ lệ đỏ : xanh</th><th>Mức khó đoán</th><th>Entropy</th></tr></thead>
+            <tbody>
+              <tr><td>A</td><td>50% : 50%</td><td>Khó đoán nhất</td><td><strong>1 bit</strong></td></tr>
+              <tr><td>B</td><td>90% : 10%</td><td>Khá dễ đoán</td><td>0,469 bit</td></tr>
+              <tr><td>C</td><td>100% : 0%</td><td>Chắc chắn</td><td>0 bit</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Điểm mấu chốt</span> Một đặc trưng tốt là đặc trưng <strong>làm giảm độ bất định</strong> về nhãn cần dự đoán. Lý thuyết thông tin cho một đơn vị đo cụ thể: bit.</div>
+          <p class="source">Giá trị entropy ở cột cuối sẽ được tính ở mục “Entropy” và kiểm bằng mã Python.</p>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian lý thuyết thông tin</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của lý thuyết thông tin">
+            <div class="timeline-event"><div class="timeline-date">1928</div><div class="timeline-dot"></div><div class="timeline-name">Hartley</div><div class="timeline-note">Đề xuất thước đo lượng thông tin</div></div>
+            <div class="timeline-event"><div class="timeline-date">1948</div><div class="timeline-dot"></div><div class="timeline-name">Shannon</div><div class="timeline-note">A Mathematical Theory of Communication</div></div>
+            <div class="timeline-event"><div class="timeline-date">1950 – 1970</div><div class="timeline-dot"></div><div class="timeline-name">Mã hóa và nén</div><div class="timeline-note">Huffman, KL divergence, mã sửa lỗi</div></div>
+            <div class="timeline-event"><div class="timeline-date">1980 – 2000</div><div class="timeline-dot"></div><div class="timeline-name">Entropy trong học máy</div><div class="timeline-note">Cây quyết định ID3, C4.5, CART</div></div>
+            <div class="timeline-event"><div class="timeline-date">Hiện đại</div><div class="timeline-dot"></div><div class="timeline-name">Học sâu</div><div class="timeline-note">Cross-entropy, KL divergence, mutual information</div></div>
+          </div>
+          <p class="era-note">Các mốc là cột mốc tiêu biểu, không phải lịch sử đầy đủ của ngành.</p>
+          <p class="source">Nguồn tổng quan: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Shannon/" target="_blank" rel="noopener">MacTutor — Claude Shannon</a> · <a href="https://www.itsoc.org/about" target="_blank" rel="noopener">IEEE Information Theory Society — giới thiệu</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1928: Ralph Hartley</h2>
+          <div class="slide-badge-row"><span class="history-date">1928</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:hartley|Ralph V. L. Hartley|1888–1970}}
+            </div>
+            <div>
+              <p>Hartley công bố bài <em>Transmission of Information</em> tại Bell System Technical Journal. Ông đề xuất đo lượng thông tin bằng <strong>số lượng lựa chọn có thể</strong>:</p>
+              <div class="formula sm">$$H=n\log s$$</div>
+              <p style="font-size:0.62em">\(s\): số ký hiệu khả dĩ ở mỗi lần chọn. \(n\): số lần chọn. Lượng thông tin tăng tuyến tính theo \(n\) nhờ hàm logarit.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1002/j.1538-7305.1928.tb01236.x" target="_blank" rel="noopener">R. V. L. Hartley, <em>Transmission of Information</em>, Bell System Technical Journal 7(3), 535–563, 1928</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>1948: Claude Shannon</h2>
+          <div class="slide-badge-row"><span class="history-date">1948</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:shannon|Claude Shannon|1916–2001}}
+            </div>
+            <div>
+              <p>Claude Shannon công bố <em>A Mathematical Theory of Communication</em> tại Bell Labs, đặt nền móng cho <strong>lý thuyết thông tin</strong>.</p>
+              <ul style="font-size:0.85em">
+                <li>Đưa ra khái niệm <strong>entropy</strong> của một nguồn tin.</li>
+                <li>Xác định giới hạn nén dữ liệu không mất mát.</li>
+                <li>Xác định <strong>dung lượng kênh truyền</strong> tối đa khi có nhiễu.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x" target="_blank" rel="noopener">C. E. Shannon, <em>A Mathematical Theory of Communication</em>, Bell System Technical Journal 27, 379–423, 1948</a> · <a href="https://www.nokia.com/bell-labs/about/" target="_blank" rel="noopener">Nokia Bell Labs</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Wiener, Bell Labs và các tổ chức</h2>
+          <div class="slide-badge-row"><span class="history-date">1948</span></div>
+          <div class="two-col two-col--wide-right">
+            <div class="portrait-row two" style="grid-template-columns:1fr; max-width:240px">
+              {{pf:wiener|Norbert Wiener|1894–1964}}
+            </div>
+            <div>
+              <p>Cùng năm 1948, Norbert Wiener xuất bản <em>Cybernetics</em>, nghiên cứu điều khiển và truyền thông trong máy và sinh vật, bổ sung nền tảng cho xử lý tín hiệu và thông tin.</p>
+              <figure class="fig">
+                <img src="{{i:bell-labs}}" alt="Khuôn viên Nokia Bell Labs tại Murray Hill" style="max-height:130px">
+                <figcaption class="caption">{{cap:bell-labs|Bell Labs tại Murray Hill, New Jersey, nơi Shannon công tác}}</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="kw-row"><span class="kw org">Bell Labs</span><span class="kw org">IEEE Information Theory Society</span><span class="kw org">MIT</span></div>
+          <p class="source">Nguồn: <a href="https://mitpress.mit.edu/9780262730099/cybernetics-or-control-and-communication-in-the-animal-and-the-machine/" target="_blank" rel="noopener">N. Wiener, <em>Cybernetics</em>, MIT Press, 1948</a> · <a href="https://www.itsoc.org/" target="_blank" rel="noopener">IEEE Information Theory Society</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Những nhân vật tiêu biểu</h2>
+          <div class="portrait-row four tall">
+            {{pf:hartley|Ralph Hartley|Thước đo thông tin, 1928}}
+            {{pf:shannon|Claude Shannon|Entropy, 1948}}
+            {{pf:wiener|Norbert Wiener|Cybernetics, 1948}}
+            {{pf:turing|Alan Turing|Thông tin và tính toán}}
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Shannon/" target="_blank" rel="noopener">MacTutor — Shannon</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Wiener_Norbert/" target="_blank" rel="noopener">MacTutor — Wiener</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Turing/" target="_blank" rel="noopener">MacTutor — Turing</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. Entropy</h2>
+          <p>Đo mức bất định của một phân phối xác suất:</p>
+          <div class="formula">$$H(X)=-\sum_{i}p_i\log_2 p_i$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(p_i\)</td><td>Xác suất của kết quả thứ \(i\)</td></tr>
+              <tr><td>\(\log_2\)</td><td>Logarit cơ số 2, đơn vị đo là bit</td></tr>
+              <tr><td>\(H(X)\)</td><td>Entropy: số bit trung bình cần để mô tả một kết quả</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.62em">Quy ước \(0\log 0=0\). Entropy lớn nhất khi các kết quả đồng khả năng, bằng 0 khi kết quả chắc chắn.</p>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x" target="_blank" rel="noopener">Shannon, 1948</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Tính entropy bằng SciPy</h2>
+          <div class="code-split even">
+            <div>{{code:entropy|cls=sm}}</div>
+            <div>
+              {{out:entropy}}
+              <div class="good-box" style="font-size:0.62em"><span class="box-title">Kiểm lại</span> \(-0{,}9\log_2 0{,}9-0{,}1\log_2 0{,}1\approx0{,}469\). Ba giá trị trùng bảng ở slide “Vì sao cần lý thuyết thông tin”.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.entropy.html" target="_blank" rel="noopener">SciPy — scipy.stats.entropy</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Entropy của biến nhị phân</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/entropy-curve.png" alt="Đường entropy nhị phân với ba điểm 50-50, 90-10 và 100-0" style="max-height:290px">
+              <figcaption class="caption">Entropy theo xác suất \(p\), có đánh dấu ba hộp bóng. Hình do biên soạn.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="{{i:binary-entropy}}" alt="Đồ thị hàm entropy nhị phân" style="max-height:240px">
+              <figcaption class="caption">{{cap:binary-entropy|Hàm entropy nhị phân đạt cực đại 1 bit tại p = 0,5}}</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 2. Information Gain</h2>
+          <p>Một đặc trưng tốt giúp giảm độ bất định về nhãn \(Y\). Mức giảm đó là <strong>information gain</strong>:</p>
+          <div class="formula">$$IG(Y,X)=H(Y)-H(Y\mid X)$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(H(Y)\)</td><td>Entropy của nhãn trước khi biết đặc trưng</td></tr>
+              <tr><td>\(H(Y\mid X)\)</td><td>Entropy trung bình của nhãn sau khi chia dữ liệu theo \(X\)</td></tr>
+              <tr><td>\(IG\)</td><td>Lượng thông tin về \(Y\) mà \(X\) cung cấp</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.62em">Cây quyết định chọn, tại mỗi nút, phép chia có information gain lớn nhất. Đại lượng này chính là <strong>mutual information</strong> giữa \(X\) và \(Y\).</p>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1007/BF00116251" target="_blank" rel="noopener">J. R. Quinlan, <em>Induction of Decision Trees</em>, Machine Learning 1, 81–106, 1986</a> · <a href="https://scikit-learn.org/stable/modules/tree.html#mathematical-formulation" target="_blank" rel="noopener">scikit-learn — Decision Trees</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Cây quyết định với tiêu chí entropy</h2>
+          <div class="code-split">
+            <div>{{code:tree|cls=xs}}</div>
+            <div>
+              {{out:tree|cls=sm}}
+              <div class="good-box" style="font-size:0.58em"><span class="box-title">Kiểm lại</span> Tập huấn luyện có 455 mẫu. Phép chia đầu tiên theo <code>mean concave points</code> đưa entropy từ 0,952 xuống còn 0,391 (trung bình có trọng số hai nhánh), tức \(IG\approx0{,}561\) bit tại nút gốc. Mảng in ra là <code>feature_importances_</code>: tổng giảm entropy của từng đặc trưng trên toàn cây, đã chuẩn hóa để tổng bằng 1.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html" target="_blank" rel="noopener">scikit-learn — DecisionTreeClassifier</a> · <a href="https://scikit-learn.org/stable/datasets/toy_dataset.html#breast-cancer-dataset" target="_blank" rel="noopener">Breast cancer Wisconsin dataset</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Đọc kết quả cây quyết định</h2>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="img/lec04/decision-tree.png" alt="Cây quyết định độ sâu hạn chế trên bộ dữ liệu ung thư vú" style="max-height:310px">
+              <figcaption class="caption">Các tầng đầu của cây. Hình do biên soạn từ mô hình đã huấn luyện.</figcaption>
+            </figure>
+            <div>
+              <ul style="font-size:0.8em">
+                <li>Độ chính xác trên tập kiểm tra: <strong>0,956</strong>.</li>
+                <li>Đặc trưng quan trọng nhất: <code>mean concave points</code> (0,613).</li>
+                <li>Hai đặc trưng tiếp theo: <code>worst texture</code> (0,115) và <code>worst perimeter</code> (0,110).</li>
+                <li>Phần lớn đặc trưng có giá trị 0 vì cây giới hạn độ sâu 4 và không dùng chúng.</li>
+              </ul>
+              <div class="warn-box" style="font-size:0.6em"><span class="box-title">Lưu ý</span> Độ quan trọng đặc trưng phụ thuộc cây cụ thể. Đặc trưng tương quan với nhau có thể chia sẻ vai trò.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: lý thuyết thông tin</h2>
+          <div class="kw-row">
+            <span class="kw">Decision Tree</span><span class="kw">Random Forest</span><span class="kw">Cross-Entropy Loss</span><span class="kw">KL Divergence</span><span class="kw">Mutual Information</span><span class="kw">Feature Selection</span><span class="kw">Data Compression</span>
+          </div>
+          <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn đo lượng thông tin, độ bất định và chọn đặc trưng.</div>
+        </section>
+      </section>

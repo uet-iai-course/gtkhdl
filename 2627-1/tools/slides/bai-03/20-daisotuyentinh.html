@@ -1,0 +1,254 @@
+
+      <section>
+        <section>
+          <h1><span class="text-light">3.</span><br>Đại số<br>tuyến tính</h1>
+          <p class="text-light">Linear Algebra</p>
+        </section>
+
+        <section>
+          <h2>Một khách hàng là một vector</h2>
+          <p>Một cửa hàng có thông tin về một khách hàng: tuổi 25; thu nhập 15 triệu đồng; số lần mua hàng 8; số tiền trung bình mỗi lần mua 500.000 đồng (viết là 500 nghìn đồng).</p>
+          <div class="formula lg">$$\mathbf{x}=\begin{bmatrix}25\\15\\8\\500\end{bmatrix}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(x_1\)</td><td>Tuổi (năm)</td></tr>
+              <tr><td>\(x_2\)</td><td>Thu nhập (triệu đồng)</td></tr>
+              <tr><td>\(x_3\)</td><td>Số lần mua hàng</td></tr>
+              <tr><td>\(x_4\)</td><td>Số tiền trung bình mỗi lần mua (nghìn đồng)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Một triệu khách hàng là một ma trận</h2>
+          <div class="formula lg">$$X=\begin{bmatrix}25&amp;15&amp;8&amp;500\\30&amp;20&amp;3&amp;800\\22&amp;10&amp;12&amp;300\\\vdots&amp;\vdots&amp;\vdots&amp;\vdots\end{bmatrix}$$</div>
+          <p>Mỗi hàng là một khách hàng, mỗi cột là một đặc trưng. Với một triệu khách hàng và bốn đặc trưng, \(X\) có kích thước \(10^6\times 4\).</p>
+          <div class="key-box"><span class="box-title">Trong thực tế</span> Đó là cách NumPy, PyTorch và TensorFlow lưu trữ và xử lý dữ liệu.</div>
+          <p class="source">Nguồn: <a href="https://numpy.org/doc/stable/reference/arrays.ndarray.html" target="_blank" rel="noopener">NumPy — ndarray</a> · Deisenroth, Faisal &amp; Ong, <a href="https://mml-book.github.io/" target="_blank" rel="noopener"><em>Mathematics for Machine Learning</em></a>, chương 2.</p>
+        </section>
+
+        <section>
+          <h2>Đại số tuyến tính trả lời những gì?</h2>
+          <ul>
+            <li>Làm thế nào biểu diễn hàng triệu đối tượng?</li>
+            <li>Làm thế nào tính độ tương đồng giữa hai khách hàng?</li>
+            <li>Làm thế nào giảm hàng nghìn đặc trưng xuống còn vài chiều?</li>
+            <li>Làm thế nào máy tính thực hiện phép biến đổi ảnh?</li>
+            <li>Làm thế nào tính toán các lớp trong mạng neural network?</li>
+          </ul>
+          <div class="kw-row">
+            <span class="kw">vector → biểu diễn</span><span class="kw">tích vô hướng → tương đồng</span><span class="kw">PCA, SVD → giảm chiều</span><span class="kw">ma trận → biến đổi</span><span class="kw">nhân ma trận → lớp neural</span>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian đại số tuyến tính</h2>
+          <div class="history-timeline five" aria-label="Năm mốc của đại số tuyến tính">
+            <div class="timeline-event"><div class="timeline-date">Khoảng 200 TCN</div><div class="timeline-dot"></div><div class="timeline-name">Giải hệ phương trình</div><div class="timeline-note">Cửu chương toán thuật</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XIX</div><div class="timeline-dot"></div><div class="timeline-name">Định thức và ma trận</div><div class="timeline-note">Sylvester khoảng 1850, Cayley 1858</div></div>
+            <div class="timeline-event"><div class="timeline-date">Cuối thế kỷ XIX</div><div class="timeline-dot"></div><div class="timeline-name">Eigenvalue</div><div class="timeline-note">Biến đổi tuyến tính, giá trị riêng</div></div>
+            <div class="timeline-event"><div class="timeline-date">Thế kỷ XX</div><div class="timeline-dot"></div><div class="timeline-name">Đại số tuyến tính số</div><div class="timeline-note">Máy tính điện tử, thuật toán ma trận</div></div>
+            <div class="timeline-event"><div class="timeline-date">Hiện đại</div><div class="timeline-dot"></div><div class="timeline-name">ML và Deep Learning</div><div class="timeline-note">PCA, SVD, embedding, attention</div></div>
+          </div>
+          <p class="source">Nguồn tổng quan: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Matrices_and_determinants/" target="_blank" rel="noopener">MacTutor — Matrices and determinants</a> · <a href="https://epubs.siam.org/doi/book/10.1137/1.9781611977172" target="_blank" rel="noopener">SIAM — <em>A Journey through the History of Numerical Linear Algebra</em></a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Giải hệ phương trình tuyến tính</h2>
+          <div class="slide-badge-row"><span class="history-date">Khoảng 200 TCN</span></div>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="{{i:nine-chapters}}" alt="Trang bìa một bản Cửu chương toán thuật chú giải" style="max-height:280px">
+              <figcaption class="caption">{{cap:nine-chapters|Một bản chú giải <em>Cửu chương toán thuật</em> thời nhà Thanh}}</figcaption>
+            </figure>
+            <div>
+              <p>Cửu chương toán thuật của Trung Quốc cổ đại chứa các phương pháp giải hệ phương trình <strong>tương tự khử Gauss</strong> ngày nay.</p>
+              <div class="formula sm">$$\begin{cases}2x+y=100\\x+2y=80\end{cases}\Rightarrow\ \text{khử biến}\Rightarrow\ (x,y)=(40,20)$$</div>
+              <div class="key-box"><span class="box-title">Lưu ý</span> Niên đại 200 TCN là ước định. Văn bản hiện còn được biên soạn muộn hơn, từ các nguồn cũ hơn.</div>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Nine_chapters/" target="_blank" rel="noopener">MacTutor — The Nine Chapters on the Mathematical Art</a>.</p>
+        </section>
+
+        <section>
+          <h2>Lý thuyết định thức và ma trận</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XIX</span></div>
+          <div class="portrait-row two short">
+            {{pf:sylvester|James Joseph Sylvester|1814–1897}}
+            {{pf:cayley|Arthur Cayley|1821–1895}}
+          </div>
+          <table class="era-table">
+            <thead><tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr><td>Khoảng 1850</td><td>James Joseph Sylvester sử dụng thuật ngữ <em>matrix</em></td><td>Đưa thuật ngữ ma trận vào toán học hiện đại</td></tr>
+              <tr><td>1858</td><td>Arthur Cayley phát triển lý thuyết ma trận và công bố công trình quan trọng</td><td>Ma trận trở thành đối tượng đại số có phép toán riêng</td></tr>
+            </tbody>
+          </table>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Sylvester/" target="_blank" rel="noopener">MacTutor — Sylvester</a> · <a href="https://doi.org/10.1098/rstl.1858.0002" target="_blank" rel="noopener">Cayley, <em>A Memoir on the Theory of Matrices</em>, 1858</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Eigenvalue và biến đổi tuyến tính</h2>
+          <div class="slide-badge-row"><span class="history-date">Cuối thế kỷ XIX</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="{{i:pca-scatter}}" alt="Đám điểm Gauss hai chiều với hai vector riêng của ma trận hiệp phương sai" style="max-height:230px">
+              <figcaption class="caption">{{cap:pca-scatter|Đám điểm Gauss hai chiều với hai vector riêng (mũi tên)}}</figcaption>
+            </figure>
+            <div>
+              <p>Các nhà toán học phát triển lý thuyết <strong>giá trị riêng</strong>, <strong>vector riêng</strong>, phép biến đổi tuyến tính và cấu trúc đại số ma trận.</p>
+              <div class="formula sm">$$A\mathbf{v}=\lambda\mathbf{v}$$</div>
+              <p style="font-size:0.62em">Phép biến đổi \(A\) chỉ co giãn vector riêng \(\mathbf{v}\) theo hệ số \(\lambda\), không đổi hướng. Ở hình, các vector riêng chỉ đúng hai hướng biến thiên chính của dữ liệu.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Matrices_and_determinants/" target="_blank" rel="noopener">MacTutor — Matrices and determinants</a></p>
+        </section>
+
+        <section class="fit">
+          <h2>Đại số tuyến tính số</h2>
+          <div class="slide-badge-row"><span class="history-date">Thế kỷ XX</span></div>
+          <div class="portrait-row two short">
+            {{pf:von-neumann|John von Neumann|1903–1957}}
+            <figure>
+              <img src="img/lec01/eniac-penn.jpg" alt="Một phần máy ENIAC trưng bày tại Đại học Pennsylvania">
+              <figcaption><b>Một phần ENIAC tại Penn</b>Ảnh sau này, CC BY-SA 3.0</figcaption>
+            </figure>
+          </div>
+          <p>Sự xuất hiện của máy tính điện tử thúc đẩy các thuật toán giải hệ phương trình, phân tích ma trận và tính toán số.</p>
+          <p class="source">Nguồn: <a href="https://www.computerhistory.org/revolution/birth-of-the-computer/4/78" target="_blank" rel="noopener">Computer History Museum — ENIAC</a> · <a href="https://epubs.siam.org/doi/book/10.1137/1.9781611977172" target="_blank" rel="noopener">SIAM — History of Numerical Linear Algebra</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Machine Learning và Deep Learning</h2>
+          <div class="slide-badge-row"><span class="history-date">Hiện đại</span></div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="img/lec01/attention.png" alt="Sơ đồ một đầu attention: Q, K nhân ma trận, scale, mask, softmax, rồi nhân với V" style="max-height:250px">
+              <figcaption class="caption">Một đầu attention. Wikimedia, CC BY-SA 4.0.</figcaption>
+            </figure>
+            <div>
+              <p>Đại số tuyến tính trở thành nền tảng của <strong>PCA, SVD, embeddings, tensor computation, attention</strong> và mạng neural network.</p>
+              <div class="formula sm">$$\operatorname{Attention}(Q,K,V)=\operatorname{softmax}\!\Big(\frac{QK^{\top}}{\sqrt{d_k}}\Big)V$$</div>
+              <p style="font-size:0.6em">Toàn bộ là nhân ma trận. \(Q,K,V\): ba ma trận suy ra từ đầu vào. \(d_k\): số chiều của khóa.</p>
+            </div>
+          </div>
+          <p class="source">Nguồn: <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Vaswani et al., 2017, <em>Attention Is All You Need</em></a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Các nhà khoa học tiêu biểu</h2>
+          <div class="portrait-row four tall">
+            {{pf:cayley|Arthur Cayley|1821–1895. Đặt nền tảng quan trọng cho lý thuyết ma trận}}
+            {{pf:sylvester|James Joseph Sylvester|1814–1897. Đưa thuật ngữ matrix vào toán học hiện đại}}
+            {{pf:weyl|Hermann Weyl|1885–1955. Đóng góp lớn cho đại số, không gian vector và toán học lý thuyết}}
+            {{pf:von-neumann|John von Neumann|1903–1957. Ảnh hưởng lớn đến tính toán khoa học, lý thuyết toán học và máy tính}}
+          </div>
+          <p class="source">Nguồn: <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Cayley/" target="_blank" rel="noopener">MacTutor — Cayley</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Weyl/" target="_blank" rel="noopener">MacTutor — Weyl</a> · <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Von_Neumann/" target="_blank" rel="noopener">MacTutor — von Neumann</a>.</p>
+        </section>
+
+        <section class="fit">
+          <h2>Ứng dụng 1. PCA: giảm chiều dữ liệu</h2>
+          <p>Một khách hàng được mô tả bởi 100 đặc trưng. Xử lý 100 đặc trưng tốn tài nguyên và khiến việc trực quan hóa khó khăn.</p>
+          <p><strong>PCA (Principal Component Analysis)</strong> tìm các hướng biến thiên quan trọng nhất của dữ liệu để biểu diễn dữ liệu bằng ít chiều hơn.</p>
+          <div class="two-col two-col--wide-left">
+            <figure class="fig">
+              <img src="{{i:pca-scatter}}" alt="PCA trên đám điểm Gauss: hai hướng chính" style="max-height:200px">
+              <figcaption class="caption">Hai hướng chính của dữ liệu; hướng dài hơn mang nhiều phương sai hơn.</figcaption>
+            </figure>
+            <div class="key-box"><span class="box-title">Ý tưởng</span> Giữ lại vài hướng mang nhiều biến thiên nhất, bỏ phần còn lại. Chiếu dữ liệu từ 100 chiều xuống còn 2 hoặc 3 chiều để quan sát được.</div>
+          </div>
+          <p class="source">Nguồn: <a href="https://doi.org/10.1080/14786440109462720" target="_blank" rel="noopener">Pearson, 1901</a> · <a href="https://doi.org/10.1037/h0071325" target="_blank" rel="noopener">Hotelling, 1933</a> · <a href="https://scikit-learn.org/stable/modules/decomposition.html#pca" target="_blank" rel="noopener">scikit-learn — PCA</a>.</p>
+        </section>
+
+        <section>
+          <h2>PCA: toán học phía sau</h2>
+          <p style="margin:0.1em 0">Trừ giá trị trung bình để đưa dữ liệu về quanh gốc tọa độ:</p>
+          <div class="formula sm">$$X_c=X-\bar X$$</div>
+          <p style="margin:0.1em 0">Tính ma trận hiệp phương sai:</p>
+          <div class="formula sm">$$C=\frac{1}{n-1}X_c^{\top}X_c$$</div>
+          <p style="margin:0.1em 0">Tìm vector riêng:</p>
+          <div class="formula sm">$$C\mathbf{v}=\lambda\mathbf{v}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(C\)</td><td>Ma trận mô tả mức độ biến thiên và tương quan giữa các đặc trưng</td></tr>
+              <tr><td>\(\mathbf{v}\)</td><td>Hướng mới mà dữ liệu được chiếu lên</td></tr>
+              <tr><td>\(\lambda\)</td><td>Lượng biến thiên theo hướng đó</td></tr>
+            </tbody>
+          </table>
+          <p style="margin:0.1em 0;font-size:0.8em">Giữ lại những vector riêng có giá trị riêng lớn nhất.</p>
+        </section>
+
+        <section>
+          <h2>Mã Python: PCA trên bộ iris</h2>
+          <div class="code-split">
+            <div>{{code:pca}}{{out:pca}}</div>
+            <figure class="fig">
+              <img src="img/lec03/pca-iris.png" alt="150 hoa iris chiếu lên hai thành phần chính, ba loài tách thành ba cụm" style="max-height:290px">
+              <figcaption class="caption">Bộ iris: 4 chiều xuống 2 chiều, giữ 92,46% + 5,31% = 97,77% phương sai. Hình do biên soạn.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section>
+          <h2>Ứng dụng 2. Tìm sản phẩm tương tự bằng vector</h2>
+          <p>Mỗi sản phẩm được AI chuyển thành một vector đặc trưng:</p>
+          <div class="formula sm">$$A=[1,2,3]\qquad B=[2,4,6]\qquad C=[1,-1,0]$$</div>
+          <p>Đo độ tương đồng bằng Cosine Similarity:</p>
+          <div class="formula lg">$$\operatorname{sim}(A,B)=\frac{A\cdot B}{\lVert A\rVert\,\lVert B\rVert}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(A\cdot B\)</td><td>Tích vô hướng của hai vector</td></tr>
+              <tr><td>\(\lVert A\rVert\)</td><td>Độ dài vector \(A\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="fit">
+          <h2>Ý nghĩa của cosine</h2>
+          <div class="two-col two-col--wide-right">
+            <div>
+              <ul>
+                <li>Góc càng nhỏ thì hai vector càng cùng hướng.</li>
+                <li>Giá trị gần <strong>1</strong>: rất tương đồng.</li>
+                <li>Giá trị gần <strong>0</strong>: ít tương đồng.</li>
+                <li>Giá trị gần <strong>−1</strong>: ngược hướng.</li>
+              </ul>
+              <div class="formula sm">$$A\cdot B=1\cdot2+2\cdot4+3\cdot6=28,\quad \lVert A\rVert\lVert B\rVert=\sqrt{14}\sqrt{56}=28$$</div>
+              <p style="font-size:0.62em">Nên \(\operatorname{sim}(A,B)=28/28=1\): \(B=2A\), cùng hướng dù \(B\) dài gấp đôi. Cosine so sánh hướng, không so sánh độ lớn.</p>
+            </div>
+            <div class="card-plain sm"><b>Với \(C=[1,-1,0]\)</b><br>\(A\cdot C=1-2+0=-1\), \(\lVert A\rVert\lVert C\rVert=\sqrt{14}\sqrt{2}\approx5{,}29\). Vậy \(\operatorname{sim}(A,C)\approx-0{,}189\): hai vector gần vuông góc, hơi lệch về phía ngược hướng.</div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Mã Python: cosine similarity</h2>
+          <div class="code-split">
+            <div>{{code:cosine|cls=sm}}</div>
+            <div>
+              {{out:cosine}}
+              <figure class="fig">
+                <img src="img/lec03/cosine-heatmap.png" alt="Ma trận cosine similarity của bốn sản phẩm" style="max-height:150px">
+                <figcaption class="caption">Ma trận tương đồng của bốn sản phẩm. Hình do biên soạn.</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="good-box"><span class="box-title">Kiểm lại</span> Sản phẩm 1 (\([2,4,6]\)) cho độ tương đồng 1,0 với sản phẩm 0 (\([1,2,3]\)), đúng như tính tay. Sản phẩm 3 (\([1,2,2]\)) cho 0,98.</div>
+        </section>
+
+        <section>
+          <h2>Liên hệ ngành: đại số tuyến tính</h2>
+          <div class="kw-row">
+            <span class="kw">PCA</span><span class="kw">SVD</span><span class="kw">Matrix Factorization</span><span class="kw">Word2Vec</span><span class="kw">Embeddings</span><span class="kw">Vector Database</span><span class="kw">CNN</span><span class="kw">Transformer</span><span class="kw">Attention</span><span class="kw">Recommendation Systems</span>
+          </div>
+          <div class="two-col two-col--wide-right">
+            <figure class="fig">
+              <img src="{{i:svd}}" alt="Sơ đồ phân rã giá trị suy biến M = U Σ V*" style="max-height:200px">
+              <figcaption class="caption">{{cap:svd|Phân rã giá trị suy biến (SVD): một ma trận bằng tích ba ma trận}}</figcaption>
+            </figure>
+            <div>
+              <div class="formula sm">$$M=U\,\Sigma\,V^{\top}$$</div>
+              <div class="key-box"><span class="box-title">Khi nào học nhánh này</span> Khi muốn biểu diễn và biến đổi dữ liệu.</div>
+            </div>
+          </div>
+        </section>
+      </section>

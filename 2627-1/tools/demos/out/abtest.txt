@@ -1,0 +1,5 @@
+Conversion A: 0.05
+Conversion B: 0.06
+Z-score: 0.6935419821470654
+P-value: 0.4879694890245849
+Chưa đủ bằng chứng về sự khác biệt.
