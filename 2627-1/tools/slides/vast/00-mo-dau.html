@@ -1,0 +1,61 @@
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <p class="tag">Trực quan hóa và kể chuyện với dữ liệu</p>
+          <h1>Vụ án Vastopolis</h1>
+          <p class="sub">Điều tra một đợt dịch bệnh bằng dữ liệu mạng xã hội</p>
+          <p class="small">Dựa trên VAST Challenge 2011, Mini-Challenge 1: <em>Characterization of an Epidemic Spread</em>.<br>Mọi hình và con số trong bài đều được vẽ và tính lại từ chính tệp dữ liệu của cuộc thi.</p>
+        </section>
+
+        <section>
+          <h2>Bản tin khẩn</h2>
+          <p>Vastopolis là một thành phố giả tưởng có khoảng 2 triệu dân. Sáng nay, nhiều bệnh viện báo rằng số người đến khám tăng vọt. Cùng lúc đó, dân thành phố liên tục đăng lên mạng xã hội những dòng chữ ngắn (<em>microblog</em>), mỗi dòng có kèm tọa độ GPS và giờ đăng.</p>
+          <p>Bạn là nhà phân tích dữ liệu của sở y tế. Giám đốc sở cần câu trả lời cho ba câu hỏi:</p>
+          <div class="v-row three">
+            <div class="ask"><b class="t">Câu hỏi 1</b>Chuyện gì đang xảy ra? Đây có thật là một đợt dịch không, và có bao nhiêu loại bệnh?</div>
+            <div class="ask"><b class="t">Câu hỏi 2</b>Bệnh bắt đầu từ đâu và lan đi bằng cách nào?</div>
+            <div class="ask"><b class="t">Câu hỏi 3</b>Có kiểm soát được không? Cần đưa người và thuốc đến đâu trước?</div>
+          </div>
+          <p class="source">Bối cảnh theo đề bài gốc của VAST Challenge 2011 MC1. Thành phố và dữ liệu đều là mô phỏng, dùng để luyện kỹ năng phân tích.</p>
+        </section>
+
+        <section>
+          <h2>Luật chơi của người điều tra</h2>
+          <div class="lab-grid">
+            <div class="lab-card"><b>1. Mỗi biểu đồ trả lời một câu hỏi</b>Không vẽ chỉ vì vẽ được. Trước khi vẽ, ta viết ra câu hỏi.</div>
+            <div class="lab-card"><b>2. Mỗi kết quả sinh ra một giả thuyết mới</b>Kết quả không phải điểm dừng, mà là manh mối để đặt câu hỏi kế tiếp.</div>
+            <div class="lab-card"><b>3. Mỗi giả thuyết phải thử bằng loại dữ liệu khác</b>Đã nhìn thời gian thì thử bằng bản đồ, đã nhìn bản đồ thì thử bằng thời tiết.</div>
+            <div class="lab-card"><b>4. Tương quan chưa phải nhân quả</b>Hai thứ cùng xuất hiện chưa chứng minh thứ này gây ra thứ kia.</div>
+            <div class="lab-card"><b>5. Bài đăng không phải ca bệnh</b>Một người có thể đăng nhiều bài, và có thể đăng về người khác. Nơi đăng chưa chắc là nơi nhiễm bệnh.</div>
+            <div class="lab-card"><b>6. Kết luận chỉ là giả thuyết được dữ liệu hỗ trợ</b>Ta không có xét nghiệm trong phòng thí nghiệm, nên không được nói &ldquo;đã xác nhận&rdquo;.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Bảy bước điều tra</h2>
+          <div class="step-row">
+            <div class="step"><b>1. Hiện trường</b>Hồ sơ có gì? Dữ liệu có đáng tin không?<br><i>Chương 1 và 2</i></div>
+            <div class="step"><b>2. Thời gian</b>Bất thường bắt đầu lúc nào? Mọi người đang nói về triệu chứng gì?<br><i>Chương 3 và 4</i></div>
+            <div class="step"><b>3. Khoanh vùng</b>Ở đâu có nhiều bài triệu chứng bất thường?<br><i>Chương 5</i></div>
+            <div class="step"><b>4. Nguồn bệnh</b>Ai là nghi phạm? Ai bị loại?<br><i>Chương 6</i></div>
+            <div class="step"><b>5. Lan truyền</b>Bệnh đi bằng đường nào: không khí, nước hay con người?<br><i>Chương 7</i></div>
+            <div class="step"><b>6. Hệ thống y tế</b>Người bệnh đổ về đâu? Bệnh viện nào chịu áp lực?<br><i>Chương 8</i></div>
+            <div class="step"><b>7. Hành động</b>Việc gì cần làm trước, ở khu vực nào?<br><i>Chương 8</i></div>
+            <div class="step hl"><b>Báo cáo</b>Tổng hợp bằng chứng, nói rõ giới hạn và so sánh với các nhóm khác.<br><i>Phần tổng kết</i></div>
+          </div>
+          <p class="source">Cách đi này gợi nhớ vụ điều tra dịch tả của bác sĩ John Snow ở Luân Đôn năm 1854: vẽ ca bệnh lên bản đồ, đặt giả thuyết, rồi kiểm tra bằng dữ liệu khác.</p>
+        </section>
+
+        <section>
+          <h2>Bộ đồ nghề và quy ước màu</h2>
+          <p>Mọi đoạn mã trong bài nằm trong một sổ tay Colab duy nhất, <code>vastopolis-dieu-tra-dich-benh.ipynb</code>. Chạy từ trên xuống dưới: ô đầu tiên tự tải dữ liệu, các ô sau lần lượt tạo ra đúng các hình trong slide.</p>
+          <div class="kw-row">
+            <span class="kw">pandas: bảng dữ liệu</span><span class="kw">numpy: tính toán</span><span class="kw">matplotlib: vẽ biểu đồ</span><span class="kw">scikit-learn: đếm từ, gom cụm</span><span class="kw">scipy: làm mịn bản đồ</span><span class="kw">Pillow: ảnh bản đồ và ảnh động</span>
+          </div>
+          <p>Quy ước màu dùng xuyên suốt, để người xem không phải đọc chú thích lại từ đầu:</p>
+          <div class="kw-row">
+            <span class="kw flu">Cam: triệu chứng giống cúm</span><span class="kw gi">Xanh dương: triệu chứng dạ dày - ruột</span><span class="kw evt">Tím: các sự kiện bất thường</span><span class="kw gold">Vàng: nghi phạm số một, bệnh viện</span>
+          </div>
+          <div class="key-box" style="font-size:0.8em"><span class="box-title">Cách theo dõi</span> Mỗi chương mở bằng một câu hỏi. Hãy tự đoán đáp án trước khi sang slide kế tiếp.</div>
+        </section>
+      </section>

@@ -1,0 +1,148 @@
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">3.</span><br>Khi nào chuyện bắt đầu?</h1>
+          <p class="sub">Câu hỏi đầu tiên của mọi vụ án: lúc nào?</p>
+          <p class="small">Chương 3 · Bước 2: Thời gian</p>
+        </section>
+
+        <section>
+          <h2>Thế nào là &ldquo;bất thường&rdquo;?</h2>
+          <p>Muốn nói một ngày bất thường, ta phải biết một ngày bình thường trông như thế nào. Ta lấy <strong>14 ngày đầu</strong> (30/4 đến 13/5) làm mốc, rồi đo mỗi ngày lệch bao nhiêu <em>độ lệch chuẩn</em>:</p>
+          <div class="formula lg">$$z=\frac{x-\bar{x}}{s}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(x\)</td><td>Số bài đăng của ngày đang xét</td></tr>
+              <tr><td>\(\bar{x}\)</td><td>Số bài trung bình mỗi ngày trong 14 ngày mốc</td></tr>
+              <tr><td>\(s\)</td><td>Độ lệch chuẩn của 14 ngày mốc: các ngày bình thường dao động cỡ này</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Quy tắc ngón tay cái</span> Một ngày có \(z>3\) hiếm khi xảy ra chỉ vì may rủi. Đó là lúc thám tử phải chú ý.</div>
+        </section>
+
+        <section>
+          <h2>Đếm bài đăng mỗi ngày</h2>
+          <div class="code-split">
+            <div>{{code:vast_c10_daily|cls=xs}}</div>
+            <div>
+              {{out:vast_c10_daily|cls=sm}}
+              <div class="ask"><b class="t">Câu hỏi</b>Ngày nào lệch khỏi mức bình thường, và lệch bao nhiêu?</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai ngày vọt lên, và một dấu hỏi nhỏ</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c10_daily.png" alt="Số bài đăng mỗi ngày từ 30/4 đến 20/5, hai ngày cuối vọt lên">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Từ 30/4 đến 15/5, số bài đi ngang quanh 45.000 mỗi ngày. Ngày 18/5 vọt lên 61.871 bài (\(z=18\)), ngày 19/5 là 71.277 bài (\(z=28\)).</div>
+            <div class="ask"><b class="t">Ghi vào sổ tay</b>Ngày 16/5 cũng vượt mốc 3 (\(z=4{,}0\)), dù chỉ nhẹ. Có chuyện gì xảy ra hai ngày trước dịch? Ta chưa biết, nhưng sẽ quay lại.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Phóng to đến từng giờ</h2>
+          <div class="code-split">
+            <div>{{code:vast_c11_hour|cls=xxs}}</div>
+            <div>
+              {{out:vast_c11_hour|cls=sm}}
+              <div class="clue"><b class="t">Cách đọc</b>Mỗi ô là một giờ. Màu càng đỏ, giờ đó càng đông bài so với mức bình thường của <em>chính giờ đó</em> (ban đêm vốn vắng hơn ban ngày).</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dấu vết đầu tiên trên tấm lịch</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c11_hour.png" alt="Bản đồ nhiệt: số bài mỗi giờ so với mức bình thường, theo ngày và giờ">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Những ô đỏ đầu tiên xuất hiện sáng 18/5 (khoảng 8h) và đỏ đậm dần suốt hai ngày sau. Các ngày trước hầu như vàng nhạt.</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Tổng số bài tăng, nhưng người ta <em>đang viết về điều gì</em>? Tổng lượng bài chưa nói lên bệnh gì.</div>
+          </div>
+        </section>
+      </section>
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">4.</span><br>Họ đang nói gì?</h1>
+          <p class="sub">Không có cột &ldquo;tên bệnh&rdquo;. Nhưng người dân đã tự viết ra triệu chứng của mình.</p>
+          <p class="small">Chương 4 · Bước 2: Thời gian</p>
+        </section>
+
+        <section>
+          <h2>Tìm từ nào bùng nổ</h2>
+          <p>Ý tưởng: nếu một từ bỗng xuất hiện nhiều gấp hàng trăm lần bình thường, nhiều khả năng nó gắn với điều mới xảy ra. Ta đo bằng <em>lift</em>:</p>
+          <div class="formula lg">$$\text{lift}(w)=\frac{p_{\text{hôm nay}}(w)}{p_{\text{các ngày trước}}(w)}$$</div>
+          <p style="font-size:0.75em">Ở đây \(p(w)\) là tỉ lệ bài đăng có chứa từ \(w\): lấy trong ngày đang xét ở tử số, và lấy trong tất cả các ngày trước đó ở mẫu số.</p>
+          <div class="v-row">
+            <div class="clue"><b class="t">Ví dụ</b>Một từ có mặt trong 1% bài ngày thường mà hôm nay có mặt trong 10% bài thì lift bằng 10.</div>
+            <div class="care"><b class="t">Thận trọng</b>Từ quá hiếm (lỗi chính tả) dễ có lift khổng lồ một cách giả tạo. Ta chỉ giữ từ có ít nhất 300 bài trong ngày.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mã Python: đếm từ theo ngày</h2>
+          {{code:vast_c12_vocab|1-23|cls=xs}}
+          {{out:vast_c12_vocab|cls=sm wrap}}
+        </section>
+
+        <section>
+          <h2>Ba ngày, ba bộ từ vựng</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c13_topwords.png" alt="Các từ có lift cao nhất trong ba ngày 18, 19 và 20 tháng 5">
+          </figure>
+          <div class="v-row three">
+            <div class="clue" style="border-left-color:#E4572E"><b class="t">18/5</b><em>shortness</em> (khó thở), <em>bedridden</em> (nằm liệt giường), <em>chills</em> (ớn lạnh), <em>fatigue</em> (mệt mỏi), <em>sweats</em> (ra mồ hôi).</div>
+            <div class="clue" style="border-left-color:#0077B6"><b class="t">19/5</b>Thêm một nhóm mới: <em>nausea</em> (buồn nôn), <em>diarrhea</em> (tiêu chảy), <em>cramps</em> (đau quặn), <em>heartburn</em> (ợ nóng).</div>
+            <div class="clue" style="border-left-color:#1F2A44"><b class="t">20/5</b>Nặng hơn: <em>pneumonia</em> (viêm phổi), <em>flem</em> (đờm), <em>vomitting</em> (nôn), <em>hospitalized</em> (nhập viện).</div>
+          </div>
+          <div class="hyp"><b class="t">Giả thuyết</b>Có thể không phải một bệnh mà là hai: một nhóm giống cúm và một nhóm về dạ dày - ruột, xuất hiện vào hai ngày khác nhau. Một vài từ (<em>terible</em>, <em>getta</em>) chỉ là biến thể chính tả nên ta bỏ qua.</div>
+        </section>
+
+        <section>
+          <h2>Chia triệu chứng thành hai nhóm</h2>
+          <div class="code-split">
+            <div>{{code:vast_c14_groups|1-14|cls=xs}}</div>
+            <div>
+              {{out:vast_c14_groups|cls=sm}}
+              <div class="care"><b class="t">Thận trọng</b>Ta chọn từ khóa sau khi đã thấy dữ liệu, nên cần kiểm tra lại bằng cách so với ngày bình thường (14 ngày đầu).</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai đường cong, hai câu chuyện</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c14_groups.png" alt="Số bài giống cúm và số bài dạ dày - ruột mỗi ngày">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Nhóm cúm: trung bình 202 bài mỗi ngày, rồi nhảy lên 14.611 bài ngày 18/5 (gấp 72 lần). Nhóm dạ dày - ruột: vẫn quanh mức 123 bài đến hết 18/5, rồi nhảy lên 4.131 bài ngày 19/5 (gấp 34 lần).</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Hai bệnh bắt đầu cách nhau gần đúng một ngày. Chính xác là bao nhiêu giờ? Và đó có thể là cùng một nguồn không?</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Đồng hồ khởi phát</h2>
+          <div class="code-split">
+            <div>{{code:vast_c15_onset|1-11|cls=xs}}</div>
+            <div>
+              {{out:vast_c15_onset|cls=sm wrap}}
+              <div class="clue"><b class="t">Cách đọc</b>Ngưỡng báo động là mức trung bình cộng 5 lần độ lệch chuẩn của số bài mỗi giờ trong 14 ngày mốc. Giờ đầu tiên vượt ngưỡng được xem là lúc bệnh &ldquo;lộ diện&rdquo;.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai bệnh, hai giờ khởi phát</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c15_onset.png" alt="Số bài triệu chứng theo giờ từ 17 đến 20 tháng 5, hai nhóm bắt đầu vào hai thời điểm khác nhau">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Nhóm cúm vượt ngưỡng lúc <strong>1h sáng 18/5</strong>; nhóm dạ dày - ruột lúc <strong>2h sáng 19/5</strong>, chậm hơn khoảng 25 giờ.</div>
+            <div class="hyp"><b class="t">Giả thuyết</b>Hai nhóm bệnh nổ ra lần lượt chứ không đồng thời. Nếu có một &ldquo;thủ phạm&rdquo;, nó đã hành động <em>trước</em> 1h sáng ngày 18/5. Thủ phạm đó ở đâu?</div>
+          </div>
+        </section>
+      </section>

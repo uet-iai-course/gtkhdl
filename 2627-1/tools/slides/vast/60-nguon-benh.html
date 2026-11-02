@@ -1,0 +1,138 @@
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">6.</span><br>Ai là nghi phạm?</h1>
+          <p class="sub">Bệnh không tự sinh ra. Điều gì đã xảy ra <em>trước</em> sáng 18/5?</p>
+          <p class="small">Chương 6 · Bước 4: Nguồn bệnh</p>
+        </section>
+
+        <section>
+          <h2>Săn tìm những sự kiện bất thường</h2>
+          <p>Ta làm lại phép đo &ldquo;từ bùng nổ&rdquo;, nhưng lần này cho cả ba tuần: tìm những từ có một ngày đỉnh cao hơn hẳn các ngày còn lại.</p>
+          <div class="formula">$$\text{độ bùng nổ}(w)=\frac{n_{\text{ngày đỉnh}}(w)}{n_{\text{ngày điển hình}}(w)+3}$$</div>
+          <p style="font-size:0.7em;margin:0.1em 0">\(n(w)\) là số bài chứa từ \(w\) trong một ngày. &ldquo;Ngày điển hình&rdquo; là trung vị của 21 ngày; cộng 3 để tránh chia cho số quá nhỏ.</p>
+          <div class="code-split">
+            <div>{{code:vast_c19_bursts|cls=xs}}</div>
+            <div>{{out:vast_c19_bursts|cls=sm}}</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Tám nghi phạm hiện ra</h2>
+          <table class="era-table">
+            <thead><tr><th>Ngày</th><th>Từ khóa bùng nổ</th><th>Có vẻ là chuyện gì</th></tr></thead>
+            <tbody>
+              <tr><td>4/5</td><td>antique, filled</td><td>Một triển lãm đồ cổ</td></tr>
+              <tr><td>7/5</td><td>festival</td><td>Một lễ hội</td></tr>
+              <tr><td>11/5</td><td>convention</td><td>Một hội nghị</td></tr>
+              <tr><td>13/5</td><td>plane, crashed, airport</td><td>Máy bay rơi gần sân bay</td></tr>
+              <tr><td>14/5</td><td>capital, building</td><td>Sự cố ở tòa nhà Capital</td></tr>
+              <tr><td>16/5</td><td>threats, bombs, informed</td><td>Dọa đánh bom</td></tr>
+              <tr><td>17/5</td><td>smog, explosions</td><td>Tiếng nổ và khói bụi</td></tr>
+              <tr><td>17/5</td><td>accident, trucks</td><td>Tai nạn xe tải</td></tr>
+            </tbody>
+          </table>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Có thể đây là lời giải cho &ldquo;dấu hỏi nhỏ&rdquo; ở chương 3: ngày 16/5 vượt mốc nhẹ cùng lúc với tin dọa đánh bom. Tất cả tám sự kiện đều xảy ra <em>trước</em> khi dịch nổ ra.</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Tám sự kiện, tám nghi phạm. Chỉ nhìn thời gian thì không loại được ai. Ta cần thêm dữ kiện về không gian.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Lập hồ sơ cho từng nghi phạm</h2>
+          <p style="margin:0.15em 0">Mỗi sự kiện có một mẫu tìm kiếm và một ngày. Ta dùng chúng để lấy ra các bài nói về sự kiện đó.</p>
+          {{code:vast_c20_events|1-10|cls=sm}}
+          <div class="care"><b class="t">Thận trọng</b>Tên sự kiện do ta đặt, dựa trên từ khóa nổi bật. Đây là cách &ldquo;đoán tên&rdquo; từ chữ chứ không phải thông tin chính thức.</div>
+        </section>
+
+        <section>
+          <h2>Định vị nghi phạm bằng trung vị tọa độ</h2>
+          {{code:vast_c20_events|11-23|cls=xs}}
+          {{out:vast_c20_events|cls=sm}}
+          <div class="clue"><b class="t">Cách đọc</b>Tọa độ của một sự kiện là <em>trung vị</em> vĩ độ và kinh độ của các bài nói về nó (ít bị kéo lệch bởi vài bài đăng xa). Cột &ldquo;tản&rdquo; cho biết nửa số bài nằm trong bán kính bao nhiêu dặm.</div>
+        </section>
+
+        <section>
+          <h2>Tám nghi phạm trên bản đồ</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c21_eventmap.png" alt="Bản đồ tám sự kiện bất thường trước ngày 18 tháng 5">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Phần lớn sự kiện nằm gọn trong hoặc cạnh trung tâm thành phố. Máy bay rơi nằm xa ở phía tây bắc; tiếng nổ và khói bụi ở góc tây nam. Xe tải, tai nạn nằm ở phía tây trung tâm.</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Ai trong số tám nghi phạm giải thích được <em>vị trí</em> của các ca bệnh đầu tiên?</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dữ kiện mới: gió</h2>
+          <p>Nếu thủ phạm phát tán qua không khí, gió sẽ mang nó đi. Ta đọc <code>Weather.csv</code>: tệp ghi gió thổi <em>từ</em> hướng nào (quy ước khí tượng), nên ta đổi sang hướng gió thổi <em>đến</em>.</p>
+          <div class="code-split">
+            <div>{{code:vast_c22_wind|1-7|cls=xxs}}</div>
+            <div>{{out:vast_c22_wind|cls=sm}}</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Gió thổi về phía Đông</h2>
+          <figure class="v-fig short">
+            <img src="img/vast/c22_wind.png" alt="Hướng gió thổi đến từ 14 đến 20 tháng 5">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Ngày 16, 17 và 18/5 gió đều thổi từ Tây sang Đông, mạnh 8 đến 10 dặm một giờ. Ngày 19/5 gió hơi chếch về đông nam.</div>
+            <div class="hyp"><b class="t">Giả thuyết cần thử</b>Nếu nguồn bệnh cúm nằm ở một nghi phạm nào đó, các ca sáng 18/5 phải nằm <strong>xuôi gió</strong> của nó, trong một dải hẹp, và hầu như không có ca nào <strong>ngược gió</strong>.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Phép thử &ldquo;dải xuôi gió&rdquo;</h2>
+          <p>Với mỗi nghi phạm, ta đo mỗi ca cúm theo hai chiều: đi dọc theo hướng gió bao xa, và lệch khỏi đường gió bao xa.</p>
+          <div class="formula sm">$$\begin{aligned}d_{\parallel}&amp;=\Delta x\sin\alpha+\Delta y\cos\alpha\\ d_{\perp}&amp;=-\Delta x\cos\alpha+\Delta y\sin\alpha\end{aligned}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(\Delta x,\ \Delta y\)</td><td>Hiệu tọa độ của ca bệnh so với nghi phạm, đổi sang dặm</td></tr>
+              <tr><td>\(\alpha\)</td><td>Hướng gió thổi đến, đo từ phía Bắc theo chiều kim đồng hồ (Đông là \(90^\circ\))</td></tr>
+              <tr><td>\(d_{\parallel}&gt;0\)</td><td>Ca bệnh nằm <strong>xuôi gió</strong> của nghi phạm</td></tr>
+              <tr><td>\(|d_{\perp}|&lt;1{,}5\)</td><td>Ca bệnh nằm trong dải hẹp rộng 3 dặm quanh đường gió</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box" style="font-size:0.85em"><span class="box-title">Tiêu chí</span> Tính phần trăm ca cúm đăng từ 6h đến 14h ngày 18/5 nằm trong dải xuôi gió của từng nghi phạm. Càng cao thì càng đáng nghi.</div>
+        </section>
+
+        <section>
+          <h2>Mã Python: thử từng nghi phạm</h2>
+          {{code:vast_c23_flu_test|1-18|cls=xs}}
+          {{out:vast_c23_flu_test|cls=sm}}
+        </section>
+
+        <section>
+          <h2>Vòng loại: một nghi phạm dẫn đầu</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c23_flu_test.png" alt="Phần trăm ca giống cúm nằm trong dải xuôi gió của từng nghi phạm">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Xe tải, tai nạn dẫn đầu rất xa: 90,0% ca nằm trong dải xuôi gió, chỉ 3,7% ở ngược gió. Máy bay rơi, tiếng nổ chỉ khoảng 2 đến 3%. Dọa đánh bom đứng thứ hai với 66,7%.</div>
+            <div class="care"><b class="t">Thận trọng</b>Nghi phạm thứ hai vẫn khá cao, và độ rộng dải 3 dặm là lựa chọn của ta. Một phép thử chưa đủ để kết luận; ta cần thử bằng dữ liệu khác nữa.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Quay lại hiện trường: người dân viết gì?</h2>
+          <div class="code-split">
+            <div>{{code:vast_c23b_scene|cls=xxs}}</div>
+            <div>{{out:vast_c23b_scene|cls=sm wrap}}</div>
+          </div>
+          <div class="v-row">
+            <div class="post">&ldquo;I can't believe this terrible truck accident oh why did this have to happen at noon&rdquo;<small>Một bài đăng thật, 17/5</small></div>
+            <div class="post">&ldquo;noon what perfect timing I can't believe how bad this truck accident it&rdquo;<small>Một bài đăng thật, 17/5</small></div>
+          </div>
+          <div class="clue"><b class="t">Manh mối</b>Ngày 17/5 có 122 bài nhắc cả &ldquo;truck&rdquo; lẫn &ldquo;accident&rdquo;, trong khi ngày thường trung bình chỉ khoảng 1 bài. Sự kiện này có thật và xảy ra vào khoảng trưa.</div>
+        </section>
+
+        <section>
+          <h2>Nghi phạm số một, nhưng chưa kết án</h2>
+          <div class="hyp"><b class="t">Giả thuyết được dữ liệu hỗ trợ</b>Vụ tai nạn xe tải ngày 17/5 là nguồn nghi vấn của đợt bệnh giống cúm: nó đúng thời điểm (trước 18/5), và 90% ca cúm sáng 18/5 nằm xuôi gió của nó.</div>
+          <div class="care"><b class="t">Chưa giải thích được</b>Gió chỉ giải thích bệnh <em>giống cúm</em>. Nhóm triệu chứng <em>dạ dày - ruột</em> xuất hiện muộn hơn một ngày và kéo thành vệt về phía <em>tây nam</em>, ngược với hướng gió thổi về phía đông. Hoặc có thêm một nghi phạm, hoặc có thêm một đường lan truyền khác.</div>
+          <div class="ask"><b class="t">Câu hỏi cho chương sau</b>Bệnh đi bằng những đường nào? Nếu thủ phạm chỉ có một, nó đã đi theo cách nào để làm hai nhóm bệnh khác nhau?</div>
+          <p class="source">Gọi là &ldquo;nghi phạm&rdquo; và &ldquo;giả thuyết&rdquo; vì ta chỉ có bài đăng mạng xã hội, không có xét nghiệm hay mẫu bệnh phẩm.</p>
+        </section>
+      </section>

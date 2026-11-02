@@ -1,0 +1,72 @@
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">5.</span><br>Ở đâu?</h1>
+          <p class="sub">Ta đã biết khi nào và bệnh gì. Giờ đặt từng bài đăng lên bản đồ.</p>
+          <p class="small">Chương 5 · Bước 3: Khoanh vùng</p>
+        </section>
+
+        <section>
+          <h2>Mỗi bài triệu chứng là một chấm</h2>
+          <div class="code-split">
+            <div>{{code:vast_c16_scatter|cls=xs}}</div>
+            <div>
+              {{out:vast_c16_scatter|cls=sm}}
+              <div class="ask"><b class="t">Câu hỏi</b>Các chấm cam (cúm) và chấm xanh (dạ dày - ruột) của ngày 19/5 nằm ở đâu trên bản đồ?</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai bệnh, hai hình dạng</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c16_scatter.png" alt="Bản đồ chấm các bài giống cúm và dạ dày - ruột ngày 19/5">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Cúm tụ dày ở giữa thành phố và tỏa rộng ra xung quanh. Dạ dày - ruột dồn thành một <em>vệt dài</em> chạy chéo ở phía tây nam thành phố.</div>
+            <div class="care"><b class="t">Thận trọng</b>Nơi đông dân thì chấm nào cũng đông. Bản đồ chấm dễ làm ta tưởng nơi đó có nhiều bệnh hơn, trong khi nó chỉ có nhiều người hơn.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Trừ đi mức bình thường</h2>
+          <p>Để công bằng, với mỗi ô lưới ta lấy số bài ngày 19/5 <strong>trừ đi</strong> số bài trung bình mỗi ngày trong 14 ngày mốc, rồi làm mịn. Phần còn lại là &ldquo;lượng bài vượt mức&rdquo;.</p>
+          <div class="code-split">
+            <div>{{code:vast_c17_density|3-21|cls=xxs}}</div>
+            <div>
+              {{out:vast_c17_density|cls=sm}}
+              <div class="clue"><b class="t">Manh mối</b>Điểm đậm nhất của cúm nằm quanh kinh độ \(-93{,}364\), vĩ độ \(42{,}219\). Điểm đậm nhất của dạ dày - ruột nằm cách đó khoảng 4,6 dặm về phía tây.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Bản đồ mật độ: hai tâm điểm khác nhau</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c17_density.png" alt="Bản đồ mật độ bài giống cúm và dạ dày - ruột vượt mức bình thường">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Tâm điểm cúm nằm sát trung tâm thành phố (khu Downtown). Tâm điểm dạ dày - ruột lệch về phía tây, nằm trên vệt dài đã thấy ở slide trước.</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Khu nào của thành phố bị ảnh hưởng nặng nhất, sau khi so sánh công bằng giữa khu đông dân và khu vắng?</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Chia theo từng khu và theo dân cư</h2>
+          <p style="font-size:0.7em;margin:0.15em 0">Ảnh bản đồ không kèm ranh giới khu dưới dạng tệp. Ta ước lượng ranh giới bằng cách đánh dấu vài điểm mốc trong mỗi khu, rồi gán mỗi vị trí cho khu có điểm mốc gần nhất.</p>
+          {{code:vast_c18_zones|40-53|cls=xs}}
+          {{out:vast_c18_zones|8|cls=sm}}
+        </section>
+
+        <section>
+          <h2>Số thô và số theo dân cư kể hai chuyện khác nhau</h2>
+          <figure class="v-fig short">
+            <img src="img/vast/c18_zones.png" alt="Bản đồ khu vực: số bài triệu chứng thô và số bài trên 1000 cư dân ngày 19/5">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Downtown dẫn đầu cả hai bản đồ: 10.066 bài, tương ứng 112,7 bài trên 1000 (theo mật độ dân cư), gấp hơn 2 lần khu đứng thứ hai (Uptown, 53,8). Phần lớn khu còn lại chỉ 2 đến 14.</div>
+            <div class="care"><b class="t">Thận trọng</b>Ban ngày Downtown đông gấp ba lần cư dân (258.928 người). Chia theo dân ban ngày, Downtown vẫn đứng đầu (38,9) nhưng Smogtown bám sát (30,3). Tệp dân số chỉ cho mật độ, nên các tỉ lệ này chỉ để so sánh tương đối.</div>
+          </div>
+          <div class="hyp"><b class="t">Giả thuyết</b>Trung tâm Downtown là nơi các triệu chứng dồn về, nhưng <em>nơi đăng bài chưa chắc là nơi nhiễm bệnh</em>. Ta cần tìm xem điều gì đã xảy ra ở đó trước 18/5.</div>
+        </section>
+      </section>

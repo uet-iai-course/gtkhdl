@@ -1,0 +1,118 @@
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">8.</span><br>Người bệnh đi đâu? Ta làm gì?</h1>
+          <p class="sub">Từ bằng chứng đến hành động: bệnh viện, vùng ưu tiên và kế hoạch.</p>
+          <p class="small">Chương 8 · Bước 6: Hệ thống y tế · Bước 7: Hành động</p>
+        </section>
+
+        <section>
+          <h2>Gom các ca thành cụm bằng DBSCAN</h2>
+          <p>Ta xét các bài giống cúm từ 8h sáng 20/5. <strong>DBSCAN</strong> là thuật toán gom cụm theo mật độ: một điểm thuộc cụm nếu có ít nhất 80 điểm khác nằm trong bán kính 0,15 dặm quanh nó. Điểm lẻ loi được bỏ qua.</p>
+          {{code:vast_c31_hospital|1-8|cls=sm}}
+          <div class="ask"><b class="t">Câu hỏi</b>Các cụm này nằm ở đâu? Có nằm đúng ở các bệnh viện không?</div>
+        </section>
+
+        <section>
+          <h2>So cụm với vị trí các bệnh viện</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Tên và tọa độ 13 bệnh viện lấy từ tài liệu mô tả và ảnh bản đồ (nằm trong sổ tay Colab). Với mỗi cụm, ta tìm bệnh viện gần nhất; gần hơn 0,3 dặm thì coi là trùng.</p>
+          {{code:vast_c31_hospital|17-21|cls=xs}}
+          {{out:vast_c31_hospital|cls=xs}}
+        </section>
+
+        <section>
+          <h2>Các cụm rơi đúng vào bệnh viện</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c31_hospital.png" alt="Bài giống cúm từ 8 giờ ngày 20 tháng 5, các cụm DBSCAN và vị trí bệnh viện">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>15 cụm, trong đó 13 cụm trùng với 13 bệnh viện (mỗi cụm 250 đến 520 bài). Hai cụm còn lại nằm giữa khu Downtown đông người. Các cụm chiếm 37% số bài cúm của buổi sáng 20/5.</div>
+            <div class="care"><b class="t">Thận trọng</b>Bài đăng ở bệnh viện cho ta biết người bệnh <em>đang được điều trị ở đâu</em>, chứ không cho biết họ nhiễm bệnh ở đâu. Chấm nằm ở Plainville có thể là một người bị phơi nhiễm ở Downtown.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Người bệnh dồn về bệnh viện vào ngày nào?</h2>
+          {{code:vast_c32_hospital_share|1-15|cls=xs}}
+          {{out:vast_c32_hospital_share|cls=sm}}
+          <div class="ask"><b class="t">Cách đọc</b>Ta chỉ lấy bài cúm do người bệnh tự kể (bỏ bài nói về người khác), rồi tính phần trăm nằm trong 0,35 dặm quanh một bệnh viện. Hai cột còn lại là mốc so sánh.</div>
+        </section>
+
+        <section>
+          <h2>Ngày 20/5: bệnh viện quá tải</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c32_hospital_share.png" alt="Phần trăm bài đăng nằm gần bệnh viện theo ngày và nhóm triệu chứng">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Phần trăm bài cúm tự báo gần bệnh viện ở mức 9 đến 17% từ 17 đến 19/5, rồi nhảy lên <strong>55,6%</strong> vào ngày 20/5. Bài dạ dày - ruột và bài khác giữ nguyên quanh 5 đến 10%.</div>
+            <div class="hyp"><b class="t">Giả thuyết được dữ liệu hỗ trợ</b>Đến ngày 20/5, hơn một nửa người bệnh cúm đã tìm đến bệnh viện. Điều này khớp với bản tin khẩn ở đầu bài: bệnh viện báo số người đến khám tăng vọt.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Đâu là vùng cần ưu tiên?</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Ta cộng cả hai nhóm bệnh, lấy lượng bài <em>vượt mức bình thường</em> ngày 19/5 trên từng ô lưới, rồi tìm vùng nhỏ nhất chứa 80% lượng vượt mức.</p>
+          {{code:vast_c33_priority|1-12|cls=xs}}
+          {{out:vast_c33_priority|cls=sm}}
+        </section>
+
+        <section>
+          <h2>Vùng ưu tiên: một phần tư thành phố</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c33_priority.png" alt="Vùng ưu tiên chứa 80 phần trăm bài triệu chứng vượt mức, cùng dòng sông và các bệnh viện">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Vùng màu cam gồm khu trung tâm và phía đông, cộng một dải kéo về phía tây nam dọc theo sông. Nó chỉ chiếm khoảng 49 dặm vuông, bằng 26% diện tích thành phố, nhưng chứa 80% lượng bài vượt mức.</div>
+            <div class="care"><b class="t">Thận trọng</b>Vùng này dựa trên dữ liệu một ngày (19/5) và theo vị trí đăng bài, không phải vị trí nhiễm. Đây là gợi ý để ưu tiên nguồn lực, không phải ranh giới chính thức.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Từ bằng chứng đến kế hoạch hành động</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Việc cần làm</th><th>Dựa vào bằng chứng</th><th>Giới hạn của bằng chứng</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1.</strong> Khoanh vùng, lấy mẫu không khí, nước và đất quanh vị trí vụ tai nạn xe tải để xét nghiệm</td><td>90% ca cúm sáng 18/5 nằm xuôi gió; vị trí cách sông 0,1 dặm</td><td>Chỉ có bài đăng, chưa có mẫu thật. Đây là giả thuyết cần kiểm chứng.</td></tr>
+              <tr><td><strong>2.</strong> Cảnh báo dân không dùng nước sông, ưu tiên ven sông phía hạ lưu (trong 1,5 dặm)</td><td>84% bài dạ dày - ruột nằm trong 1,5 dặm quanh sông</td><td>Đường sông vẽ tay; chưa có số liệu chất lượng nước</td></tr>
+              <tr><td><strong>3.</strong> Bổ sung giường, thuốc, nhân viên cho các bệnh viện, nhất là các bệnh viện ở vùng ưu tiên</td><td>55,6% bài cúm tự báo đã nằm gần bệnh viện vào ngày 20/5; có cụm ở cả 13 bệnh viện</td><td>Bài ở bệnh viện chỉ nói nơi điều trị, không nói nơi nhiễm</td></tr>
+              <tr><td><strong>4.</strong> Thông báo và kiểm tra sức khỏe tại vùng ưu tiên (26% diện tích)</td><td>Vùng này chứa 80% bài vượt mức</td><td>Dựa trên một ngày dữ liệu</td></tr>
+              <tr><td><strong>5.</strong> Theo dõi bài đăng theo giờ để phát hiện ca mới ngoài vùng ưu tiên</td><td>Vùng ca bệnh không mở rộng thêm theo gió trong 3 ngày</td><td>Bài đăng không phải ca bệnh đã xác nhận</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian của vụ dịch</h2>
+          {{code:vast_c34_timeline|1-14|cls=xs}}
+          {{out:vast_c34_timeline|cls=sm}}
+        </section>
+
+        <section>
+          <h2>Ghép các mảnh thành một dòng thời gian</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c34_timeline.png" alt="Dòng thời gian năm mốc của vụ dịch, rút ra từ dữ liệu">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Câu chuyện đã khép lại</b>Sáng đến trưa 17/5: tin về vụ tai nạn xe tải xuất hiện. Đêm 17 rạng sáng 18/5: cúm khởi phát. Sáng 18/5: cúm bùng nổ. Rạng sáng 19/5: dạ dày - ruột khởi phát. Sáng 20/5: người bệnh dồn về bệnh viện. Mỗi mốc đều lấy từ một biểu đồ ở các chương trước.</div>
+            <div class="ask"><b class="t">Kể chuyện với dữ liệu</b>Một dòng thời gian tốt cho phép người nghe nhớ cả vụ án chỉ bằng một hình.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Bảng điều khiển cuối cùng</h2>
+          {{code:vast_c35_dashboard|1-12|cls=xs}}
+        </section>
+
+        <section>
+          <h2>Vastopolis Epidemic Intelligence Dashboard</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c35_dashboard.png" alt="Bảng điều khiển tổng hợp: bản đồ ca bệnh, số bài mỗi ngày, tỉ lệ gần bệnh viện">
+          </figure>
+          <div class="v-row" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+            <div class="clue"><b class="t">Tổng quan dịch</b>Số bài mỗi ngày của hai nhóm bệnh (hình nhỏ phải trên).</div>
+            <div class="clue"><b class="t">Thông tin không gian</b>Bản đồ ca bệnh, dòng sông và nghi phạm số một (hình trái).</div>
+            <div class="clue"><b class="t">Theo dõi y tế</b>Tỉ lệ bài cúm gần bệnh viện (hình nhỏ phải dưới).</div>
+            <div class="clue"><b class="t">Rủi ro và phòng ngừa</b>Vùng ưu tiên (chương 8) và bảng hành động. Đây là phần bạn có thể mở rộng thành bài tập.</div>
+          </div>
+        </section>
+      </section>

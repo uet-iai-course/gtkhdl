@@ -1,0 +1,17 @@
+Population.csv: (13, 3)
+ Zone_Name  Population_Density  Daytime_Population
+Cornertown               59524               59226
+  Downtown               89286              258928
+  Eastside              178571              125000
+  Lakeside              297619              181548
+Northville              119048               95238
+Plainville              208333              147916
+
+Weather.csv: (21, 4)
+     Date Weather  Average_Wind_Speed Wind_Direction
+4/30/2011  cloudy                   9              E
+ 5/1/2011   clear                   5              E
+ 5/2/2011   clear                   4             SE
+ 5/3/2011 showers                   8             SE
+ 5/4/2011 showers                  10              N
+ 5/5/2011    rain                  10              N

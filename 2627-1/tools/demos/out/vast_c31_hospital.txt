@@ -1,0 +1,16 @@
+DBSCAN tìm thấy 15 cụm, chiếm 37% bài giống cúm ngày 20/5
+cụm  0: [-93.3908  42.174 ]   282 bài  ->  Southville
+cụm  1: [-93.3622  42.2201]   520 bài  ->  Vastopolis City
+cụm  2: [-93.4788  42.2565]   283 bài  ->  Westside
+cụm  3: [-93.3304  42.2404]   421 bài  ->  St. Georges
+cụm  4: [-93.42    42.2526]   307 bài  ->  Northside
+cụm  5: [-93.2339  42.2947]   266 bài  ->  St. Mark's
+cụm  6: [-93.5567  42.2043]   274 bài  ->  Villa
+cụm  7: [-93.5317  42.2988]   291 bài  ->  Corner
+cụm  8: [-93.4947  42.2019]   253 bài  ->  Smogtown
+cụm  9: [-93.4451  42.2048]   275 bài  ->  Plainville
+cụm 10: [-93.3942  42.2201]   380 bài  ->  không phải bệnh viện
+cụm 11: [-93.3433  42.1682]   274 bài  ->  Lakeside
+cụm 12: [-93.2469  42.2197]   305 bài  ->  St. Kristin's
+cụm 13: [-93.3649  42.2844]   263 bài  ->  River
+cụm 14: [-93.341   42.2243]   271 bài  ->  không phải bệnh viện

@@ -1,0 +1,14 @@
+Số dòng, số cột: (1023077, 4)
+
+ID            int64
+Created_at      str
+Location        str
+text            str
+dtype: object
+
+   ID       Created_at           Location                                             text
+0   3  5/18/2011 13:26  42.22717 93.33772  this convention filled with technology could...
+1   3   5/10/2011 9:22  42.18881 93.35642  4 orang top scorer skrg  3 di antara nya pak...
+2   3   5/14/2011 9:22  42.22479 93.35922  Nike 'gana' el Mundial al patrocinador ofici...
+3   3    5/6/2011 9:22   42.2469 93.32527  Positiiff    mau nabung beli kaos adidas asl...
+4   3   5/19/2011 9:22   42.2354 93.35642                            I kick it like Adidas

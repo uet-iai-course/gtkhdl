@@ -1,0 +1,5 @@
+MC1_Dataset_README.docx        1.21 MB
+Microblogs.csv               115.21 MB
+Population.csv                 0.00 MB
+Vastopolis_Map.png             6.32 MB
+Weather.csv                    0.00 MB

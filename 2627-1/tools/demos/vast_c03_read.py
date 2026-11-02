@@ -1,0 +1,6 @@
+df = pd.read_csv(f"{FOLDER}/Microblogs.csv", encoding="latin-1")
+print("Số dòng, số cột:", df.shape)
+print()
+print(df.dtypes)
+print()
+print(df.head(5).to_string(max_colwidth=48))

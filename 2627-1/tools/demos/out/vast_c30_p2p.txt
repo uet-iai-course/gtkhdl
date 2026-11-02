@@ -1,0 +1,18 @@
+Ví dụ bài nói về người khác:
+Christian has caught a pneumonia home is where they are s...
+David has a case of the chills wish they were feeling better
+Watching the sickly can be so depressing. Ryan has caught...
+Nhóm giống cúm:
+              bài  % nói về người khác  người tự báo  người tự báo mới
+ngay                                                                  
+2011-05-17    230                   24           173               173
+2011-05-18  14611                   16          8254              8239
+2011-05-19  21187                   30          9272              1634
+2011-05-20  18325                   49          7322               295
+Nhóm dạ dày - ruột:
+             bài  % nói về người khác  người tự báo  người tự báo mới
+ngay                                                                 
+2011-05-17   123                   15           104               104
+2011-05-18   108                   15            90                90
+2011-05-19  4131                    1          4104              4096
+2011-05-20  3806                    1          3778               738

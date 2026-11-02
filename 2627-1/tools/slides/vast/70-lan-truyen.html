@@ -1,0 +1,174 @@
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">7.</span><br>Bệnh đi bằng đường nào?</h1>
+          <p class="sub">Không khí, nước hay con người? Mỗi đường đi để lại một dấu chân khác nhau.</p>
+          <p class="small">Chương 7 · Bước 5: Lan truyền</p>
+        </section>
+
+        <section>
+          <h2>Xem bệnh cúm lan ra theo từng khung giờ</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Ngôi sao vàng là nghi phạm số một. Ta chia các ca cúm thành những khung 6 giờ, vẽ mỗi khung một bản đồ nhỏ, đặt cạnh nhau để so sánh.</p>
+          <div class="code-split">
+            <div>{{code:vast_c24_panels|cls=xs}}</div>
+            <div>
+              {{out:vast_c24_panels|cls=sm}}
+              <div class="ask"><b class="t">Câu hỏi</b>Từ 0h ngày 18/5 đến hết ngày 20/5, vùng có ca bệnh to ra, dịch chuyển hay giữ nguyên?</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mười hai khung hình của đợt cúm</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c24_panels.png" alt="Mười hai bản đồ ca giống cúm theo từng khung 6 giờ từ 18 đến 20 tháng 5">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Từ 6h sáng 18/5 đã hiện một dải đặc kéo dài về phía <strong>đông</strong> kể từ ngôi sao. Dải này gần như xuất hiện cùng lúc (532 bài lúc 0h, 3.293 bài lúc 6h), không phải là lan dần từ từ.</div>
+            <div class="clue"><b class="t">Về sau</b>Sang 20/5, các chấm rải khắp thành phố, và có những cụm nhỏ, rất đặc, xuất hiện rời rạc ở nhiều nơi. Ta sẽ gặp lại chúng ở chương 8.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Làm cho bản đồ chuyển động</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Với khung 3 giờ thay vì 6 giờ, ta ghép 24 bản đồ thành một ảnh động để thấy rõ dòng chảy theo thời gian.</p>
+          {{code:vast_c25_gif|1-18|cls=xs}}
+          {{out:vast_c25_gif|cls=sm}}
+        </section>
+
+        <section>
+          <h2>Ảnh động: 72 giờ của đợt cúm</h2>
+          <div class="gif-frame"><img src="img/vast/flu_spread.gif" alt="Ảnh động các ca giống cúm trên bản đồ từ 18 đến 20 tháng 5"></div>
+          <p class="source" style="text-align:center">Ảnh động do ô mã <code>c25_gif</code> tạo ra: 24 khung hình, mỗi khung 3 giờ, từ 0h ngày 18/5 đến hết ngày 20/5.</p>
+        </section>
+
+        <section>
+          <h2>Vùng bệnh có mở rộng ra xa không?</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Với mỗi khung 6 giờ, ta đo khoảng cách <em>xuôi gió</em> từ nghi phạm đến từng ca (theo hướng gió của chính ngày đó). Nếu bệnh lan dần ra xa, các con số phải tăng.</p>
+          <div class="code-split">
+            <div>{{code:vast_c26_front|1-9|cls=xxs}}</div>
+            <div>{{out:vast_c26_front|cls=sm}}</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mặt trận không tiến thêm</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c26_front.png" alt="Khoảng cách xuôi gió từ nghi phạm đến các ca giống cúm theo thời gian">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Khoảng cách trung vị đi ngang quanh 3 đến 4 dặm rồi giảm xuống khoảng 2,4 dặm. Mốc 90% ca giảm từ khoảng 8 dặm xuống 5,8 dặm. Không có &ldquo;làn sóng&rdquo; tiến dần ra xa.</div>
+            <div class="care"><b class="t">Thận trọng</b>Hai cách hiểu cùng hợp lý: chất gây bệnh được phát tán gần như <em>một lần</em>, hoặc người bệnh về sau tập trung vào bệnh viện nên bài đăng dồn lại. Dữ liệu này chưa đủ để chọn.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Gió đi về đông, nhưng bệnh thứ hai ở phía tây</h2>
+          <div class="stat-row three">
+            <div class="stat"><b>112&deg;</b><span>hướng gió thổi đến ngày 19/5 (chếch về đông nam, 9 dặm một giờ)</span></div>
+            <div class="stat"><b>4,6 dặm</b><span>tâm điểm dạ dày - ruột nằm lệch về phía tây so với tâm điểm cúm</span></div>
+            <div class="stat"><b>25 giờ</b><span>độ trễ giữa hai lần khởi phát (1h sáng 18/5 và 2h sáng 19/5)</span></div>
+          </div>
+          <p>Nếu bệnh dạ dày - ruột cũng đi theo gió thì nó phải nằm phía đông, nhưng nó lại nằm phía tây nam. Vậy gió không giải thích được bệnh thứ hai.</p>
+          <div class="ask"><b class="t">Câu hỏi</b>Có thứ gì khác chảy về phía tây nam thành phố? Hãy nhìn lại ảnh bản đồ ở chương 1: ngoài đường cao tốc và các khu phố, có một <strong>dòng sông</strong> chảy xuyên qua thành phố, từ phía bắc xuống tây nam.</div>
+          <div class="hyp"><b class="t">Giả thuyết cần thử</b>Các ca dạ dày - ruột nằm sát dòng sông và ở phía hạ lưu, tính từ chỗ nguồn bệnh gặp sông.</div>
+        </section>
+
+        <section>
+          <h2>Biến dòng sông thành con số</h2>
+          <div class="code-split" style="grid-template-columns:1.9fr 1fr">
+            <div>{{code:vast_c27_river|1-20|cls=xxs}}</div>
+            <div>
+              <div class="clue"><b class="t">Cách làm</b>Ta chấm 17 điểm dọc dòng sông trên ảnh bản đồ, nối thành một đường gấp khúc. Với mỗi bài đăng, hàm <code>toa_do_song</code> trả về hai số: <em>cách sông bao xa</em> và <em>đã đi được bao xa dọc sông từ phía bắc</em>.</div>
+              <div class="care"><b class="t">Thận trọng</b>Đường sông do ta vẽ tay từ ảnh, nên có sai số cỡ vài trăm mét. Các tỉ lệ ở slide sau chỉ mang tính xấp xỉ.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Các ca dạ dày - ruột cách sông bao xa?</h2>
+          <div class="code-split">
+            <div>{{code:vast_c27_river|23-28|cls=xs}}</div>
+            <div>
+              {{out:vast_c27_river|cls=sm wrap}}
+              <div class="ask"><b class="t">Cách đọc</b>Cột thứ hai là mốc so sánh: nếu <em>mọi bài</em> cùng ngày cũng sát sông như vậy thì sông chẳng nói lên điều gì.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Bệnh dạ dày - ruột ôm lấy dòng sông</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c27_river.png" alt="Bài dạ dày - ruột ngày 19/5 và đường sông; biểu đồ khoảng cách đến sông">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>84% bài dạ dày - ruột nằm trong 1,5 dặm quanh sông, trong khi chỉ 26% bài đăng nói chung nằm trong vùng đó. Trong 3 dặm là 99% so với 68%.</div>
+            <div class="care"><b class="t">Thận trọng</b>Một số tài liệu tham khảo nêu tỉ lệ ven sông cao hơn con số 84% của ta (trên 98% trong 1,5 dặm). Có thể do đường sông ta vẽ tay chưa khít; xu hướng thì giống nhau.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai bằng chứng, tám nghi phạm</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Giờ ta chấm điểm từng nghi phạm theo <strong>hai tiêu chí</strong>: khớp hướng gió (cho bệnh cúm) và gần dòng sông (cho bệnh dạ dày - ruột).</p>
+          {{code:vast_c28_both|1-9|cls=xs}}
+          {{out:vast_c28_both|cls=sm}}
+        </section>
+
+        <section>
+          <h2>Chỉ một nghi phạm khớp cả hai</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c28_both.png" alt="Mỗi nghi phạm được chấm theo hai tiêu chí: dải xuôi gió và khoảng cách đến sông">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Xe tải, tai nạn nằm ở góc phải trên: 90% ca cúm xuôi gió, và vị trí chỉ cách sông 0,1 dặm. Dọa đánh bom đứng thứ hai (66,7%; cách sông 1,2 dặm). Các sự kiện còn lại thấp hơn hẳn ở ít nhất một trục.</div>
+            <div class="care"><b class="t">Thận trọng</b>Cột cuối của bảng (&ldquo;% ca dạ dày ở hạ lưu&rdquo;) gần như bằng nhau (khoảng 84%) cho hầu hết các nghi phạm, vì cả vùng bệnh nằm ở hạ lưu. Vì thế, trục có sức phân biệt là <em>khoảng cách từ sự kiện đến sông</em>.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mỗi nhóm bệnh hợp với một đường lan</h2>
+          <div class="code-split">
+            <div>{{code:vast_c29_mechanism|1-18|cls=xs}}</div>
+            <div>
+              {{out:vast_c29_mechanism|cls=sm wrap}}
+              <div class="ask"><b class="t">Cách đọc</b>Hàng &ldquo;mọi bài&rdquo; là mốc so sánh: ở vùng đông dân, ngay cả bài đăng bình thường cũng rơi nhiều vào dải xuôi gió hoặc ven sông.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai đường, hai dấu chân</h2>
+          <figure class="v-fig short">
+            <img src="img/vast/c29_mechanism.png" alt="Bản đồ nhiệt: mỗi nhóm triệu chứng khớp với cơ chế không khí hay nước đến đâu">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Ca cúm: 79% nằm xuôi gió, so với mốc 33% của mọi bài; chỉ 24% sát sông. Ca dạ dày - ruột: 84% sát sông, so với mốc 26%; chỉ 8% xuôi gió.</div>
+            <div class="hyp"><b class="t">Giả thuyết được dữ liệu hỗ trợ</b>Từ <em>một</em> nguồn, bệnh đi theo <em>hai đường</em>: một đường theo không khí, gây triệu chứng giống cúm; một đường theo dòng sông, gây triệu chứng dạ dày - ruột.</div>
+          </div>
+          <div class="care"><b class="t">Tương quan chưa phải nhân quả</b>Ta thấy bệnh nằm xuôi gió và ven sông, nhưng ta không có mẫu nước, không có đo đạc không khí. &ldquo;Nước&rdquo; và &ldquo;không khí&rdquo; là cách giải thích hợp lý nhất, chưa phải điều đã được chứng minh.</div>
+        </section>
+
+        <section>
+          <h2>Còn lây từ người sang người thì sao?</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Nếu bệnh lây giữa người với người, số <em>người mới</em> kể về triệu chứng của chính mình phải tăng theo từng ngày. Ta tách riêng các bài nói về người khác (&ldquo;Christian has caught...&rdquo;) khỏi các bài tự kể.</p>
+          {{code:vast_c30_p2p|1-21|cls=xs}}
+        </section>
+
+        <section>
+          <h2>Kết quả: ai là người mới?</h2>
+          {{out:vast_c30_p2p|cls=sm}}
+          <div class="ask"><b class="t">Cách đọc</b>&ldquo;Người tự báo&rdquo; là số người đăng bài kể về chính mình trong ngày; &ldquo;người tự báo mới&rdquo; là số người lần đầu xuất hiện trong nhóm đó. Lây từ người sang người sẽ làm cột thứ hai <em>tăng dần</em>.</div>
+        </section>
+
+        <section>
+          <h2>Số người mới tự báo bệnh đang giảm</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c30_p2p.png" alt="Số người tự báo triệu chứng cúm mỗi ngày và tỉ lệ bài nói về người khác">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Người tự báo cúm <em>mới</em>: 8.239 người ngày 18/5, rồi 1.634 ngày 19/5 và 295 ngày 20/5. Bệnh dạ dày - ruột: 4.096 rồi 738 người. Số người mới giảm nhanh chứ không tăng dần.</div>
+            <div class="care"><b class="t">Thận trọng</b>Tỉ lệ bài nói về người khác tăng đến 49% ở nhóm cúm ngày 20/5, nhưng nhận dạng bằng quy tắc từ khóa là thô, và mỗi người chỉ đăng khoảng 14 bài nên &ldquo;người mới&rdquo; giảm một phần vì người cũ đã báo rồi.</div>
+          </div>
+          <div class="hyp"><b class="t">Nhận định</b>Dữ liệu này <em>chưa cho thấy dấu hiệu rõ</em> của lây từ người sang người, nhưng cũng không đủ để loại trừ nó. Các nhóm giải của cuộc thi cũng không thống nhất ở điểm này (xem phần tổng kết).</div>
+        </section>
+      </section>

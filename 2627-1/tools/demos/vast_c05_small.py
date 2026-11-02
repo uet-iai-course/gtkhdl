@@ -1,0 +1,7 @@
+pop = pd.read_csv(f"{FOLDER}/Population.csv")
+weather = pd.read_csv(f"{FOLDER}/Weather.csv")
+print("Population.csv:", pop.shape)
+print(pop.head(6).to_string(index=False))
+print()
+print("Weather.csv:", weather.shape)
+print(weather.head(6).to_string(index=False))

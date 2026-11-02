@@ -1,0 +1,8 @@
+     Date Weather  Average_Wind_Speed Wind_Direction  gio_den
+5/14/2011  cloudy                   8             NW    135.0
+5/15/2011   clear                   8             NW    135.0
+5/16/2011  cloudy                  10              W     90.0
+5/17/2011   clear                   8              W     90.0
+5/18/2011   clear                   9              W     90.0
+5/19/2011  cloudy                   9            WNW    112.5
+5/20/2011  cloudy                   5             NW    135.0

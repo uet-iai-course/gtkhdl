@@ -1,0 +1,115 @@
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">1.</span><br>Hồ sơ vụ án</h1>
+          <p class="sub">Việc đầu tiên của thám tử: mở hồ sơ và xem trong đó có gì.</p>
+          <p class="small">Chương 1 · Bước 1: Hiện trường</p>
+        </section>
+
+        <section>
+          <h2>Mở hồ sơ: tải dữ liệu về</h2>
+          {{code:vast_c01_setup|cls=sm}}
+          <div class="code-split even">
+            <div>{{out:vast_c01_setup|cls=sm}}</div>
+            <div class="clue" style="margin-top:0.15em"><b class="t">Manh mối</b>Hồ sơ gồm năm tệp. Tệp <code>Microblogs.csv</code> nặng hơn 115 MB: đây là &ldquo;nhân chứng&rdquo; chính.</div>
+          </div>
+          <p class="source">Dữ liệu: <a href="https://visualdata.wustl.edu/varepository/VAST_Challenge_2011/challenges/MC1_-_Characterization_of_an_Epidemic_Spread/" target="_blank" rel="noopener">VAST Challenge 2011, Mini-Challenge 1</a> (bản lưu của Washington University in St. Louis).</p>
+        </section>
+
+        <section>
+          <h2>Tệp chính: mỗi dòng là một bài đăng</h2>
+          {{code:vast_c03_read|cls=sm}}
+          {{out:vast_c03_read|cls=sm}}
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Hơn 1 triệu dòng, chỉ bốn cột: <code>ID</code> (người đăng), <code>Created_at</code> (giờ), <code>Location</code> (vĩ độ và kinh độ), <code>text</code> (nội dung).</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Không có cột nào ghi &ldquo;bệnh gì&rdquo; hay &ldquo;bao nhiêu ca&rdquo;. Vậy ta phải tự đọc chữ để tìm ra bệnh.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Nhìn thẳng vào dữ liệu: tám dòng ngẫu nhiên</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c04_table.png" alt="Bảng tám dòng ngẫu nhiên của tệp Microblogs.csv">
+            <figcaption>Tám dòng lấy ngẫu nhiên từ Microblogs.csv (hình vẽ bằng mã bên dưới)</figcaption>
+          </figure>
+          {{code:vast_c04_table|cls=sm}}
+          <div class="care"><b class="t">Thận trọng</b>Phần lớn bài đăng chẳng liên quan đến sức khỏe: quảng cáo, thể thao, phim. Dữ liệu này là một đám đông ồn ào, và ta phải lọc ra tín hiệu.</div>
+        </section>
+
+        <section>
+          <h2>Hai tệp nhỏ: dân số và thời tiết</h2>
+          <div class="code-split even">
+            <div>{{code:vast_c05_small|cls=sm}}</div>
+            <div>{{out:vast_c05_small|cls=sm}}</div>
+          </div>
+          <div class="v-row">
+            <div class="clue"><b class="t">Population.csv</b>13 khu của thành phố, mỗi khu có mật độ dân cư và dân số ban ngày. Dùng để so sánh công bằng giữa khu đông và khu vắng.</div>
+            <div class="clue"><b class="t">Weather.csv</b>Thời tiết 21 ngày (30/4 đến 20/5): hướng gió và tốc độ gió mỗi ngày. Ta chưa biết gió có quan trọng không, nhưng cứ ghi lại.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Bản đồ thành phố</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c06_map.png" alt="Bản đồ Vastopolis với 13 khu, đường cao tốc, bệnh viện và sông">
+          </figure>
+          {{code:vast_c06_map|1-3|cls=sm}}
+          {{out:vast_c06_map|cls=sm}}
+          <p class="source">Ảnh <code>Vastopolis_Map.png</code> trong hồ sơ cuộc thi. Hình vẽ lại bằng matplotlib sau khi thu nhỏ ảnh gốc.</p>
+        </section>
+
+        <section>
+          <h2>Mỗi bài đăng kể bốn điều</h2>
+          <div class="v-row three" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+            <div class="clue"><b class="t">Ai</b>Cột <code>ID</code>: 73.928 người dùng, mỗi người đăng khoảng 14 bài.</div>
+            <div class="clue"><b class="t">Khi nào</b>Cột <code>Created_at</code>: từ 30/4 đến 20/5/2011, chính xác đến phút.</div>
+            <div class="clue"><b class="t">Ở đâu</b>Cột <code>Location</code>: tọa độ GPS, đặt được lên bản đồ.</div>
+            <div class="clue"><b class="t">Nói gì</b>Cột <code>text</code>: chữ tự do, nhiều ngôn ngữ, nhiều lỗi chính tả.</div>
+          </div>
+          <p>Cả bài này chỉ xoay quanh bốn câu hỏi <em>khi nào</em>, <em>ở đâu</em>, <em>nói gì</em>, <em>của ai</em>. Trả lời xong bốn câu hỏi đó và ghép chúng lại, ta sẽ có lời giải cho vụ án.</p>
+          <div class="care"><b class="t">Thận trọng</b>Đây là dữ liệu mô phỏng do ban tổ chức tạo ra. Vastopolis là thành phố hư cấu, nên mọi kết luận chỉ có giá trị luyện tập phương pháp, không phải chẩn đoán thật.</div>
+        </section>
+      </section>
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">2.</span><br>Kiểm tra bằng chứng</h1>
+          <p class="sub">Một thám tử giỏi không tin ngay lời khai. Dữ liệu cũng vậy.</p>
+          <p class="small">Chương 2 · Bước 1: Hiện trường</p>
+        </section>
+
+        <section>
+          <h2>Tọa độ có đúng không?</h2>
+          <div class="code-split">
+            <div>{{code:vast_c07_parse|cls=xs}}</div>
+            <div>{{out:vast_c07_parse|cls=sm}}</div>
+          </div>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối 1</b>Kinh độ ghi là 93,19 đến 93,57 nhưng không có dấu. Với tọa độ ở vĩ độ 42° thuộc <strong>Tây</strong> bán cầu, kinh độ phải là số âm, nên ta thêm dấu trừ lại.</div>
+            <div class="clue"><b class="t">Manh mối 2</b>21 dòng có giờ đăng hỏng (ví dụ &ldquo;5/16/2011 Fire-&rdquo;). Ta đánh dấu giờ hỏng là rỗng rồi bỏ các dòng đó.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Đặt lên bản đồ để kiểm tra</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c08_checkmap.png" alt="40 nghìn bài đăng ngẫu nhiên đặt lên bản đồ Vastopolis">
+          </figure>
+          {{code:vast_c08_checkmap|cls=xs}}
+          <div class="good-box" style="font-size:0.5em;margin:0.2em 0"><span class="box-title">Kiểm tra</span> Các chấm phủ kín thành phố và dừng đúng ở rìa bản đồ. Nếu ta quên dấu trừ, tất cả sẽ rơi ra ngoài biển.</div>
+        </section>
+
+        <section>
+          <h2>Làm sạch hồ sơ</h2>
+          <div class="code-split even">
+            <div>{{code:vast_c09_clean|cls=xs}}</div>
+            <div>{{out:vast_c09_clean|cls=sm}}</div>
+          </div>
+          <div class="stat-row three">
+            <div class="stat"><b>1.023.056</b><span>bài đăng còn lại sau khi bỏ 21 dòng giờ hỏng</span></div>
+            <div class="stat"><b>73.928</b><span>người dùng khác nhau</span></div>
+            <div class="stat"><b>14</b><span>bài mỗi người (trung vị); nhiều nhất 18 bài</span></div>
+          </div>
+          <div class="clue"><b class="t">Manh mối</b>Không ai đăng quá nhiều, nên không có &ldquo;người nói quá to&rdquo; làm lệch số liệu. Dữ liệu đã sẵn sàng để điều tra.</div>
+        </section>
+      </section>

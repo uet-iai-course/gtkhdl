@@ -1,0 +1,11 @@
+Gió 18/5 thổi về hướng 90 độ (90 = Đông). Số bài giống cúm trong cửa sổ: 4808
+                 % ca ngược gió  % ca trong dải xuôi gió
+sự kiện                                                 
+Xe tải, tai nạn             3.7                     90.0
+Dọa đánh bom               28.0                     66.7
+Tòa nhà Capital            51.1                     44.6
+Triển lãm đồ cổ            54.5                     39.5
+Hội nghị                   54.9                     39.4
+Lễ hội                     75.8                     17.9
+Nổ, khói bụi                0.5                      2.5
+Máy bay rơi                 2.1                      2.4

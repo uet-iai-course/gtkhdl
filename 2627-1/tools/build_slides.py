@@ -31,6 +31,12 @@ DECKS = {
         "title": "Khoa học dữ liệu | Bài 4: Toán học trong khoa học dữ liệu (phần 2)",
         "footer": "Giới thiệu khoa học dữ liệu · Bài 4: Toán học trong khoa học dữ liệu (phần 2)",
     },
+    "vast": {
+        "out": "vastopolis-dieu-tra-dich-benh.html",
+        "title": "Khoa học dữ liệu | Vụ án Vastopolis: điều tra dịch bệnh bằng dữ liệu",
+        "footer": "Trực quan hóa và kể chuyện với dữ liệu · Vụ án Vastopolis (VAST Challenge 2011, MC1)",
+        "css": "vast.css",
+    },
 }
 
 HEAD = """<!doctype html>
@@ -46,7 +52,7 @@ HEAD = """<!doctype html>
   <link rel="stylesheet" href="plugin/highlight/zenburn.css">
   <link rel="stylesheet" href="lecture-style.css">
   <link rel="stylesheet" href="lecture-03.css?v=3">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+{extra_css}  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 
 <body>
@@ -165,7 +171,8 @@ def build(deck):
     leftovers = re.findall(r"\{\{[^}]*\}\}", body)
     if leftovers:
         raise SystemExit(f"Còn chỗ giữ chỗ chưa thay: {leftovers[:5]}")
-    text = HEAD.format(title=cfg["title"]) + body + FOOT.format(footer=cfg["footer"])
+    extra = f'  <link rel="stylesheet" href="{cfg["css"]}">\n' if cfg.get("css") else ""
+    text = HEAD.format(title=cfg["title"], extra_css=extra) + body + FOOT.format(footer=cfg["footer"])
     (ROOT / cfg["out"]).write_text(text, "utf-8")
     n = len(re.findall(r"<section", body)) - len(re.findall(r"<section>\s*<section", body))
     print(f"{cfg['out']}: {len(parts)} mảnh, {len(text.splitlines())} dòng")

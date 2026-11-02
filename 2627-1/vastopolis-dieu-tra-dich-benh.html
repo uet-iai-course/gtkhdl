@@ -1,0 +1,1688 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Khoa học dữ liệu | Vụ án Vastopolis: điều tra dịch bệnh bằng dữ liệu</title>
+  <link rel="stylesheet" href="revealjs/dist/reset.css">
+  <link rel="stylesheet" href="revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css">
+  <link rel="stylesheet" href="plugin/highlight/zenburn.css">
+  <link rel="stylesheet" href="lecture-style.css">
+  <link rel="stylesheet" href="lecture-03.css?v=3">
+  <link rel="stylesheet" href="vast.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <p class="tag">Trực quan hóa và kể chuyện với dữ liệu</p>
+          <h1>Vụ án Vastopolis</h1>
+          <p class="sub">Điều tra một đợt dịch bệnh bằng dữ liệu mạng xã hội</p>
+          <p class="small">Dựa trên VAST Challenge 2011, Mini-Challenge 1: <em>Characterization of an Epidemic Spread</em>.<br>Mọi hình và con số trong bài đều được vẽ và tính lại từ chính tệp dữ liệu của cuộc thi.</p>
+        </section>
+
+        <section>
+          <h2>Bản tin khẩn</h2>
+          <p>Vastopolis là một thành phố giả tưởng có khoảng 2 triệu dân. Sáng nay, nhiều bệnh viện báo rằng số người đến khám tăng vọt. Cùng lúc đó, dân thành phố liên tục đăng lên mạng xã hội những dòng chữ ngắn (<em>microblog</em>), mỗi dòng có kèm tọa độ GPS và giờ đăng.</p>
+          <p>Bạn là nhà phân tích dữ liệu của sở y tế. Giám đốc sở cần câu trả lời cho ba câu hỏi:</p>
+          <div class="v-row three">
+            <div class="ask"><b class="t">Câu hỏi 1</b>Chuyện gì đang xảy ra? Đây có thật là một đợt dịch không, và có bao nhiêu loại bệnh?</div>
+            <div class="ask"><b class="t">Câu hỏi 2</b>Bệnh bắt đầu từ đâu và lan đi bằng cách nào?</div>
+            <div class="ask"><b class="t">Câu hỏi 3</b>Có kiểm soát được không? Cần đưa người và thuốc đến đâu trước?</div>
+          </div>
+          <p class="source">Bối cảnh theo đề bài gốc của VAST Challenge 2011 MC1. Thành phố và dữ liệu đều là mô phỏng, dùng để luyện kỹ năng phân tích.</p>
+        </section>
+
+        <section>
+          <h2>Luật chơi của người điều tra</h2>
+          <div class="lab-grid">
+            <div class="lab-card"><b>1. Mỗi biểu đồ trả lời một câu hỏi</b>Không vẽ chỉ vì vẽ được. Trước khi vẽ, ta viết ra câu hỏi.</div>
+            <div class="lab-card"><b>2. Mỗi kết quả sinh ra một giả thuyết mới</b>Kết quả không phải điểm dừng, mà là manh mối để đặt câu hỏi kế tiếp.</div>
+            <div class="lab-card"><b>3. Mỗi giả thuyết phải thử bằng loại dữ liệu khác</b>Đã nhìn thời gian thì thử bằng bản đồ, đã nhìn bản đồ thì thử bằng thời tiết.</div>
+            <div class="lab-card"><b>4. Tương quan chưa phải nhân quả</b>Hai thứ cùng xuất hiện chưa chứng minh thứ này gây ra thứ kia.</div>
+            <div class="lab-card"><b>5. Bài đăng không phải ca bệnh</b>Một người có thể đăng nhiều bài, và có thể đăng về người khác. Nơi đăng chưa chắc là nơi nhiễm bệnh.</div>
+            <div class="lab-card"><b>6. Kết luận chỉ là giả thuyết được dữ liệu hỗ trợ</b>Ta không có xét nghiệm trong phòng thí nghiệm, nên không được nói &ldquo;đã xác nhận&rdquo;.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Bảy bước điều tra</h2>
+          <div class="step-row">
+            <div class="step"><b>1. Hiện trường</b>Hồ sơ có gì? Dữ liệu có đáng tin không?<br><i>Chương 1 và 2</i></div>
+            <div class="step"><b>2. Thời gian</b>Bất thường bắt đầu lúc nào? Mọi người đang nói về triệu chứng gì?<br><i>Chương 3 và 4</i></div>
+            <div class="step"><b>3. Khoanh vùng</b>Ở đâu có nhiều bài triệu chứng bất thường?<br><i>Chương 5</i></div>
+            <div class="step"><b>4. Nguồn bệnh</b>Ai là nghi phạm? Ai bị loại?<br><i>Chương 6</i></div>
+            <div class="step"><b>5. Lan truyền</b>Bệnh đi bằng đường nào: không khí, nước hay con người?<br><i>Chương 7</i></div>
+            <div class="step"><b>6. Hệ thống y tế</b>Người bệnh đổ về đâu? Bệnh viện nào chịu áp lực?<br><i>Chương 8</i></div>
+            <div class="step"><b>7. Hành động</b>Việc gì cần làm trước, ở khu vực nào?<br><i>Chương 8</i></div>
+            <div class="step hl"><b>Báo cáo</b>Tổng hợp bằng chứng, nói rõ giới hạn và so sánh với các nhóm khác.<br><i>Phần tổng kết</i></div>
+          </div>
+          <p class="source">Cách đi này gợi nhớ vụ điều tra dịch tả của bác sĩ John Snow ở Luân Đôn năm 1854: vẽ ca bệnh lên bản đồ, đặt giả thuyết, rồi kiểm tra bằng dữ liệu khác.</p>
+        </section>
+
+        <section>
+          <h2>Bộ đồ nghề và quy ước màu</h2>
+          <p>Mọi đoạn mã trong bài nằm trong một sổ tay Colab duy nhất, <code>vastopolis-dieu-tra-dich-benh.ipynb</code>. Chạy từ trên xuống dưới: ô đầu tiên tự tải dữ liệu, các ô sau lần lượt tạo ra đúng các hình trong slide.</p>
+          <div class="kw-row">
+            <span class="kw">pandas: bảng dữ liệu</span><span class="kw">numpy: tính toán</span><span class="kw">matplotlib: vẽ biểu đồ</span><span class="kw">scikit-learn: đếm từ, gom cụm</span><span class="kw">scipy: làm mịn bản đồ</span><span class="kw">Pillow: ảnh bản đồ và ảnh động</span>
+          </div>
+          <p>Quy ước màu dùng xuyên suốt, để người xem không phải đọc chú thích lại từ đầu:</p>
+          <div class="kw-row">
+            <span class="kw flu">Cam: triệu chứng giống cúm</span><span class="kw gi">Xanh dương: triệu chứng dạ dày - ruột</span><span class="kw evt">Tím: các sự kiện bất thường</span><span class="kw gold">Vàng: nghi phạm số một, bệnh viện</span>
+          </div>
+          <div class="key-box" style="font-size:0.8em"><span class="box-title">Cách theo dõi</span> Mỗi chương mở bằng một câu hỏi. Hãy tự đoán đáp án trước khi sang slide kế tiếp.</div>
+        </section>
+      </section>
+
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">1.</span><br>Hồ sơ vụ án</h1>
+          <p class="sub">Việc đầu tiên của thám tử: mở hồ sơ và xem trong đó có gì.</p>
+          <p class="small">Chương 1 · Bước 1: Hiện trường</p>
+        </section>
+
+        <section>
+          <h2>Mở hồ sơ: tải dữ liệu về</h2>
+          <pre class="demo-code sm"><code class="language-python" data-trim>
+import os, re, urllib.request, zipfile
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from PIL import Image
+
+URL = &quot;https://visualdata.wustl.edu/varepository/VAST_Challenge_2011/datasets/MC_1_Materials_3-30-2011.zip&quot;
+FOLDER = &quot;MC_1_Materials_3-30-2011&quot;
+
+if not os.path.isdir(FOLDER):              # chỉ tải khi chưa có
+    urllib.request.urlretrieve(URL, &quot;mc1.zip&quot;)
+    zipfile.ZipFile(&quot;mc1.zip&quot;).extractall(&quot;.&quot;)
+
+for name in sorted(os.listdir(FOLDER)):
+    size = os.path.getsize(os.path.join(FOLDER, name)) / 1e6
+    print(f&quot;{name:26s} {size:8.2f} MB&quot;)
+</code></pre>
+          <div class="code-split even">
+            <div><pre class="result-out sm">MC1_Dataset_README.docx        1.21 MB
+Microblogs.csv               115.21 MB
+Population.csv                 0.00 MB
+Vastopolis_Map.png             6.32 MB
+Weather.csv                    0.00 MB</pre></div>
+            <div class="clue" style="margin-top:0.15em"><b class="t">Manh mối</b>Hồ sơ gồm năm tệp. Tệp <code>Microblogs.csv</code> nặng hơn 115 MB: đây là &ldquo;nhân chứng&rdquo; chính.</div>
+          </div>
+          <p class="source">Dữ liệu: <a href="https://visualdata.wustl.edu/varepository/VAST_Challenge_2011/challenges/MC1_-_Characterization_of_an_Epidemic_Spread/" target="_blank" rel="noopener">VAST Challenge 2011, Mini-Challenge 1</a> (bản lưu của Washington University in St. Louis).</p>
+        </section>
+
+        <section>
+          <h2>Tệp chính: mỗi dòng là một bài đăng</h2>
+          <pre class="demo-code sm"><code class="language-python" data-trim>
+df = pd.read_csv(f&quot;{FOLDER}/Microblogs.csv&quot;, encoding=&quot;latin-1&quot;)
+print(&quot;Số dòng, số cột:&quot;, df.shape)
+print()
+print(df.dtypes)
+print()
+print(df.head(5).to_string(max_colwidth=48))
+</code></pre>
+          <pre class="result-out sm">Số dòng, số cột: (1023077, 4)
+
+ID            int64
+Created_at      str
+Location        str
+text            str
+dtype: object
+
+   ID       Created_at           Location                                             text
+0   3  5/18/2011 13:26  42.22717 93.33772  this convention filled with technology could...
+1   3   5/10/2011 9:22  42.18881 93.35642  4 orang top scorer skrg  3 di antara nya pak...
+2   3   5/14/2011 9:22  42.22479 93.35922  Nike &#x27;gana&#x27; el Mundial al patrocinador ofici...
+3   3    5/6/2011 9:22   42.2469 93.32527  Positiiff    mau nabung beli kaos adidas asl...
+4   3   5/19/2011 9:22   42.2354 93.35642                            I kick it like Adidas</pre>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Hơn 1 triệu dòng, chỉ bốn cột: <code>ID</code> (người đăng), <code>Created_at</code> (giờ), <code>Location</code> (vĩ độ và kinh độ), <code>text</code> (nội dung).</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Không có cột nào ghi &ldquo;bệnh gì&rdquo; hay &ldquo;bao nhiêu ca&rdquo;. Vậy ta phải tự đọc chữ để tìm ra bệnh.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Nhìn thẳng vào dữ liệu: tám dòng ngẫu nhiên</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c04_table.png" alt="Bảng tám dòng ngẫu nhiên của tệp Microblogs.csv">
+            <figcaption>Tám dòng lấy ngẫu nhiên từ Microblogs.csv (hình vẽ bằng mã bên dưới)</figcaption>
+          </figure>
+          <pre class="demo-code sm"><code class="language-python" data-trim>
+mau = df.sample(8, random_state=7)[[&quot;ID&quot;, &quot;Created_at&quot;, &quot;Location&quot;, &quot;text&quot;]].copy()
+mau[&quot;text&quot;] = mau[&quot;text&quot;].fillna(&quot;&quot;).str.slice(0, 78)
+table_png(mau, &quot;Tám dòng ngẫu nhiên của Microblogs.csv&quot;, widths=[0.06, 0.13, 0.17, 0.64])
+plt.show()
+</code></pre>
+          <div class="care"><b class="t">Thận trọng</b>Phần lớn bài đăng chẳng liên quan đến sức khỏe: quảng cáo, thể thao, phim. Dữ liệu này là một đám đông ồn ào, và ta phải lọc ra tín hiệu.</div>
+        </section>
+
+        <section>
+          <h2>Hai tệp nhỏ: dân số và thời tiết</h2>
+          <div class="code-split even">
+            <div><pre class="demo-code sm"><code class="language-python" data-trim>
+pop = pd.read_csv(f&quot;{FOLDER}/Population.csv&quot;)
+weather = pd.read_csv(f&quot;{FOLDER}/Weather.csv&quot;)
+print(&quot;Population.csv:&quot;, pop.shape)
+print(pop.head(6).to_string(index=False))
+print()
+print(&quot;Weather.csv:&quot;, weather.shape)
+print(weather.head(6).to_string(index=False))
+</code></pre></div>
+            <div><pre class="result-out sm">Population.csv: (13, 3)
+ Zone_Name  Population_Density  Daytime_Population
+Cornertown               59524               59226
+  Downtown               89286              258928
+  Eastside              178571              125000
+  Lakeside              297619              181548
+Northville              119048               95238
+Plainville              208333              147916
+
+Weather.csv: (21, 4)
+     Date Weather  Average_Wind_Speed Wind_Direction
+4/30/2011  cloudy                   9              E
+ 5/1/2011   clear                   5              E
+ 5/2/2011   clear                   4             SE
+ 5/3/2011 showers                   8             SE
+ 5/4/2011 showers                  10              N
+ 5/5/2011    rain                  10              N</pre></div>
+          </div>
+          <div class="v-row">
+            <div class="clue"><b class="t">Population.csv</b>13 khu của thành phố, mỗi khu có mật độ dân cư và dân số ban ngày. Dùng để so sánh công bằng giữa khu đông và khu vắng.</div>
+            <div class="clue"><b class="t">Weather.csv</b>Thời tiết 21 ngày (30/4 đến 20/5): hướng gió và tốc độ gió mỗi ngày. Ta chưa biết gió có quan trọng không, nhưng cứ ghi lại.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Bản đồ thành phố</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c06_map.png" alt="Bản đồ Vastopolis với 13 khu, đường cao tốc, bệnh viện và sông">
+          </figure>
+          <pre class="demo-code sm"><code class="language-python" data-trim>
+MAP = Image.open(f&quot;{FOLDER}/Vastopolis_Map.png&quot;)
+print(&quot;Ảnh bản đồ:&quot;, MAP.size, &quot;điểm ảnh, chế độ&quot;, MAP.mode)
+MAP_SMALL = MAP.convert(&quot;RGB&quot;).resize((2600, 1322))      # thu nhỏ để vẽ nhanh
+</code></pre>
+          <pre class="result-out sm">Ảnh bản đồ: (5216, 2653) điểm ảnh, chế độ P</pre>
+          <p class="source">Ảnh <code>Vastopolis_Map.png</code> trong hồ sơ cuộc thi. Hình vẽ lại bằng matplotlib sau khi thu nhỏ ảnh gốc.</p>
+        </section>
+
+        <section>
+          <h2>Mỗi bài đăng kể bốn điều</h2>
+          <div class="v-row three" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+            <div class="clue"><b class="t">Ai</b>Cột <code>ID</code>: 73.928 người dùng, mỗi người đăng khoảng 14 bài.</div>
+            <div class="clue"><b class="t">Khi nào</b>Cột <code>Created_at</code>: từ 30/4 đến 20/5/2011, chính xác đến phút.</div>
+            <div class="clue"><b class="t">Ở đâu</b>Cột <code>Location</code>: tọa độ GPS, đặt được lên bản đồ.</div>
+            <div class="clue"><b class="t">Nói gì</b>Cột <code>text</code>: chữ tự do, nhiều ngôn ngữ, nhiều lỗi chính tả.</div>
+          </div>
+          <p>Cả bài này chỉ xoay quanh bốn câu hỏi <em>khi nào</em>, <em>ở đâu</em>, <em>nói gì</em>, <em>của ai</em>. Trả lời xong bốn câu hỏi đó và ghép chúng lại, ta sẽ có lời giải cho vụ án.</p>
+          <div class="care"><b class="t">Thận trọng</b>Đây là dữ liệu mô phỏng do ban tổ chức tạo ra. Vastopolis là thành phố hư cấu, nên mọi kết luận chỉ có giá trị luyện tập phương pháp, không phải chẩn đoán thật.</div>
+        </section>
+      </section>
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">2.</span><br>Kiểm tra bằng chứng</h1>
+          <p class="sub">Một thám tử giỏi không tin ngay lời khai. Dữ liệu cũng vậy.</p>
+          <p class="small">Chương 2 · Bước 1: Hiện trường</p>
+        </section>
+
+        <section>
+          <h2>Tọa độ có đúng không?</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+loc = df[&quot;Location&quot;].str.split(&quot; &quot;, expand=True).astype(float)
+print(&quot;Kinh độ thô: nhỏ nhất&quot;, loc[1].min(), &quot;| lớn nhất&quot;, loc[1].max())
+
+df[&quot;lat&quot;] = loc[0]
+df[&quot;lon&quot;] = -loc[1]            # tệp ghi kinh độ Tây mà thiếu dấu trừ, ta thêm lại
+df[&quot;t&quot;] = pd.to_datetime(df[&quot;Created_at&quot;], format=&quot;%m/%d/%Y %H:%M&quot;, errors=&quot;coerce&quot;)
+
+bad = df[df[&quot;t&quot;].isna()]
+print(&quot;Dòng có thời gian hỏng:&quot;, len(bad))
+print(bad[[&quot;ID&quot;, &quot;Created_at&quot;]].head(4).to_string(index=False))
+print(&quot;Bài không có nội dung:&quot;, df[&quot;text&quot;].isna().sum(), &quot;| dòng trùng hệt:&quot;, df.duplicated().sum())
+print(df[[&quot;lat&quot;, &quot;lon&quot;]].describe().round(4).to_string())
+</code></pre></div>
+            <div><pre class="result-out sm">Kinh độ thô: nhỏ nhất 93.19066 | lớn nhất 93.56731
+Dòng có thời gian hỏng: 21
+   ID      Created_at
+ 5592 5/16/2011 Fire-
+ 6987  5/4/2011 Fire-
+18811 5/19/2011 Fire-
+26280 5/16/2011 Fire-
+Bài không có nội dung: 170 | dòng trùng hệt: 0
+                lat           lon
+count  1.023077e+06  1.023077e+06
+mean   4.222960e+01 -9.337750e+01
+std    3.120000e-02  8.090000e-02
+min    4.216200e+01 -9.356730e+01
+25%    4.221090e+01 -9.342190e+01
+50%    4.222540e+01 -9.336360e+01
+75%    4.224600e+01 -9.333400e+01
+max    4.230150e+01 -9.319070e+01</pre></div>
+          </div>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối 1</b>Kinh độ ghi là 93,19 đến 93,57 nhưng không có dấu. Với tọa độ ở vĩ độ 42° thuộc <strong>Tây</strong> bán cầu, kinh độ phải là số âm, nên ta thêm dấu trừ lại.</div>
+            <div class="clue"><b class="t">Manh mối 2</b>21 dòng có giờ đăng hỏng (ví dụ &ldquo;5/16/2011 Fire-&rdquo;). Ta đánh dấu giờ hỏng là rỗng rồi bỏ các dòng đó.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Đặt lên bản đồ để kiểm tra</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c08_checkmap.png" alt="40 nghìn bài đăng ngẫu nhiên đặt lên bản đồ Vastopolis">
+          </figure>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+EXTENT = [df[&quot;lon&quot;].min(), df[&quot;lon&quot;].max(), df[&quot;lat&quot;].min(), df[&quot;lat&quot;].max()]
+
+fig, ax = plt.subplots(figsize=(10, 5.1))
+base_map(ax)
+s = df.sample(40000, random_state=1)
+ax.scatter(s[&quot;lon&quot;], s[&quot;lat&quot;], s=1.2, c=NAVY, alpha=0.35)
+ax.set_title(&quot;40 000 bài đăng ngẫu nhiên đặt lên bản đồ&quot;)
+plt.tight_layout()
+plt.show()
+</code></pre>
+          <div class="good-box" style="font-size:0.5em;margin:0.2em 0"><span class="box-title">Kiểm tra</span> Các chấm phủ kín thành phố và dừng đúng ở rìa bản đồ. Nếu ta quên dấu trừ, tất cả sẽ rơi ra ngoài biển.</div>
+        </section>
+
+        <section>
+          <h2>Làm sạch hồ sơ</h2>
+          <div class="code-split even">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+df = df.dropna(subset=[&quot;t&quot;]).copy()               # bỏ dòng thời gian hỏng
+df[&quot;text&quot;] = df[&quot;text&quot;].fillna(&quot;&quot;)
+df[&quot;tl&quot;] = df[&quot;text&quot;].str.lower()                  # bản chữ thường để tìm từ khóa
+
+per_user = df.groupby(&quot;ID&quot;).size()
+print(&quot;Sau khi làm sạch:&quot;, len(df), &quot;bài của&quot;, df[&quot;ID&quot;].nunique(), &quot;người dùng&quot;)
+print(&quot;Khoảng thời gian:&quot;, df[&quot;t&quot;].min(), &quot;-&gt;&quot;, df[&quot;t&quot;].max())
+print(&quot;Số bài mỗi người:&quot;)
+print(per_user.describe().round(2).to_string())
+</code></pre></div>
+            <div><pre class="result-out sm">Sau khi làm sạch: 1023056 bài của 73928 người dùng
+Khoảng thời gian: 2011-04-30 00:00:00 -&gt; 2011-05-20 23:59:00
+Số bài mỗi người:
+count    73928.00
+mean        13.84
+std          0.78
+min          3.00
+25%         14.00
+50%         14.00
+75%         14.00
+max         18.00</pre></div>
+          </div>
+          <div class="stat-row three">
+            <div class="stat"><b>1.023.056</b><span>bài đăng còn lại sau khi bỏ 21 dòng giờ hỏng</span></div>
+            <div class="stat"><b>73.928</b><span>người dùng khác nhau</span></div>
+            <div class="stat"><b>14</b><span>bài mỗi người (trung vị); nhiều nhất 18 bài</span></div>
+          </div>
+          <div class="clue"><b class="t">Manh mối</b>Không ai đăng quá nhiều, nên không có &ldquo;người nói quá to&rdquo; làm lệch số liệu. Dữ liệu đã sẵn sàng để điều tra.</div>
+        </section>
+      </section>
+
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">3.</span><br>Khi nào chuyện bắt đầu?</h1>
+          <p class="sub">Câu hỏi đầu tiên của mọi vụ án: lúc nào?</p>
+          <p class="small">Chương 3 · Bước 2: Thời gian</p>
+        </section>
+
+        <section>
+          <h2>Thế nào là &ldquo;bất thường&rdquo;?</h2>
+          <p>Muốn nói một ngày bất thường, ta phải biết một ngày bình thường trông như thế nào. Ta lấy <strong>14 ngày đầu</strong> (30/4 đến 13/5) làm mốc, rồi đo mỗi ngày lệch bao nhiêu <em>độ lệch chuẩn</em>:</p>
+          <div class="formula lg">$$z=\frac{x-\bar{x}}{s}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(x\)</td><td>Số bài đăng của ngày đang xét</td></tr>
+              <tr><td>\(\bar{x}\)</td><td>Số bài trung bình mỗi ngày trong 14 ngày mốc</td></tr>
+              <tr><td>\(s\)</td><td>Độ lệch chuẩn của 14 ngày mốc: các ngày bình thường dao động cỡ này</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box"><span class="box-title">Quy tắc ngón tay cái</span> Một ngày có \(z>3\) hiếm khi xảy ra chỉ vì may rủi. Đó là lúc thám tử phải chú ý.</div>
+        </section>
+
+        <section>
+          <h2>Đếm bài đăng mỗi ngày</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+daily = df.groupby(df[&quot;t&quot;].dt.date).size()
+base = daily.iloc[:14]                              # 14 ngày đầu làm mốc bình thường
+z = (daily - base.mean()) / base.std()
+
+print(f&quot;Mức bình thường: {base.mean():,.0f} bài/ngày (độ lệch chuẩn {base.std():,.0f})&quot;)
+print(pd.DataFrame({&quot;bài&quot;: daily, &quot;z&quot;: z.round(1)}).tail(7).to_string())
+
+fig, ax = plt.subplots(figsize=(10, 4.2))
+ax.plot(daily.index, daily.values, color=NAVY, lw=2, marker=&quot;o&quot;, ms=4)
+hot = daily[z &gt; 3]
+ax.scatter(hot.index, hot.values, color=FLU, s=60, zorder=3, label=&quot;vượt mốc 3 độ lệch chuẩn&quot;)
+ax.axhline(base.mean(), color=GRAY, ls=&quot;--&quot;, lw=1)
+ax.set_title(&quot;Số bài đăng mỗi ngày&quot;); ax.set_ylabel(&quot;số bài&quot;); ax.legend(frameon=False)
+ngay_thang(ax); plt.tight_layout()
+plt.show()
+</code></pre></div>
+            <div>
+              <pre class="result-out sm">Mức bình thường: 45,287 bài/ngày (độ lệch chuẩn 922)
+              bài     z
+t                      
+2011-05-14  45554   0.3
+2011-05-15  44962  -0.4
+2011-05-16  48973   4.0
+2011-05-17  46534   1.4
+2011-05-18  61871  18.0
+2011-05-19  71277  28.2
+2011-05-20  69870  26.7</pre>
+              <div class="ask"><b class="t">Câu hỏi</b>Ngày nào lệch khỏi mức bình thường, và lệch bao nhiêu?</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai ngày vọt lên, và một dấu hỏi nhỏ</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c10_daily.png" alt="Số bài đăng mỗi ngày từ 30/4 đến 20/5, hai ngày cuối vọt lên">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Từ 30/4 đến 15/5, số bài đi ngang quanh 45.000 mỗi ngày. Ngày 18/5 vọt lên 61.871 bài (\(z=18\)), ngày 19/5 là 71.277 bài (\(z=28\)).</div>
+            <div class="ask"><b class="t">Ghi vào sổ tay</b>Ngày 16/5 cũng vượt mốc 3 (\(z=4{,}0\)), dù chỉ nhẹ. Có chuyện gì xảy ra hai ngày trước dịch? Ta chưa biết, nhưng sẽ quay lại.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Phóng to đến từng giờ</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xxs"><code class="language-python" data-trim>
+tab = df.groupby(df[&quot;t&quot;].dt.floor(&quot;h&quot;)).size().rename(&quot;n&quot;).to_frame()
+tab[&quot;gio&quot;] = tab.index.hour
+tab[&quot;ngay&quot;] = tab.index.date
+binh_thuong = tab.iloc[: 14 * 24].groupby(&quot;gio&quot;)[&quot;n&quot;].mean()       # mức theo từng giờ trong ngày
+tab[&quot;ti_le&quot;] = tab[&quot;n&quot;] / tab[&quot;gio&quot;].map(binh_thuong)
+ratio = tab.pivot(index=&quot;ngay&quot;, columns=&quot;gio&quot;, values=&quot;ti_le&quot;)     # hàng: ngày, cột: giờ
+
+print(&quot;Lần đầu lượng bài vượt 1,5 lần bình thường:&quot;, tab[tab[&quot;ti_le&quot;] &gt; 1.5].index[0])
+
+fig, ax = plt.subplots(figsize=(10, 4.6))
+im = ax.imshow(ratio.values, aspect=&quot;auto&quot;, cmap=&quot;YlOrRd&quot;, vmin=0.8, vmax=2.2)
+ax.set_xticks(range(0, 24, 3)); ax.set_xticklabels([f&quot;{h}h&quot; for h in range(0, 24, 3)])
+ax.set_yticks(range(len(ratio))); ax.set_yticklabels([d.strftime(&quot;%d/%m&quot;) for d in ratio.index], fontsize=8)
+ax.set_title(&quot;Số bài mỗi giờ so với mức bình thường của giờ đó (lần)&quot;); ax.grid(False)
+plt.colorbar(im, ax=ax, label=&quot;lần&quot;)
+plt.tight_layout()
+plt.show()
+</code></pre></div>
+            <div>
+              <pre class="result-out sm">Lần đầu lượng bài vượt 1,5 lần bình thường: 2011-05-18 08:00:00</pre>
+              <div class="clue"><b class="t">Cách đọc</b>Mỗi ô là một giờ. Màu càng đỏ, giờ đó càng đông bài so với mức bình thường của <em>chính giờ đó</em> (ban đêm vốn vắng hơn ban ngày).</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dấu vết đầu tiên trên tấm lịch</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c11_hour.png" alt="Bản đồ nhiệt: số bài mỗi giờ so với mức bình thường, theo ngày và giờ">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Những ô đỏ đầu tiên xuất hiện sáng 18/5 (khoảng 8h) và đỏ đậm dần suốt hai ngày sau. Các ngày trước hầu như vàng nhạt.</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Tổng số bài tăng, nhưng người ta <em>đang viết về điều gì</em>? Tổng lượng bài chưa nói lên bệnh gì.</div>
+          </div>
+        </section>
+      </section>
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">4.</span><br>Họ đang nói gì?</h1>
+          <p class="sub">Không có cột &ldquo;tên bệnh&rdquo;. Nhưng người dân đã tự viết ra triệu chứng của mình.</p>
+          <p class="small">Chương 4 · Bước 2: Thời gian</p>
+        </section>
+
+        <section>
+          <h2>Tìm từ nào bùng nổ</h2>
+          <p>Ý tưởng: nếu một từ bỗng xuất hiện nhiều gấp hàng trăm lần bình thường, nhiều khả năng nó gắn với điều mới xảy ra. Ta đo bằng <em>lift</em>:</p>
+          <div class="formula lg">$$\text{lift}(w)=\frac{p_{\text{hôm nay}}(w)}{p_{\text{các ngày trước}}(w)}$$</div>
+          <p style="font-size:0.75em">Ở đây \(p(w)\) là tỉ lệ bài đăng có chứa từ \(w\): lấy trong ngày đang xét ở tử số, và lấy trong tất cả các ngày trước đó ở mẫu số.</p>
+          <div class="v-row">
+            <div class="clue"><b class="t">Ví dụ</b>Một từ có mặt trong 1% bài ngày thường mà hôm nay có mặt trong 10% bài thì lift bằng 10.</div>
+            <div class="care"><b class="t">Thận trọng</b>Từ quá hiếm (lỗi chính tả) dễ có lift khổng lồ một cách giả tạo. Ta chỉ giữ từ có ít nhất 300 bài trong ngày.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mã Python: đếm từ theo ngày</h2>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+from sklearn.feature_extraction.text import CountVectorizer
+from scipy import sparse
+
+vec = CountVectorizer(token_pattern=r&quot;[a-z&#x27;]{3,}&quot;, min_df=30, binary=True)
+X = vec.fit_transform(df[&quot;tl&quot;])                        # bài × từ (có hoặc không)
+vocab = np.array(vec.get_feature_names_out())
+
+ngay0 = df[&quot;t&quot;].dt.normalize().min()
+day_idx = (df[&quot;t&quot;].dt.normalize() - ngay0).dt.days.values
+D = sparse.csr_matrix((np.ones(len(df)), (np.arange(len(df)), day_idx)))
+C = (X.T @ D).toarray()                                # từ × ngày: số bài chứa từ
+N = np.bincount(day_idx)                               # số bài mỗi ngày
+
+
+def top_words(ngay, k=10, toi_thieu=300):
+    &quot;&quot;&quot;Từ nổi bật nhất của một ngày so với TẤT CẢ các ngày trước đó.&quot;&quot;&quot;
+    i = (pd.Timestamp(ngay) - ngay0).days
+    truoc = C[:, :i].sum(1) / N[:i].sum()               # tần suất trước ngày đó
+    lift = (C[:, i] / N[i]) / (truoc + 1 / N.sum())
+    lift[C[:, i] &lt; toi_thieu] = 0                       # bỏ từ quá hiếm (lỗi chính tả)
+    best = np.argsort(-lift)[:k]
+    return [(vocab[j], int(C[j, i]), round(float(lift[j]))) for j in best]
+
+</code></pre>
+          <pre class="result-out sm wrap">05-18 [&#x27;shortness (5303x)&#x27;, &#x27;bedridden (1476x)&#x27;, &#x27;declining (941x)&#x27;, &#x27;chills (566x)&#x27;, &#x27;fatigue (508x)&#x27;, &#x27;sweats (489x)&#x27;, &#x27;sicker (467x)&#x27;, &#x27;eatting (364x)&#x27;, &#x27;sleeep (322x)&#x27;, &#x27;sickly (186x)&#x27;]
+05-19 [&#x27;getta (563x)&#x27;, &#x27;nausea (328x)&#x27;, &#x27;runny (325x)&#x27;, &#x27;heartburn (279x)&#x27;, &#x27;diarrhea (224x)&#x27;, &#x27;muscles (152x)&#x27;, &#x27;cramps (146x)&#x27;, &quot;doctor&#x27;s (120x)&quot;, &#x27;begging (106x)&#x27;, &#x27;aching (72x)&#x27;]
+05-20 [&#x27;terible (4025x)&#x27;, &#x27;pneumonia (2962x)&#x27;, &#x27;flem (2335x)&#x27;, &#x27;dreadfully (1696x)&#x27;, &#x27;vomitting (1344x)&#x27;, &#x27;hospitalized (544x)&#x27;, &#x27;atrocious (385x)&#x27;, &#x27;difficulty (133x)&#x27;, &#x27;sleeeeeeeep (131x)&#x27;, &#x27;awfully (127x)&#x27;]</pre>
+        </section>
+
+        <section>
+          <h2>Ba ngày, ba bộ từ vựng</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c13_topwords.png" alt="Các từ có lift cao nhất trong ba ngày 18, 19 và 20 tháng 5">
+          </figure>
+          <div class="v-row three">
+            <div class="clue" style="border-left-color:#E4572E"><b class="t">18/5</b><em>shortness</em> (khó thở), <em>bedridden</em> (nằm liệt giường), <em>chills</em> (ớn lạnh), <em>fatigue</em> (mệt mỏi), <em>sweats</em> (ra mồ hôi).</div>
+            <div class="clue" style="border-left-color:#0077B6"><b class="t">19/5</b>Thêm một nhóm mới: <em>nausea</em> (buồn nôn), <em>diarrhea</em> (tiêu chảy), <em>cramps</em> (đau quặn), <em>heartburn</em> (ợ nóng).</div>
+            <div class="clue" style="border-left-color:#1F2A44"><b class="t">20/5</b>Nặng hơn: <em>pneumonia</em> (viêm phổi), <em>flem</em> (đờm), <em>vomitting</em> (nôn), <em>hospitalized</em> (nhập viện).</div>
+          </div>
+          <div class="hyp"><b class="t">Giả thuyết</b>Có thể không phải một bệnh mà là hai: một nhóm giống cúm và một nhóm về dạ dày - ruột, xuất hiện vào hai ngày khác nhau. Một vài từ (<em>terible</em>, <em>getta</em>) chỉ là biến thể chính tả nên ta bỏ qua.</div>
+        </section>
+
+        <section>
+          <h2>Chia triệu chứng thành hai nhóm</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+FLU_WORDS = [&quot;fever&quot;, &quot;chills&quot;, &quot;sweats&quot;, &quot;fatigue&quot;, &quot;cough&quot;, &quot;coughing&quot;, &quot;shortness&quot;, &quot;breath&quot;,
+             &quot;headache&quot;, &quot;ache&quot;, &quot;aches&quot;, &quot;aching&quot;, &quot;runny&quot;, &quot;sore throat&quot;, &quot;pneumonia&quot;, &quot;flu&quot;,
+             &quot;bedridden&quot;, &quot;debilitated&quot;, &quot;sickly&quot;, &quot;flem&quot;, &quot;phlegm&quot;]
+GI_WORDS = [&quot;diarrhea&quot;, &quot;nausea&quot;, &quot;nauseous&quot;, &quot;vomit&quot;, &quot;vomiting&quot;, &quot;vomitting&quot;, &quot;barfed&quot;, &quot;puking&quot;,
+            &quot;cramps&quot;, &quot;stomach&quot;, &quot;heartburn&quot;, &quot;tummy&quot;, &quot;toilet&quot;, &quot;queasy&quot;]
+
+
+def pattern(words):
+    return r&quot;\b(?:&quot; + &quot;|&quot;.join(words) + r&quot;)\b&quot;
+
+
+df[&quot;flu&quot;] = df[&quot;tl&quot;].str.contains(pattern(FLU_WORDS))
+df[&quot;gi&quot;] = df[&quot;tl&quot;].str.contains(pattern(GI_WORDS))
+df[&quot;ngay&quot;] = df[&quot;t&quot;].dt.date
+</code></pre></div>
+            <div>
+              <pre class="result-out sm">Trung bình 14 ngày đầu: {&#x27;flu&#x27;: 202.0, &#x27;gi&#x27;: 123.0}
+              flu    gi
+ngay                   
+2011-05-16    224   122
+2011-05-17    230   123
+2011-05-18  14611   108
+2011-05-19  21187  4131
+2011-05-20  18325  3806</pre>
+              <div class="care"><b class="t">Thận trọng</b>Ta chọn từ khóa sau khi đã thấy dữ liệu, nên cần kiểm tra lại bằng cách so với ngày bình thường (14 ngày đầu).</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai đường cong, hai câu chuyện</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c14_groups.png" alt="Số bài giống cúm và số bài dạ dày - ruột mỗi ngày">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Nhóm cúm: trung bình 202 bài mỗi ngày, rồi nhảy lên 14.611 bài ngày 18/5 (gấp 72 lần). Nhóm dạ dày - ruột: vẫn quanh mức 123 bài đến hết 18/5, rồi nhảy lên 4.131 bài ngày 19/5 (gấp 34 lần).</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Hai bệnh bắt đầu cách nhau gần đúng một ngày. Chính xác là bao nhiêu giờ? Và đó có thể là cùng một nguồn không?</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Đồng hồ khởi phát</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+def thoi_diem_bat_dau(cot, so_lan=5):
+    gio = df.groupby(df[&quot;t&quot;].dt.floor(&quot;h&quot;))[cot].sum()
+    nen_gio = gio.iloc[: 14 * 24]
+    nguong = nen_gio.mean() + so_lan * nen_gio.std()
+    vuot = gio[gio &gt; nguong]
+    return vuot.index[0], round(nguong)
+
+
+for cot, ten in [(&quot;flu&quot;, &quot;giống cúm&quot;), (&quot;gi&quot;, &quot;dạ dày - ruột&quot;)]:
+    t0, nguong = thoi_diem_bat_dau(cot)
+    print(f&quot;Nhóm {ten}: vượt ngưỡng {nguong} bài/giờ lần đầu lúc {t0}&quot;)
+</code></pre></div>
+            <div>
+              <pre class="result-out sm wrap">Nhóm giống cúm: vượt ngưỡng 29 bài/giờ lần đầu lúc 2011-05-18 01:00:00
+Nhóm dạ dày - ruột: vượt ngưỡng 19 bài/giờ lần đầu lúc 2011-05-19 02:00:00</pre>
+              <div class="clue"><b class="t">Cách đọc</b>Ngưỡng báo động là mức trung bình cộng 5 lần độ lệch chuẩn của số bài mỗi giờ trong 14 ngày mốc. Giờ đầu tiên vượt ngưỡng được xem là lúc bệnh &ldquo;lộ diện&rdquo;.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai bệnh, hai giờ khởi phát</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c15_onset.png" alt="Số bài triệu chứng theo giờ từ 17 đến 20 tháng 5, hai nhóm bắt đầu vào hai thời điểm khác nhau">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Nhóm cúm vượt ngưỡng lúc <strong>1h sáng 18/5</strong>; nhóm dạ dày - ruột lúc <strong>2h sáng 19/5</strong>, chậm hơn khoảng 25 giờ.</div>
+            <div class="hyp"><b class="t">Giả thuyết</b>Hai nhóm bệnh nổ ra lần lượt chứ không đồng thời. Nếu có một &ldquo;thủ phạm&rdquo;, nó đã hành động <em>trước</em> 1h sáng ngày 18/5. Thủ phạm đó ở đâu?</div>
+          </div>
+        </section>
+      </section>
+
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">5.</span><br>Ở đâu?</h1>
+          <p class="sub">Ta đã biết khi nào và bệnh gì. Giờ đặt từng bài đăng lên bản đồ.</p>
+          <p class="small">Chương 5 · Bước 3: Khoanh vùng</p>
+        </section>
+
+        <section>
+          <h2>Mỗi bài triệu chứng là một chấm</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+from datetime import date
+
+ngay19 = df[df[&quot;ngay&quot;] == date(2011, 5, 19)]
+ten = {&quot;flu&quot;: &quot;giống cúm&quot;, &quot;gi&quot;: &quot;dạ dày - ruột&quot;}
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 4.3))
+for ax, cot, mau in zip(axes, [&quot;flu&quot;, &quot;gi&quot;], [FLU, GI]):
+    d = ngay19[ngay19[cot]]
+    base_map(ax, 0.35)
+    ax.scatter(d[&quot;lon&quot;], d[&quot;lat&quot;], s=1.5, c=mau, alpha=0.4)
+    ax.set_title(f&quot;{ten[cot]}: {len(d):,} bài ngày 19/5&quot;)
+    print(ten[cot], len(d), &quot;bài&quot;)
+plt.tight_layout()
+plt.show()
+</code></pre></div>
+            <div>
+              <pre class="result-out sm">giống cúm 21187 bài
+dạ dày - ruột 4131 bài</pre>
+              <div class="ask"><b class="t">Câu hỏi</b>Các chấm cam (cúm) và chấm xanh (dạ dày - ruột) của ngày 19/5 nằm ở đâu trên bản đồ?</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai bệnh, hai hình dạng</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c16_scatter.png" alt="Bản đồ chấm các bài giống cúm và dạ dày - ruột ngày 19/5">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Cúm tụ dày ở giữa thành phố và tỏa rộng ra xung quanh. Dạ dày - ruột dồn thành một <em>vệt dài</em> chạy chéo ở phía tây nam thành phố.</div>
+            <div class="care"><b class="t">Thận trọng</b>Nơi đông dân thì chấm nào cũng đông. Bản đồ chấm dễ làm ta tưởng nơi đó có nhiều bệnh hơn, trong khi nó chỉ có nhiều người hơn.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Trừ đi mức bình thường</h2>
+          <p>Để công bằng, với mỗi ô lưới ta lấy số bài ngày 19/5 <strong>trừ đi</strong> số bài trung bình mỗi ngày trong 14 ngày mốc, rồi làm mịn. Phần còn lại là &ldquo;lượng bài vượt mức&rdquo;.</p>
+          <div class="code-split">
+            <div><pre class="demo-code xxs"><code class="language-python" data-trim>
+xb = np.linspace(EXTENT[0], EXTENT[1], 140)
+yb = np.linspace(EXTENT[2], EXTENT[3], 70)
+
+
+def luoi(d):
+    &quot;&quot;&quot;Đếm số bài trong từng ô lưới.&quot;&quot;&quot;
+    H, _, _ = np.histogram2d(d[&quot;lat&quot;], d[&quot;lon&quot;], bins=[yb, xb])
+    return H
+
+
+nen = df[df[&quot;ngay&quot;] &lt; date(2011, 5, 15)]
+n_nen = nen[&quot;ngay&quot;].nunique()
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 4.3))
+for ax, cot, cmap in zip(axes, [&quot;flu&quot;, &quot;gi&quot;], [&quot;Oranges&quot;, &quot;Blues&quot;]):
+    vuot = luoi(ngay19[ngay19[cot]]) - luoi(nen[nen[cot]]) / n_nen     # trừ mức bình thường mỗi ngày
+    vuot = gaussian_filter(np.clip(vuot, 0, None), 1.2)
+    iy, ix = np.unravel_index(vuot.argmax(), vuot.shape)
+    print(f&quot;{ten[cot]}: ô đậm nhất quanh kinh độ {xb[ix]:.3f}, vĩ độ {yb[iy]:.3f}&quot;)
+</code></pre></div>
+            <div>
+              <pre class="result-out sm">giống cúm: ô đậm nhất quanh kinh độ -93.364, vĩ độ 42.219
+dạ dày - ruột: ô đậm nhất quanh kinh độ -93.454, vĩ độ 42.217</pre>
+              <div class="clue"><b class="t">Manh mối</b>Điểm đậm nhất của cúm nằm quanh kinh độ \(-93{,}364\), vĩ độ \(42{,}219\). Điểm đậm nhất của dạ dày - ruột nằm cách đó khoảng 4,6 dặm về phía tây.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Bản đồ mật độ: hai tâm điểm khác nhau</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c17_density.png" alt="Bản đồ mật độ bài giống cúm và dạ dày - ruột vượt mức bình thường">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Tâm điểm cúm nằm sát trung tâm thành phố (khu Downtown). Tâm điểm dạ dày - ruột lệch về phía tây, nằm trên vệt dài đã thấy ở slide trước.</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Khu nào của thành phố bị ảnh hưởng nặng nhất, sau khi so sánh công bằng giữa khu đông dân và khu vắng?</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Chia theo từng khu và theo dân cư</h2>
+          <p style="font-size:0.7em;margin:0.15em 0">Ảnh bản đồ không kèm ranh giới khu dưới dạng tệp. Ta ước lượng ranh giới bằng cách đánh dấu vài điểm mốc trong mỗi khu, rồi gán mỗi vị trí cho khu có điểm mốc gần nhất.</p>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+df[&quot;khu&quot;] = khu_cua(df[&quot;lon&quot;].values, df[&quot;lat&quot;].values)
+dan = pop.set_index(&quot;Zone_Name&quot;)[&quot;Population_Density&quot;].reindex(ten_khu).values
+
+trieu_chung = df[&quot;flu&quot;] | df[&quot;gi&quot;]
+d19 = df[(df[&quot;ngay&quot;] == date(2011, 5, 19)) &amp; trieu_chung]
+d_nen = df[(df[&quot;ngay&quot;] &lt; date(2011, 5, 15)) &amp; trieu_chung]
+so_19 = d19.groupby(&quot;khu&quot;).size().reindex(range(13), fill_value=0).values
+so_nen = d_nen.groupby(&quot;khu&quot;).size().reindex(range(13), fill_value=0).values / d_nen[&quot;ngay&quot;].nunique()
+
+ban_ngay = pop.set_index(&quot;Zone_Name&quot;)[&quot;Daytime_Population&quot;].reindex(ten_khu).values
+bang = pd.DataFrame({&quot;khu&quot;: ten_khu, &quot;dân&quot;: dan, &quot;bài 19/5&quot;: so_19, &quot;bình thường&quot;: so_nen.round(0),
+                     &quot;trên 1000 dân&quot;: (so_19 / dan * 1000).round(1),
+                     &quot;trên 1000 (ban ngày)&quot;: (so_19 / ban_ngay * 1000).round(1)})
+print(bang.sort_values(&quot;trên 1000 dân&quot;, ascending=False).to_string(index=False))
+</code></pre>
+          <pre class="result-out sm">       khu    dân  bài 19/5  bình thường  trên 1000 dân  trên 1000 (ban ngày)
+  Downtown  89286     10066         85.0          112.7                  38.9
+    Uptown  29762      1601         51.0           53.8                  13.8
+  Smogtown  29762       849          6.0           28.5                  30.3
+  Westside 148810      2145         20.0           14.4                   7.6
+  Eastside 178571      2288         17.0           12.8                  18.3
+Plainville 208333      2538         14.0           12.2                  17.2
+  Lakeside 297619      1268         22.0            4.3                   7.0
+…</pre>
+        </section>
+
+        <section>
+          <h2>Số thô và số theo dân cư kể hai chuyện khác nhau</h2>
+          <figure class="v-fig short">
+            <img src="img/vast/c18_zones.png" alt="Bản đồ khu vực: số bài triệu chứng thô và số bài trên 1000 cư dân ngày 19/5">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Downtown dẫn đầu cả hai bản đồ: 10.066 bài, tương ứng 112,7 bài trên 1000 (theo mật độ dân cư), gấp hơn 2 lần khu đứng thứ hai (Uptown, 53,8). Phần lớn khu còn lại chỉ 2 đến 14.</div>
+            <div class="care"><b class="t">Thận trọng</b>Ban ngày Downtown đông gấp ba lần cư dân (258.928 người). Chia theo dân ban ngày, Downtown vẫn đứng đầu (38,9) nhưng Smogtown bám sát (30,3). Tệp dân số chỉ cho mật độ, nên các tỉ lệ này chỉ để so sánh tương đối.</div>
+          </div>
+          <div class="hyp"><b class="t">Giả thuyết</b>Trung tâm Downtown là nơi các triệu chứng dồn về, nhưng <em>nơi đăng bài chưa chắc là nơi nhiễm bệnh</em>. Ta cần tìm xem điều gì đã xảy ra ở đó trước 18/5.</div>
+        </section>
+      </section>
+
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">6.</span><br>Ai là nghi phạm?</h1>
+          <p class="sub">Bệnh không tự sinh ra. Điều gì đã xảy ra <em>trước</em> sáng 18/5?</p>
+          <p class="small">Chương 6 · Bước 4: Nguồn bệnh</p>
+        </section>
+
+        <section>
+          <h2>Săn tìm những sự kiện bất thường</h2>
+          <p>Ta làm lại phép đo &ldquo;từ bùng nổ&rdquo;, nhưng lần này cho cả ba tuần: tìm những từ có một ngày đỉnh cao hơn hẳn các ngày còn lại.</p>
+          <div class="formula">$$\text{độ bùng nổ}(w)=\frac{n_{\text{ngày đỉnh}}(w)}{n_{\text{ngày điển hình}}(w)+3}$$</div>
+          <p style="font-size:0.7em;margin:0.1em 0">\(n(w)\) là số bài chứa từ \(w\) trong một ngày. &ldquo;Ngày điển hình&rdquo; là trung vị của 21 ngày; cộng 3 để tránh chia cho số quá nhỏ.</p>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+trung_vi = np.median(C, axis=1)                        # số bài chứa từ trong một ngày điển hình
+dinh, ngay_dinh = C.max(1), C.argmax(1)               # ngày cao nhất của từng từ
+lan = dinh / (trung_vi + 3)
+chon = (dinh &gt;= 150) &amp; (lan &gt;= 8)
+
+bung_no = pd.DataFrame({&quot;tu&quot;: vocab[chon], &quot;ngay&quot;: ngay_dinh[chon], &quot;lan&quot;: lan[chon]})
+for i, g in bung_no.sort_values(&quot;lan&quot;, ascending=False).groupby(&quot;ngay&quot;):
+    ngay_str = (ngay0 + pd.Timedelta(days=int(i))).strftime(&quot;%d/%m&quot;)
+    print(ngay_str, &quot;|&quot;, &quot;, &quot;.join(g[&quot;tu&quot;].head(6)))
+</code></pre></div>
+            <div><pre class="result-out sm">04/05 | antique, convetion, filled
+07/05 | festival
+11/05 | sham, convention
+13/05 | plane, submerged, crashing, crashed, airport, ground
+14/05 | capital, building
+16/05 | comic, threats, bombs, informed, gearing, rampant
+17/05 | smog, explosions, explosion, noon, accident, trucks
+18/05 | shortness, sweats, fatigue, sleeep, fever, neeeed
+19/05 | declining, runny, dreadful, nausea, heartburn, getta
+20/05 | pneumonia, chills, diarrhea, terible, flem, superpowers</pre></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Tám nghi phạm hiện ra</h2>
+          <table class="era-table">
+            <thead><tr><th>Ngày</th><th>Từ khóa bùng nổ</th><th>Có vẻ là chuyện gì</th></tr></thead>
+            <tbody>
+              <tr><td>4/5</td><td>antique, filled</td><td>Một triển lãm đồ cổ</td></tr>
+              <tr><td>7/5</td><td>festival</td><td>Một lễ hội</td></tr>
+              <tr><td>11/5</td><td>convention</td><td>Một hội nghị</td></tr>
+              <tr><td>13/5</td><td>plane, crashed, airport</td><td>Máy bay rơi gần sân bay</td></tr>
+              <tr><td>14/5</td><td>capital, building</td><td>Sự cố ở tòa nhà Capital</td></tr>
+              <tr><td>16/5</td><td>threats, bombs, informed</td><td>Dọa đánh bom</td></tr>
+              <tr><td>17/5</td><td>smog, explosions</td><td>Tiếng nổ và khói bụi</td></tr>
+              <tr><td>17/5</td><td>accident, trucks</td><td>Tai nạn xe tải</td></tr>
+            </tbody>
+          </table>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Có thể đây là lời giải cho &ldquo;dấu hỏi nhỏ&rdquo; ở chương 3: ngày 16/5 vượt mốc nhẹ cùng lúc với tin dọa đánh bom. Tất cả tám sự kiện đều xảy ra <em>trước</em> khi dịch nổ ra.</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Tám sự kiện, tám nghi phạm. Chỉ nhìn thời gian thì không loại được ai. Ta cần thêm dữ kiện về không gian.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Lập hồ sơ cho từng nghi phạm</h2>
+          <p style="margin:0.15em 0">Mỗi sự kiện có một mẫu tìm kiếm và một ngày. Ta dùng chúng để lấy ra các bài nói về sự kiện đó.</p>
+          <pre class="demo-code sm"><code class="language-python" data-trim>
+SU_KIEN = {   # tên đặt theo từ khóa nổi bật, mẫu tìm kiếm, ngày
+    &quot;Triển lãm đồ cổ&quot;: (r&quot;\bantique\b&quot;, &quot;2011-05-04&quot;),
+    &quot;Lễ hội&quot;: (r&quot;\bfestival\b&quot;, &quot;2011-05-07&quot;),
+    &quot;Hội nghị&quot;: (r&quot;\bconvention\b&quot;, &quot;2011-05-11&quot;),
+    &quot;Máy bay rơi&quot;: (r&quot;\b(?:plane|airport|crashed|crashing)\b&quot;, &quot;2011-05-13&quot;),
+    &quot;Tòa nhà Capital&quot;: (r&quot;\b(?:capital|blaze)\b&quot;, &quot;2011-05-14&quot;),
+    &quot;Dọa đánh bom&quot;: (r&quot;\b(?:bomb|bombs|threats?)\b&quot;, &quot;2011-05-16&quot;),
+    &quot;Xe tải, tai nạn&quot;: (r&quot;\b(?:truck|trucks|accident|wrecked|bridge)\b&quot;, &quot;2011-05-17&quot;),
+    &quot;Nổ, khói bụi&quot;: (r&quot;\b(?:explosions?|smog|rattle|shook|boom|blast)\b&quot;, &quot;2011-05-17&quot;),
+}
+</code></pre>
+          <div class="care"><b class="t">Thận trọng</b>Tên sự kiện do ta đặt, dựa trên từ khóa nổi bật. Đây là cách &ldquo;đoán tên&rdquo; từ chữ chứ không phải thông tin chính thức.</div>
+        </section>
+
+        <section>
+          <h2>Định vị nghi phạm bằng trung vị tọa độ</h2>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+kx, ky = 69.17 * np.cos(np.radians(42.2)), 69.0          # số dặm ứng với 1 độ kinh độ, vĩ độ
+
+hang, TAM, BAI_SK = [], {}, {}
+for ten_sk, (mau_tu, ngay) in SU_KIEN.items():
+    d = df[(df[&quot;ngay&quot;] == pd.Timestamp(ngay).date()) &amp; df[&quot;tl&quot;].str.contains(mau_tu)]
+    BAI_SK[ten_sk] = d
+    tam = (d[&quot;lon&quot;].median(), d[&quot;lat&quot;].median())
+    ban_kinh = np.median(np.hypot((d[&quot;lon&quot;] - tam[0]) * kx, (d[&quot;lat&quot;] - tam[1]) * ky))
+    TAM[ten_sk] = tam
+    hang.append([ten_sk, ngay[5:], len(d), round(tam[1], 4), round(tam[0], 4), round(ban_kinh, 2),
+                 d[&quot;t&quot;].quantile(0.1).strftime(&quot;%H:%M&quot;)])
+bang_sk = pd.DataFrame(hang, columns=[&quot;sự kiện&quot;, &quot;ngày&quot;, &quot;số bài&quot;, &quot;vĩ độ&quot;, &quot;kinh độ&quot;, &quot;tản (dặm)&quot;, &quot;10% bài đầu&quot;])
+print(bang_sk.to_string(index=False))
+</code></pre>
+          <pre class="result-out sm">        sự kiện  ngày  số bài   vĩ độ  kinh độ  tản (dặm) 10% bài đầu
+Triển lãm đồ cổ 05-04    1691 42.2307 -93.3496       0.29       09:39
+         Lễ hội 05-07    1777 42.2100 -93.3323       0.36       07:46
+       Hội nghị 05-11    1859 42.2297 -93.3489       0.46       08:45
+    Máy bay rơi 05-13    1985 42.2889 -93.4800       0.66       14:44
+Tòa nhà Capital 05-14     342 42.2221 -93.3548       0.39       10:06
+   Dọa đánh bom 05-16    2086 42.2277 -93.3751       0.50       08:06
+Xe tải, tai nạn 05-17     884 42.2236 -93.4303       0.83       10:22
+   Nổ, khói bụi 05-17    1047 42.1760 -93.5496       0.31       10:01</pre>
+          <div class="clue"><b class="t">Cách đọc</b>Tọa độ của một sự kiện là <em>trung vị</em> vĩ độ và kinh độ của các bài nói về nó (ít bị kéo lệch bởi vài bài đăng xa). Cột &ldquo;tản&rdquo; cho biết nửa số bài nằm trong bán kính bao nhiêu dặm.</div>
+        </section>
+
+        <section>
+          <h2>Tám nghi phạm trên bản đồ</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c21_eventmap.png" alt="Bản đồ tám sự kiện bất thường trước ngày 18 tháng 5">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Phần lớn sự kiện nằm gọn trong hoặc cạnh trung tâm thành phố. Máy bay rơi nằm xa ở phía tây bắc; tiếng nổ và khói bụi ở góc tây nam. Xe tải, tai nạn nằm ở phía tây trung tâm.</div>
+            <div class="ask"><b class="t">Câu hỏi</b>Ai trong số tám nghi phạm giải thích được <em>vị trí</em> của các ca bệnh đầu tiên?</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dữ kiện mới: gió</h2>
+          <p>Nếu thủ phạm phát tán qua không khí, gió sẽ mang nó đi. Ta đọc <code>Weather.csv</code>: tệp ghi gió thổi <em>từ</em> hướng nào (quy ước khí tượng), nên ta đổi sang hướng gió thổi <em>đến</em>.</p>
+          <div class="code-split">
+            <div><pre class="demo-code xxs"><code class="language-python" data-trim>
+HUONG = {&quot;N&quot;: 0, &quot;NNE&quot;: 22.5, &quot;NE&quot;: 45, &quot;ENE&quot;: 67.5, &quot;E&quot;: 90, &quot;ESE&quot;: 112.5, &quot;SE&quot;: 135, &quot;SSE&quot;: 157.5,
+         &quot;S&quot;: 180, &quot;SSW&quot;: 202.5, &quot;SW&quot;: 225, &quot;WSW&quot;: 247.5, &quot;W&quot;: 270, &quot;WNW&quot;: 292.5, &quot;NW&quot;: 315, &quot;NNW&quot;: 337.5}
+weather[&quot;ngay&quot;] = pd.to_datetime(weather[&quot;Date&quot;], format=&quot;%m/%d/%Y&quot;).dt.date
+weather[&quot;gio_tu&quot;] = weather[&quot;Wind_Direction&quot;].map(HUONG)         # gió thổi TỪ hướng này
+weather[&quot;gio_den&quot;] = (weather[&quot;gio_tu&quot;] + 180) % 360             # nên thổi ĐẾN hướng ngược lại
+w = weather[weather[&quot;ngay&quot;] &gt;= date(2011, 5, 14)].reset_index(drop=True)
+print(w[[&quot;Date&quot;, &quot;Weather&quot;, &quot;Average_Wind_Speed&quot;, &quot;Wind_Direction&quot;, &quot;gio_den&quot;]].to_string(index=False))
+</code></pre></div>
+            <div><pre class="result-out sm">     Date Weather  Average_Wind_Speed Wind_Direction  gio_den
+5/14/2011  cloudy                   8             NW    135.0
+5/15/2011   clear                   8             NW    135.0
+5/16/2011  cloudy                  10              W     90.0
+5/17/2011   clear                   8              W     90.0
+5/18/2011   clear                   9              W     90.0
+5/19/2011  cloudy                   9            WNW    112.5
+5/20/2011  cloudy                   5             NW    135.0</pre></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Gió thổi về phía Đông</h2>
+          <figure class="v-fig short">
+            <img src="img/vast/c22_wind.png" alt="Hướng gió thổi đến từ 14 đến 20 tháng 5">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Ngày 16, 17 và 18/5 gió đều thổi từ Tây sang Đông, mạnh 8 đến 10 dặm một giờ. Ngày 19/5 gió hơi chếch về đông nam.</div>
+            <div class="hyp"><b class="t">Giả thuyết cần thử</b>Nếu nguồn bệnh cúm nằm ở một nghi phạm nào đó, các ca sáng 18/5 phải nằm <strong>xuôi gió</strong> của nó, trong một dải hẹp, và hầu như không có ca nào <strong>ngược gió</strong>.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Phép thử &ldquo;dải xuôi gió&rdquo;</h2>
+          <p>Với mỗi nghi phạm, ta đo mỗi ca cúm theo hai chiều: đi dọc theo hướng gió bao xa, và lệch khỏi đường gió bao xa.</p>
+          <div class="formula sm">$$\begin{aligned}d_{\parallel}&amp;=\Delta x\sin\alpha+\Delta y\cos\alpha\\ d_{\perp}&amp;=-\Delta x\cos\alpha+\Delta y\sin\alpha\end{aligned}$$</div>
+          <table class="sym-table">
+            <tbody>
+              <tr><td>\(\Delta x,\ \Delta y\)</td><td>Hiệu tọa độ của ca bệnh so với nghi phạm, đổi sang dặm</td></tr>
+              <tr><td>\(\alpha\)</td><td>Hướng gió thổi đến, đo từ phía Bắc theo chiều kim đồng hồ (Đông là \(90^\circ\))</td></tr>
+              <tr><td>\(d_{\parallel}&gt;0\)</td><td>Ca bệnh nằm <strong>xuôi gió</strong> của nghi phạm</td></tr>
+              <tr><td>\(|d_{\perp}|&lt;1{,}5\)</td><td>Ca bệnh nằm trong dải hẹp rộng 3 dặm quanh đường gió</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box" style="font-size:0.85em"><span class="box-title">Tiêu chí</span> Tính phần trăm ca cúm đăng từ 6h đến 14h ngày 18/5 nằm trong dải xuôi gió của từng nghi phạm. Càng cao thì càng đáng nghi.</div>
+        </section>
+
+        <section>
+          <h2>Mã Python: thử từng nghi phạm</h2>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+huong = weather.set_index(&quot;ngay&quot;).loc[date(2011, 5, 18), &quot;gio_den&quot;]
+cua_so = df[(df[&quot;t&quot;] &gt;= &quot;2011-05-18 06:00&quot;) &amp; (df[&quot;t&quot;] &lt; &quot;2011-05-18 14:00&quot;) &amp; df[&quot;flu&quot;]]
+print(f&quot;Gió 18/5 thổi về hướng {huong:.0f} độ (90 = Đông). Số bài giống cúm trong cửa sổ: {len(cua_so)}&quot;)
+
+
+def toa_do_gio(d, tam, huong):
+    &quot;&quot;&quot;Khoảng cách dọc theo gió và lệch ngang so với đường gió đi qua `tam` (đơn vị dặm).&quot;&quot;&quot;
+    dx, dy = (d[&quot;lon&quot;] - tam[0]) * kx, (d[&quot;lat&quot;] - tam[1]) * ky
+    a = np.radians(huong)
+    return (dx * np.sin(a) + dy * np.cos(a)).values, (-dx * np.cos(a) + dy * np.sin(a)).values
+
+
+hang = []
+for ten_sk, tam in TAM.items():
+    doc, ngang = toa_do_gio(cua_so, tam, huong)
+    hang.append([ten_sk, 100 * (doc &lt; 0).mean(), 100 * ((doc &gt; 0) &amp; (np.abs(ngang) &lt; 1.5)).mean()])
+diem = pd.DataFrame(hang, columns=[&quot;sự kiện&quot;, &quot;% ca ngược gió&quot;, &quot;% ca trong dải xuôi gió&quot;]).set_index(&quot;sự kiện&quot;)
+print(diem.round(1).sort_values(&quot;% ca trong dải xuôi gió&quot;, ascending=False).to_string())
+</code></pre>
+          <pre class="result-out sm">Gió 18/5 thổi về hướng 90 độ (90 = Đông). Số bài giống cúm trong cửa sổ: 4808
+                 % ca ngược gió  % ca trong dải xuôi gió
+sự kiện                                                 
+Xe tải, tai nạn             3.7                     90.0
+Dọa đánh bom               28.0                     66.7
+Tòa nhà Capital            51.1                     44.6
+Triển lãm đồ cổ            54.5                     39.5
+Hội nghị                   54.9                     39.4
+Lễ hội                     75.8                     17.9
+Nổ, khói bụi                0.5                      2.5
+Máy bay rơi                 2.1                      2.4</pre>
+        </section>
+
+        <section>
+          <h2>Vòng loại: một nghi phạm dẫn đầu</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c23_flu_test.png" alt="Phần trăm ca giống cúm nằm trong dải xuôi gió của từng nghi phạm">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Xe tải, tai nạn dẫn đầu rất xa: 90,0% ca nằm trong dải xuôi gió, chỉ 3,7% ở ngược gió. Máy bay rơi, tiếng nổ chỉ khoảng 2 đến 3%. Dọa đánh bom đứng thứ hai với 66,7%.</div>
+            <div class="care"><b class="t">Thận trọng</b>Nghi phạm thứ hai vẫn khá cao, và độ rộng dải 3 dặm là lựa chọn của ta. Một phép thử chưa đủ để kết luận; ta cần thử bằng dữ liệu khác nữa.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Quay lại hiện trường: người dân viết gì?</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xxs"><code class="language-python" data-trim>
+co_hai = df[&quot;tl&quot;].str.contains(r&quot;\btrucks?\b&quot;) &amp; df[&quot;tl&quot;].str.contains(r&quot;\baccident\b&quot;)
+so_ngay = co_hai.groupby(df[&quot;ngay&quot;]).sum()
+print(f&quot;Bài chứa cả &#x27;truck&#x27; lẫn &#x27;accident&#x27;: ngày 17/5 có {so_ngay[date(2011, 5, 17)]}, &quot;
+      f&quot;trung bình mỗi ngày trong 14 ngày đầu chỉ {so_ngay.iloc[:14].mean():.1f}&quot;)
+
+hien_truong = df[co_hai &amp; (df[&quot;ngay&quot;] == date(2011, 5, 17))]
+print(&quot;Giờ đăng sớm của nhóm bài này (10% đầu tiên):&quot;, hien_truong[&quot;t&quot;].quantile(0.1).strftime(&quot;%H:%M&quot;))
+print(&quot;Ba bài đăng thật:&quot;)
+for noi_dung in hien_truong[&quot;text&quot;].sample(3, random_state=4):
+    print(&quot; -&quot;, noi_dung[:100])
+</code></pre></div>
+            <div><pre class="result-out sm wrap">Bài chứa cả &#x27;truck&#x27; lẫn &#x27;accident&#x27;: ngày 17/5 có 122, trung bình mỗi ngày trong 14 ngày đầu chỉ 1.2
+Giờ đăng sớm của nhóm bài này (10% đầu tiên): 12:06
+Ba bài đăng thật:
+ - noon what perfect timing I can&#x27;t believe how bad this truck accident it
+ - I can&#x27;t believe this terrible truck accident oh why did this have to happen at noon
+ - I can&#x27;t believe how bad this truck accident it I always hated trucks especially at noon now</pre></div>
+          </div>
+          <div class="v-row">
+            <div class="post">&ldquo;I can't believe this terrible truck accident oh why did this have to happen at noon&rdquo;<small>Một bài đăng thật, 17/5</small></div>
+            <div class="post">&ldquo;noon what perfect timing I can't believe how bad this truck accident it&rdquo;<small>Một bài đăng thật, 17/5</small></div>
+          </div>
+          <div class="clue"><b class="t">Manh mối</b>Ngày 17/5 có 122 bài nhắc cả &ldquo;truck&rdquo; lẫn &ldquo;accident&rdquo;, trong khi ngày thường trung bình chỉ khoảng 1 bài. Sự kiện này có thật và xảy ra vào khoảng trưa.</div>
+        </section>
+
+        <section>
+          <h2>Nghi phạm số một, nhưng chưa kết án</h2>
+          <div class="hyp"><b class="t">Giả thuyết được dữ liệu hỗ trợ</b>Vụ tai nạn xe tải ngày 17/5 là nguồn nghi vấn của đợt bệnh giống cúm: nó đúng thời điểm (trước 18/5), và 90% ca cúm sáng 18/5 nằm xuôi gió của nó.</div>
+          <div class="care"><b class="t">Chưa giải thích được</b>Gió chỉ giải thích bệnh <em>giống cúm</em>. Nhóm triệu chứng <em>dạ dày - ruột</em> xuất hiện muộn hơn một ngày và kéo thành vệt về phía <em>tây nam</em>, ngược với hướng gió thổi về phía đông. Hoặc có thêm một nghi phạm, hoặc có thêm một đường lan truyền khác.</div>
+          <div class="ask"><b class="t">Câu hỏi cho chương sau</b>Bệnh đi bằng những đường nào? Nếu thủ phạm chỉ có một, nó đã đi theo cách nào để làm hai nhóm bệnh khác nhau?</div>
+          <p class="source">Gọi là &ldquo;nghi phạm&rdquo; và &ldquo;giả thuyết&rdquo; vì ta chỉ có bài đăng mạng xã hội, không có xét nghiệm hay mẫu bệnh phẩm.</p>
+        </section>
+      </section>
+
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">7.</span><br>Bệnh đi bằng đường nào?</h1>
+          <p class="sub">Không khí, nước hay con người? Mỗi đường đi để lại một dấu chân khác nhau.</p>
+          <p class="small">Chương 7 · Bước 5: Lan truyền</p>
+        </section>
+
+        <section>
+          <h2>Xem bệnh cúm lan ra theo từng khung giờ</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Ngôi sao vàng là nghi phạm số một. Ta chia các ca cúm thành những khung 6 giờ, vẽ mỗi khung một bản đồ nhỏ, đặt cạnh nhau để so sánh.</p>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+NGUON = diem[&quot;% ca trong dải xuôi gió&quot;].idxmax()           # nghi phạm số một theo kiểm tra trước
+print(&quot;Nghi phạm số một:&quot;, NGUON, &quot;tại&quot;, np.round(TAM[NGUON], 4))
+
+moc = pd.date_range(&quot;2011-05-18&quot;, periods=12, freq=&quot;6h&quot;)
+fig, axes = plt.subplots(3, 4, figsize=(12, 6.6))
+for ax, t0 in zip(axes.ravel(), moc):
+    d = df[(df[&quot;t&quot;] &gt;= t0) &amp; (df[&quot;t&quot;] &lt; t0 + pd.Timedelta(hours=6)) &amp; df[&quot;flu&quot;]]
+    base_map(ax, 0.25)
+    ax.scatter(d[&quot;lon&quot;], d[&quot;lat&quot;], s=0.6, c=FLU, alpha=0.35)
+    ax.plot(*TAM[NGUON], marker=&quot;*&quot;, ms=11, mfc=GOLD, mec=NAVY, zorder=5)
+    ax.set_title(t0.strftime(&quot;%d/%m %Hh&quot;) + f&quot;: {len(d):,} bài&quot;, fontsize=8)
+    ax.set_xticks([]); ax.set_yticks([]); ax.set_xlabel(&quot;&quot;); ax.set_ylabel(&quot;&quot;)
+plt.tight_layout()
+plt.show()
+</code></pre></div>
+            <div>
+              <pre class="result-out sm">Nghi phạm số một: Xe tải, tai nạn tại [-93.4303  42.2236]</pre>
+              <div class="ask"><b class="t">Câu hỏi</b>Từ 0h ngày 18/5 đến hết ngày 20/5, vùng có ca bệnh to ra, dịch chuyển hay giữ nguyên?</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mười hai khung hình của đợt cúm</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c24_panels.png" alt="Mười hai bản đồ ca giống cúm theo từng khung 6 giờ từ 18 đến 20 tháng 5">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Từ 6h sáng 18/5 đã hiện một dải đặc kéo dài về phía <strong>đông</strong> kể từ ngôi sao. Dải này gần như xuất hiện cùng lúc (532 bài lúc 0h, 3.293 bài lúc 6h), không phải là lan dần từ từ.</div>
+            <div class="clue"><b class="t">Về sau</b>Sang 20/5, các chấm rải khắp thành phố, và có những cụm nhỏ, rất đặc, xuất hiện rời rạc ở nhiều nơi. Ta sẽ gặp lại chúng ở chương 8.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Làm cho bản đồ chuyển động</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Với khung 3 giờ thay vì 6 giờ, ta ghép 24 bản đồ thành một ảnh động để thấy rõ dòng chảy theo thời gian.</p>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+from PIL import Image as PILImage
+
+khung = []
+moc3 = pd.date_range(&quot;2011-05-18&quot;, periods=24, freq=&quot;3h&quot;)
+for t0 in moc3:
+    d = df[(df[&quot;t&quot;] &gt;= t0) &amp; (df[&quot;t&quot;] &lt; t0 + pd.Timedelta(hours=3)) &amp; df[&quot;flu&quot;]]
+    fig, ax = plt.subplots(figsize=(6.4, 3.4), dpi=80)
+    base_map(ax, 0.3)
+    ax.scatter(d[&quot;lon&quot;], d[&quot;lat&quot;], s=1.2, c=FLU, alpha=0.4)
+    ax.plot(*TAM[NGUON], marker=&quot;*&quot;, ms=13, mfc=GOLD, mec=NAVY, zorder=5)
+    ax.set_title(f&quot;Ca giống cúm, {t0:%d/%m %Hh} đến {t0 + pd.Timedelta(hours=3):%Hh}  ({len(d):,} bài)&quot;, fontsize=9)
+    ax.set_xticks([]); ax.set_yticks([]); ax.set_xlabel(&quot;&quot;); ax.set_ylabel(&quot;&quot;)
+    fig.tight_layout(); fig.canvas.draw()
+    khung.append(PILImage.fromarray(np.asarray(fig.canvas.buffer_rgba())).convert(&quot;P&quot;, palette=PILImage.ADAPTIVE))
+    plt.close(fig)
+
+khung[0].save(&quot;flu_spread.gif&quot;, save_all=True, append_images=khung[1:], duration=450, loop=0)
+print(&quot;Đã lưu flu_spread.gif:&quot;, len(khung), &quot;khung hình, mỗi khung 3 giờ&quot;)
+</code></pre>
+          <pre class="result-out sm">Đã lưu flu_spread.gif: 24 khung hình, mỗi khung 3 giờ</pre>
+        </section>
+
+        <section>
+          <h2>Ảnh động: 72 giờ của đợt cúm</h2>
+          <div class="gif-frame"><img src="img/vast/flu_spread.gif" alt="Ảnh động các ca giống cúm trên bản đồ từ 18 đến 20 tháng 5"></div>
+          <p class="source" style="text-align:center">Ảnh động do ô mã <code>c25_gif</code> tạo ra: 24 khung hình, mỗi khung 3 giờ, từ 0h ngày 18/5 đến hết ngày 20/5.</p>
+        </section>
+
+        <section>
+          <h2>Vùng bệnh có mở rộng ra xa không?</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Với mỗi khung 6 giờ, ta đo khoảng cách <em>xuôi gió</em> từ nghi phạm đến từng ca (theo hướng gió của chính ngày đó). Nếu bệnh lan dần ra xa, các con số phải tăng.</p>
+          <div class="code-split">
+            <div><pre class="demo-code xxs"><code class="language-python" data-trim>
+d = df[(df[&quot;t&quot;] &gt;= &quot;2011-05-18&quot;) &amp; (df[&quot;t&quot;] &lt; &quot;2011-05-21&quot;) &amp; df[&quot;flu&quot;]].copy()
+huong_ngay = d[&quot;ngay&quot;].map(weather.set_index(&quot;ngay&quot;)[&quot;gio_den&quot;])        # hướng gió của chính ngày đó
+dx, dy = (d[&quot;lon&quot;] - TAM[NGUON][0]) * kx, (d[&quot;lat&quot;] - TAM[NGUON][1]) * ky
+a = np.radians(huong_ngay)
+d[&quot;doc&quot;] = dx * np.sin(a) + dy * np.cos(a)                                 # dặm dọc theo hướng gió
+d[&quot;khung&quot;] = d[&quot;t&quot;].dt.floor(&quot;6h&quot;)
+
+tk = d.groupby(&quot;khung&quot;)[&quot;doc&quot;].agg(trung_vi=&quot;median&quot;, p90=lambda s: s.quantile(0.9), so_bai=&quot;size&quot;)
+print(tk.round(2).to_string())
+</code></pre></div>
+            <div><pre class="result-out sm">                     trung_vi   p90  so_bai
+khung                                      
+2011-05-18 00:00:00      3.41  7.75     532
+2011-05-18 06:00:00      3.76  7.73    3293
+2011-05-18 12:00:00      3.75  7.99    4559
+2011-05-18 18:00:00      3.53  8.01    6227
+2011-05-19 00:00:00      3.17  7.01    3200
+2011-05-19 06:00:00      3.43  7.12    5555
+2011-05-19 12:00:00      3.46  7.11    6151
+2011-05-19 18:00:00      3.23  7.13    6281
+2011-05-20 00:00:00      2.57  5.64    4056
+2011-05-20 06:00:00      2.38  5.75    4749
+2011-05-20 12:00:00      2.39  5.79    4689
+2011-05-20 18:00:00      2.32  5.78    4831</pre></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mặt trận không tiến thêm</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c26_front.png" alt="Khoảng cách xuôi gió từ nghi phạm đến các ca giống cúm theo thời gian">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Khoảng cách trung vị đi ngang quanh 3 đến 4 dặm rồi giảm xuống khoảng 2,4 dặm. Mốc 90% ca giảm từ khoảng 8 dặm xuống 5,8 dặm. Không có &ldquo;làn sóng&rdquo; tiến dần ra xa.</div>
+            <div class="care"><b class="t">Thận trọng</b>Hai cách hiểu cùng hợp lý: chất gây bệnh được phát tán gần như <em>một lần</em>, hoặc người bệnh về sau tập trung vào bệnh viện nên bài đăng dồn lại. Dữ liệu này chưa đủ để chọn.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Gió đi về đông, nhưng bệnh thứ hai ở phía tây</h2>
+          <div class="stat-row three">
+            <div class="stat"><b>112&deg;</b><span>hướng gió thổi đến ngày 19/5 (chếch về đông nam, 9 dặm một giờ)</span></div>
+            <div class="stat"><b>4,6 dặm</b><span>tâm điểm dạ dày - ruột nằm lệch về phía tây so với tâm điểm cúm</span></div>
+            <div class="stat"><b>25 giờ</b><span>độ trễ giữa hai lần khởi phát (1h sáng 18/5 và 2h sáng 19/5)</span></div>
+          </div>
+          <p>Nếu bệnh dạ dày - ruột cũng đi theo gió thì nó phải nằm phía đông, nhưng nó lại nằm phía tây nam. Vậy gió không giải thích được bệnh thứ hai.</p>
+          <div class="ask"><b class="t">Câu hỏi</b>Có thứ gì khác chảy về phía tây nam thành phố? Hãy nhìn lại ảnh bản đồ ở chương 1: ngoài đường cao tốc và các khu phố, có một <strong>dòng sông</strong> chảy xuyên qua thành phố, từ phía bắc xuống tây nam.</div>
+          <div class="hyp"><b class="t">Giả thuyết cần thử</b>Các ca dạ dày - ruột nằm sát dòng sông và ở phía hạ lưu, tính từ chỗ nguồn bệnh gặp sông.</div>
+        </section>
+
+        <section>
+          <h2>Biến dòng sông thành con số</h2>
+          <div class="code-split" style="grid-template-columns:1.9fr 1fr">
+            <div><pre class="demo-code xxs"><code class="language-python" data-trim>
+SONG = np.array([(-93.350, 42.302), (-93.356, 42.290), (-93.362, 42.275), (-93.367, 42.262), (-93.375, 42.250),
+                 (-93.390, 42.241), (-93.405, 42.236), (-93.418, 42.231), (-93.430, 42.226), (-93.445, 42.219),
+                 (-93.46, 42.212), (-93.48, 42.204), (-93.50, 42.196), (-93.515, 42.187), (-93.525, 42.178),
+                 (-93.530, 42.168), (-93.533, 42.160)])      # sông Vast, số hóa tay từ ảnh bản đồ (bắc xuống nam)
+xy = np.c_[SONG[:, 0] * kx, SONG[:, 1] * ky]
+doan = np.diff(xy, axis=0)
+dai = np.hypot(*doan.T)
+cong_don = np.r_[0, dai.cumsum()]
+
+
+def toa_do_song(lon, lat):
+    &quot;&quot;&quot;Trả về (khoảng cách đến sông, vị trí dọc sông tính từ phía bắc), đơn vị dặm.&quot;&quot;&quot;
+    P = np.c_[np.asarray(lon) * kx, np.asarray(lat) * ky]
+    gan, vt = np.full(len(P), 1e9), np.zeros(len(P))
+    for a, v, L, c0 in zip(xy[:-1], doan, dai, cong_don[:-1]):
+        t = np.clip(((P - a) @ v) / (L * L), 0, 1)
+        kc = np.hypot(*(P - (a + t[:, None] * v)).T)
+        tot = kc &lt; gan
+        gan[tot], vt[tot] = kc[tot], c0 + t[tot] * L
+    return gan, vt
+</code></pre></div>
+            <div>
+              <div class="clue"><b class="t">Cách làm</b>Ta chấm 17 điểm dọc dòng sông trên ảnh bản đồ, nối thành một đường gấp khúc. Với mỗi bài đăng, hàm <code>toa_do_song</code> trả về hai số: <em>cách sông bao xa</em> và <em>đã đi được bao xa dọc sông từ phía bắc</em>.</div>
+              <div class="care"><b class="t">Thận trọng</b>Đường sông do ta vẽ tay từ ảnh, nên có sai số cỡ vài trăm mét. Các tỉ lệ ở slide sau chỉ mang tính xấp xỉ.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Các ca dạ dày - ruột cách sông bao xa?</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+gi19 = ngay19[ngay19[&quot;gi&quot;]]
+kc_gi, _ = toa_do_song(gi19[&quot;lon&quot;], gi19[&quot;lat&quot;])
+kc_all, _ = toa_do_song(ngay19[&quot;lon&quot;], ngay19[&quot;lat&quot;])
+for r in (1.0, 1.5, 3.0):
+    print(f&quot;Trong {r} dặm quanh sông: {100 * (kc_gi &lt; r).mean():.1f}% bài dạ dày - ruột, &quot;
+          f&quot;{100 * (kc_all &lt; r).mean():.1f}% mọi bài cùng ngày&quot;)
+</code></pre></div>
+            <div>
+              <pre class="result-out sm wrap">Trong 1.0 dặm quanh sông: 60.1% bài dạ dày - ruột, 10.6% mọi bài cùng ngày
+Trong 1.5 dặm quanh sông: 84.2% bài dạ dày - ruột, 25.9% mọi bài cùng ngày
+Trong 3.0 dặm quanh sông: 99.0% bài dạ dày - ruột, 67.7% mọi bài cùng ngày</pre>
+              <div class="ask"><b class="t">Cách đọc</b>Cột thứ hai là mốc so sánh: nếu <em>mọi bài</em> cùng ngày cũng sát sông như vậy thì sông chẳng nói lên điều gì.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Bệnh dạ dày - ruột ôm lấy dòng sông</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c27_river.png" alt="Bài dạ dày - ruột ngày 19/5 và đường sông; biểu đồ khoảng cách đến sông">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>84% bài dạ dày - ruột nằm trong 1,5 dặm quanh sông, trong khi chỉ 26% bài đăng nói chung nằm trong vùng đó. Trong 3 dặm là 99% so với 68%.</div>
+            <div class="care"><b class="t">Thận trọng</b>Một số tài liệu tham khảo nêu tỉ lệ ven sông cao hơn con số 84% của ta (trên 98% trong 1,5 dặm). Có thể do đường sông ta vẽ tay chưa khít; xu hướng thì giống nhau.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai bằng chứng, tám nghi phạm</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Giờ ta chấm điểm từng nghi phạm theo <strong>hai tiêu chí</strong>: khớp hướng gió (cho bệnh cúm) và gần dòng sông (cho bệnh dạ dày - ruột).</p>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+vt_gi = toa_do_song(gi19[&quot;lon&quot;], gi19[&quot;lat&quot;])
+hang = []
+for ten_sk, tam in TAM.items():
+    cach_song, vt_nguon = toa_do_song([tam[0]], [tam[1]])
+    ha_luu = (vt_gi[1] &gt; vt_nguon[0]) &amp; (vt_gi[0] &lt; 1.5)         # nằm phía hạ lưu và sát sông
+    hang.append([ten_sk, round(cach_song[0], 2), 100 * ha_luu.mean()])
+song = pd.DataFrame(hang, columns=[&quot;sự kiện&quot;, &quot;cách sông (dặm)&quot;, &quot;% ca dạ dày ở hạ lưu&quot;]).set_index(&quot;sự kiện&quot;)
+tong = diem.join(song)[[&quot;% ca trong dải xuôi gió&quot;, &quot;cách sông (dặm)&quot;, &quot;% ca dạ dày ở hạ lưu&quot;]]
+print(tong.round(1).sort_values(&quot;% ca trong dải xuôi gió&quot;, ascending=False).to_string())
+</code></pre>
+          <pre class="result-out sm">                 % ca trong dải xuôi gió  cách sông (dặm)  % ca dạ dày ở hạ lưu
+sự kiện                                                                        
+Xe tải, tai nạn                     90.0              0.1                  83.8
+Dọa đánh bom                        66.7              1.2                  84.0
+Tòa nhà Capital                     44.6              2.2                  84.0
+Triển lãm đồ cổ                     39.5              1.9                  84.1
+Hội nghị                            39.4              1.9                  84.1
+Lễ hội                              17.9              3.5                  84.1
+Nổ, khói bụi                         2.5              1.1                   2.2
+Máy bay rơi                          2.4              5.0                  83.8</pre>
+        </section>
+
+        <section>
+          <h2>Chỉ một nghi phạm khớp cả hai</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c28_both.png" alt="Mỗi nghi phạm được chấm theo hai tiêu chí: dải xuôi gió và khoảng cách đến sông">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Xe tải, tai nạn nằm ở góc phải trên: 90% ca cúm xuôi gió, và vị trí chỉ cách sông 0,1 dặm. Dọa đánh bom đứng thứ hai (66,7%; cách sông 1,2 dặm). Các sự kiện còn lại thấp hơn hẳn ở ít nhất một trục.</div>
+            <div class="care"><b class="t">Thận trọng</b>Cột cuối của bảng (&ldquo;% ca dạ dày ở hạ lưu&rdquo;) gần như bằng nhau (khoảng 84%) cho hầu hết các nghi phạm, vì cả vùng bệnh nằm ở hạ lưu. Vì thế, trục có sức phân biệt là <em>khoảng cách từ sự kiện đến sông</em>.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Mỗi nhóm bệnh hợp với một đường lan</h2>
+          <div class="code-split">
+            <div><pre class="demo-code xs"><code class="language-python" data-trim>
+def chi_so(d, huong):
+    &quot;&quot;&quot;Hai chỉ số cho một tập bài: % trong dải xuôi gió của nguồn, và % sát sông (&lt;= 1,5 dặm).&quot;&quot;&quot;
+    doc, ngang = toa_do_gio(d, TAM[NGUON], huong)
+    trong_dai = ((doc &gt; 0) &amp; (doc &lt; 12) &amp; (np.abs(ngang) &lt; 1.5)).mean()
+    sat_song = (toa_do_song(d[&quot;lon&quot;], d[&quot;lat&quot;])[0] &lt; 1.5).mean()
+    return [100 * trong_dai, 100 * sat_song]
+
+
+g = weather.set_index(&quot;ngay&quot;)[&quot;gio_den&quot;]
+cum = df[(df[&quot;ngay&quot;] == date(2011, 5, 18)) &amp; df[&quot;flu&quot;]]
+da_day = df[(df[&quot;ngay&quot;] == date(2011, 5, 19)) &amp; df[&quot;gi&quot;]]
+thuong = df[df[&quot;ngay&quot;] == date(2011, 5, 19)]
+
+bang_cs = pd.DataFrame([chi_so(cum, g[date(2011, 5, 18)]), chi_so(da_day, g[date(2011, 5, 19)]),
+                        chi_so(thuong, g[date(2011, 5, 19)])],
+                       index=[&quot;ca giống cúm (18/5)&quot;, &quot;ca dạ dày - ruột (19/5)&quot;, &quot;mọi bài (19/5)&quot;],
+                       columns=[&quot;% trong dải xuôi gió (không khí)&quot;, &quot;% sát sông (nước)&quot;])
+print(bang_cs.round(1).to_string())
+</code></pre></div>
+            <div>
+              <pre class="result-out sm wrap">                         % trong dải xuôi gió (không khí)  % sát sông (nước)
+ca giống cúm (18/5)                                  78.6               23.9
+ca dạ dày - ruột (19/5)                               7.7               84.2
+mọi bài (19/5)                                       33.4               25.9</pre>
+              <div class="ask"><b class="t">Cách đọc</b>Hàng &ldquo;mọi bài&rdquo; là mốc so sánh: ở vùng đông dân, ngay cả bài đăng bình thường cũng rơi nhiều vào dải xuôi gió hoặc ven sông.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Hai đường, hai dấu chân</h2>
+          <figure class="v-fig short">
+            <img src="img/vast/c29_mechanism.png" alt="Bản đồ nhiệt: mỗi nhóm triệu chứng khớp với cơ chế không khí hay nước đến đâu">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Ca cúm: 79% nằm xuôi gió, so với mốc 33% của mọi bài; chỉ 24% sát sông. Ca dạ dày - ruột: 84% sát sông, so với mốc 26%; chỉ 8% xuôi gió.</div>
+            <div class="hyp"><b class="t">Giả thuyết được dữ liệu hỗ trợ</b>Từ <em>một</em> nguồn, bệnh đi theo <em>hai đường</em>: một đường theo không khí, gây triệu chứng giống cúm; một đường theo dòng sông, gây triệu chứng dạ dày - ruột.</div>
+          </div>
+          <div class="care"><b class="t">Tương quan chưa phải nhân quả</b>Ta thấy bệnh nằm xuôi gió và ven sông, nhưng ta không có mẫu nước, không có đo đạc không khí. &ldquo;Nước&rdquo; và &ldquo;không khí&rdquo; là cách giải thích hợp lý nhất, chưa phải điều đã được chứng minh.</div>
+        </section>
+
+        <section>
+          <h2>Còn lây từ người sang người thì sao?</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Nếu bệnh lây giữa người với người, số <em>người mới</em> kể về triệu chứng của chính mình phải tăng theo từng ngày. Ta tách riêng các bài nói về người khác (&ldquo;Christian has caught...&rdquo;) khỏi các bài tự kể.</p>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+# Bài &quot;nói về người khác&quot;: có tên riêng + has/is, hoặc các đại từ he/she/they...
+NGUOI_KHAC = r&quot;\b[A-Z][a-z]{2,} (?:has|is|had) |\b(?:[Tt]hey|[Tt]hem|[Tt]heir|[Ss]he|[Hh]e|[Hh]is|[Hh]er)\b&quot;
+df[&quot;nguoi_khac&quot;] = df[&quot;text&quot;].str.contains(NGUOI_KHAC)
+print(&quot;Ví dụ bài nói về người khác:&quot;)
+print(df[df[&quot;flu&quot;] &amp; df[&quot;nguoi_khac&quot;]][&quot;text&quot;].head(3).to_string(index=False))
+
+
+def thong_ke_nguoi(cot):
+    d = df[df[cot] &amp; (df[&quot;t&quot;] &gt;= &quot;2011-05-17&quot;)]
+    tu_bao = d[~d[&quot;nguoi_khac&quot;]]                                    # bài tự kể về mình
+    lan_dau = tu_bao.groupby(&quot;ID&quot;)[&quot;ngay&quot;].min().value_counts().sort_index()
+    return pd.DataFrame({
+        &quot;bài&quot;: d.groupby(&quot;ngay&quot;).size(),
+        &quot;% nói về người khác&quot;: (100 * d.groupby(&quot;ngay&quot;)[&quot;nguoi_khac&quot;].mean()).round(0),
+        &quot;người tự báo&quot;: tu_bao.groupby(&quot;ngay&quot;)[&quot;ID&quot;].nunique(),
+        &quot;người tự báo mới&quot;: lan_dau}).fillna(0).astype(int)
+
+
+tk_flu, tk_gi = thong_ke_nguoi(&quot;flu&quot;), thong_ke_nguoi(&quot;gi&quot;)
+print(&quot;Nhóm giống cúm:&quot;); print(tk_flu.to_string())
+print(&quot;Nhóm dạ dày - ruột:&quot;); print(tk_gi.to_string())
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Kết quả: ai là người mới?</h2>
+          <pre class="result-out sm">Ví dụ bài nói về người khác:
+Christian has caught a pneumonia home is where they are s...
+David has a case of the chills wish they were feeling better
+Watching the sickly can be so depressing. Ryan has caught...
+Nhóm giống cúm:
+              bài  % nói về người khác  người tự báo  người tự báo mới
+ngay                                                                  
+2011-05-17    230                   24           173               173
+2011-05-18  14611                   16          8254              8239
+2011-05-19  21187                   30          9272              1634
+2011-05-20  18325                   49          7322               295
+Nhóm dạ dày - ruột:
+             bài  % nói về người khác  người tự báo  người tự báo mới
+ngay                                                                 
+2011-05-17   123                   15           104               104
+2011-05-18   108                   15            90                90
+2011-05-19  4131                    1          4104              4096
+2011-05-20  3806                    1          3778               738</pre>
+          <div class="ask"><b class="t">Cách đọc</b>&ldquo;Người tự báo&rdquo; là số người đăng bài kể về chính mình trong ngày; &ldquo;người tự báo mới&rdquo; là số người lần đầu xuất hiện trong nhóm đó. Lây từ người sang người sẽ làm cột thứ hai <em>tăng dần</em>.</div>
+        </section>
+
+        <section>
+          <h2>Số người mới tự báo bệnh đang giảm</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c30_p2p.png" alt="Số người tự báo triệu chứng cúm mỗi ngày và tỉ lệ bài nói về người khác">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Người tự báo cúm <em>mới</em>: 8.239 người ngày 18/5, rồi 1.634 ngày 19/5 và 295 ngày 20/5. Bệnh dạ dày - ruột: 4.096 rồi 738 người. Số người mới giảm nhanh chứ không tăng dần.</div>
+            <div class="care"><b class="t">Thận trọng</b>Tỉ lệ bài nói về người khác tăng đến 49% ở nhóm cúm ngày 20/5, nhưng nhận dạng bằng quy tắc từ khóa là thô, và mỗi người chỉ đăng khoảng 14 bài nên &ldquo;người mới&rdquo; giảm một phần vì người cũ đã báo rồi.</div>
+          </div>
+          <div class="hyp"><b class="t">Nhận định</b>Dữ liệu này <em>chưa cho thấy dấu hiệu rõ</em> của lây từ người sang người, nhưng cũng không đủ để loại trừ nó. Các nhóm giải của cuộc thi cũng không thống nhất ở điểm này (xem phần tổng kết).</div>
+        </section>
+      </section>
+
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1><span class="no">8.</span><br>Người bệnh đi đâu? Ta làm gì?</h1>
+          <p class="sub">Từ bằng chứng đến hành động: bệnh viện, vùng ưu tiên và kế hoạch.</p>
+          <p class="small">Chương 8 · Bước 6: Hệ thống y tế · Bước 7: Hành động</p>
+        </section>
+
+        <section>
+          <h2>Gom các ca thành cụm bằng DBSCAN</h2>
+          <p>Ta xét các bài giống cúm từ 8h sáng 20/5. <strong>DBSCAN</strong> là thuật toán gom cụm theo mật độ: một điểm thuộc cụm nếu có ít nhất 80 điểm khác nằm trong bán kính 0,15 dặm quanh nó. Điểm lẻ loi được bỏ qua.</p>
+          <pre class="demo-code sm"><code class="language-python" data-trim>
+from sklearn.cluster import DBSCAN
+
+sang20 = df[(df[&quot;t&quot;] &gt;= &quot;2011-05-20 08:00&quot;) &amp; df[&quot;flu&quot;]]
+P = np.c_[sang20[&quot;lon&quot;] * kx, sang20[&quot;lat&quot;] * ky]
+nhan_cum = DBSCAN(eps=0.15, min_samples=80).fit_predict(P)              # cụm: ít nhất 80 bài trong bán kính 0,15 dặm
+cum_tam = np.array([[sang20[&quot;lon&quot;][nhan_cum == k].mean(), sang20[&quot;lat&quot;][nhan_cum == k].mean()]
+                    for k in range(nhan_cum.max() + 1)])
+print(f&quot;DBSCAN tìm thấy {len(cum_tam)} cụm, chiếm {100 * (nhan_cum &gt;= 0).mean():.0f}% bài giống cúm ngày 20/5&quot;)
+</code></pre>
+          <div class="ask"><b class="t">Câu hỏi</b>Các cụm này nằm ở đâu? Có nằm đúng ở các bệnh viện không?</div>
+        </section>
+
+        <section>
+          <h2>So cụm với vị trí các bệnh viện</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Tên và tọa độ 13 bệnh viện lấy từ tài liệu mô tả và ảnh bản đồ (nằm trong sổ tay Colab). Với mỗi cụm, ta tìm bệnh viện gần nhất; gần hơn 0,3 dặm thì coi là trùng.</p>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+bv = np.array(list(BENH_VIEN.values()))
+for k, c in enumerate(cum_tam):
+    kc = np.hypot((bv[:, 0] - c[0]) * kx, (bv[:, 1] - c[1]) * ky)
+    ten_bv = list(BENH_VIEN)[kc.argmin()] if kc.min() &lt; 0.3 else &quot;không phải bệnh viện&quot;
+    print(f&quot;cụm {k:2d}: {np.round(c, 4)}  {(nhan_cum == k).sum():4d} bài  -&gt;  {ten_bv}&quot;)
+</code></pre>
+          <pre class="result-out xs">DBSCAN tìm thấy 15 cụm, chiếm 37% bài giống cúm ngày 20/5
+cụm  0: [-93.3908  42.174 ]   282 bài  -&gt;  Southville
+cụm  1: [-93.3622  42.2201]   520 bài  -&gt;  Vastopolis City
+cụm  2: [-93.4788  42.2565]   283 bài  -&gt;  Westside
+cụm  3: [-93.3304  42.2404]   421 bài  -&gt;  St. Georges
+cụm  4: [-93.42    42.2526]   307 bài  -&gt;  Northside
+cụm  5: [-93.2339  42.2947]   266 bài  -&gt;  St. Mark&#x27;s
+cụm  6: [-93.5567  42.2043]   274 bài  -&gt;  Villa
+cụm  7: [-93.5317  42.2988]   291 bài  -&gt;  Corner
+cụm  8: [-93.4947  42.2019]   253 bài  -&gt;  Smogtown
+cụm  9: [-93.4451  42.2048]   275 bài  -&gt;  Plainville
+cụm 10: [-93.3942  42.2201]   380 bài  -&gt;  không phải bệnh viện
+cụm 11: [-93.3433  42.1682]   274 bài  -&gt;  Lakeside
+cụm 12: [-93.2469  42.2197]   305 bài  -&gt;  St. Kristin&#x27;s
+cụm 13: [-93.3649  42.2844]   263 bài  -&gt;  River
+cụm 14: [-93.341   42.2243]   271 bài  -&gt;  không phải bệnh viện</pre>
+        </section>
+
+        <section>
+          <h2>Các cụm rơi đúng vào bệnh viện</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c31_hospital.png" alt="Bài giống cúm từ 8 giờ ngày 20 tháng 5, các cụm DBSCAN và vị trí bệnh viện">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>15 cụm, trong đó 13 cụm trùng với 13 bệnh viện (mỗi cụm 250 đến 520 bài). Hai cụm còn lại nằm giữa khu Downtown đông người. Các cụm chiếm 37% số bài cúm của buổi sáng 20/5.</div>
+            <div class="care"><b class="t">Thận trọng</b>Bài đăng ở bệnh viện cho ta biết người bệnh <em>đang được điều trị ở đâu</em>, chứ không cho biết họ nhiễm bệnh ở đâu. Chấm nằm ở Plainville có thể là một người bị phơi nhiễm ở Downtown.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Người bệnh dồn về bệnh viện vào ngày nào?</h2>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+def gan_benh_vien(d, r=0.35):
+    &quot;&quot;&quot;Tỉ lệ bài nằm trong r dặm quanh một bệnh viện.&quot;&quot;&quot;
+    kc = np.hypot((d[&quot;lon&quot;].values[:, None] - bv[:, 0]) * kx, (d[&quot;lat&quot;].values[:, None] - bv[:, 1]) * ky)
+    return (kc.min(1) &lt; r).mean()
+
+
+df[&quot;flu_tu&quot;] = df[&quot;flu&quot;] &amp; ~df[&quot;nguoi_khac&quot;]               # bài cúm do người bệnh tự kể
+
+hang = []
+for ngay in [date(2011, 5, 17), date(2011, 5, 18), date(2011, 5, 19), date(2011, 5, 20)]:
+    ban_ngay_ = df[(df[&quot;ngay&quot;] == ngay) &amp; (df[&quot;t&quot;].dt.hour &gt;= 8)]
+    hang.append([ngay.strftime(&quot;%d/%m&quot;), 100 * gan_benh_vien(ban_ngay_[ban_ngay_[&quot;flu_tu&quot;]]),
+                 100 * gan_benh_vien(ban_ngay_[ban_ngay_[&quot;gi&quot;]]), 100 * gan_benh_vien(ban_ngay_[~ban_ngay_[&quot;flu&quot;]])])
+bang_bv = pd.DataFrame(hang, columns=[&quot;ngày&quot;, &quot;% bài cúm tự báo gần BV&quot;, &quot;% bài dạ dày gần BV&quot;, &quot;% bài khác gần BV&quot;])
+print(bang_bv.round(1).to_string(index=False))
+</code></pre>
+          <pre class="result-out sm"> ngày  % bài cúm tự báo gần BV  % bài dạ dày gần BV  % bài khác gần BV
+17/05                      9.3                  5.5                6.4
+18/05                     17.0                  6.8                7.3
+19/05                     16.8                  5.0                7.4
+20/05                     55.6                  5.4                9.7</pre>
+          <div class="ask"><b class="t">Cách đọc</b>Ta chỉ lấy bài cúm do người bệnh tự kể (bỏ bài nói về người khác), rồi tính phần trăm nằm trong 0,35 dặm quanh một bệnh viện. Hai cột còn lại là mốc so sánh.</div>
+        </section>
+
+        <section>
+          <h2>Ngày 20/5: bệnh viện quá tải</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c32_hospital_share.png" alt="Phần trăm bài đăng nằm gần bệnh viện theo ngày và nhóm triệu chứng">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Phần trăm bài cúm tự báo gần bệnh viện ở mức 9 đến 17% từ 17 đến 19/5, rồi nhảy lên <strong>55,6%</strong> vào ngày 20/5. Bài dạ dày - ruột và bài khác giữ nguyên quanh 5 đến 10%.</div>
+            <div class="hyp"><b class="t">Giả thuyết được dữ liệu hỗ trợ</b>Đến ngày 20/5, hơn một nửa người bệnh cúm đã tìm đến bệnh viện. Điều này khớp với bản tin khẩn ở đầu bài: bệnh viện báo số người đến khám tăng vọt.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Đâu là vùng cần ưu tiên?</h2>
+          <p style="margin:0.15em 0;font-size:0.7em">Ta cộng cả hai nhóm bệnh, lấy lượng bài <em>vượt mức bình thường</em> ngày 19/5 trên từng ô lưới, rồi tìm vùng nhỏ nhất chứa 80% lượng vượt mức.</p>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+tc19 = ngay19[ngay19[&quot;flu&quot;] | ngay19[&quot;gi&quot;]]
+tc_nen = nen[nen[&quot;flu&quot;] | nen[&quot;gi&quot;]]
+vuot = np.clip(luoi(tc19) - luoi(tc_nen) / n_nen, 0, None)
+vuot = gaussian_filter(vuot, 1.0)
+
+thu_tu = np.sort(vuot.ravel())[::-1]
+so_o = np.searchsorted(np.cumsum(thu_tu) / thu_tu.sum(), 0.8) + 1
+nguong = thu_tu[so_o - 1]
+dien_tich_o = (xb[1] - xb[0]) * kx * (yb[1] - yb[0]) * ky
+tong_dt = (EXTENT[1] - EXTENT[0]) * kx * (EXTENT[3] - EXTENT[2]) * ky
+print(f&quot;Vùng ưu tiên chứa 80% bài vượt mức: {so_o} ô, khoảng {so_o * dien_tich_o:.0f} dặm vuông, &quot;
+      f&quot;bằng {100 * so_o * dien_tich_o / tong_dt:.0f}% diện tích thành phố ({tong_dt:.0f} dặm vuông)&quot;)
+</code></pre>
+          <pre class="result-out sm">Vùng ưu tiên chứa 80% bài vượt mức: 2508 ô, khoảng 49 dặm vuông, bằng 26% diện tích thành phố (186 dặm vuông)</pre>
+        </section>
+
+        <section>
+          <h2>Vùng ưu tiên: một phần tư thành phố</h2>
+          <figure class="v-fig tall">
+            <img src="img/vast/c33_priority.png" alt="Vùng ưu tiên chứa 80 phần trăm bài triệu chứng vượt mức, cùng dòng sông và các bệnh viện">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Manh mối</b>Vùng màu cam gồm khu trung tâm và phía đông, cộng một dải kéo về phía tây nam dọc theo sông. Nó chỉ chiếm khoảng 49 dặm vuông, bằng 26% diện tích thành phố, nhưng chứa 80% lượng bài vượt mức.</div>
+            <div class="care"><b class="t">Thận trọng</b>Vùng này dựa trên dữ liệu một ngày (19/5) và theo vị trí đăng bài, không phải vị trí nhiễm. Đây là gợi ý để ưu tiên nguồn lực, không phải ranh giới chính thức.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Từ bằng chứng đến kế hoạch hành động</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Việc cần làm</th><th>Dựa vào bằng chứng</th><th>Giới hạn của bằng chứng</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1.</strong> Khoanh vùng, lấy mẫu không khí, nước và đất quanh vị trí vụ tai nạn xe tải để xét nghiệm</td><td>90% ca cúm sáng 18/5 nằm xuôi gió; vị trí cách sông 0,1 dặm</td><td>Chỉ có bài đăng, chưa có mẫu thật. Đây là giả thuyết cần kiểm chứng.</td></tr>
+              <tr><td><strong>2.</strong> Cảnh báo dân không dùng nước sông, ưu tiên ven sông phía hạ lưu (trong 1,5 dặm)</td><td>84% bài dạ dày - ruột nằm trong 1,5 dặm quanh sông</td><td>Đường sông vẽ tay; chưa có số liệu chất lượng nước</td></tr>
+              <tr><td><strong>3.</strong> Bổ sung giường, thuốc, nhân viên cho các bệnh viện, nhất là các bệnh viện ở vùng ưu tiên</td><td>55,6% bài cúm tự báo đã nằm gần bệnh viện vào ngày 20/5; có cụm ở cả 13 bệnh viện</td><td>Bài ở bệnh viện chỉ nói nơi điều trị, không nói nơi nhiễm</td></tr>
+              <tr><td><strong>4.</strong> Thông báo và kiểm tra sức khỏe tại vùng ưu tiên (26% diện tích)</td><td>Vùng này chứa 80% bài vượt mức</td><td>Dựa trên một ngày dữ liệu</td></tr>
+              <tr><td><strong>5.</strong> Theo dõi bài đăng theo giờ để phát hiện ca mới ngoài vùng ưu tiên</td><td>Vùng ca bệnh không mở rộng thêm theo gió trong 3 ngày</td><td>Bài đăng không phải ca bệnh đã xác nhận</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Dòng thời gian của vụ dịch</h2>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+t_sk = BAI_SK[NGUON][&quot;t&quot;].quantile(0.1)
+t_cum = thoi_diem_bat_dau(&quot;flu&quot;)[0]
+gio_flu = df.groupby(df[&quot;t&quot;].dt.floor(&quot;h&quot;))[&quot;flu&quot;].sum()
+t_bung = gio_flu[gio_flu &gt; 20 * gio_flu.iloc[: 14 * 24].mean()].index[0]
+t_gi = thoi_diem_bat_dau(&quot;gi&quot;)[0]
+hai_20 = df[(df[&quot;t&quot;] &gt;= &quot;2011-05-19&quot;) &amp; df[&quot;flu_tu&quot;]]
+ti_le_bv = hai_20.groupby(hai_20[&quot;t&quot;].dt.floor(&quot;h&quot;)).apply(gan_benh_vien)
+t_bv = ti_le_bv[ti_le_bv &gt; 0.3].index[0]
+
+cac_moc = [(t_sk, f&quot;{NGUON}\n(10% bài đăng đầu)&quot;, EVT), (t_cum, &quot;bắt đầu có\nca giống cúm&quot;, FLU),
+           (t_bung, &quot;ca giống cúm\nbùng nổ&quot;, FLU), (t_gi, &quot;bắt đầu có ca\ndạ dày - ruột&quot;, GI),
+           (t_bv, &quot;người bệnh dồn\nvề bệnh viện&quot;, GOLD)]
+for t, ten_moc, _ in cac_moc:
+    print(f&quot;{t:%d/%m %H:%M}  {ten_moc.replace(chr(10), &#x27; &#x27;)}&quot;)
+</code></pre>
+          <pre class="result-out sm">17/05 10:22  Xe tải, tai nạn (10% bài đăng đầu)
+18/05 01:00  bắt đầu có ca giống cúm
+18/05 08:00  ca giống cúm bùng nổ
+19/05 02:00  bắt đầu có ca dạ dày - ruột
+20/05 07:00  người bệnh dồn về bệnh viện</pre>
+        </section>
+
+        <section>
+          <h2>Ghép các mảnh thành một dòng thời gian</h2>
+          <figure class="v-fig">
+            <img src="img/vast/c34_timeline.png" alt="Dòng thời gian năm mốc của vụ dịch, rút ra từ dữ liệu">
+          </figure>
+          <div class="v-row">
+            <div class="clue"><b class="t">Câu chuyện đã khép lại</b>Sáng đến trưa 17/5: tin về vụ tai nạn xe tải xuất hiện. Đêm 17 rạng sáng 18/5: cúm khởi phát. Sáng 18/5: cúm bùng nổ. Rạng sáng 19/5: dạ dày - ruột khởi phát. Sáng 20/5: người bệnh dồn về bệnh viện. Mỗi mốc đều lấy từ một biểu đồ ở các chương trước.</div>
+            <div class="ask"><b class="t">Kể chuyện với dữ liệu</b>Một dòng thời gian tốt cho phép người nghe nhớ cả vụ án chỉ bằng một hình.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Bảng điều khiển cuối cùng</h2>
+          <pre class="demo-code xs"><code class="language-python" data-trim>
+fig = plt.figure(figsize=(12, 5.2))
+gs = fig.add_gridspec(2, 2, width_ratios=[1.8, 1])
+ax = fig.add_subplot(gs[:, 0])
+base_map(ax, 0.35)
+mau_flu = df[(df[&quot;t&quot;] &gt;= &quot;2011-05-18&quot;) &amp; (df[&quot;t&quot;] &lt; &quot;2011-05-21&quot;) &amp; df[&quot;flu&quot;]].sample(9000, random_state=2)
+mau_gi = df[(df[&quot;t&quot;] &gt;= &quot;2011-05-19&quot;) &amp; (df[&quot;t&quot;] &lt; &quot;2011-05-21&quot;) &amp; df[&quot;gi&quot;]].sample(5000, random_state=2)
+ax.scatter(mau_flu[&quot;lon&quot;], mau_flu[&quot;lat&quot;], s=1.2, c=FLU, alpha=0.3, label=&quot;ca giống cúm&quot;)
+ax.scatter(mau_gi[&quot;lon&quot;], mau_gi[&quot;lat&quot;], s=1.2, c=GI, alpha=0.3, label=&quot;ca dạ dày - ruột&quot;)
+ax.plot(SONG[:, 0], SONG[:, 1], color=NAVY, lw=1.4, ls=&quot;--&quot;)
+ax.scatter(bv[:, 0], bv[:, 1], marker=&quot;P&quot;, s=60, color=GOLD, edgecolor=NAVY, zorder=5, label=&quot;bệnh viện&quot;)
+ax.plot(*TAM[NGUON], marker=&quot;*&quot;, ms=16, mfc=GOLD, mec=NAVY, zorder=6, label=NGUON)
+ax.legend(loc=&quot;lower right&quot;, fontsize=8, markerscale=4); ax.set_title(&quot;Bản đồ tổng hợp&quot;)
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Vastopolis Epidemic Intelligence Dashboard</h2>
+          <figure class="v-fig mid">
+            <img src="img/vast/c35_dashboard.png" alt="Bảng điều khiển tổng hợp: bản đồ ca bệnh, số bài mỗi ngày, tỉ lệ gần bệnh viện">
+          </figure>
+          <div class="v-row" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+            <div class="clue"><b class="t">Tổng quan dịch</b>Số bài mỗi ngày của hai nhóm bệnh (hình nhỏ phải trên).</div>
+            <div class="clue"><b class="t">Thông tin không gian</b>Bản đồ ca bệnh, dòng sông và nghi phạm số một (hình trái).</div>
+            <div class="clue"><b class="t">Theo dõi y tế</b>Tỉ lệ bài cúm gần bệnh viện (hình nhỏ phải dưới).</div>
+            <div class="clue"><b class="t">Rủi ro và phòng ngừa</b>Vùng ưu tiên (chương 8) và bảng hành động. Đây là phần bạn có thể mở rộng thành bài tập.</div>
+          </div>
+        </section>
+      </section>
+
+
+      <section>
+        <section class="noir" data-background-color="#1F2A44">
+          <h1>Báo cáo điều tra</h1>
+          <p class="sub">Tổng hợp bằng chứng, nói rõ giới hạn và đối chiếu với các nhóm khác.</p>
+          <p class="small">Phần tổng kết</p>
+        </section>
+
+        <section>
+          <h2>Ba câu hỏi của giám đốc sở y tế: ta trả lời thế nào?</h2>
+          <div class="v-row three">
+            <div class="clue"><b class="t">1. Chuyện gì đang xảy ra?</b>Hai nhóm bệnh khác nhau, <span style="color:#B23A18"><strong>giống cúm</strong></span> (khởi phát 1h sáng 18/5) và <span style="color:#005A8A"><strong>dạ dày - ruột</strong></span> (2h sáng 19/5), nổ ra liên tiếp.</div>
+            <div class="clue"><b class="t">2. Từ đâu, lan thế nào?</b>Cùng một nguồn nghi vấn là vụ tai nạn xe tải ngày 17/5; một đường lan theo gió, một đường theo dòng sông.</div>
+            <div class="clue"><b class="t">3. Có kiểm soát được không?</b>Vùng bệnh không mở rộng thêm, nhưng bệnh viện đã quá tải; cần xử lý nguồn, nước sông và hỗ trợ y tế.</div>
+          </div>
+          <p>Mỗi câu trả lời được dẫn dắt từ một chuỗi biểu đồ, và mỗi chuỗi đều kết thúc bằng một giới hạn. Bảng sau tóm tắt toàn bộ.</p>
+        </section>
+
+        <section>
+          <h2>Bảng tổng kết bằng chứng</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Câu hỏi</th><th>Giả thuyết được dữ liệu hỗ trợ</th><th>Bằng chứng chính</th><th>Giới hạn</th></tr></thead>
+            <tbody>
+              <tr><td>Có dịch không?</td><td>Có hai nhóm bệnh khác nhau</td><td>Số bài mỗi ngày \(z=18\) và \(28\); từ vựng ngày 18/5 và 19/5 khác nhau</td><td>Từ khóa chọn sau khi thấy dữ liệu</td></tr>
+              <tr><td>Khi nào?</td><td>Cúm khởi phát 1h sáng 18/5; dạ dày - ruột 2h sáng 19/5</td><td>Vượt ngưỡng trung bình + 5 độ lệch chuẩn</td><td>Ngưỡng do ta chọn</td></tr>
+              <tr><td>Ở đâu?</td><td>Cúm quanh Downtown; dạ dày - ruột ở tây nam</td><td>112,7 bài trên 1000 (Downtown); 84% bài dạ dày - ruột ven sông</td><td>Ranh giới khu và đường sông ước lượng tay</td></tr>
+              <tr><td>Nguồn bệnh?</td><td>Vụ tai nạn xe tải ngày 17/5</td><td>90% ca cúm xuôi gió; cách sông 0,1 dặm; 122 bài nhắc tai nạn</td><td>Chỉ có bài đăng, không có mẫu bệnh phẩm</td></tr>
+              <tr><td>Lan bằng đường nào?</td><td>Cúm theo không khí; dạ dày - ruột theo nước</td><td>79% xuôi gió (mốc 33%); 84% sát sông (mốc 26%)</td><td>Tương quan, chưa phải nhân quả</td></tr>
+              <tr><td>Người sang người?</td><td>Chưa thấy dấu hiệu rõ</td><td>Người tự báo mới giảm: 8.239, 1.634, 295</td><td>Quy tắc nhận dạng bài thô</td></tr>
+              <tr><td>Hệ thống y tế?</td><td>Người bệnh dồn về bệnh viện ngày 20/5</td><td>55,6% bài cúm tự báo gần bệnh viện</td><td>Nơi đăng là nơi điều trị</td></tr>
+              <tr><td>Hành động?</td><td>Ưu tiên vùng chiếm 26% diện tích</td><td>Chứa 80% lượng bài vượt mức</td><td>Dựa trên một ngày</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Giới hạn của bằng chứng</h2>
+          <div class="lab-grid">
+            <div class="lab-card"><b>Bài đăng không phải ca bệnh</b>Một người có thể đăng nhiều bài, và nhiều bài nói về người khác. Số bài chỉ là chỉ báo, không phải số người mắc.</div>
+            <div class="lab-card"><b>Nơi đăng không phải nơi nhiễm</b>Người bệnh đi làm, đi khám rồi mới đăng. Bản đồ chấm cho biết nơi đăng, không cho biết nơi phơi nhiễm.</div>
+            <div class="lab-card"><b>Con số phụ thuộc bộ từ khóa</b>Bộ từ khóa của ta cho 54.123 bài cúm trong ba ngày 18 đến 20/5. Nhóm Đại học Maryland nêu 42.275 bài triệu chứng; nhóm VSTI/SAS nêu hơn 28.000. Bộ từ khác nhau thì số khác nhau.</div>
+            <div class="lab-card"><b>Ranh giới là ước lượng</b>Ranh giới 13 khu và đường sông do ta vẽ tay từ ảnh bản đồ; tỉ lệ ven sông của ta (84%) thấp hơn con số trên 98% mà VSTI/SAS nêu.</div>
+            <div class="lab-card"><b>Tương quan chưa phải nhân quả</b>&ldquo;Xuôi gió&rdquo; và &ldquo;ven sông&rdquo; là dấu chân phù hợp với không khí và nước, nhưng không có mẫu đo nào xác nhận.</div>
+            <div class="lab-card"><b>Dữ liệu là mô phỏng</b>Vastopolis là thành phố hư cấu. Phương pháp dùng được ngoài đời, nhưng kết luận chỉ đúng trong thế giới mô phỏng này.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Các nhóm của cuộc thi có kết luận giống nhau không?</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Nhóm</th><th>Cơ chế đề xuất</th><th>Lây giữa người với người</th><th>Khống chế</th></tr></thead>
+            <tbody>
+              <tr><td>VSTI/SAS</td><td>Cúm: không khí. Dạ dày - ruột: nước sông</td><td>Có, kết hợp với không khí</td><td>Chưa: dịch còn lan rộng, cần cảnh báo vùng lân cận</td></tr>
+              <tr><td>giCentre (City, Đại học London)</td><td>Cúm: không khí. Dạ dày - ruột: nước</td><td>Không: cả hai bệnh đều không lây qua tiếp xúc</td><td>Có: cả hai bệnh được cho là đã khống chế</td></tr>
+              <tr><td>Fraunhofer IAIS</td><td>Cúm: không khí</td><td>Bác bỏ vì chưa đủ bằng chứng</td><td>Chưa về mặt không gian, nhưng nguồn nằm gọn trong một khu vực</td></tr>
+              <tr><td><strong>Bài này</strong></td><td>Cúm: không khí. Dạ dày - ruột: nước (giả thuyết)</td><td>Chưa thấy dấu hiệu rõ</td><td>Vùng bệnh không mở rộng, nhưng cần hỗ trợ bệnh viện</td></tr>
+            </tbody>
+          </table>
+          <div class="key-box" style="font-size:0.78em"><span class="box-title">Bài tập tranh luận</span> Cùng một dữ liệu, nhưng VSTI/SAS cho rằng có lây từ người sang người, còn giCentre và Fraunhofer thì không; khống chế dịch cũng được đánh giá khác nhau. Kết luận phụ thuộc vào cách chọn bằng chứng và mức thận trọng.</div>
+          <p class="source" style="margin:0">Tóm tắt từ các bài nộp công khai của từng nhóm (xem trang nguồn ở cuối bài).</p>
+        </section>
+
+        <section>
+          <h2>Đối chiếu với đáp án chính thức</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Điểm</th><th>Ta tìm ra từ dữ liệu</th><th>Answer Guide của ban tổ chức</th></tr></thead>
+            <tbody>
+              <tr><td>Nguồn</td><td>Vụ tai nạn xe tải 17/5, quanh \((42{,}2236;\ -93{,}4303)\)</td><td>Tai nạn xe tải trên cầu I-610 bắc qua sông Vast, 17/5, tâm \((42{,}22655;\ -93{,}42752)\): cách vị trí của ta khoảng 0,25 dặm</td></tr>
+              <tr><td>Gió</td><td>Thổi từ Tây sang Đông, khoảng 8 đến 10 dặm một giờ</td><td>Gió từ Tây sang Đông từ 16 đến 19/5, trung bình 8 dặm một giờ ngày 17/5</td></tr>
+              <tr><td>Bệnh cúm</td><td>Khởi phát sáng 18/5, đi theo hướng gió</td><td>Triệu chứng giống cúm, bắt đầu khoảng 8h sáng 18/5, truyền qua không khí</td></tr>
+              <tr><td>Bệnh dạ dày - ruột</td><td>Khởi phát 19/5, ven sông phía tây nam</td><td>Bắt đầu 19/5, lan theo dòng nước chảy về nam - tây nam; truyền qua nước</td></tr>
+              <tr><td>Bệnh viện</td><td>55,6% bài cúm tự báo gần bệnh viện ngày 20/5</td><td>Khoảng 50% ca cúm quanh bệnh viện ngày 20/5, chọn bệnh viện ngẫu nhiên</td></tr>
+              <tr><td>Bài nói về người khác</td><td>Tăng 16%, 30%, 49% (nhóm cúm)</td><td>&ldquo;Người đưa tin&rdquo; đăng 5.400, 10.300 rồi 14.300 bài mỗi ngày</td></tr>
+              <tr><td>Người sang người</td><td>Chưa thấy dấu hiệu rõ</td><td>Không có lây người sang người; số người nhiễm giữ nguyên mỗi ngày và đăng lại</td></tr>
+            </tbody>
+          </table>
+          <div class="care"><b class="t">Lưu ý khi đối chiếu</b>Đáp án này do chính ban tổ chức dựng ra cùng bộ dữ liệu mô phỏng. Nó cho ta biết cách tiếp cận đã đi đúng hướng. Ngoài đời, không có &ldquo;đáp án cuối sách&rdquo;, nên khả năng nêu giới hạn của bằng chứng quan trọng không kém khả năng tìm ra đáp án.</div>
+        </section>
+
+        <section>
+          <h2>Bảng kỹ thuật: mỗi biểu đồ trả lời một câu hỏi</h2>
+          <table class="era-table xs">
+            <thead><tr><th>Kỹ thuật</th><th>Biểu đồ</th><th>Câu hỏi trả lời</th></tr></thead>
+            <tbody>
+              <tr><td>Đọc và làm sạch dữ liệu</td><td>Bảng, bản đồ kiểm tra</td><td>Hồ sơ có gì, có đáng tin không?</td></tr>
+              <tr><td>Điểm \(z\) theo ngày</td><td>Biểu đồ đường</td><td>Ngày nào bất thường?</td></tr>
+              <tr><td>Tỉ lệ so với mức bình thường của từng giờ</td><td>Bản đồ nhiệt ngày \(\times\) giờ</td><td>Bất thường bắt đầu lúc mấy giờ?</td></tr>
+              <tr><td>Chỉ số lift của từ</td><td>Thanh ngang, thang log</td><td>Mọi người đang nói gì mới?</td></tr>
+              <tr><td>Nhóm từ khóa, ngưỡng báo động</td><td>Đường theo ngày, theo giờ</td><td>Có mấy bệnh, khi nào bắt đầu?</td></tr>
+              <tr><td>Bản đồ chấm, mật độ vượt mức, chuẩn hóa theo dân cư</td><td>Bản đồ chấm, bản đồ vùng</td><td>Khu nào bị nặng thật sự?</td></tr>
+              <tr><td>Phát hiện bùng nổ từ khóa, tọa độ trung vị</td><td>Bản đồ sự kiện</td><td>Ai là nghi phạm?</td></tr>
+              <tr><td>Dải xuôi gió, khoảng cách đến sông</td><td>Thanh ngang, biểu đồ phân tán hai trục, bản đồ nhiệt</td><td>Nghi phạm nào khớp? Bệnh đi đường nào?</td></tr>
+              <tr><td>Nhiều khung nhỏ, ảnh động</td><td>Lưới 12 bản đồ, GIF</td><td>Bệnh lan ra thế nào theo thời gian?</td></tr>
+              <tr><td>Gom cụm DBSCAN</td><td>Bản đồ cụm và bệnh viện</td><td>Người bệnh dồn về đâu?</td></tr>
+              <tr><td>Dòng thời gian, bảng điều khiển</td><td>Dòng thời gian, dashboard</td><td>Kể lại cả vụ án và đề xuất hành động</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Bài học kể chuyện với dữ liệu</h2>
+          <div class="lab-grid">
+            <div class="lab-card"><b>Mở bằng câu hỏi, không mở bằng đáp án</b>Người nghe theo ta vì họ muốn biết điều gì xảy ra tiếp theo.</div>
+            <div class="lab-card"><b>Mỗi hình một thông điệp</b>Tiêu đề hình là câu chốt, không phải mô tả hình.</div>
+            <div class="lab-card"><b>Bằng chứng đến từ nhiều loại dữ liệu</b>Giờ đăng, tọa độ, nội dung, thời tiết, dân số: mỗi loại kiểm tra một giả thuyết khác.</div>
+            <div class="lab-card"><b>Nói rõ điều mình chưa biết</b>Một câu &ldquo;ta chưa loại trừ được&rdquo; đúng chỗ làm báo cáo đáng tin hơn.</div>
+            <div class="lab-card"><b>Màu sắc nhất quán</b>Cam là cúm, xanh dương là dạ dày - ruột. Người xem đọc hiểu mà không cần chú thích lại.</div>
+            <div class="lab-card"><b>Kết thúc bằng hành động</b>Câu chuyện chưa xong nếu chưa trả lời &ldquo;vậy ta làm gì?&rdquo;.</div>
+          </div>
+        </section>
+
+        <section class="fit">
+          <h2>Bài tập cuối kỳ</h2>
+          <ul>
+            <li>Mở sổ tay Colab, chạy từ đầu đến cuối và kiểm tra các con số trong slide.</li>
+            <li>Mỗi kết luận trong báo cáo của bạn phải có <strong>ít nhất một biểu đồ hoặc bảng</strong> làm bằng chứng, nêu rõ <strong>giới hạn</strong> của bằng chứng và <strong>đề xuất hành động</strong>.</li>
+            <li>Thử thay đổi một lựa chọn (bộ từ khóa, độ rộng dải xuôi gió 1,5 dặm, ngưỡng DBSCAN) và báo cáo kết luận có đổi không.</li>
+            <li>Viết 200 từ tranh luận: dữ liệu này có đủ để khẳng định hay bác bỏ lây giữa người với người không?</li>
+            <li>Mở rộng: dựng bảng điều khiển bốn khu vực (<em>Epidemic Overview</em>, <em>Geospatial Intelligence</em>, <em>Healthcare Monitoring</em>, <em>Risk &amp; Prevention</em>) bằng Plotly hoặc Streamlit.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Nguồn tham khảo và dữ liệu gốc</h2>
+          <ol style="font-size:0.5em;line-height:1.3">
+            <li>VAST Challenge 2011, Mini-Challenge 1: <a href="https://visualdata.wustl.edu/varepository/VAST_Challenge_2011/challenges/MC1_-_Characterization_of_an_Epidemic_Spread/" target="_blank" rel="noopener">Dataset và đề bài</a> (trang gốc: <a href="https://vast.cs.umass.edu/VAST%20Challenge%202011/challenges/MC1%20-%20Characterization%20of%20an%20Epidemic%20Spread/" target="_blank" rel="noopener">vast.cs.umass.edu</a>).</li>
+            <li><a href="https://vast.cs.umass.edu/VAST%20Challenge%202011/taskdescription-of-all2011challenges-printfromoriginalwebisteofchallenge.pdf" target="_blank" rel="noopener">Original Task Description</a>, IEEE VAST Challenge 2011.</li>
+            <li><a href="https://visualdata.wustl.edu/varepository/VAST_Challenge_2011/challenges/MC1_-_Characterization_of_an_Epidemic_Spread/entries/VSTISAS/" target="_blank" rel="noopener">VSTI/SAS: Spatiotemporal Analysis</a>.</li>
+            <li><a href="https://visualdata.wustl.edu/varepository/VAST_Challenge_2011/challenges/MC1_-_Characterization_of_an_Epidemic_Spread/entries/giCentre%2C%20City%20University%20London/" target="_blank" rel="noopener">giCentre, City University London: BlogViewer và phân tích dịch bệnh</a>.</li>
+            <li><a href="https://visualdata.wustl.edu/varepository/VAST_Challenge_2011/challenges/MC1_-_Characterization_of_an_Epidemic_Spread/entries/University%20of%20Maryland/" target="_blank" rel="noopener">University of Maryland: phân tích bằng Python, NLTK và Matplotlib</a>.</li>
+            <li><a href="https://visualdata.wustl.edu/varepository/VAST_Challenge_2011/challenges/MC1_-_Characterization_of_an_Epidemic_Spread/entries/Fraunhofer%20IAIS/" target="_blank" rel="noopener">Fraunhofer IAIS: phân tích không gian và thời gian</a>.</li>
+            <li><a href="https://visualdata.wustl.edu/varepository/VAST_Challenge_2011/challenges/MC1_-_Characterization_of_an_Epidemic_Spread/solution/MC1.pdf" target="_blank" rel="noopener">Mini-Challenge 1 Answer Guide</a> (đáp án chính thức của ban tổ chức).</li>
+            <li><a href="https://visualdata.wustl.edu/varepository/VAST_Challenge_2011/datasets/MC_1_Materials_3-30-2011.zip" target="_blank" rel="noopener">MC_1_Materials_3-30-2011.zip</a>: tệp dữ liệu dùng trong bài (Microblogs, Population, Weather, bản đồ).</li>
+          </ol>
+          <p class="source">Mọi hình, bảng và con số trong bài do mã trong sổ tay Colab <code>vastopolis-dieu-tra-dich-benh.ipynb</code> tạo ra từ tệp dữ liệu trên.</p>
+        </section>
+      </section>
+
+      <div class="footer">
+        Trực quan hóa và kể chuyện với dữ liệu · Vụ án Vastopolis (VAST Challenge 2011, MC1)
+      </div>
+    </div>
+  </div>
+
+  <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script src="plugin/math/math.js"></script>
+  <script>
+    Reveal.initialize({
+      controlsLayout: "edges",
+      slideNumber: true,
+      hash: true,
+      hashOneBasedIndex: true,
+      katex: { local: "plugin/katex" },
+      plugins: [RevealHighlight, RevealMath.KaTeX],
+      width: 1100,
+      height: 700,
+      margin: 0.04
+    });
+  </script>
+</body>
+
+</html>

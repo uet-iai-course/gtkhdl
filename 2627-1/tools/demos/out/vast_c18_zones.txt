@@ -1,0 +1,14 @@
+       khu    dân  bài 19/5  bình thường  trên 1000 dân  trên 1000 (ban ngày)
+  Downtown  89286     10066         85.0          112.7                  38.9
+    Uptown  29762      1601         51.0           53.8                  13.8
+  Smogtown  29762       849          6.0           28.5                  30.3
+  Westside 148810      2145         20.0           14.4                   7.6
+  Eastside 178571      2288         17.0           12.8                  18.3
+Plainville 208333      2538         14.0           12.2                  17.2
+  Lakeside 297619      1268         22.0            4.3                   7.0
+     Villa 178571       738         13.0            4.1                   4.3
+Northville 119048       477         20.0            4.0                   5.0
+Southville 178571       595         15.0            3.3                   5.4
+Cornertown  59524       181          8.0            3.0                   3.1
+  Suburbia 446429      1222         31.0            2.7                   3.1
+ Riverside 238095       551         17.0            2.3                   2.4

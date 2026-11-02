@@ -1,0 +1,3 @@
+05-18 ['shortness (5303x)', 'bedridden (1476x)', 'declining (941x)', 'chills (566x)', 'fatigue (508x)', 'sweats (489x)', 'sicker (467x)', 'eatting (364x)', 'sleeep (322x)', 'sickly (186x)']
+05-19 ['getta (563x)', 'nausea (328x)', 'runny (325x)', 'heartburn (279x)', 'diarrhea (224x)', 'muscles (152x)', 'cramps (146x)', "doctor's (120x)", 'begging (106x)', 'aching (72x)']
+05-20 ['terible (4025x)', 'pneumonia (2962x)', 'flem (2335x)', 'dreadfully (1696x)', 'vomitting (1344x)', 'hospitalized (544x)', 'atrocious (385x)', 'difficulty (133x)', 'sleeeeeeeep (131x)', 'awfully (127x)']
